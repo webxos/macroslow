@@ -125,7 +125,7 @@ This project is licensed under the MIT License
 | .md wallet | OAUTH2.0 | 4x agents |
 | pytorch | 512 AES | quantum sync |
 
-## 🧠 Guide: Join the Open Source Community, Help Build a Real-Time Data Science Annotation System with MCP-like Protocols ##
+## 🧠 Guide: Join the Open Source Community, Help Build a Real-Time Data Science Annotation System ##
 
 This guide is a boilerplate guide for you to start and build a Model Context Protocol repo for Github. It will help you structure a GitHub repository that others can fork to instantly have a working environment for collaborative data annotation, perfect for data science teams.
 
