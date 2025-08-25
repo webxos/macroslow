@@ -1,45 +1,43 @@
 from mcp.server import MCPServer
 from pydantic import BaseModel
-import os
-import shutil
+import torch
+import torch.nn as nn
+from backend.app.mcp.mechanic_server import MechanicServer
 
-class TemplateRequest(BaseModel):
-    template_name: str
-    user_id: str
+class TrainingRequest(BaseModel):
+    model_id: str
+    data_path: str
+    epochs: int
 
-class ArchitectServer(MCPServer):
+class AlchemistServer(MCPServer):
     def __init__(self):
         super().__init__()
-        self.templates = {
-            "data-scientist-vial": "/templates/data-scientist",
-            "astronomer-vial": "/templates/astronomer",
-            "validator-vial": "/templates/validator",
-            "gateway-vial": "/templates/gateway"
-        }
+        self.mechanic = MechanicServer()
+        self.models = {}
 
-    async def list_available_templates(self):
-        return {"templates": list(self.templates.keys())}
+    async def train_model(self, request: TrainingRequest):
+        class SimpleModel(nn.Module):
+            def __init__(self):
+                super().__init__()
+                self.fc = nn.Linear(10, 2)
+            def forward(self, x):
+                return self.fc(x)
+        model = SimpleModel()
+        optimizer = torch.optim.Adam(model.parameters())
+        data = torch.randn(100, 10)  # Placeholder data
+        labels = torch.randint(0, 2, (100,))  # Placeholder labels
+        for epoch in range(request.epochs):
+            optimizer.zero_grad()
+            output = model(data)
+            loss = nn.functional.cross_entropy(output, labels)
+            loss.backward()
+            optimizer.step()
+        self.models[request.model_id] = model.state_dict()
+        await self.mechanic.orchestrate_training_job(request)
+        return {"model_id": request.model_id, "status": "trained"}
 
-    async def instantiate_template(self, request: TemplateRequest):
-        if request.template_name not in self.templates:
-            return {"error": "Template not found"}
-        src = self.templates[request.template_name]
-        dest = f"/projects/{request.user_id}_{request.template_name}"
-        shutil.copytree(src, dest)
-        with open(f"{dest}/config.json", "w") as f:
-            f.write(json.dumps({"user_id": request.user_id, "api_key": "your_api_key"}))
-        return {"project_path": dest}
+    async def get_model_state(self, model_id: str):
+        return {"state": self.models.get(model_id, "Model not found")}
 
-    async def get_template_readme(self, template_name: str):
-        if template_name in self.templates:
-            with open(f"{self.templates[template_name]}/README.md", "r") as f:
-                return {"readme": f.read()}
-        return {"error": "Template not found"}
-
-    async def validate_project_config(self, project_path: str):
-        if os.path.exists(f"{project_path}/config.json"):
-            return {"status": "valid"}
-        return {"status": "invalid", "error": "Config file missing"}
-
-server = ArchitectServer()
+server = AlchemistServer()
 server.run()
