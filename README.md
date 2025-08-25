@@ -57,7 +57,7 @@ graph TB
         ES --> EXT
     end
 ```
-## 🧠 CUSTOM AGENT WORKFLOW ##
+## 🧠 CUSTOM AGENTIC WORKFLOW ##
 
 ```mermaid
 flowchart TD
