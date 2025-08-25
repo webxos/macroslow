@@ -5,25 +5,29 @@ FROM python:3.11-slim-bookworm
 ENV PYTHONUNBUFFERED=1 \
     PYTHONDONTWRITEBYTECODE=1 \
     RUBE_SERVER_URL="https://api.rube.app" \
-    RUBE_TOKEN=""
+    RUBE_TOKEN="" \
+    DATABASE_URL="sqlite:///wallet.db"
 
-# Install system dependencies required for your agents and any potential MCP client libs
+# Install system dependencies
 RUN apt-get update && apt-get install -y --no-install-recommends \
     git \
+    libatlas-base-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Create a non-root user and switch to it for security
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Create a non-root user
 RUN useradd --create-home --shell /bin/bash agent
 USER agent
 WORKDIR /home/agent/app
 
-# Copy application code and install Python dependencies
-COPY --chown=agent:agent requirements.txt .
-RUN pip install --user --no-cache-dir -r requirements.txt
+# Copy application code
 COPY --chown=agent:agent . .
 
-# Expose necessary ports if your MCP client runs a server
-EXPOSE 3000
+# Expose ports
+EXPOSE 8000-8006
 
-# Command to run your agentic application
-CMD ["python", "main_orchestrator.py"]
+# Command to run the application
+CMD ["python", "-m", "backend.app.mcp.alchemist_manager"]
