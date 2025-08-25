@@ -109,7 +109,7 @@ This project is licensed under the MIT License
 ## EXTRA INFO ##
 ## Guide: Building a Real-Time Annotation System with MCP-like Protocols ##
 
-This guide will help you structure a GitHub repository that others can fork to instantly have a working environment for collaborative data annotation, perfect for data science teams.
+This guide is a boilerplate guide for you to start and build a Model Context Protocol repo for Github. It will help you structure a GitHub repository that others can fork to instantly have a working environment for collaborative data annotation, perfect for data science teams.
 
 ## Project Name: annot8 (or a name of your choice) ##
 Core Concept: A web-based platform where authenticated users can annotate a central document (or data point) in real-time. Annotations are persisted, user-specific, and viewable by all authorized users instantly.
