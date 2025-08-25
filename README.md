@@ -58,6 +58,30 @@ graph TB
     end
 ```
 
+```mermaid
+graph TB
+    subgraph "WebXOS MCP Server Ecosystem"
+        Chatbot --> Librarian
+        Sentinel
+
+        Curator[The Curator] --> |Data| Alchemist[The Alchemist]
+        Curator --> |Data| Astronomer[The Astronomer]
+
+        Alchemist --> |Orchestrates| Mechanic
+        Alchemist --> |Rewards| Chancellor[The Chancellor]
+        Astronomer --> |Uses| Mechanic[The Mechanic]
+
+        Architect[The Architect] --> |Creates| UserProject[User Project]
+        UserProject --> |Uses| AllAgents
+
+        Librarian[The Librarian] --> |Knowledge| AllAgents
+        Sentinel --> |Security| AllAgents
+    end
+
+    AllAgents[Curator, Alchemist, Astronomer, Chancellor, Mechanic]
+    end
+```
+    
 ## 📊 Repository Structure (BETA DESIGN)
 
 ```
