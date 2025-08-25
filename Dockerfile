@@ -1,27 +1,29 @@
-# Stage 1: Builder
-FROM python:3.10-slim as builder
-WORKDIR /app
-COPY requirements.txt .
+# Use a official Python runtime as a parent image
+FROM python:3.11-slim-bookworm
+
+# Set environment variables for Python and secure secrets handling
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    RUBE_SERVER_URL="https://api.rube.app" \
+    RUBE_TOKEN=""
+
+# Install system dependencies required for your agents and any potential MCP client libs
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create a non-root user and switch to it for security
+RUN useradd --create-home --shell /bin/bash agent
+USER agent
+WORKDIR /home/agent/app
+
+# Copy application code and install Python dependencies
+COPY --chown=agent:agent requirements.txt .
 RUN pip install --user --no-cache-dir -r requirements.txt
+COPY --chown=agent:agent . .
 
-# Stage 2: Runtime
-FROM python:3.10-slim
-WORKDIR /app
-ENV PYTHONPATH=/app
-ENV PATH="/app/.local/bin:${PATH}"
+# Expose necessary ports if your MCP client runs a server
+EXPOSE 3000
 
-# Copy from builder stage
-COPY --from=builder /root/.local /root/.local
-COPY --from=builder /app/requirements.txt .
-
-# Copy application code and generated HTML
-COPY ./app ./app
-COPY ./scripts/annot8_generate_html.py ./scripts/
-RUN python scripts/annot8_generate_html.py
-COPY ./frontend/static /app/static
-
-# Install additional WebXOS dependencies
-RUN apt-get update && apt-get install -y libgl1-mesa-glx libglib2.0-0 && rm -rf /var/lib/apt/lists/*
-
-EXPOSE 8000
-CMD ["uvicorn", "app.annot8.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+# Command to run your agentic application
+CMD ["python", "main_orchestrator.py"]
