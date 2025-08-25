@@ -127,5 +127,3 @@ Invented by Webxos in 2025, it redefines how developers write, share, and execut
 > Markdown was the spark. MAML is the protocol.
 
 ---
-
-Would you like help drafting the GitHub README for the official MAML repo next? Or a license template to protect your invention under Webxos IP?
