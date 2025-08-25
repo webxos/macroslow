@@ -6,7 +6,7 @@ Welcome to the **WebXOS 2025 Vial Model Context Protocol (MCP) SDK**, a quantum-
 
 ### 🎯 Unique Custom UI Interfaces (Coming Soon)
 
-| Mode | Description | Visualization |
+| UX | Description | Visualization |
 |------|-------------|---------------|
 | **⚛️ SVG Diagram Creation** | 8-Point Quantum Neural Network Training with interactive real time SVG diagram circuit board (Coming Soon) |
 | **🚚 Dropship Sim** | Simulate Coordinated Drop ships between earth, the moon, and mars. (Coming Soon) | 
