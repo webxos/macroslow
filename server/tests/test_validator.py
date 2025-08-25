@@ -9,6 +9,8 @@ async def test_validate_model():
     result = await server.validate_model(request)
     assert "status" in result
     assert "accuracy" in result
+    if result["status"] == "valid":
+        assert await server.rube.execute_tool("slack_send_message", {"channel": "#test", "message": "mock"}) == {"status": "success"}
 
 @pytest.mark.asyncio
 async def test_invalid_model():
