@@ -110,48 +110,12 @@ This project is licensed under the MIT License
 ## Guide: Building a Real-Time Annotation System with MCP-like Protocols ##
 
 ## This guide will help you structure a GitHub repository that others can fork to instantly have a working environment for collaborative data annotation, perfect for data science teams. ##
-## 1. Project Overview & Philosophy ##
 
 ## Project Name: annot8 (or a name of your choice) ##
 Core Concept: A web-based platform where authenticated users can annotate a central document (or data point) in real-time. Annotations are persisted, user-specific, and viewable by all authorized users instantly.
 MCP (Model Context Protocol) Analogy: While not a literal MCP server, this system embodies the MCP spirit: it's a standalone tool that provides a structured "context" (the annotated document and its annotations) that could be queried and used by an AI model or other data science tools.
-2. Repository Structure
 
-A clear structure is key for a forkable repo.
-text
-
-annot8/
-├── .github/
-│   └── workflows/
-│       └── ci-cd.yml                 # GitHub Actions CI/CD Pipeline
-├── backend/
-│   ├── app/
-│   │   ├── __init__.py
-│   │   ├── main.py                   # FastAPI application core
-│   │   ├── auth.py                   # OAuth 2.0 logic
-│   │   ├── database.py               # DB connection & models
-│   │   ├── models.py                 # Pydantic & SQLAlchemy models
-│   │   └── websockets.py             # WebSocket manager
-│   ├── scripts/
-│   │   └── generate_html.py          # Build-time HTML generator (Jinja2)
-│   ├── requirements.txt
-│   └── Dockerfile
-├── frontend/
-│   ├── static/
-│   │   ├── js/
-│   │   │   ├── app.js                # Main JS for real-time logic
-│   │   │   └── auth.js               # Handles OAuth login flow
-│   │   └── css/
-│   │       └── style.css
-│   ├── templates/
-│   │   └── index.html.j2             # Jinja2 Template
-│   └── package.json                  # (Optional: for JS bundling)
-├── docker-compose.yml                # For local development
-├── .env.example                      # Environment variables template
-└── README.md                         # Comprehensive setup guide
-
-3. Technology Stack Deep Dive
-Component	Technology	Rationale
+## Component	Technology	Rationale ##
 CI/CD	GitHub Actions (YAML)	Tightly integrated with GitHub, easy for forks.
 Containerization	Docker & Docker Compose	Ensures environment consistency.
 Backend (API)	FastAPI (Python)	Modern, fast, built-in support for ASGI, WebSockets, and OpenAPI docs.
@@ -162,7 +126,7 @@ HTML Generation	Jinja2	Python-powered templating for build-time flexibility.
 Frontend	Vanilla JS + WebSocket API	Lightweight, no framework required, easy to understand for forks.
 4. Core Implementation Guide
 
-A. The OAuth 2.0 "Wallet Database" (backend/app/auth.py)
+## A. The OAuth 2.0 "Wallet Database" (backend/app/auth.py) ##
 
 This is the heart of user management and data isolation.
 
