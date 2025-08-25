@@ -59,27 +59,49 @@ graph TB
 ```
 
 ```mermaid
-graph TB
-    subgraph "WebXOS MCP Server Ecosystem"
-        Chatbot --> Librarian
-        Sentinel
+flowchart TD
+    User[User / Frontend]
+    Chatbot[Lightweight Chatbot]
 
-        Curator[The Curator] --> |Data| Alchemist[The Alchemist]
-        Curator --> |Data| Astronomer[The Astronomer]
+    subgraph WebXOS_MCP_Server_Ecosystem[WebXOS MCP Server Ecosystem]
+        direction TB
+        Librarian(The Librarian)
+        Sentinel(The Sentinel)
+        
+        subgraph Data_Flow[Data & Execution Layer]
+            Curator(The Curator)
+            Alchemist(The Alchemist)
+            Astronomer(The Astronomer)
+            Mechanic(The Mechanic)
+        end
 
-        Alchemist --> |Orchestrates| Mechanic
-        Alchemist --> |Rewards| Chancellor[The Chancellor]
-        Astronomer --> |Uses| Mechanic[The Mechanic]
-
-        Architect[The Architect] --> |Creates| UserProject[User Project]
-        UserProject --> |Uses| AllAgents
-
-        Librarian[The Librarian] --> |Knowledge| AllAgents
-        Sentinel --> |Security| AllAgents
+        subgraph User_Economy[User Economy & Onboarding]
+            Chancellor(The Chancellor)
+            Architect(The Architect)
+        end
     end
 
-    AllAgents[Curator, Alchemist, Astronomer, Chancellor, Mechanic]
-    end
+    User <--> Chatbot
+    User <--> Sentinel
+
+    Chatbot --> Librarian
+    Sentinel -.->|Secures| AllAgents
+
+    Curator --> |Validated Data| Alchemist
+    Curator --> |Satellite & API Data| Astronomer
+
+    Alchemist --> |Orchestrates| Mechanic
+    Alchemist --> |Requests Rewards| Chancellor
+    Astronomer --> |Uses Resources| Mechanic
+
+    Architect --> |Creates| UserProject[User Project/Vial]
+    UserProject --> |Uses| Curator
+    UserProject --> |Uses| Alchemist
+
+    Librarian --> |Provides Knowledge| AllAgents
+
+    %% Define the 'AllAgents' link
+    AllAgents([All Agents])
 ```
     
 ## 📊 Repository Structure (BETA DESIGN)
