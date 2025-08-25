@@ -113,7 +113,6 @@ This guide will help you structure a GitHub repository that others can fork to i
 
 ## Project Name: annot8 (or a name of your choice) ##
 Core Concept: A web-based platform where authenticated users can annotate a central document (or data point) in real-time. Annotations are persisted, user-specific, and viewable by all authorized users instantly.
-MCP (Model Context Protocol) Analogy: While not a literal MCP server, this system embodies the MCP spirit: it's a standalone tool that provides a structured "context" (the annotated document and its annotations) that could be queried and used by an AI model or other data science tools.
 
 Component	Technology	Rationale
 CI/CD	GitHub Actions (YAML)	Tightly integrated with GitHub, easy for forks.
