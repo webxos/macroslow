@@ -4,7 +4,7 @@ Welcome to the **WebXOS 2025 Vial Model Context Protocol (MCP) SDK**, a quantum-
 
 ## ✨ Key Features
 
-### 🎯 Modes of Operation
+### 🎯 Unique Custom UI Interfaces (Coming Soon)
 
 | Mode | Description | Visualization |
 |------|-------------|---------------|
