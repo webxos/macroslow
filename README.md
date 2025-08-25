@@ -103,34 +103,6 @@ flowchart TD
     %% Define the 'AllAgents' link
     AllAgents([All Agents])
 ```
-    
-## 📊 Repository Structure (BETA DESIGN)
-
-```
-webxos-vial-mcp/
-├── 📁 .github/workflows/         # CI/CD pipelines
-├── 📁 .claude/                   # Claude-Flow configuration
-├── 📁 .hive-mind/                # Hive-mind sessions
-├── 📁 .swarm/                    # Swarm memory
-├── 📁 docs/                      # Documentation & diagrams
-│   ├── mcp-architecture.svg
-│   ├── 8-point-quantum-network.svg
-│   ├── galaxyquest-network.svg
-│   └── claude-flow-hive-mind.svg
-├── 📁 public/                    # Frontend assets
-│   └── 📁 js/
-├── 📁 server/                    # Backend code
-│   ├── 📁 api/
-│   ├── 📁 agents/
-│   ├── 📁 models/
-│   └── 📁 services/
-├── 📁 claude-flow-integration/   # AI integration layer
-├── index.html                    # Main UI
-├── mcp.toml                      # MCP configuration
-├── requirements.txt              # Python dependencies
-├── package.json                  # Node.js dependencies
-└── README.md                     # This file
-```
 
 ## 🚀 Getting Started
 
