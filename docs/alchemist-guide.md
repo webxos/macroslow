@@ -1,38 +1,33 @@
-# MCP Alchemist Guide: Vial MCP SDK
+Alchemist User Guide
+Overview
+The Alchemist is a model training agent within the WebXOS 2025 Vial MCP SDK, designed to orchestrate machine learning workflows using PyTorch and integrate with The Mechanic for resource management.
+Getting Started
 
-## Overview
-The `mcp_alchemist` coordinates supply chain agents in Dropship mode using 4x PyTorch models, integrated with the Vial MCP SDK on Vercel. It processes NASA (GIBS, APOD, EONET), SpaceX, and Higress API data, linking to `.md` DAO wallets for contribution tracking.
-
-## Usage
-1. **Access Alchemist API**:
-   ```bash
-   curl -X POST https://vial.github.io/api/mcp/alchemist/coordinate \
-     -H "X-API-Key: your_nasa_key" \
-     -d '{"route": "moon-mars", "time": "2023-01-01", "wallet_id": "test-wallet"}'
+Clone the Repository:git clone https://github.com/webxos/webxos-vial-mcp.git
 
 
-Integration:
-Called within Dropship mode to coordinate agents.
-Outputs agent coordination results and simulation data.
-
-
-DAO Wallet:
-Tracks contributions via reputation.py for future rewards.
-
-
-Vercel Hosting:
-Nameservers: ns1.vercel-dns.com, ns2.vercel-dns.com.
-CNAME: www to 4d59d46a56f561ba.vercel-dns-017.com (TTL 60).
-Deploy: vercel --prod.
+Configure Environment:Copy .env.example to .env and update with your credentials.
+Run the Application:docker-compose up -d
+helm install webxos ./deploy/helm/mcp-stack -f deploy/helm/mcp-stack/alchemist.yaml
 
 
 
-Testing
-pytest server/tests/test_alchemist.py
+Features
 
-Resources
+Model Training: Train models with customizable epochs via /api/alchemist/train.
+Progress Visualization: Monitor training progress with alchemist_viz.js.
+State Retrieval: Fetch model states using /api/alchemist/state.
 
-PyTorch Documentation
-Vercel DNS
+Usage
 
+Training a Model: Send a POST request to /api/alchemist/train with a TrainingRequest JSON body.
+Visualization: View training progress on the canvas in index.html.
+State Check: Retrieve model state with a GET request to /api/alchemist/state/{model_id}.
 
+Troubleshooting
+
+Training Fails: Ensure GPU resources are available and data paths are valid.
+Visualization Issues: Check WebSocket connection to /ws/alchemist.
+
+Contributing
+Fork the repo, enhance training algorithms, and submit a PR with detailed descriptions!
