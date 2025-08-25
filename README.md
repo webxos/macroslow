@@ -57,7 +57,7 @@ graph TB
         ES --> EXT
     end
 ```
-## CUSTOM AGENT WORKFLOW ##
+## 🧠 CUSTOM AGENT WORKFLOW ##
 
 ```mermaid
 flowchart TD
@@ -125,7 +125,7 @@ This project is licensed under the MIT License
 | .md wallet | OAUTH2.0 | 4x agents |
 | pytorch | 512 AES | quantum sync |
 
-## Guide: Join the Open Source Community, Help Build a Real-Time Data Science Annotation System with MCP-like Protocols ##
+## 🧠 Guide: Join the Open Source Community, Help Build a Real-Time Data Science Annotation System with MCP-like Protocols ##
 
 This guide is a boilerplate guide for you to start and build a Model Context Protocol repo for Github. It will help you structure a GitHub repository that others can fork to instantly have a working environment for collaborative data annotation, perfect for data science teams.
 
@@ -390,7 +390,7 @@ yaml
 
         Include Example Notebooks: Add a notebooks/ directory with a Jupyter notebook showing how to load the exported data and perform basic analysis (e.g., most active annotators, common terms).
 
-## By following this guide, your GitHub repo will be a powerful, self-contained, and easily forkable template for anyone looking to build a real-time, authenticated collaborative application, perfectly suited for data annotation and MCP-inspired context building. ##
+## 🧠 By following this guide, your GitHub repo will be a powerful, self-contained, and easily forkable template for anyone looking to build a real-time, authenticated collaborative application, perfectly suited for data annotation and MCP-inspired context building. ##
 <div align="center">
 
 **🌌 Explore the future of AI orchestration with WebXOS 2025! 🌠**
