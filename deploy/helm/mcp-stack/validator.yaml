@@ -37,6 +37,13 @@ spec:
         env:
         - name: DATABASE_URL
           value: "sqlite:///wallet.db"
+        - name: RUBE_SERVER_URL
+          value: "https://api.rube.app"
+        - name: RUBE_TOKEN
+          valueFrom:
+            secretKeyRef:
+              name: rube-secrets
+              key: rube-token
         resources:
           limits:
             cpu: "500m"
