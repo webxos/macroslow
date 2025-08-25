@@ -10,7 +10,10 @@ class ValidatorViz {
         this.ws = new WebSocket(`ws://${location.host}/ws/validator`);
         this.ws.onmessage = (event) => {
             const data = JSON.parse(event.data);
-            if (data.status) this.results = { accuracy: data.accuracy, status: data.status };
+            if (data.status) {
+                this.results = { accuracy: data.accuracy, status: data.status };
+                if (data.status === "valid") alert("Validation success notified via Slack by Rube");
+            }
             this.render();
         };
     }
