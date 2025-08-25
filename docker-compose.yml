@@ -1,31 +1,16 @@
-```yaml
 version: '3.8'
+
 services:
-  vial-mcp:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    ports:
-      - "3000:3000"
-    environment:
-      - NODE_ENV=production
-      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
-      - MISTRAL_API_KEY=${MISTRAL_API_KEY}
-      - OBS_HOST=${OBS_HOST}
-      - OBS_PORT=${OBS_PORT}
-      - OBS_PASSWORD=${OBS_PASSWORD}
-      - SERVICENOW_INSTANCE=${SERVICENOW_INSTANCE}
-      - SERVICENOW_USER=${SERVICENOW_USER}
-      - SERVICENOW_PASSWORD=${SERVICENOW_PASSWORD}
-      - K8S_MIN_REPLICAS=${K8S_MIN_REPLICAS:-2}
-      - K8S_MAX_REPLICAS=${K8S_MAX_REPLICAS:-10}
-      - K8S_CPU_TARGET=${K8S_CPU_TARGET:-0.7}
-      - K8S_MEMORY_TARGET=${K8S_MEMORY_TARGET:-500Mi}
-      - K8S_NAMESPACE=${K8S_NAMESPACE:-vial-mcp}
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:3000/mcp/monitoring/health"]
-      interval: 30s
-      timeout: 10s
-      retries: 3
-    restart: unless-stopped
-```
+  agentic-workflow:
+    build: .
+    container_name: scientific_agent_orchestrator
+    env_file:
+      - .env # Contains RUBE_TOKEN, RUBE_SERVER_URL, etc.
+    volumes:
+      - ./app_data:/home/agent/app/data # For persisting data studies
+    networks:
+      - agent-net
+
+networks:
+  agent-net:
+    driver: bridge
