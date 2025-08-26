@@ -1,4 +1,4 @@
-# GIBS Integration Guide for WebXOS Vial MCP SDK
+# GIBS Telescope Integration Guide for WebXOS Vial MCP SDK
 
 This guide details how to integrate NASA's Global Imagery Browse Services (GIBS) into the WebXOS Vial MCP SDK for real-time Earth imagery visualization.
 
