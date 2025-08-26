@@ -3,7 +3,7 @@
 
 Welcome to the **PROJECT DUNES: OPEN SOURCE BETA** by WEBXOS ([webxos.netlify.app](https://webxos.netlify.app)), a quantum-distributed, AI-orchestrated powerhouse hosted on GitHub! This model context protocol SDK fuses PyTorch cores, SQLAlchemy databases, and $webxos `.md` wallet ([VIAL MCP WALLET](https://webxos.netlify.app/vial)) functions into a versatile toolkit. It acts as a collection of tools and agents for users to fork and build off of as boilerplates and OEM project templates. ✨
 
-## FEATURING: DUNES 🐪 (Distributed Unified Network Exchange System) ##
+## DUNES 🐪 (Distributed Unified Network Exchange System) ##
 
 DUNES is a next-generation cybersecurity framework powered by Multi-Augmented Machine Learning (aka MARKDOWN AS MEDIUM LANGUAGE). It introduces the `.MAML` protocol—a novel markup language for encoding multimodal security data—and a multi-agent architecture designed for quantum-resistant, adaptive threat detection. ✨
  
