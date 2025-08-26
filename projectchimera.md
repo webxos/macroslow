@@ -1,7 +1,7 @@
 # Advanced Security Guide for Model Context Protocol Development
 ## Project Chimera: Production-Grade Security Framework for MCP Systems
 
-**Author:** [Your Name] - WebXOS Research Group  
+**Author:** - WebXOS Research Group  
 **Copyright:** WebXOS 2025  
 **Project:** Chimera Advanced Cybersecurity Study  
 **Version:** 1.0  
