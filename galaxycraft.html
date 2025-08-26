@@ -1,0 +1,1381 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GalaxyCraft API MMO - Peaceful Space Economy</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Orbitron', 'Roboto', sans-serif;
+    }
+    body {
+      background: #000;
+      color: #fff;
+      overflow: hidden;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      background-image: url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgcGF0dGVyblRyYW5zZm9ybT0icm90YXRlKDApIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxIiBmaWxsPSIjMzMzMzMzIiBvcGFjaXR5PSIwLjMiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjcGF0dGVybikiLz48L3N2Zz4=');
+    }
+    #cosmicCanvas {
+      flex: 1;
+      width: 100%;
+      touch-action: none;
+      position: relative;
+    }
+    .hud {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      opacity: 0.4;
+      z-index: 1;
+    }
+    .hud::before {
+      content: '';
+      position: absolute;
+      top: 10%;
+      left: 10%;
+      right: 10%;
+      bottom: 10%;
+      border: 2px solid rgba(74, 144, 226, 0);
+      border-radius: 20px;
+      box-shadow: none;
+    }
+    .hud::after {
+      content: '+';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      color: #4a90e2;
+      font-size: 24px;
+    }
+    .status-overlay {
+      position: absolute;
+      top: 0;
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 5px 10px;
+      font-size: 12px;
+      text-align: left;
+      color: #fff;
+      text-shadow: 0 0 2px #000;
+      z-index: 5;
+      pointer-events: none;
+    }
+    .console {
+      position: absolute;
+      bottom: 60px;
+      width: 100%;
+      height: 25%;
+      background: rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      z-index: 5;
+      padding: 5px;
+    }
+    .console-log {
+      flex: 1;
+      overflow-y: auto;
+      font-size: 12px;
+      color: #fff;
+      text-shadow: 0 0 2px #000;
+      padding: 5px;
+    }
+    .console-log p {
+      margin: 2px 0;
+    }
+    .console-input {
+      width: 100%;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid #4a90e2;
+      color: #fff;
+      padding: 5px;
+      font-size: 12px;
+      outline: none;
+    }
+    .console-input::placeholder {
+      color: #aaa;
+    }
+    .console::-webkit-scrollbar {
+      width: 8px;
+    }
+    .console::-webkit-scrollbar-thumb {
+      background: #4a90e2;
+      border-radius: 4px;
+    }
+    .controls {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: rgba(20, 20, 50, 0.9);
+      padding: 10px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      backdrop-filter: blur(5px);
+      z-index: 10;
+    }
+    .control-item {
+      flex: 1;
+      min-width: 80px;
+      text-align: center;
+    }
+    button {
+      background: #4a90e2;
+      border: none;
+      padding: 10px 20px;
+      color: white;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 16px;
+      transition: transform 0.2s, background 0.2s;
+    }
+    button:hover {
+      background: #357abd;
+    }
+    button.active {
+      background: #ff4444;
+    }
+    button:active {
+      transform: scale(0.95);
+    }
+    .prompt {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.8);
+      padding: 10px;
+      border-radius: 10px;
+      font-size: 14px;
+      max-width: 90%;
+      text-align: center;
+      opacity: 0;
+      transition: opacity 0.5s;
+      z-index: 5;
+    }
+    .prompt.active {
+      opacity: 1;
+    }
+    .throttle-indicator {
+      position: absolute;
+      bottom: 80px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: #4a90e2;
+      font-size: 12px;
+      opacity: 0;
+      transition: opacity 0.3s;
+      z-index: 5;
+    }
+    .throttle-indicator.active {
+      opacity: 1;
+    }
+    .central-menu {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      max-width: 600px;
+      background: rgba(10, 20, 40, 0.95);
+      border: 2px solid #4a90e2;
+      border-radius: 15px;
+      padding: 20px;
+      z-index: 100;
+      display: none;
+      backdrop-filter: blur(10px);
+      box-shadow: 0 0 30px rgba(74, 144, 226, 0.5);
+    }
+    .central-menu.active {
+      display: block;
+    }
+    .menu-tabs {
+      display: flex;
+      border-bottom: 1px solid #4a90e2;
+      margin-bottom: 15px;
+    }
+    .menu-tab {
+      padding: 10px 20px;
+      cursor: pointer;
+      border-bottom: 3px solid transparent;
+    }
+    .menu-tab.active {
+      border-bottom: 3px solid #4a90e2;
+      color: #4a90e2;
+    }
+    .menu-content {
+      max-height: 400px;
+      overflow-y: auto;
+    }
+    .menu-section {
+      margin-bottom: 20px;
+    }
+    .menu-section h3 {
+      margin-bottom: 10px;
+      color: #4a90e2;
+      border-bottom: 1px solid #4a90e2;
+      padding-bottom: 5px;
+    }
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .resource-item {
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid #4a90e2;
+      border-radius: 5px;
+      padding: 10px;
+      text-align: center;
+    }
+    .resource-icon {
+      font-size: 24px;
+      margin-bottom: 5px;
+    }
+    .close-menu {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: none;
+      border: none;
+      color: #fff;
+      font-size: 20px;
+      cursor: pointer;
+    }
+    .wallet-status {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.5);
+      padding: 5px 10px;
+      border-radius: 15px;
+      font-size: 12px;
+      z-index: 20;
+    }
+    .wallet-address {
+      color: #4a90e2;
+      font-weight: bold;
+    }
+    .mining-overlay {
+      position: absolute;
+      bottom: 150px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(0, 0, 0, 0.7);
+      padding: 10px;
+      border-radius: 10px;
+      display: none;
+      z-index: 15;
+    }
+    .mining-overlay.active {
+      display: block;
+    }
+    .mining-progress {
+      width: 200px;
+      height: 10px;
+      background: #333;
+      border-radius: 5px;
+      overflow: hidden;
+      margin: 5px 0;
+    }
+    .mining-progress-bar {
+      height: 100%;
+      background: #4a90e2;
+      width: 0%;
+      transition: width 0.3s;
+    }
+    .chat-overlay {
+      position: absolute;
+      bottom: 60px;
+      right: 10px;
+      width: 300px;
+      height: 200px;
+      background: rgba(0, 0, 0, 0.7);
+      border: 1px solid #4a90e2;
+      border-radius: 10px;
+      z-index: 15;
+      display: flex;
+      flex-direction: column;
+    }
+    .chat-header {
+      background: rgba(74, 144, 226, 0.5);
+      padding: 5px 10px;
+      border-top-left-radius: 10px;
+      border-top-right-radius: 10px;
+      font-size: 12px;
+      display: flex;
+      justify-content: space-between;
+    }
+    .chat-messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 5px;
+      font-size: 12px;
+    }
+    .chat-input {
+      border: none;
+      border-top: 1px solid #4a90e2;
+      background: rgba(255, 255, 255, 0.1);
+      color: #fff;
+      padding: 5px;
+      outline: none;
+    }
+    .ship-status {
+      position: absolute;
+      bottom: 150px;
+      right: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 10px;
+      border-radius: 10px;
+      z-index: 15;
+      font-size: 12px;
+    }
+    .ship-resources {
+      margin-top: 5px;
+    }
+    .resource-bar {
+      height: 5px;
+      background: #333;
+      border-radius: 3px;
+      margin: 2px 0;
+      overflow: hidden;
+    }
+    .resource-fill {
+      height: 100%;
+      background: #4a90e2;
+    }
+    .drone-controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: rgba(0, 0, 0, 0.7);
+      padding: 10px;
+      border-radius: 10px;
+      z-index: 15;
+      font-size: 12px;
+    }
+    .drone-list {
+      max-height: 150px;
+      overflow-y: auto;
+      margin-top: 5px;
+    }
+    .drone-item {
+      padding: 5px;
+      border-bottom: 1px solid #4a90e2;
+      cursor: pointer;
+    }
+    .drone-item:hover {
+      background: rgba(74, 144, 226, 0.2);
+    }
+    .auction-house {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 80%;
+      max-width: 600px;
+      background: rgba(10, 20, 40, 0.95);
+      border: 2px solid #4a90e2;
+      border-radius: 15px;
+      padding: 20px;
+      z-index: 100;
+      display: none;
+      backdrop-filter: blur(10px);
+    }
+    .auction-house.active {
+      display: block;
+    }
+    .auction-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 8px;
+      border-bottom: 1px solid #4a90e2;
+    }
+    .auction-action {
+      background: #4a90e2;
+      border: none;
+      color: white;
+      padding: 3px 8px;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div id="cosmicCanvas">
+    <div class="hud"></div>
+    <div id="statusOverlay" class="status-overlay"></div>
+    <div id="throttleIndicator" class="throttle-indicator"></div>
+    <div id="console" class="console">
+      <div id="consoleLog" class="console-log"></div>
+      <input id="consoleInput" class="console-input" type="text" placeholder="Type /help for commands..." autocomplete="off">
+    </div>
+    
+    <div class="wallet-status">
+      <span id="walletAddress" class="wallet-address">Not Connected</span>
+    </div>
+    
+    <div class="drone-controls">
+      <div>Drones: <span id="droneCount">0</span>/5</div>
+      <div class="drone-list" id="droneList"></div>
+      <button id="deployDroneBtn" style="margin-top: 5px; width: 100%;">Deploy Drone (50 Iron)</button>
+    </div>
+    
+    <div id="miningOverlay" class="mining-overlay">
+      <div>Mining: <span id="miningResource">Unknown</span></div>
+      <div class="mining-progress">
+        <div id="miningProgress" class="mining-progress-bar"></div>
+      </div>
+      <div>Yield: <span id="miningYield">0</span> units</div>
+    </div>
+    
+    <div class="chat-overlay">
+      <div class="chat-header">
+        <span>Global Chat</span>
+        <span>Online: <span id="onlineCount">1</span></span>
+      </div>
+      <div id="chatMessages" class="chat-messages">
+        <p><span class="wallet-address">GalaxyCraft-Agent:</span> Welcome to GalaxyCraft! Type /help for assistance.</p>
+      </div>
+      <input id="chatInput" class="chat-input" type="text" placeholder="Type message..." autocomplete="off">
+    </div>
+    
+    <div class="ship-status">
+      <div>Dropship: MK-I</div>
+      <div>Credits: <span id="creditsValue">1000</span></div>
+      <div class="ship-resources">
+        <div>Energy: <span id="energyValue">100</span>/100</div>
+        <div class="resource-bar"><div id="energyBar" class="resource-fill" style="width: 100%;"></div></div>
+        <div>Storage: <span id="storageValue">0</span>/1000</div>
+        <div class="resource-bar"><div id="storageBar" class="resource-fill" style="width: 0%;"></div></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="controls">
+    <div class="control-item">
+      <button id="throttleBtn">Full Throttle</button>
+    </div>
+    <div class="control-item">
+      <button id="mineBtn">Mine Resource</button>
+    </div>
+    <div class="control-item">
+      <button id="scanBtn">Scan Area</button>
+    </div>
+    <div class="control-item">
+      <button id="planetBtn">Claim Planet</button>
+    </div>
+    <div class="control-item">
+      <button id="menuBtn">Central Menu</button>
+    </div>
+    <div class="control-item">
+      <button id="droneBtn">Drone Control</button>
+    </div>
+    <div class="control-item">
+      <button id="auctionBtn">Auction House</button>
+    </div>
+    <div class="control-item">
+      <button id="resetBtn">Reset</button>
+    </div>
+  </div>
+  
+  <div id="centralMenu" class="central-menu">
+    <button class="close-menu" id="closeMenu">×</button>
+    <div class="menu-tabs">
+      <div class="menu-tab active" data-tab="resources">Resources</div>
+      <div class="menu-tab" data-tab="crafting">Crafting</div>
+      <div class="menu-tab" data-tab="market">Market</div>
+      <div class="menu-tab" data-tab="missions">Missions</div>
+      <div class="menu-tab" data-tab="settings">Settings</div>
+    </div>
+    <div class="menu-content">
+      <div class="menu-section" id="resourcesTab">
+        <h3>Available Resources</h3>
+        <div class="resource-grid">
+          <div class="resource-item">
+            <div class="resource-icon">●</div>
+            <div>Iron Ore</div>
+            <div id="resourceIron">125</div>
+          </div>
+          <div class="resource-item">
+            <div class="resource-icon">◆</div>
+            <div>Silicon</div>
+            <div id="resourceSilicon">80</div>
+          </div>
+          <div class="resource-item">
+            <div class="resource-icon">★</div>
+            <div>Gold</div>
+            <div id="resourceGold">15</div>
+          </div>
+          <div class="resource-item">
+            <div class="resource-icon">❖</div>
+            <div>Platinum</div>
+            <div id="resourcePlatinum">8</div>
+          </div>
+          <div class="resource-item">
+            <div class="resource-icon">✦</div>
+            <div>Titanium</div>
+            <div id="resourceTitanium">22</div>
+          </div>
+          <div class="resource-item">
+            <div class="resource-icon">◈</div>
+            <div>Uranium</div>
+            <div id="resourceUranium">5</div>
+          </div>
+        </div>
+        
+        <h3>Rare Resources</h3>
+        <div class="resource-grid">
+          <div class="resource-item">
+            <div class="resource-icon">⦿</div>
+            <div>Quantum Crystals</div>
+            <div id="resourceQuantum">3</div>
+          </div>
+          <div class="resource-item">
+            <div class="resource-icon">⌬</div>
+            <div>Dark Matter</div>
+            <div id="resourceDarkMatter">1</div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="menu-section" id="craftingTab" style="display:none;">
+        <h3>Crafting Recipes</h3>
+        <div class="resource-item">
+          <div>Basic Drone</div>
+          <div>50 Iron, 20 Silicon</div>
+          <button class="auction-action">Craft</button>
+        </div>
+        <div class="resource-item">
+          <div>Storage Upgrade</div>
+          <div>100 Iron, 50 Titanium</div>
+          <button class="auction-action">Craft</button>
+        </div>
+        <div class="resource-item">
+          <div>Engine Upgrade</div>
+          <div>80 Platinum, 30 Uranium</div>
+          <button class="auction-action">Craft</button>
+        </div>
+      </div>
+      
+      <div class="menu-section" id="marketTab" style="display:none;">
+        <h3>Global Market</h3>
+        <p>Buy and sell resources with other players</p>
+        <div class="resource-item">
+          <div>Sell Iron (per unit)</div>
+          <div>Current: 5 credits</div>
+          <button class="auction-action">Sell</button>
+        </div>
+        <div class="resource-item">
+          <div>Buy Silicon (per unit)</div>
+          <div>Current: 8 credits</div>
+          <button class="auction-action">Buy</button>
+        </div>
+      </div>
+      
+      <div class="menu-section" id="missionsTab" style="display:none;">
+        <h3>Available Missions</h3>
+        <div class="resource-item">
+          <div>Mine 100 Iron</div>
+          <div>Reward: 500 credits</div>
+          <button class="auction-action">Accept</button>
+        </div>
+        <div class="resource-item">
+          <div>Discover 5 Planets</div>
+          <div>Reward: Storage Upgrade</div>
+          <button class="auction-action">Accept</button>
+        </div>
+        <div class="resource-item">
+          <div>Deploy 3 Drones</div>
+          <div>Reward: 1000 credits</div>
+          <button class="auction-action">Accept</button>
+        </div>
+      </div>
+      
+      <div class="menu-section" id="settingsTab" style="display:none;">
+        <h3>Settings & Wallet</h3>
+        <p>Connect your $WEBXOS wallet to participate in the economy</p>
+        <button id="connectWalletBtn" class="auction-action" style="width: 100%;">Connect Wallet</button>
+        <div style="margin-top: 10px;">
+          <div>Session ID: <span id="sessionId">Not connected</span></div>
+          <div>API Status: <span style="color: #4a90e2;">Online (Simulated)</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  <div id="auctionHouse" class="auction-house">
+    <button class="close-menu" id="closeAuction">×</button>
+    <h2>Universal Auction House</h2>
+    <p>List items for sale (max 3 active listings)</p>
+    
+    <div class="auction-item">
+      <div>Quantum Crystal (5 units)</div>
+      <div>2500 credits</div>
+      <button class="auction-action">Buy</button>
+    </div>
+    <div class="auction-item">
+      <div>Storage Upgrade Blueprint</div>
+      <div>1500 credits</div>
+      <button class="auction-action">Buy</button>
+    </div>
+    <div class="auction-item">
+      <div>Titanium (50 units)</div>
+      <div>800 credits</div>
+      <button class="auction-action">Buy</button>
+    </div>
+    
+    <h3 style="margin-top: 20px;">Your Listings</h3>
+    <div class="auction-item">
+      <div>Iron (100 units)</div>
+      <div>500 credits</div>
+      <button class="auction-action">Cancel</button>
+    </div>
+    
+    <div style="margin-top: 20px;">
+      <h3>List New Item</h3>
+      <select id="auctionItemSelect" style="width: 100%; padding: 5px; margin-bottom: 5px; background: #1a1a2e; color: white; border: 1px solid #4a90e2;">
+        <option value="iron">Iron Ore</option>
+        <option value="silicon">Silicon</option>
+        <option value="gold">Gold</option>
+        <option value="platinum">Platinum</option>
+        <option value="titanium">Titanium</option>
+        <option value="uranium">Uranium</option>
+      </select>
+      <input type="number" id="auctionQuantity" placeholder="Quantity" min="1" style="width: 100%; padding: 5px; margin-bottom: 5px; background: #1a1a2e; color: white; border: 1px solid #4a90e2;">
+      <input type="number" id="auctionPrice" placeholder="Price" min="1" style="width: 100%; padding: 5px; margin-bottom: 5px; background: #1a1a2e; color: white; border: 1px solid #4a90e2;">
+      <button class="auction-action" style="width: 100%;">List Item</button>
+    </div>
+  </div>
+  
+  <div id="prompt" class="prompt"></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script>
+    window.onload = () => {
+      try {
+        // Scene setup
+        if (!window.THREE) throw new Error('Three.js not loaded');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(80, window.innerWidth / window.innerHeight, 0.1, 10000);
+        const renderer = new THREE.WebGLRenderer({ antialias: false, powerPreference: 'high-performance' });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x000000, 1);
+        const canvas = document.getElementById('cosmicCanvas');
+        if (!canvas) throw new Error('Canvas element not found');
+        canvas.appendChild(renderer.domElement);
+
+        camera.position.set(0, 0, 0);
+        const frustum = new THREE.Frustum();
+        const cameraMatrix = new THREE.Matrix4();
+
+        // Enhanced materials with better shaders
+        const sharedMaterials = {
+          resourceIron: new THREE.MeshBasicMaterial({ color: 0xcccccc }),
+          resourceSilicon: new THREE.MeshBasicMaterial({ color: 0x88aacc }),
+          resourceGold: new THREE.MeshBasicMaterial({ color: 0xffdd44 }),
+          resourcePlatinum: new THREE.MeshBasicMaterial({ color: 0xeeeeff }),
+          resourceTitanium: new THREE.MeshBasicMaterial({ color: 0xaaaaaa }),
+          resourceUranium: new THREE.MeshBasicMaterial({ color: 0x44ff44 }),
+          resourceQuantum: new THREE.MeshBasicMaterial({ color: 0x8844ff, emissive: 0x4422aa }),
+          resourceDarkMatter: new THREE.MeshBasicMaterial({ color: 0x220044, emissive: 0x110022 }),
+          star: new THREE.MeshBasicMaterial({ color: 0xffff99 }),
+          planet: new THREE.MeshBasicMaterial({ color: 0x3399ff }),
+          station: new THREE.MeshBasicMaterial({ color: 0xdddddd }),
+          drone: new THREE.MeshBasicMaterial({ color: 0x44aaff }),
+          line: new THREE.LineBasicMaterial({ color: 0x00ff00 })
+        };
+
+        // Enhanced geometries
+        const sharedGeometries = {
+          resource: new THREE.SphereGeometry(5, 10, 10),
+          resourceRare: new THREE.SphereGeometry(7, 12, 12),
+          star: new THREE.SphereGeometry(100, 16, 16),
+          planet: new THREE.SphereGeometry(40, 14, 14),
+          station: new THREE.CylinderGeometry(30, 30, 60, 12),
+          drone: new THREE.ConeGeometry(8, 15, 8)
+        };
+
+        // Game state
+        let resources = [];
+        let planets = [];
+        let stations = [];
+        let drones = [];
+        let resourceInstances = null;
+        let droneInstances = null;
+        let resourceCount = 0;
+        let droneCount = 0;
+        let throttle = 0;
+        let rotation = { pitch: 0, yaw: 0 };
+        let rotationVelocity = { pitch: 0, yaw: 0 };
+        let velocity = new THREE.Vector3(0, 0, 0);
+        let lastTime = performance.now();
+        let entityCount = 0;
+        let autopilotActive = false;
+        let currentNodeIndex = 0;
+        let miningActive = false;
+        let miningTarget = null;
+        let miningProgress = 0;
+        let miningYield = 0;
+        
+        // Player resources
+        let playerResources = {
+          iron: 125,
+          silicon: 80,
+          gold: 15,
+          platinum: 8,
+          titanium: 22,
+          uranium: 5,
+          quantum: 3,
+          darkmatter: 1
+        };
+        
+        let playerEnergy = 100;
+        let playerStorage = 0;
+        let playerCredits = 1000;
+        let playerWallet = null;
+        let playerSessionId = null;
+        let playerDrones = [];
+
+        // Console and status
+        const statusOverlay = document.getElementById('statusOverlay');
+        const consoleLog = document.getElementById('consoleLog');
+        const consoleInput = document.getElementById('consoleInput');
+        const maxLogMessages = 50;
+        let logMessages = [];
+
+        function addConsoleMessage(message) {
+          const timestamp = new Date().toLocaleTimeString();
+          logMessages.push(`[${timestamp}] ${message}`);
+          if (logMessages.length > maxLogMessages) {
+            logMessages.shift();
+          }
+          consoleLog.innerHTML = logMessages.map(msg => `<p>${msg}</p>`).join('');
+          consoleLog.scrollTop = consoleLog.scrollHeight;
+        }
+
+        function updateStatusOverlay() {
+          statusOverlay.textContent = `Resources: ${resourceCount} | Throttle: ${throttle} | Drones: ${playerDrones.length} | Energy: ${playerEnergy}`;
+        }
+
+        // Keyboard controls
+        const keys = { ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false };
+        window.addEventListener('keydown', e => {
+          if (e.key in keys) {
+            keys[e.key] = true;
+            e.preventDefault();
+          }
+          
+          // Toggle menu with M key
+          if (e.key === 'm' || e.key === 'M') {
+            toggleCentralMenu();
+          }
+        });
+        window.addEventListener('keyup', e => {
+          if (e.key in keys) keys[e.key] = false;
+        });
+
+        // Console commands
+        function handleCommand(input) {
+          const cmd = input.trim().toLowerCase();
+          if (!cmd.startsWith('/')) {
+            addChatMessage('player', input);
+            return;
+          }
+          const parts = cmd.slice(1).split(' ');
+          const command = parts[0];
+          const args = parts.slice(1);
+
+          switch (command) {
+            case 'help':
+              addConsoleMessage('Commands: /mine, /scan, /deploy, /claim, /wallet, /resources, /market, /missions');
+              break;
+            case 'mine':
+              startMining();
+              break;
+            case 'scan':
+              scanArea();
+              break;
+            case 'deploy':
+              deployDrone();
+              break;
+            case 'claim':
+              claimPlanet();
+              break;
+            case 'wallet':
+              if (args[0] === 'connect') {
+                connectWallet();
+              } else {
+                addConsoleMessage('Wallet commands: /wallet connect');
+              }
+              break;
+            case 'resources':
+              showResources();
+              break;
+            default:
+              addConsoleMessage('Unknown command. Type /help for commands.');
+          }
+        }
+
+        consoleInput.addEventListener('keydown', e => {
+          if (e.key === 'Enter') {
+            const input = consoleInput.value;
+            if (input) {
+              addConsoleMessage(`> ${input}`);
+              handleCommand(input);
+              consoleInput.value = '';
+            }
+          }
+        });
+
+        // Chat system
+        const chatInput = document.getElementById('chatInput');
+        const chatMessages = document.getElementById('chatMessages');
+        
+        function addChatMessage(sender, message) {
+          const messageEl = document.createElement('p');
+          if (sender === 'agent') {
+            messageEl.innerHTML = `<span class="wallet-address">GalaxyCraft-Agent:</span> ${message}`;
+          } else if (sender === 'system') {
+            messageEl.innerHTML = `<span style="color: #ff4444;">System:</span> ${message}`;
+          } else {
+            messageEl.innerHTML = `<span class="wallet-address">${playerWallet || 'Explorer'}:</span> ${message}`;
+          }
+          chatMessages.appendChild(messageEl);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+        
+        chatInput.addEventListener('keydown', e => {
+          if (e.key === 'Enter') {
+            const message = chatInput.value;
+            if (message) {
+              addChatMessage('player', message);
+              chatInput.value = '';
+              
+              // Auto-response from agent for certain keywords
+              if (message.toLowerCase().includes('help')) {
+                setTimeout(() => {
+                  addChatMessage('agent', 'How can I assist you? You can mine resources, deploy drones, and trade on the market.');
+                }, 1000);
+              } else if (message.toLowerCase().includes('hello') || message.toLowerCase().includes('hi')) {
+                setTimeout(() => {
+                  addChatMessage('agent', 'Greetings, explorer! The galaxy is full of resources waiting to be discovered.');
+                }, 1000);
+              }
+            }
+          }
+        });
+
+        // Central menu system
+        const centralMenu = document.getElementById('centralMenu');
+        const menuBtn = document.getElementById('menuBtn');
+        const closeMenuBtn = document.getElementById('closeMenu');
+        const menuTabs = document.querySelectorAll('.menu-tab');
+        
+        function toggleCentralMenu() {
+          centralMenu.classList.toggle('active');
+        }
+        
+        menuBtn.addEventListener('click', toggleCentralMenu);
+        closeMenuBtn.addEventListener('click', toggleCentralMenu);
+        
+        menuTabs.forEach(tab => {
+          tab.addEventListener('click', () => {
+            // Remove active class from all tabs
+            menuTabs.forEach(t => t.classList.remove('active'));
+            // Add active class to clicked tab
+            tab.classList.add('active');
+            
+            // Hide all content sections
+            document.querySelectorAll('.menu-section').forEach(section => {
+              section.style.display = 'none';
+            });
+            
+            // Show the selected content section
+            const tabId = `${tab.dataset.tab}Tab`;
+            document.getElementById(tabId).style.display = 'block';
+          });
+        });
+
+        // Auction house
+        const auctionHouse = document.getElementById('auctionHouse');
+        const auctionBtn = document.getElementById('auctionBtn');
+        const closeAuctionBtn = document.getElementById('closeAuction');
+        
+        function toggleAuctionHouse() {
+          auctionHouse.classList.toggle('active');
+        }
+        
+        auctionBtn.addEventListener('click', toggleAuctionHouse);
+        closeAuctionBtn.addEventListener('click', toggleAuctionHouse);
+
+        // Wallet connection
+        function connectWallet() {
+          // Simulated wallet connection
+          playerWallet = '0x' + Math.random().toString(16).substr(2, 10) + '...' + Math.random().toString(16).substr(2, 10);
+          playerSessionId = 'GC-' + Math.random().toString(36).substr(2, 9).toUpperCase();
+          document.getElementById('walletAddress').textContent = playerWallet;
+          document.getElementById('sessionId').textContent = playerSessionId;
+          addConsoleMessage(`Wallet connected: ${playerWallet}`);
+          addConsoleMessage(`Session ID: ${playerSessionId}`);
+          addChatMessage('system', `Wallet ${playerWallet} connected to network`);
+        }
+
+        // Resource generation
+        function generateResources(count) {
+          const resourceTypes = [
+            { type: 'iron', material: sharedMaterials.resourceIron, rarity: 0.4 },
+            { type: 'silicon', material: sharedMaterials.resourceSilicon, rarity: 0.3 },
+            { type: 'gold', material: sharedMaterials.resourceGold, rarity: 0.15 },
+            { type: 'platinum', material: sharedMaterials.resourcePlatinum, rarity: 0.08 },
+            { type: 'titanium', material: sharedMaterials.resourceTitanium, rarity: 0.05 },
+            { type: 'uranium', material: sharedMaterials.resourceUranium, rarity: 0.02 },
+            { type: 'quantum', material: sharedMaterials.resourceQuantum, rarity: 0.005, size: 'rare' },
+            { type: 'darkmatter', material: sharedMaterials.resourceDarkMatter, rarity: 0.005, size: 'rare' }
+          ];
+          
+          for (let i = 0; i < count; i++) {
+            const resourceType = weightedRandom(resourceTypes);
+            const geometry = resourceType.size === 'rare' ? sharedGeometries.resourceRare : sharedGeometries.resource;
+            const resource = new THREE.Mesh(geometry, resourceType.material);
+            
+            // Position resources in a sphere around the player
+            const radius = 200 + Math.random() * 800;
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos((Math.random() * 2) - 1);
+            
+            resource.position.set(
+              radius * Math.sin(phi) * Math.cos(theta),
+              radius * Math.sin(phi) * Math.sin(theta),
+              radius * Math.cos(phi)
+            );
+            
+            resource.userData = {
+              type: 'resource',
+              resourceType: resourceType.type,
+              value: Math.floor(Math.random() * 20) + 5,
+              collected: false
+            };
+            
+            scene.add(resource);
+            resources.push(resource);
+            resourceCount++;
+            entityCount++;
+          }
+          updateResourceInstances();
+        }
+        
+        function weightedRandom(options) {
+          let i, weights = [options[0].rarity];
+          
+          for (i = 1; i < options.length; i++)
+            weights[i] = options[i].rarity + weights[i - 1];
+          
+          let random = Math.random() * weights[weights.length - 1];
+          
+          for (i = 0; i < weights.length; i++)
+            if (weights[i] > random)
+              break;
+          
+          return options[i];
+        }
+
+        function updateResourceInstances() {
+          // For performance, we could use instancing here
+          // This is a simplified version
+        }
+
+        // Planet generation
+        function generatePlanets(count) {
+          for (let i = 0; i < count; i++) {
+            const planet = new THREE.Mesh(sharedGeometries.planet, sharedMaterials.planet);
+            
+            // Position planets further out
+            const radius = 1000 + Math.random() * 2000;
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos((Math.random() * 2) - 1);
+            
+            planet.position.set(
+              radius * Math.sin(phi) * Math.cos(theta),
+              radius * Math.sin(phi) * Math.sin(theta),
+              radius * Math.cos(phi)
+            );
+            
+            planet.userData = {
+              type: 'planet',
+              discovered: false,
+              claimed: false,
+              resources: {
+                iron: Math.floor(Math.random() * 500) + 100,
+                silicon: Math.floor(Math.random() * 300) + 50,
+                gold: Math.floor(Math.random() * 100) + 10,
+                platinum: Math.floor(Math.random() * 50) + 5,
+                titanium: Math.floor(Math.random() * 200) + 20,
+                uranium: Math.floor(Math.random() * 30) + 5
+              }
+            };
+            
+            scene.add(planet);
+            planets.push(planet);
+            entityCount++;
+          }
+        }
+
+        // Mining system
+        function startMining() {
+          if (miningActive) {
+            addConsoleMessage('Mining already in progress');
+            return;
+          }
+          
+          if (playerEnergy < 10) {
+            addConsoleMessage('Not enough energy to mine');
+            return;
+          }
+          
+          // Find the closest resource
+          let closestResource = null;
+          let closestDistance = Infinity;
+          
+          resources.forEach(resource => {
+            if (resource.userData.collected) return;
+            
+            const distance = camera.position.distanceTo(resource.position);
+            if (distance < 50 && distance < closestDistance) {
+              closestDistance = distance;
+              closestResource = resource;
+            }
+          });
+          
+          if (!closestResource) {
+            addConsoleMessage('No resources in range');
+            return;
+          }
+          
+          miningActive = true;
+          miningTarget = closestResource;
+          miningProgress = 0;
+          miningYield = 0;
+          
+          document.getElementById('miningResource').textContent = miningTarget.userData.resourceType;
+          document.getElementById('miningOverlay').classList.add('active');
+          
+          addConsoleMessage(`Mining ${miningTarget.userData.resourceType}...`);
+        }
+        
+        function updateMining(deltaTime) {
+          if (!miningActive) return;
+          
+          // Check if target is still in range
+          const distance = camera.position.distanceTo(miningTarget.position);
+          if (distance > 60 || miningTarget.userData.collected) {
+            stopMining();
+            addConsoleMessage('Mining interrupted - target out of range');
+            return;
+          }
+          
+          // Consume energy
+          playerEnergy -= deltaTime * 5;
+          if (playerEnergy < 0) playerEnergy = 0;
+          updateEnergyDisplay();
+          
+          // Update mining progress
+          miningProgress += deltaTime * 0.5;
+          if (miningProgress >= 1) {
+            miningProgress = 1;
+            completeMining();
+          }
+          
+          document.getElementById('miningProgress').style.width = `${miningProgress * 100}%`;
+          miningYield = Math.floor(miningProgress * miningTarget.userData.value);
+          document.getElementById('miningYield').textContent = miningYield;
+        }
+        
+        function completeMining() {
+          // Add resource to player inventory
+          playerResources[miningTarget.userData.resourceType] += miningYield;
+          playerStorage += miningYield;
+          updateStorageDisplay();
+          updateResourceDisplay();
+          
+          addConsoleMessage(`Mined ${miningYield} units of ${miningTarget.userData.resourceType}`);
+          
+          // Mark resource as collected and hide it
+          miningTarget.userData.collected = true;
+          miningTarget.visible = false;
+          
+          // Update resource count
+          resourceCount--;
+          
+          stopMining();
+        }
+        
+        function stopMining() {
+          miningActive = false;
+          miningTarget = null;
+          document.getElementById('miningOverlay').classList.remove('active');
+        }
+
+        // Energy and storage display
+        function updateEnergyDisplay() {
+          document.getElementById('energyValue').textContent = Math.floor(playerEnergy);
+          document.getElementById('energyBar').style.width = `${playerEnergy}%`;
+        }
+        
+        function updateStorageDisplay() {
+          const storagePercent = (playerStorage / 1000) * 100;
+          document.getElementById('storageValue').textContent = playerStorage;
+          document.getElementById('storageBar').style.width = `${storagePercent}%`;
+        }
+        
+        function updateResourceDisplay() {
+          document.getElementById('resourceIron').textContent = playerResources.iron;
+          document.getElementById('resourceSilicon').textContent = playerResources.silicon;
+          document.getElementById('resourceGold').textContent = playerResources.gold;
+          document.getElementById('resourcePlatinum').textContent = playerResources.platinum;
+          document.getElementById('resourceTitanium').textContent = playerResources.titanium;
+          document.getElementById('resourceUranium').textContent = playerResources.uranium;
+          document.getElementById('resourceQuantum').textContent = playerResources.quantum;
+          document.getElementById('resourceDarkMatter').textContent = playerResources.darkmatter;
+          document.getElementById('creditsValue').textContent = playerCredits;
+        }
+
+        // Drone system
+        function deployDrone() {
+          if (playerDrones.length >= 5) {
+            addConsoleMessage('Maximum drone limit reached (5)');
+            return;
+          }
+          
+          if (playerResources.iron < 50) {
+            addConsoleMessage('Not enough iron to deploy drone (need 50)');
+            return;
+          }
+          
+          playerResources.iron -= 50;
+          updateResourceDisplay();
+          
+          const droneId = 'DRN-' + Math.random().toString(36).substr(2, 5).toUpperCase();
+          const drone = {
+            id: droneId,
+            position: camera.position.clone(),
+            target: null,
+            status: 'idle',
+            capacity: 100,
+            storage: 0,
+            speed: 1.0
+          };
+          
+          playerDrones.push(drone);
+          document.getElementById('droneCount').textContent = playerDrones.length;
+          
+          // Add to drone list UI
+          const droneList = document.getElementById('droneList');
+          const droneItem = document.createElement('div');
+          droneItem.className = 'drone-item';
+          droneItem.textContent = `${droneId} - Idle`;
+          droneList.appendChild(droneItem);
+          
+          addConsoleMessage(`Drone ${droneId} deployed!`);
+          addChatMessage('system', `New drone ${droneId} deployed to sector`);
+        }
+        
+        function updateDrones(deltaTime) {
+          // Simple drone AI - find and mine resources
+          playerDrones.forEach(drone => {
+            if (drone.status === 'idle') {
+              // Find closest resource
+              let closestResource = null;
+              let closestDistance = Infinity;
+              
+              resources.forEach(resource => {
+                if (resource.userData.collected) return;
+                
+                const distance = drone.position.distanceTo(resource.position);
+                if (distance < 200 && distance < closestDistance) {
+                  closestDistance = distance;
+                  closestResource = resource;
+                }
+              });
+              
+              if (closestResource) {
+                drone.target = closestResource;
+                drone.status = 'mining';
+              }
+            } else if (drone.status === 'mining' && drone.target) {
+              // Move toward resource
+              const direction = drone.target.position.clone().sub(drone.position);
+              const distance = direction.length();
+              
+              if (distance > 10) {
+                direction.normalize().multiplyScalar(drone.speed * deltaTime * 50);
+                drone.position.add(direction);
+              } else {
+                // Mine the resource
+                if (!drone.target.userData.collected && drone.storage < drone.capacity) {
+                  const mineAmount = Math.min(5, drone.capacity - drone.storage);
+                  drone.storage += mineAmount;
+                  drone.target.userData.value -= mineAmount;
+                  
+                  if (drone.target.userData.value <= 0) {
+                    drone.target.userData.collected = true;
+                    drone.target.visible = false;
+                    resourceCount--;
+                    drone.target = null;
+                    drone.status = 'returning';
+                  }
+                }
+              }
+            } else if (drone.status === 'returning') {
+              // Return to player
+              const direction = camera.position.clone().sub(drone.position);
+              const distance = direction.length();
+              
+              if (distance > 20) {
+                direction.normalize().multiplyScalar(drone.speed * deltaTime * 50);
+                drone.position.add(direction);
+              } else {
+                // Transfer resources to player
+                playerResources.iron += drone.storage;
+                playerStorage += drone.storage;
+                drone.storage = 0;
+                drone.status = 'idle';
+                updateResourceDisplay();
+                updateStorageDisplay();
+                
+                addConsoleMessage(`Drone delivered ${drone.storage} units of iron`);
+              }
+            }
+          });
+        }
+
+        // Planet claiming
+        function claimPlanet() {
+          let closestPlanet = null;
+          let closestDistance = Infinity;
+          
+          planets.forEach(planet => {
+            const distance = camera.position.distanceTo(planet.position);
+            if (distance < 150 && distance < closestDistance) {
+              closestDistance = distance;
+              closestPlanet = planet;
+            }
+          });
+          
+          if (!closestPlanet) {
+            addConsoleMessage('No planet in range to claim');
+            return;
+          }
+          
+          if (closestPlanet.userData.claimed) {
+            addConsoleMessage('This planet is already claimed');
+            return;
+          }
+          
+          closestPlanet.userData.claimed = true;
+          closestPlanet.userData.discovered = true;
+          closestPlanet.material = new THREE.MeshBasicMaterial({ color: 0x4a90e2 });
+          
+          addConsoleMessage('Planet claimed! Resources available for mining');
+          addChatMessage('system', 'New planet claimed in sector');
+        }
+
+        // Generate initial resources and planets
+        generateResources(50);
+        generatePlanets(5);
+
+        // Add a space station
+        function addSpaceStation() {
+          const station = new THREE.Mesh(sharedGeometries.station, sharedMaterials.station);
+          station.position.set(500, 0, -1000);
+          station.userData = { type: 'station' };
+          scene.add(station);
+          stations.push(station);
+          entityCount++;
+          addConsoleMessage('Space station added to the sector');
+        }
+        
+        addSpaceStation();
+
+        // Animation loop
+        function animate() {
+          requestAnimationFrame(animate);
+
+          const now = performance.now();
+          const deltaTime = Math.min((now - lastTime) / 1000, 0.1);
+          lastTime = now;
+
+          // Update mining if active
+          if (miningActive) {
+            updateMining(deltaTime);
+          }
+          
+          // Update drones
+          updateDrones(deltaTime);
+
+          if (!autopilotActive) {
+            if (keys.ArrowLeft) rotationVelocity.yaw += 0.05;
+            if (keys.ArrowRight) rotationVelocity.yaw -= 0.05;
+            if (keys.ArrowUp) rotationVelocity.pitch -= 0.05;
+            if (keys.ArrowDown) rotationVelocity.pitch += 0.05;
+
+            rotation.pitch += rotationVelocity.pitch * deltaTime;
+            rotation.yaw += rotationVelocity.yaw * deltaTime;
+            rotation.pitch = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, rotation.pitch));
+            rotationVelocity.pitch *= 0.95;
+            rotationVelocity.yaw *= 0.95;
+
+            camera.quaternion.setFromEuler(new THREE.Euler(rotation.pitch, rotation.yaw, 0, 'YXZ'));
+          }
+
+          if (!autopilotActive) {
+            const forward = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
+            velocity.copy(forward.multiplyScalar(throttle));
+            camera.position.add(velocity.clone().multiplyScalar(deltaTime));
+          }
+
+          // Regenerate energy slowly
+          playerEnergy = Math.min(100, playerEnergy + deltaTime * 2);
+          updateEnergyDisplay();
+
+          renderer.render(scene, camera);
+        }
+
+        // Initialize
+        addConsoleMessage('GalaxyCraft API MMO initialized. Type /help for commands.');
+        updateStatusOverlay();
+        updateResourceDisplay();
+        animate();
+
+        // Resize
+        window.addEventListener('resize', () => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Connect wallet button
+        document.getElementById('connectWalletBtn').addEventListener('click', connectWallet);
+        
+        // Deploy drone button
+        document.getElementById('deployDroneBtn').addEventListener('click', deployDrone);
+
+      } catch (e) {
+        console.error('Initialization error:', e);
+        addConsoleMessage('Error initializing GalaxyCraft: ' + e.message);
+      }
+    };
+  </script>
+</body>
+</html>
