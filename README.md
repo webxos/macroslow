@@ -118,7 +118,7 @@ For licensing inquiries, contact: `legal@webxos.ai`
 ## 🐪  DUNES/.MAML System  
 **Multi-Augmented Machine Learning Integration for Secure Network Exchange Systems**
 
-DUNES (Distributed Unified Network Exchange System) is a next-generation cybersecurity framework powered by Multi-Augmented Machine Learning (MAML). It introduces the `.MAML` protocol—a novel markup language for encoding multimodal security data—and a multi-agent architecture designed for quantum-resistant, adaptive threat detection.
+DUNES (Distributed Unified Network Exchange System) is a next-generation cybersecurity framework powered by Multi-Augmented Machine Learning (MAML AKA MARKDOWN AS MEDIUM LANGUAGE). It introduces the `.MAML` protocol—a novel markup language for encoding multimodal security data—and a multi-agent architecture designed for quantum-resistant, adaptive threat detection.
 
 
 ### 🐪 Key Features
