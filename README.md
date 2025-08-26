@@ -15,7 +15,8 @@ Our SDK integrates multiple AI orchestration frameworks:
 - **🐝 Claude-Flow v2.0.0 Alpha**: 87+ MCP tools with hive-mind intelligence
 - **🕸️ OpenAI Swarm**: Distributed AI coordination
 - **🤖 CrewAI**: Task automation and optimization
-- 
+
+  
 ## FUTURE UI DEVELOPMENTS (COMING SOON) ##
 | UX | Description | Visualization |
 |------|-------------|---------------|
