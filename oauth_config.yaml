@@ -1,0 +1,33 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: hermes-oauth-config
+  namespace: webxos
+data:
+  oauth_provider: "aws-cognito"
+  cognito_user_pool_id: "us-east-1_xxxxxxxxx"
+  cognito_client_id: "xxxxxxxxxxxxxxxxxxxxxxxxxx"
+  token_endpoint: "https://webxos.auth.us-east-1.amazoncognito.com/oauth2/token"
+  auth_endpoint: "https://webxos.auth.us-east-1.amazoncognito.com/oauth2/authorize"
+  redirect_uri: "https://api.webxos.netlify.app/callback"
+  scopes:
+    - "openid"
+    - "profile"
+    - "custom:walletAddress"
+  token_expiry: "3600s"
+  security_mode: "dual"
+  aes_key_length: "512"
+  signature_algorithms:
+    - "CRYSTALS-Dilithium"
+    - "SHA3-512"
+  reputation_threshold:
+    lightweight: 1000000
+    advanced: 1000000000
+  logging:
+    level: "INFO"
+    output: "cloudwatch"
+    retention: "30d"
+
+## Deployment
+- **Path**: `webxos-vial-mcp/config/oauth_config.yaml`
+- **Usage**: Load into WebXOS server with `kubectl apply -f config/oauth_config.yaml`
