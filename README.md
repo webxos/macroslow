@@ -1,6 +1,6 @@
-# 🐪  **PROJECT DUNES: MODEL CONTEXT PROTOCOL SDK (OPEN SOURCE BETA)**
+# 🐪  **PROJECT DUNES: MODEL CONTEXT PROTOCOL SDK**
 
-Welcome to the **PROJECT DUNES** by [webxos.netlify.app](https://webxos.netlify.app), a quantum-distributed, AI-orchestrated powerhouse hosted on GitHub! This model context protocol SDK fuses 4x Vial agents, PyTorch cores, SQLAlchemy databases, and `.md` wallet functions into a versatile toolkit. It acts as a collection of tools and agents for users to fork and build off of as boilerplates and OEM project templates.✨
+Welcome to the **PROJECT DUNES** (OPEN SOURCE BETA) by [webxos.netlify.app](https://webxos.netlify.app), a quantum-distributed, AI-orchestrated powerhouse hosted on GitHub! This model context protocol SDK fuses 4x Vial agents, PyTorch cores, SQLAlchemy databases, and `.md` wallet functions into a versatile toolkit. It acts as a collection of tools and agents for users to fork and build off of as boilerplates and OEM project templates.✨
 
 ## 🐪  FEATURING: DUNES  (Distributed Unified Network Exchange System) ##
 **Multi-Augmented Machine Learning Integration for Secure Network Exchange Systems**
