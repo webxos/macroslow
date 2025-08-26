@@ -1,4 +1,3 @@
-```yaml
 version: '3.8'
 
 services:
@@ -84,6 +83,82 @@ services:
     networks:
       - beluga_network
 
+  beluga_threejs_visualizer:
+    image: webxos/beluga-threejs-visualizer:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8082:8082"
+    environment:
+      - WEBXOS_API_TOKEN=${WEBXOS_API_TOKEN}
+      - COGNITO_USER_POOL_ID=${COGNITO_USER_POOL_ID}
+      - COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID}
+    volumes:
+      - ./src/services/beluga_threejs_visualizer.py:/app/beluga_threejs_visualizer.py
+    depends_on:
+      - beluga_postgres
+      - beluga_redis
+    networks:
+      - beluga_network
+
+  beluga_client_training:
+    image: webxos/beluga-client-training:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8083:8083"
+    environment:
+      - WEBXOS_API_TOKEN=${WEBXOS_API_TOKEN}
+      - COGNITO_USER_POOL_ID=${COGNITO_USER_POOL_ID}
+      - COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID}
+    volumes:
+      - ./src/services/beluga_client_training.py:/app/beluga_client_training.py
+    depends_on:
+      - beluga_postgres
+      - beluga_redis
+    networks:
+      - beluga_network
+
+  beluga_websocket_server:
+    image: webxos/beluga-websocket-server:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8084:8084"
+    environment:
+      - WEBXOS_API_TOKEN=${WEBXOS_API_TOKEN}
+      - COGNITO_USER_POOL_ID=${COGNITO_USER_POOL_ID}
+      - COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID}
+    volumes:
+      - ./src/services/beluga_websocket_server.py:/app/beluga_websocket_server.py
+    depends_on:
+      - beluga_postgres
+      - beluga_redis
+    networks:
+      - beluga_network
+
+  beluga_anomaly_detector:
+    image: webxos/beluga-anomaly-detector:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8085:8085"
+    environment:
+      - WEBXOS_API_TOKEN=${WEBXOS_API_TOKEN}
+      - COGNITO_USER_POOL_ID=${COGNITO_USER_POOL_ID}
+      - COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID}
+    volumes:
+      - ./src/services/beluga_anomaly_detector.py:/app/beluga_anomaly_detector.py
+    depends_on:
+      - beluga_postgres
+      - beluga_redis
+    networks:
+      - beluga_network
+
 networks:
   beluga_network:
     driver: bridge
@@ -96,4 +171,3 @@ volumes:
 # Path: webxos-vial-mcp/docker/beluga_docker_compose.yml
 # Run: docker-compose -f docker/beluga_docker_compose.yml up -d
 # Prerequisites: Set environment variables in .env file
-```
