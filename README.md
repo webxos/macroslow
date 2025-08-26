@@ -25,6 +25,11 @@ Our SDK integrates multiple AI orchestration frameworks:
 | **🌠 GalaxyCraft** | Fun Open Sandbox MMO where user can explore a lightweight three js galaxy | (Coming Soon) 
 | **🌠 GIBS Telescope** | View NASA API Data real time with Gibs telescope terminal and AR features. OBS Streaming Output | (Coming Soon) 
 
+## Jupyter Notebook Support (Coming Soon) ##
+
+With Vial MCP integration, your Jupyter notebook evolves from an isolated analysis environment into a connected powerhouse that can leverage the full capabilities of your organization's data and tooling ecosystem while maintaining the flexibility and interactivity that makes notebooks so valuable for data science work.
+
+
 ## 🏗️ System Architecture
 
 ```mermaid
