@@ -7,12 +7,6 @@ Welcome to the **WebXOS 2025 Vial Model Context Protocol (MCP) SDK**, a quantum-
 
 DUNES is a next-generation cybersecurity framework powered by Multi-Augmented Machine Learning (MAML AKA MARKDOWN AS MEDIUM LANGUAGE). It introduces the `.MAML` protocol—a novel markup language for encoding multimodal security data—and a multi-agent architecture designed for quantum-resistant, adaptive threat detection.
 
-| UX | Description | Visualization |
-|------|-------------|---------------|
-| **⚛️ MCP/SVG Diagram Tool** | 8-Point QNN Training with an interactive real time SVG diagram circuit board for testing  | (Coming Soon)
-| **🚚 Dropship Sim** | Simulate Coordinated Drop ships between earth, the moon, and mars | (Coming Soon) 
-| **🌠 GalaxyCraft** | Fun Open Sandbox MMO where user can explore a lightweight three js galaxy | (Coming Soon) 
-| **🌠 GIBS Telescope** | View NASA API Data real time with Gibs telescope terminal and AR features. OBS Streaming Output | (Coming Soon) 
 
 ### 🧠 AI Integration
 
@@ -21,6 +15,14 @@ Our SDK integrates multiple AI orchestration frameworks:
 - **🐝 Claude-Flow v2.0.0 Alpha**: 87+ MCP tools with hive-mind intelligence
 - **🕸️ OpenAI Swarm**: Distributed AI coordination
 - **🤖 CrewAI**: Task automation and optimization
+- 
+## FUTURE UI DEVELOPMENTS (COMING SOON) ##
+| UX | Description | Visualization |
+|------|-------------|---------------|
+| **⚛️ MCP/SVG Diagram Tool** | 8-Point QNN Training with an interactive real time SVG diagram circuit board for testing  | (Coming Soon)
+| **🚚 Dropship Sim** | Simulate Coordinated Drop ships between earth, the moon, and mars | (Coming Soon) 
+| **🌠 GalaxyCraft** | Fun Open Sandbox MMO where user can explore a lightweight three js galaxy | (Coming Soon) 
+| **🌠 GIBS Telescope** | View NASA API Data real time with Gibs telescope terminal and AR features. OBS Streaming Output | (Coming Soon) 
 
 ## 🏗️ System Architecture
 
