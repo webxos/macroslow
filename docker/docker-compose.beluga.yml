@@ -1,0 +1,103 @@
+```yaml
+version: '3.8'
+services:
+  beluga-api:
+    build:
+      context: .
+      dockerfile: beluga-sdk/docker/Dockerfile.beluga
+    ports:
+      - "8000:8000"
+    environment:
+      - DB_PASSWORD=${DB_PASSWORD}
+      - WEBXOS_API_TOKEN=${WEBXOS_API_TOKEN}
+      - COGNITO_USER_POOL_ID=${COGNITO_USER_POOL_ID}
+      - COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID}
+    volumes:
+      - ./src:/app/src
+      - ./config:/app/config
+    depends_on:
+      - postgres
+      - redis
+    command: python -m uvicorn src.services.beluga_dunes_interface:app --host 0.0.0.0 --port 8000
+
+  beluga-quantum-validator:
+    build:
+      context: .
+      dockerfile: beluga-sdk/docker/Dockerfile.beluga
+    ports:
+      - "8001:8000"
+    environment:
+      - DB_PASSWORD=${DB_PASSWORD}
+      - WEBXOS_API_TOKEN=${WEBXOS_API_TOKEN}
+      - COGNITO_USER_POOL_ID=${COGNITO_USER_POOL_ID}
+      - COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID}
+    volumes:
+      - ./src:/app/src
+      - ./config:/app/config
+    depends_on:
+      - postgres
+      - redis
+    command: python -m uvicorn src.services.beluga_quantum_validator:app --host 0.0.0.0 --port 8000
+
+  beluga-iot-edge:
+    build:
+      context: .
+      dockerfile: beluga-sdk/docker/Dockerfile.beluga
+    ports:
+      - "8002:8000"
+    environment:
+      - DB_PASSWORD=${DB_PASSWORD}
+      - WEBXOS_API_TOKEN=${WEBXOS_API_TOKEN}
+      - COGNITO_USER_POOL_ID=${COGNITO_USER_POOL_ID}
+      - COGNITO_CLIENT_ID=${COGNITO_CLIENT_ID}
+    volumes:
+      - ./src:/app/src
+      - ./config:/app/config
+    depends_on:
+      - postgres
+      - redis
+    command: python -m uvicorn src.services.beluga_iot_edge:app --host 0.0.0.0 --port 8000
+
+  postgres:
+    image: postgres:14
+    environment:
+      - POSTGRES_USER=beluga_user
+      - POSTGRES_PASSWORD=${DB_PASSWORD}
+      - POSTGRES_DB=beluga_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    command: ["postgres", "-c", "shared_preload_libraries=pgvector"]
+
+  redis:
+    image: redis:6
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - "9090:9090"
+    volumes:
+      - ./monitoring/prometheus.yml:/etc/prometheus/prometheus.yml
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=beluga2025
+    volumes:
+      - ./monitoring/dashboards:/var/lib/grafana/dashboards
+
+volumes:
+  postgres_data:
+  redis_data:
+
+# Deployment Instructions
+# Path: webxos-vial-mcp/docker/docker-compose.beluga.yml
+# Run: docker-compose -f docker/docker-compose.beluga.yml up -d
+```
