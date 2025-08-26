@@ -9,7 +9,7 @@ This model context protocol SDK fuses:
 - ✅ **SQLAlchemy databases**
 - ✅ **Advanced .yaml files**
 - ✅ **Multi-stage Dockerfile deployments**
-- ✅ **-$webxos `.md` wallets ([VIAL MCP WALLET](https://webxos.netlify.app/vial))** 
+- ✅ **$webxos `.md` wallets ([VIAL MCP WALLET](https://webxos.netlify.app/vial))** 
 
 
 *📋 It acts as a collection of tools and agents for users to fork and build off of as boilerplates and OEM project templates.* ✨
