@@ -6,8 +6,7 @@ Welcome to the **WebXOS 2025 Vial Model Context Protocol (MCP) SDK**, a quantum-
 **Multi-Augmented Machine Learning Integration for Secure Network Exchange Systems**
 
 DUNES is a next-generation cybersecurity framework powered by Multi-Augmented Machine Learning (MAML AKA MARKDOWN AS MEDIUM LANGUAGE). It introduces the `.MAML` protocol—a novel markup language for encoding multimodal security data—and a multi-agent architecture designed for quantum-resistant, adaptive threat detection.
-
-
+ 
 ### 🧠 AI Integration
 
 Our SDK integrates multiple AI orchestration frameworks:
@@ -15,6 +14,11 @@ Our SDK integrates multiple AI orchestration frameworks:
 - **🐝 Claude-Flow v2.0.0 Alpha**: 87+ MCP tools with hive-mind intelligence
 - **🕸️ OpenAI Swarm**: Distributed AI coordination
 - **🤖 CrewAI**: Task automation and optimization
+- **🐋 BELUGA**: SOLIDAR™ Sensor Fusion Technology
+- ✅ **Bilateral data processing** (SONAR + LIDAR = SOLIDAR™)
+- ✅ **Environmental adaptive architecture**
+- ✅ **Quantum-distributed graph database**
+- ✅ **Edge-native IOT framework**
 
   
 ## FUTURE UI DEVELOPMENTS (COMING SOON) ##
@@ -113,20 +117,72 @@ flowchart TD
     %% Define the 'AllAgents' link
     AllAgents([All Agents])
 ```
+# 🐋 BELUGA: Bilateral Environmental Linguistic Ultra Graph Agent
 
-## 📝 License
+## 🌊 **Introduction to BELUGA**
 
-This project is licensed under the MIT License
+**BELUGA** (Bilateral Environmental Linguistic Ultra Graph Agent) is a quantum-distributed database and sensor fusion system designed for extreme environmental applications. Inspired by the biological efficiency of whales and naval submarine systems, BELUGA combines SONAR (sound) and LIDAR (video) data streams into a unified graph-based storage and processing architecture.
 
+BELUGA features:
+- ✅ **Bilateral data processing** (SONAR + LIDAR = SOLIDAR™)
+- ✅ **Environmental adaptive architecture**
+- ✅ **Quantum-distributed graph database**
+- ✅ **Edge-native IOT framework**
 
-### 🔒 Copyright & Licensing  
-© 2025 WebXOS Research Group. All rights reserved.  
-This repository and its contents are protected under international copyright law.  
-Unauthorized reproduction, distribution, or use of the DUNES/.MAML system is strictly prohibited.  
-For licensing inquiries, contact: `legal@webxos.ai`
+## 🐋 **Core Architecture**
 
----
-
+```mermaid
+graph TB
+    subgraph "BELUGA System Architecture"
+        UI[User Interface]
+        subgraph "BELUGA Core"
+            BAPI[BELUGA API Gateway]
+            subgraph "Sensor Fusion Layer"
+                SONAR[SONAR Processing]
+                LIDAR[LIDAR Processing]
+                SOLIDAR[SOLIDAR Fusion Engine]
+            end
+            subgraph "Quantum Graph Database"
+                QDB[Quantum Graph DB]
+                VDB[Vector Store]
+                TDB[TimeSeries DB]
+            end
+            subgraph "Processing Engine"
+                QNN[Quantum Neural Network]
+                GNN[Graph Neural Network]
+                RL[Reinforcement Learning]
+            end
+        end
+        subgraph "Environmental Applications"
+            SUBTER[Subterranean Exploration]
+            SUBMAR[Submarine Operations]
+            IOT[IOT Edge Devices]
+        end
+        subgraph "WebXOS Integration"
+            MAML[.MAML Protocol]
+            DUNES[DUNES Framework]
+            MCP[MCP Server]
+        end
+        
+        UI --> BAPI
+        BAPI --> SONAR
+        BAPI --> LIDAR
+        SONAR --> SOLIDAR
+        LIDAR --> SOLIDAR
+        SOLIDAR --> QDB
+        SOLIDAR --> VDB
+        SOLIDAR --> TDB
+        QDB --> QNN
+        VDB --> GNN
+        TDB --> RL
+        QNN --> SUBTER
+        GNN --> SUBMAR
+        RL --> IOT
+        BAPI --> MAML
+        MAML --> DUNES
+        DUNES --> MCP
+    end
+```
 
 ## 🐪  DUNES/.MAML System  
 **Multi-Augmented Machine Learning Integration for Secure Network Exchange Systems**
@@ -246,6 +302,17 @@ graph TD
 **Copyright:** © 2025 Webxos. All Rights Reserved.  
 The MAML concept and `.maml.md` format are Webxos’s intellectual property.  
 **License:** MIT License for research and prototyping with attribution to Webxos.
+
+**Copyright:** © 2025 Webxos. All Rights Reserved. The MAML concept, `.maml.md` format, and extended features (e.g., Quantum Context Layers, Dynamic Execution Blocks) are Webxos’s intellectual property, licensed under MIT for research and prototyping with attribution.
+
+**Copyright:** © 2025 WebXOS Research Group. All rights reserved.  
+BELUGA system concepts, architecture, and implementations are proprietary intellectual property.
+
+### 🔒 Copyright & Licensing  
+© 2025 WebXOS Research Group. All rights reserved.  
+This repository and its contents are protected under international copyright law.  
+Unauthorized reproduction, distribution, or use of the DUNES/.MAML system is strictly prohibited.  
+For licensing inquiries, contact: `legal@webxos.ai`
 
 
 **🧪 Explore the future of AI orchestration with WebXOS 2025! 🌠**
