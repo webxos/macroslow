@@ -5,7 +5,7 @@ Welcome to the **PROJECT DUNES: OPEN SOURCE BETA** by WEBXOS ([webxos.netlify.ap
 
 ## FEATURING: DUNES 🐪 (Distributed Unified Network Exchange System) ##
 
-DUNES is a next-generation cybersecurity framework powered by Multi-Augmented Machine Learning (MAML AKA MARKDOWN AS MEDIUM LANGUAGE). It introduces the `.MAML` protocol—a novel markup language for encoding multimodal security data—and a multi-agent architecture designed for quantum-resistant, adaptive threat detection. ✨
+DUNES is a next-generation cybersecurity framework powered by Multi-Augmented Machine Learning (aka MARKDOWN AS MEDIUM LANGUAGE). It introduces the `.MAML` protocol—a novel markup language for encoding multimodal security data—and a multi-agent architecture designed for quantum-resistant, adaptive threat detection. ✨
  
 🐪 DUNES: MAML Encryption Protocol for WebXOS 2025 🐪 Welcome to DUNES (Distributed Unified Network Exchange System), a quantum-resistant encryption protocol for .MAML.ml files, integrated with the WebXOS 2025 Vial MCP SDK. Branded with the camel emoji 🐪, DUNES transforms Markdown into secure, virtual data containers for workflows, datasets, and agent blueprints, with seamless OAuth2.0 synchronization and global encryption validation. Hosted at github.com/webxos/dunes and webxos.netlify.app, DUNES empowers open-source developers to build secure, MAML-compliant applications.✨
 
