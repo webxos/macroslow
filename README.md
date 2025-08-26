@@ -1,4 +1,4 @@
-# 🌌 **WebXOS 2025 Vial MCP SDK: AI-Powered Quantum Frontier (OPEN SOURCE BETA)**
+# 🧪 **WebXOS 2025 Vial MCP SDK: AI-Powered Quantum Frontier (OPEN SOURCE BETA)**
 
 Welcome to the **WebXOS 2025 Vial Model Context Protocol (MCP) SDK**, a quantum-distributed, AI-orchestrated powerhouse hosted on GitHub! This SDK fuses 4x Vial agents, PyTorch cores, SQLAlchemy databases, and `.md` wallet functions into a versatile toolkit. It acts as a collection of tools and agents for users to fork and build off of as boilerplates and OEM project templates.
 
@@ -248,6 +248,6 @@ The MAML concept and `.maml.md` format are Webxos’s intellectual property.
 **License:** MIT License for research and prototyping with attribution to Webxos.
 
 
-**🌌 Explore the future of AI orchestration with WebXOS 2025! 🌠**
+**🧪 Explore the future of AI orchestration with WebXOS 2025! 🌠**
 
 </div>
