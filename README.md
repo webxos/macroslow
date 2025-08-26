@@ -7,7 +7,7 @@ This model context protocol SDK fuses:
 
 - ✅ **PyTorch cores**
 - ✅ **SQLAlchemy databases**
-- ✅ **Advanced .yaml files**
+- ✅ **Advanced .yaml and .md files**
 - ✅ **Multi-stage Dockerfile deployments**
 - ✅ **$webxos `.md` wallets ([VIAL MCP WALLET](https://webxos.netlify.app/vial))** 
 
