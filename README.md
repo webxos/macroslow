@@ -1,17 +1,17 @@
 # 🐪  **PROJECT DUNES: MODEL CONTEXT PROTOCOL SDK**
 
-Welcome to the **PROJECT DUNES: OPEN SOURCE BETA** by WEBXOS ([webxos.netlify.app](https://webxos.netlify.app)), a quantum-distributed, AI-orchestrated powerhouse hosted on GitHub! This model context protocol SDK fuses PyTorch cores, SQLAlchemy databases, and $webxos `.md` wallet ([VIAL MCP WALLET](https://webxos.netlify.app/vial)) functions into a versatile toolkit. It acts as a collection of tools and agents for users to fork and build off of as boilerplates and OEM project templates.✨
+Welcome to the **PROJECT DUNES: OPEN SOURCE BETA** by WEBXOS ([webxos.netlify.app](https://webxos.netlify.app)), a quantum-distributed, AI-orchestrated powerhouse hosted on GitHub! This model context protocol SDK fuses PyTorch cores, SQLAlchemy databases, and $webxos `.md` wallet ([VIAL MCP WALLET](https://webxos.netlify.app/vial)) functions into a versatile toolkit. It acts as a collection of tools and agents for users to fork and build off of as boilerplates and OEM project templates. ✨
 
 ## 🐪  FEATURING: DUNES  (Distributed Unified Network Exchange System) ##
 **Multi-Augmented Machine Learning Integration for Secure Network Exchange Systems**
 
-DUNES is a next-generation cybersecurity framework powered by Multi-Augmented Machine Learning (MAML AKA MARKDOWN AS MEDIUM LANGUAGE). It introduces the `.MAML` protocol—a novel markup language for encoding multimodal security data—and a multi-agent architecture designed for quantum-resistant, adaptive threat detection.✨
+DUNES is a next-generation cybersecurity framework powered by Multi-Augmented Machine Learning (MAML AKA MARKDOWN AS MEDIUM LANGUAGE). It introduces the `.MAML` protocol—a novel markup language for encoding multimodal security data—and a multi-agent architecture designed for quantum-resistant, adaptive threat detection. ✨
  
-🐪 DUNES: MAML Encryption Protocol for WebXOS 2025 🐪 Welcome to DUNES (Distributed Unified Network Exchange System), a quantum-resistant encryption protocol for .MAML.ml files, integrated with the WebXOS 2025 Vial MCP SDK. Branded with the camel emoji 🐪, DUNES transforms Markdown into secure, virtual data containers for workflows, datasets, and agent blueprints, with seamless OAuth2.0 synchronization and global encryption validation. Hosted at github.com/webxos/dunes and webxos.netlify.app, DUNES empowers open-source developers to build secure, MAML-compliant applications. ✨
+🐪 DUNES: MAML Encryption Protocol for WebXOS 2025 🐪 Welcome to DUNES (Distributed Unified Network Exchange System), a quantum-resistant encryption protocol for .MAML.ml files, integrated with the WebXOS 2025 Vial MCP SDK. Branded with the camel emoji 🐪, DUNES transforms Markdown into secure, virtual data containers for workflows, datasets, and agent blueprints, with seamless OAuth2.0 synchronization and global encryption validation. Hosted at github.com/webxos/dunes and webxos.netlify.app, DUNES empowers open-source developers to build secure, MAML-compliant applications.✨
 
 *📋 DUNES CLAUDE CODE ARTIFACT: https://claude.ai/public/artifacts/77e9ef0d-fb8b-4124-aa31-ac4a49a29bca*
 
-🐪 .MAML.ml Files: Virtual camel containers for structured, executable data, validated with MAML schemas. Dual-Mode Encryption: 256-bit AES (lightweight, fast) and 512-bit AES (advanced, secure) with CRYSTALS-Dilithium signatures. OAuth2.0 Sync: JWT-based authentication via AWS Cognito for secure import/export. Reputation-Based Validation: Integrates with $WEBXOS wallet reputation system. Quantum-Resistant Security: Implements post-quantum cryptography (liboqs) and Qiskit-based key generation. Prompt Injection Defense: Semantic analysis and jailbreak detection for secure MAML processing.✨
+🐪 .MAML.ml Files: Virtual camel containers for structured, executable data, validated with MAML schemas. Dual-Mode Encryption: 256-bit AES (lightweight, fast) and 512-bit AES (advanced, secure) with CRYSTALS-Dilithium signatures. OAuth2.0 Sync: JWT-based authentication via AWS Cognito for secure import/export. Reputation-Based Validation: Integrates with $WEBXOS wallet reputation system. Quantum-Resistant Security: Implements post-quantum cryptography (liboqs) and Qiskit-based key generation. Prompt Injection Defense: Semantic analysis and jailbreak detection for secure MAML processing. ✨
 
 *📋 MAML CLAUDE CODE ARTIFACT:https://claude.ai/public/artifacts/b3f2ded2-dbd6-41ee-a7d4-703ce4358048*
 
@@ -39,7 +39,7 @@ Our SDK integrates multiple AI orchestration frameworks:
 
 ## Jupyter Notebook Support (Coming Soon) ##
 
-With Vial MCP integration, your Jupyter notebook evolves from an isolated analysis environment into a connected powerhouse that can leverage the full capabilities of your organization's data and tooling ecosystem while maintaining the flexibility and interactivity that makes notebooks so valuable for data science work.✨
+With Vial MCP integration, your Jupyter notebook evolves from an isolated analysis environment into a connected powerhouse that can leverage the full capabilities of your organization's data and tooling ecosystem while maintaining the flexibility and interactivity that makes notebooks so valuable for data science work. ✨
 
 
 ## 🏗️ System Architecture
@@ -129,7 +129,7 @@ flowchart TD
 
 ## 🌊 **Introduction to BELUGA**
 
-**BELUGA** (Bilateral Environmental Linguistic Ultra Graph Agent) is a quantum-distributed database and sensor fusion system designed for extreme environmental applications. Inspired by the biological efficiency of whales and naval submarine systems, BELUGA combines SONAR (sound) and LIDAR (video) data streams into a unified graph-based storage and processing architecture.✨
+**BELUGA** (Bilateral Environmental Linguistic Ultra Graph Agent) is a quantum-distributed database and sensor fusion system designed for extreme environmental applications. Inspired by the biological efficiency of whales and naval submarine systems, BELUGA combines SONAR (sound) and LIDAR (video) data streams into a unified graph-based storage and processing architecture. ✨
 
 BELUGA features:
 - ✅ **Bilateral data processing** (SONAR + LIDAR = SOLIDAR™)
@@ -195,7 +195,7 @@ graph TB
 ## 🐪  DUNES/.MAML System  
 **Multi-Augmented Machine Learning Integration for Secure Network Exchange Systems**
 
-DUNES (Distributed Unified Network Exchange System) is a next-generation cybersecurity framework powered by Multi-Augmented Machine Learning (AKA MARKDOWN AS MEDIUM LANGUAGE). It introduces the `.MAML` protocol—a novel markup language for encoding multimodal security data—and a multi-agent architecture designed for quantum-resistant, adaptive threat detection.✨
+DUNES (Distributed Unified Network Exchange System) is a next-generation cybersecurity framework powered by Multi-Augmented Machine Learning (AKA MARKDOWN AS MEDIUM LANGUAGE). It introduces the `.MAML` protocol—a novel markup language for encoding multimodal security data—and a multi-agent architecture designed for quantum-resistant, adaptive threat detection. ✨
 
 
 ### 🐪 Key Features
@@ -235,9 +235,9 @@ This repository is maintained by the **WebXOS Research Group**.
 
 ## 🐪 Overview of MAML ##
 
-**MAML (Markdown as Medium Language)** is a new syntax and protocol designed by Webxos to evolve Markdown into a structured, extensible, and machine-friendly documentation language. While Markdown democratized formatting, MAML transforms it into a **semantic medium**—bridging human readability with intelligent data transfer.✨
+**MAML (Markdown as Medium Language)** is a new syntax and protocol designed by Webxos to evolve Markdown into a structured, extensible, and machine-friendly documentation language. While Markdown democratized formatting, MAML transforms it into a **semantic medium**—bridging human readability with intelligent data transfer. ✨
 
-This guide introduces MAML to GitHub developers, outlining its syntax, use cases, and integration potential with modern API gateways, developer tools, and intelligent agents.✨
+This guide introduces MAML to GitHub developers, outlining its syntax, use cases, and integration potential with modern API gateways, developer tools, and intelligent agents. ✨
 
 ## 🐪 Why MAML? ##
 
@@ -267,9 +267,9 @@ Markdown’s simplicity made it ubiquitous—but its limitations are increasingl
 ## 📜 **MAML: Markdown as Medium Language**
 
 ### Overview
-MAML redefines Markdown as a **living, executable container**—a "USB-C" for API gateways, enabling seamless data transfer, context management, and agent orchestration. Built for the AI and quantum era, MAML integrates with the Model Context Protocol (MCP), Quantum Retrieval-Augmented Generation (RAG), and advanced security layers.✨
+MAML redefines Markdown as a **living, executable container**—a "USB-C" for API gateways, enabling seamless data transfer, context management, and agent orchestration. Built for the AI and quantum era, MAML integrates with the Model Context Protocol (MCP), Quantum Retrieval-Augmented Generation (RAG), and advanced security layers. ✨
 
-**Copyright:** © 2025 Webxos. All Rights Reserved. The MAML concept, `.maml.md` format, and extended features (e.g., Quantum Context Layers, Dynamic Execution Blocks) are Webxos’s intellectual property, licensed under MIT for research and prototyping with attribution.✨
+**Copyright:** © 2025 Webxos. All Rights Reserved. The MAML concept, `.maml.md` format, and extended features (e.g., Quantum Context Layers, Dynamic Execution Blocks) are Webxos’s intellectual property, licensed under MIT for research and prototyping with attribution. ✨
 
 ## 📋 **Features**
 
@@ -311,15 +311,15 @@ graph TD
 The MAML concept and `.maml.md` format are Webxos’s intellectual property.  
 **License:** MIT License for research and prototyping with attribution to Webxos.
 
-**Copyright:** © 2025 Webxos. All Rights Reserved. The MAML concept, `.maml.md` format, and extended features (e.g., Quantum Context Layers, Dynamic Execution Blocks) are Webxos’s intellectual property, licensed under MIT for research and prototyping with attribution.✨
+**Copyright:** © 2025 Webxos. All Rights Reserved. The MAML concept, `.maml.md` format, and extended features (e.g., Quantum Context Layers, Dynamic Execution Blocks) are Webxos’s intellectual property, licensed under MIT for research and prototyping with attribution. ✨
 
 **Copyright:** © 2025 WebXOS Research Group. All rights reserved.  
-BELUGA system concepts, architecture, and implementations are proprietary intellectual property.✨
+BELUGA system concepts, architecture, and implementations are proprietary intellectual property. ✨
 
 ### 🔒 Copyright & Licensing  
 © 2025 WebXOS Research Group. All rights reserved.  
 This repository and its contents are protected under international copyright law.  
-Unauthorized reproduction, distribution, or use of the DUNES/.MAML system is strictly prohibited.✨  
+Unauthorized reproduction, distribution, or use of the DUNES/.MAML system is strictly prohibited. ✨  
 For licensing inquiries, contact: `legal@webxos.ai`
 
 
