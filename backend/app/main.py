@@ -2,6 +2,7 @@ from fastapi import FastAPI, WebSocket, WebSocketDisconnect, Depends, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
 from backend.app.maml_parser import MAMLParser
 from backend.app.maml_executor import MAMLExecutor
+from backend.app.mcp_tools import MCPTools
 from backend.app.database import MongoDBClient
 from backend.app.auth import get_current_user
 
@@ -19,30 +20,37 @@ app.add_middleware(
 # Initialize services
 parser = MAMLParser()
 executor = MAMLExecutor()
+mcp_tools = MCPTools()
 db = MongoDBClient()
 
 @app.post("/api/maml/upload")
 async def upload_maml(file: UploadFile = File(...), user=Depends(get_current_user)):
     content = await file.read()
-    maml_data = parser.parse(content.decode())
-    db.save_maml(maml_data["id"], maml_data)
-    return {"message": "MAML file uploaded", "id": maml_data["id"]}
+    return await mcp_tools.maml_create(MAMLToolInput(maml_content=content.decode(), user_id=user["username"]))
 
 @app.get("/api/maml/{maml_id}")
 async def get_maml(maml_id: str, user=Depends(get_current_user)):
     maml_data = db.get_maml(maml_id)
-    if maml_data:
+    if maml_data and user["username"] in maml_data["metadata"]["permissions"]["read"]:
         return maml_data
-    return {"error": "MAML not found"}, 404
+    return {"error": "MAML not found or unauthorized"}, 403
 
 @app.post("/api/maml/execute/{maml_id}")
 async def execute_maml(maml_id: str, user=Depends(get_current_user)):
     maml_data = db.get_maml(maml_id)
-    if maml_data:
-        result = await executor.execute(maml_data)
-        db.update_maml_history(maml_id, {"timestamp": "2025-08-25T18:50:00Z", "action": "EXECUTE", "status": "Success"})
-        return result
-    return {"error": "MAML not found"}, 404
+    if maml_data and user["username"] in maml_data["metadata"]["permissions"]["execute"]:
+        content = str(maml_data)
+        return await mcp_tools.maml_execute(MAMLToolInput(maml_content=content, user_id=user["username"]))
+    return {"error": "MAML not found or unauthorized"}, 403
+
+@app.post("/api/maml/validate")
+async def validate_maml(file: UploadFile = File(...), user=Depends(get_current_user)):
+    content = await file.read()
+    return await mcp_tools.maml_validate(MAMLToolInput(maml_content=content.decode(), user_id=user["username"]))
+
+@app.get("/api/maml/search")
+async def search_maml(query: str, user=Depends(get_current_user)):
+    return await mcp_tools.maml_search(MAMLToolInput(maml_content=query, user_id=user["username"]))
 
 @app.websocket("/ws/maml")
 async def websocket_endpoint(websocket: WebSocket):
@@ -50,8 +58,7 @@ async def websocket_endpoint(websocket: WebSocket):
     try:
         while True:
             data = await websocket.receive_text()
-            maml_data = parser.parse(data)
-            result = await executor.execute(maml_data)
+            result = await mcp_tools.maml_execute(MAMLToolInput(maml_content=data, user_id="websocket_user"))
             await websocket.send_text(str(result))
     except WebSocketDisconnect:
         pass
