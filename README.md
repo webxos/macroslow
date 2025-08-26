@@ -11,7 +11,7 @@ DUNES is a next-generation cybersecurity framework powered by Multi-Augmented Ma
 
 🐪 DUNES: MAML Encryption Protocol for WebXOS 2025 🐪 Welcome to DUNES (Distributed Unified Network Exchange System), a quantum-resistant encryption protocol for .MAML.ml files, integrated with the WebXOS 2025 Vial MCP SDK. Branded with the camel emoji 🐪, DUNES transforms Markdown into secure, virtual data containers for workflows, datasets, and agent blueprints, with seamless OAuth2.0 synchronization and global encryption validation. 
 
-** 🐪 DUNES empowers open-source developers to build secure, MAML-compliant applications. ✨**
+**🐪 DUNES empowers open-source developers to build secure, MAML-compliant applications. ✨**
 
 🐪 .MAML.ml Files: Virtual camel containers for structured, executable data, validated with MAML schemas. Dual-Mode Encryption: 256-bit AES (lightweight, fast) and 512-bit AES (advanced, secure) with CRYSTALS-Dilithium signatures. OAuth2.0 Sync: JWT-based authentication via AWS Cognito for secure import/export. Reputation-Based Validation: Integrates with $WEBXOS wallet reputation system. Quantum-Resistant Security: Implements post-quantum cryptography (liboqs) and Qiskit-based key generation. Prompt Injection Defense: Semantic analysis and jailbreak detection for secure MAML processing. ✨
 
