@@ -2,6 +2,8 @@
 
 Welcome to **GalaxyCraft**, the premier open-source, lightweight, and innovative Web3 sandbox universe designed to redefine the future of online gaming! 🚀 This GitHub repository hosts the source code, documentation, and community resources for GalaxyCraft, a cutting-edge project that combines state-of-the-art WebGPU technology, an expansive real-time galaxy, and a robust API Gateway tailored for API-driven gaming. 🎮 Whether you're a player, developer, or enthusiast, GalaxyCraft offers a limitless playground for exploration, creativity, and collaboration. 🌍
 
+*BETA TEST IS NOW LIVE: webxos.netlify.app/galaxycraft*
+
 ## 🌠 Project Overview
 
 GalaxyCraft is more than just a game—it's a dynamic, ever-evolving universe where players can claim planets, build instanced sectors, engage in a thriving online economy, and craft unique items using a fun and innovative mining system. 💎 Built with a WebGPU engine, this browser-based MMO delivers stunning graphics and seamless performance, all while leveraging Web3 technologies for decentralized ownership and interaction. 🌐 The project is designed with a templated SDK, empowering game developers to build upon its foundation and create their own interstellar adventures. 🛠️
