@@ -1,8 +1,10 @@
 # The Minimalist's Guide to Building Hybrid MCP Servers
 
 **A Research Paper on Modular Architecture Patterns for Model Context Protocol Implementation**
-CLAUDE ARTIFACT: https://claude.ai/public/artifacts/992a72b5-bfe3-47e8-ace7-409ebc280f87
+
 ---
+
+*CLAUDE ARTIFACT: https://claude.ai/public/artifacts/992a72b5-bfe3-47e8-ace7-409ebc280f87*
 
 ## Abstract
 
