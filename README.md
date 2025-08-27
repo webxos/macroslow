@@ -332,6 +332,16 @@ MAML redefines Markdown as a **living, executable container**—a "USB-C" for AP
 | Task Execution    | 30/hr   | 150/hr  |
 
 
+🌌 GalaxyCraft: Ultimate Space MMO - Open Source Web3 Sandbox Universe
+
+Welcome to GalaxyCraft, the premier open-source, lightweight, and innovative Web3 sandbox universe designed to redefine the future of online gaming! Brought to you by the developers at webXOS.netlify.app, this GitHub repository hosts the source code, documentation, and community resources for GalaxyCraft, a cutting-edge project that combines state-of-the-art WebGPU technology, an expansive real-time galaxy, and a robust API Gateway tailored for API-driven gaming. 🎮 Whether you're a player, developer, or enthusiast, GalaxyCraft offers a limitless playground for exploration, creativity, and collaboration. 🌍
+
+BETA TEST IS NOW LIVE: webxos.netlify.app/galaxycraft
+
+
+![Alt text](./galaxycraft.jpeg)
+
+
 ## 📜 **License & Copyright**
 
 **Copyright:** © 2025 Webxos. All Rights Reserved.  
