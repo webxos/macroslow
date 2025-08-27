@@ -139,6 +139,21 @@ flowchart TD
     %% Define the 'AllAgents' link
     AllAgents([All Agents])
 ```
+### Visual Representation
+```mermaid
+graph TD
+    A[User/Developer] --> B[MAML Gateway]
+    B --> C[Django/MCP Server]
+    C --> D[Quantum RAG]
+    C --> E[MongoDB]
+    C --> F[Celery Task Queue]
+    D --> G[Quantum Context Layer]
+    E --> H[Execution Logs]
+    F --> I[Dynamic Execution]
+    B --> J[Agent Ecosystem]
+```
+
+
 # 🐋 BELUGA: Bilateral Environmental Linguistic Ultra Graph Agent
 
 ## 🌊 **Introduction to BELUGA**
@@ -204,20 +219,6 @@ graph TB
         MAML --> DUNES
         DUNES --> MCP
     end
-```
-
-### Visual Representation
-```mermaid
-graph TD
-    A[User/Developer] --> B[MAML Gateway]
-    B --> C[Django/MCP Server]
-    C --> D[Quantum RAG]
-    C --> E[MongoDB]
-    C --> F[Celery Task Queue]
-    D --> G[Quantum Context Layer]
-    E --> H[Execution Logs]
-    F --> I[Dynamic Execution]
-    B --> J[Agent Ecosystem]
 ```
 
 ## 🐪  DUNES/.MAML System  
