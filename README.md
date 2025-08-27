@@ -205,6 +205,19 @@ graph TB
     end
 ```
 
+### Visual Representation
+```mermaid
+graph TD
+    A[User/Developer] --> B[MAML Gateway]
+    B --> C[Django/MCP Server]
+    C --> D[Quantum RAG]
+    C --> E[MongoDB]
+    C --> F[Celery Task Queue]
+    D --> G[Quantum Context Layer]
+    E --> H[Execution Logs]
+    F --> I[Dynamic Execution]
+    B --> J[Agent Ecosystem]
+
 ## 🐪  DUNES/.MAML System  
 **Multi-Augmented Machine Learning Integration for Secure Network Exchange Systems**
 
@@ -293,18 +306,6 @@ MAML redefines Markdown as a **living, executable container**—a "USB-C" for AP
 - **Quantum-Enhanced Security:** Post-quantum cryptography and noise patterns.
 - **Interoperability:** Integrates with MCP, RAG, and Celery task queues.
 
-### Visual Representation
-```mermaid
-graph TD
-    A[User/Developer] --> B[MAML Gateway]
-    B --> C[Django/MCP Server]
-    C --> D[Quantum RAG]
-    C --> E[MongoDB]
-    C --> F[Celery Task Queue]
-    D --> G[Quantum Context Layer]
-    E --> H[Execution Logs]
-    F --> I[Dynamic Execution]
-    B --> J[Agent Ecosystem]
 ```
 ## 📈 **Performance Metrics**
 
