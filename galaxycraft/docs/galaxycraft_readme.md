@@ -60,7 +60,7 @@ The GalaxyCraft SDK is a templated framework built around the WebGPU engine, des
 - **Integrate APIs**: Utilize the API Gateway to connect with external services or multiplayer servers.
 
 ### Contributing
-We welcome contributions! 🎉 Fork the repository, make your changes, and submit a pull request. Please adhere to our [Contribution Guidelines](CONTRIBUTING.md) and ensure your code aligns with the project’s vision. 🌟
+We welcome contributions! 🎉 Fork the repository, make your changes, and submit a pull request. Please ensure your code aligns with the project’s vision. 🌟
 
 ## 💡 Future Roadmap
 
