@@ -47,7 +47,7 @@ Our SDK integrates multiple AI orchestration frameworks:
 |------|-------------|---------------|
 | **⚛️ MCP/SVG Diagram Tool** | 8-Point QNN Training with an interactive real time SVG diagram circuit board for testing  | (Coming Soon)
 | **🚚 Dropship Sim** | Simulate Coordinated Drop ships between earth, the moon, and mars | (Coming Soon) 
-| **🌠 GalaxyCraft** | Fun Open Sandbox MMO where user can explore a lightweight three js galaxy | (BETA TEST: [GALAXYCRAFT](webxos.netlify.app/galaxycraft)) 
+| **🌠 GalaxyCraft** | Fun Open Sandbox MMO where user can explore a lightweight three js galaxy | (BETA TEST: webxos.netlify.app/galaxycraft)
 | **🌠 GIBS Telescope** | View NASA API Data real time with Gibs telescope terminal and AR features. OBS Streaming Output | (Coming Soon) 
 
 ## Jupyter Notebook Support (Coming Soon) ##
