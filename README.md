@@ -58,6 +58,7 @@ With Vial MCP integration, your Jupyter notebook evolves from an isolated analys
 
 ## 🏗️ System Architecture
 
+
 ```mermaid
 graph TB
     subgraph "WebXOS MCP SDK Architecture"
@@ -92,6 +93,8 @@ graph TB
         ES --> EXT
     end
 ```
+
+
 ## 🧠 CUSTOM AGENTIC WORKFLOW ##
 
 ```mermaid
@@ -139,6 +142,8 @@ flowchart TD
     %% Define the 'AllAgents' link
     AllAgents([All Agents])
 ```
+
+
 ### Visual Representation
 ```mermaid
 graph TD
