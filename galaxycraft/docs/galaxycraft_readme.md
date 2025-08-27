@@ -1,6 +1,6 @@
 # 🌌 GalaxyCraft: Ultimate Space MMO - Open Source Web3 Sandbox Universe
 
-Welcome to **GalaxyCraft** 🚀 , the premier open-source, lightweight, and innovative Web3 sandbox universe designed to redefine the future of online gaming! Brought to you by the developers at *webXOS.netlify.app*, this GitHub repository hosts the source code, documentation, and community resources for GalaxyCraft, a cutting-edge project that combines state-of-the-art WebGPU technology, an expansive real-time galaxy, and a robust API Gateway tailored for API-driven gaming. 🎮 Whether you're a player, developer, or enthusiast, GalaxyCraft offers a limitless playground for exploration, creativity, and collaboration. 🌍
+Welcome to **GalaxyCraft**, the premier open-source, lightweight, and innovative Web3 sandbox universe designed to redefine the future of online gaming! Brought to you by the developers at *webXOS.netlify.app*, this GitHub repository hosts the source code, documentation, and community resources for GalaxyCraft, a cutting-edge project that combines state-of-the-art WebGPU technology, an expansive real-time galaxy, and a robust API Gateway tailored for API-driven gaming. 🎮 Whether you're a player, developer, or enthusiast, GalaxyCraft offers a limitless playground for exploration, creativity, and collaboration. 🌍
 
 *BETA TEST IS NOW LIVE: webxos.netlify.app/galaxycraft*
 
@@ -8,7 +8,7 @@ Welcome to **GalaxyCraft** 🚀 , the premier open-source, lightweight, and inno
 
 GalaxyCraft is more than just a game—it's a dynamic, ever-evolving universe where players can claim planets, build instanced sectors, engage in a thriving online economy, and craft unique items using a fun and innovative mining system. 💎 Built with a WebGPU engine, this browser-based MMO delivers stunning graphics and seamless performance, all while leveraging Web3 technologies for decentralized ownership and interaction. 🌐 The project is designed with a templated SDK, empowering game developers to build upon its foundation and create their own interstellar adventures. 🛠️
 
-### 🌌 Key Features
+### 🚀  Key Features
 
 - **Planet Claiming & Customization**: Players can claim up to 3 planets per account, each with customizable colors and storage capacities. 🌏 Planets serve as personal hubs for resource management and sector creation, with placeholders for future NFT integration. 🎨
 - **Instanced Sectors**: Utilize a user-defined hashtag system to create sectors, each limited to 500 object grids for optimal scaling and latency. 🔗 These sectors link into a unified galaxy, offering a seamless, expansive universe accessible via 3D gateway effects. 🌉
@@ -17,11 +17,11 @@ GalaxyCraft is more than just a game—it's a dynamic, ever-evolving universe wh
 - **Real-Time Galaxy**: Explore an infinite, procedurally generated galaxy that evolves in real-time, powered by the state-of-the-art API Gateway. 🌠 This ensures a persistent world that adapts to player actions and community growth. 🌟
 - **API Gateway & SDK**: The API Gateway provides a robust framework for multiplayer integration and real-time data exchange, while the templated SDK offers developers tools to extend GalaxyCraft’s WebGPU engine. 🖥️ This open-source approach fosters a collaborative ecosystem for game development. 💻
 
-## 🎯 Vision & Mission
+## 🚀  Vision & Mission
 
 GalaxyCraft aims to be the ultimate destination for space exploration enthusiasts and Web3 innovators. 🌌 Our mission is to create a lightweight, accessible sandbox universe that runs efficiently in any modern browser, leveraging WebGPU for cutting-edge graphics and performance. 🎥 By open-sourcing the project, we invite the global developer community to contribute, expand, and innovate, ensuring GalaxyCraft remains a living, breathing universe. 🤝 The integration of Web3 technologies like NFTs and decentralized economies positions GalaxyCraft as a pioneer in the next generation of gaming. 🌐
 
-### 🌍 Single-Player & Multiplayer Fallback
+### 🚀  Single-Player & Multiplayer Fallback
 
 While GalaxyCraft is currently optimized for single-player experiences with a robust fallback system, it is designed with future multiplayer capabilities in mind. 🎮 The API Gateway serves as a placeholder for seamless integration with the GalaxyCraft MMO edition, promising a social and competitive dimension to the game. 👥
 
@@ -80,5 +80,5 @@ Special thanks to the open-source community, WebGPU contributors, and early adop
 
 ---
 
-**GalaxyCraft: Where Your Space Adventure Begins!** 🌠  
+**GalaxyCraft: Where Your Space Adventure Begins!** 🚀   
 *Last Updated: August 27, 2025*
