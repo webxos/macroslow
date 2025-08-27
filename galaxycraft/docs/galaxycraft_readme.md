@@ -6,7 +6,7 @@ Welcome to **GalaxyCraft**, the premier open-source, lightweight, and innovative
 
 
 
-![Alt text](./galaxycraft.jpeg)
+![Alt text](./galaxycraft/galaxycraft.jpeg)
 
 
 
