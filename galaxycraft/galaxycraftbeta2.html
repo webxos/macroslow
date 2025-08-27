@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GalaxyCraft API MMO</title>
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box;font-family:'Orbitron','Roboto',sans-serif}
+    body{background:#000;color:#fff;overflow:hidden;height:100vh;display:flex;flex-direction:column;background-image:url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiPjxkZWZzPjxwYXR0ZXJuIGlkPSJwYXR0ZXJuIiB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcGF0dGVyblVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgcGF0dGVyblRyYW5zZm9ybT0icm90YXRlKDApIj48Y2lyY2xlIGN4PSI1MCIgY3k9IjUwIiByPSIxIiBmaWxsPSIjMzMzMzMzIiBvcGFjaXR5PSIwLjMiLz48L3BhdHRlcm4+PC9kZWZzPjxyZWN0IHdpZHRoPSIxMDAlIiBoZWlnaHQ9IjEwMCUiIGZpbGw9InVybCgjcGF0dGVybikiLz48L3N2Zz4=')}
+    #cosmicCanvas{flex:1;width:100%;touch-action:none;position:relative}
+    .hud{position:absolute;top:0;left:0;width:100%;height:100%;pointer-events:none;opacity:0.4;z-index:1}
+    .hud::before{content:'';position:absolute;top:10%;left:10%;right:10%;bottom:10%;border:2px solid rgba(74,144,226,0);border-radius:20px;box-shadow:none}
+    .hud::after{content:'+';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#4a90e2;font-size:24px}
+    .crosshair{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:20px;height:20px;border:2px solid red;border-radius:50%;pointer-events:none;z-index:10}
+    .crosshair.active{border-color:#0f0}
+    
+    .status-overlay{position:absolute;top:0;width:100%;background:rgba(0,0,0,0.3);padding:5px 10px;font-size:12px;text-align:left;color:#fff;text-shadow:0 0 2px #000;z-index:5;pointer-events:none}
+    .console{position:absolute;bottom:60px;width:100%;height:25%;background:rgba(0,0,0,0.5);display:flex;flex-direction:column;z-index:5;padding:5px}
+    .console-log{flex:1;overflow-y:auto;font-size:12px;color:#fff;text-shadow:0 0 2px #000;padding:5px}
+    .console-log p{margin:2px 0}
+    .console-input{width:100%;background:rgba(255,255,255,0.1);border:1px solid #4a90e2;color:#fff;padding:5px;font-size:12px;outline:none}
+    .console-input::placeholder{color:#aaa}
+    .console::-webkit-scrollbar{width:8px}
+    .console::-webkit-scrollbar-thumb{background:#4a90e2;border-radius:4px}
+    
+    .controls{position:fixed;bottom:0;width:100%;background:rgba(20,20,50,0.9);padding:8px;display:flex;flex-wrap:wrap;gap:8px;justify-content:center;backdrop-filter:blur(5px);z-index:10}
+    .control-item{flex:1;min-width:70px;text-align:center}
+    button{background:#4a90e2;border:none;padding:8px 12px;color:white;border-radius:16px;cursor:pointer;font-size:14px;transition:transform 0.2s,background 0.2s}
+    button:hover{background:#357abd}
+    button.active{background:#ff4444}
+    button:active{transform:scale(0.95)}
+    
+    .stats-window{position:absolute;top:10px;right:10px;width:200px;background:rgba(0,0,0,0.7);border:1px solid #4a90e2;border-radius:8px;z-index:15;display:flex;flex-direction:column;resize:both;overflow:auto;min-height:200px}
+    .stats-header{background:rgba(74,144,226,0.5);padding:4px 8px;border-top-left-radius:8px;border-top-right-radius:8px;font-size:11px;display:flex;justify-content:space-between;cursor:move}
+    .stats-content{padding:8px;font-size:11px}
+    .stats-resource{margin-bottom:5px;display:flex;justify-content:space-between}
+    .stats-bar{height:5px;background:#333;border-radius:3px;margin:2px 0;overflow:hidden}
+    .stats-fill{height:100%;background:#4a90e2}
+    
+    .mining-overlay{position:absolute;bottom:150px;left:50%;transform:translateX(-50%);background:rgba(0,0,0,0.7);padding:10px;border-radius:10px;display:none;z-index:15}
+    .mining-overlay.active{display:block}
+    .mining-progress{width:200px;height:10px;background:#333;border-radius:5px;overflow:hidden;margin:5px 0}
+    .mining-progress-bar{height:100%;background:#4a90e2;width:0%;transition:width 0.3s}
+    
+    .chat-overlay{position:absolute;bottom:60px;right:10px;width:250px;height:180px;background:rgba(0,0,0,0.7);border:1px solid #4a90e2;border-radius:8px;z-index:15;display:flex;flex-direction:column;resize:both;overflow:auto;min-width:200px;min-height:120px}
+    .chat-header{background:rgba(74,144,226,0.5);padding:4px 8px;border-top-left-radius:8px;border-top-right-radius:8px;font-size:11px;display:flex;justify-content:space-between;cursor:move}
+    .chat-messages{flex:1;overflow-y:auto;padding:4px;font-size:11px}
+    .chat-input{border:none;border-top:1px solid #4a90e2;background:rgba(255,255,255,0.1);color:#fff;padding:4px;outline:none;font-size:11px}
+    
+    .mining-path{position:absolute;background:rgba(0,255,0,0.3);z-index:4;pointer-events:none}
+    .mining-node{position:absolute;width:10px;height:10px;background:red;border-radius:50%;box-shadow:0 0 10px red;z-index:5;pointer-events:none;animation:pulse 1s infinite}
+    @keyframes pulse{0%{opacity:0.3}50%{opacity:1}100%{opacity:0.3}}
+    
+    .controls-help{position:absolute;bottom:40px;left:10px;background:rgba(0,0,0,0.7);padding:8px;border-radius:8px;z-index:15;font-size:11px;width:200px}
+  </style>
+</head>
+<body>
+  <div id="cosmicCanvas">
+    <div class="hud"></div>
+    <div class="crosshair"></div>
+    <div id="statusOverlay" class="status-overlay"></div>
+    
+    <div class="stats-window" id="statsWindow">
+      <div class="stats-header" id="statsHeader">
+        <span>Ship Status</span>
+        <span id="onlineStatus">Online</span>
+      </div>
+      <div class="stats-content">
+        <div class="stats-resource">Credits: <span id="creditsValue">1000</span></div>
+        <div class="stats-resource">Energy: <span id="energyValue">100</span>/100</div>
+        <div class="stats-bar"><div id="energyBar" class="stats-fill" style="width:100%"></div></div>
+        <div class="stats-resource">Fuel: <span id="fuelValue">1000</span>/1000</div>
+        <div class="stats-bar"><div id="fuelBar" class="stats-fill" style="width:100%"></div></div>
+        <div class="stats-resource">Storage: <span id="storageValue">0</span>/1000</div>
+        <div class="stats-bar"><div id="storageBar" class="stats-fill" style="width:0%"></div></div>
+        <div class="stats-resource">Ores: <span id="resourceOres">0</span></div>
+        <div class="stats-resource">Crystals: <span id="resourceCrystals">0</span></div>
+        <div class="stats-resource">Gas: <span id="resourceGas">0</span></div>
+        <div class="stats-resource">Water: <span id="resourceWater">0</span></div>
+      </div>
+    </div>
+    
+    <div id="miningOverlay" class="mining-overlay">
+      <div>Mining: <span id="miningResource">Unknown</span></div>
+      <div class="mining-progress">
+        <div id="miningProgress" class="mining-progress-bar"></div>
+      </div>
+      <div>Yield: <span id="miningYield">0</span> units</div>
+    </div>
+    
+    <div class="chat-overlay" id="chatWindow">
+      <div class="chat-header" id="chatHeader">
+        <span>Global Chat</span>
+        <span>Online: <span id="onlineCount">1</span></span>
+      </div>
+      <div id="chatMessages" class="chat-messages">
+        <p><span class="wallet-address">GalaxyCraft-Agent:</span> Welcome to GalaxyCraft! Type /help for assistance.</p>
+      </div>
+      <input id="chatInput" class="chat-input" type="text" placeholder="Type message..." autocomplete="off">
+    </div>
+    
+    <div class="controls-help">
+      <div>CONTROLS: WASD/Arrows = Steer</div>
+      <div>SHIFT = Full Throttle</div>
+      <div>SPACE = Mine, CTRL = Scan</div>
+      <div>C = Claim Planet, M = Menu</div>
+    </div>
+  </div>
+  
+  <div class="controls">
+    <div class="control-item"><button id="throttleBtn" class="compact-btn">Full Throttle</button></div>
+    <div class="control-item"><button id="mineBtn" class="compact-btn">Mine</button></div>
+    <div class="control-item"><button id="scanBtn" class="compact-btn">Scan</button></div>
+    <div class="control-item"><button id="planetBtn" class="compact-btn">Claim</button></div>
+    <div class="control-item"><button id="droneBtn" class="compact-btn">Deploy Drones</button></div>
+    <div class="control-item"><button id="manageBtn" class="compact-btn">Manage</button></div>
+    <div class="control-item"><button id="menuBtn" class="compact-btn">Menu</button></div>
+    <div class="control-item"><button id="resetBtn" class="compact-btn">Reset</button></div>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script>
+    // Game state
+    let scene, camera, renderer;
+    let resources = [], planets = [], particles = [];
+    let resourceCount = 0, throttle = 0;
+    let rotation = { pitch: 0, yaw: 0 };
+    let rotationVelocity = { pitch: 0, yaw: 0 };
+    let velocity = new THREE.Vector3(0, 0, 0);
+    let lastTime = performance.now();
+    let miningActive = false, miningTarget = null;
+    let miningProgress = 0, miningYield = 0, isScanning = false, scanEndTime = 0;
+    
+    // Player resources
+    let playerResources = {
+      ores: 0, crystals: 0, gas: 0, water: 0,
+      fuel: 1000, credits: 1000
+    };
+    
+    let playerEnergy = 100, playerStorage = 0;
+    let playerDrones = [], playerPlanets = [];
+    
+    // Console and status
+    let logMessages = [];
+    const maxLogMessages = 50;
+
+    // Initialize the game
+    function initGame() {
+      try {
+        // Scene setup
+        scene = new THREE.Scene();
+        camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
+        renderer = new THREE.WebGLRenderer({ antialias: false, powerPreference: 'high-performance' });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x000000, 1);
+        document.getElementById('cosmicCanvas').appendChild(renderer.domElement);
+
+        camera.position.set(0, 0, 0);
+
+        // Resource materials
+        const sharedMaterials = {
+          ore: new THREE.MeshBasicMaterial({ color: 0xcccccc }),
+          crystal: new THREE.MeshBasicMaterial({ color: 0x8844ff, emissive: 0x4422aa }),
+          gas: new THREE.MeshBasicMaterial({ color: 0xff9900, emissive: 0xff5500, transparent: true, opacity: 0.7 }),
+          water: new THREE.MeshBasicMaterial({ color: 0x3399ff, transparent: true, opacity: 0.8 }),
+          planet: new THREE.MeshBasicMaterial({ color: 0x3399ff }),
+          particle: new THREE.MeshBasicMaterial({ color: 0xffffff, transparent: true, opacity: 0.6 })
+        };
+
+        // Resource geometries
+        const sharedGeometries = {
+          resource: new THREE.SphereGeometry(8, 12, 12),
+          planet: new THREE.SphereGeometry(40, 14, 14),
+          particle: new THREE.SphereGeometry(1, 6, 6)
+        };
+
+        // Generate resources in clusters
+        function generateResourceClusters() {
+          const resourceTypes = [
+            { type: 'ore', material: sharedMaterials.ore, rarity: 0.5, clusterSize: 5 },
+            { type: 'crystal', material: sharedMaterials.crystal, rarity: 0.3, clusterSize: 3 },
+            { type: 'gas', material: sharedMaterials.gas, rarity: 0.1, clusterSize: 2 },
+            { type: 'water', material: sharedMaterials.water, rarity: 0.1, clusterSize: 2 }
+          ];
+          
+          // Create 10 clusters spread out
+          for (let c = 0; c < 10; c++) {
+            const clusterX = (Math.random() - 0.5) * 5000;
+            const clusterY = (Math.random() - 0.5) * 5000;
+            const clusterZ = (Math.random() - 0.5) * 5000;
+            
+            const clusterType = weightedRandom(resourceTypes);
+            
+            for (let i = 0; i < clusterType.clusterSize; i++) {
+              const resource = new THREE.Mesh(sharedGeometries.resource, clusterType.material);
+              
+              // Position within cluster
+              const radius = 100 + Math.random() * 150;
+              const theta = Math.random() * Math.PI * 2;
+              const phi = Math.acos((Math.random() * 2) - 1);
+              
+              resource.position.set(
+                clusterX + radius * Math.sin(phi) * Math.cos(theta),
+                clusterY + radius * Math.sin(phi) * Math.sin(theta),
+                clusterZ + radius * Math.cos(phi)
+              );
+              
+              resource.userData = { 
+                type: 'resource', 
+                resourceType: clusterType.type, 
+                value: Math.floor(Math.random() * 50) + 20, 
+                collected: false 
+              };
+              
+              scene.add(resource);
+              resources.push(resource);
+              resourceCount++;
+            }
+          }
+        }
+        
+        function weightedRandom(options) {
+          let weights = options.map(opt => opt.rarity);
+          let total = weights.reduce((a, b) => a + b, 0);
+          let random = Math.random() * total;
+          
+          for (let i = 0; i < weights.length; i++) {
+            if (random < weights[i]) return options[i];
+            random -= weights[i];
+          }
+          
+          return options[0];
+        }
+
+        // Generate planets
+        function generatePlanets(count) {
+          for (let i = 0; i < count; i++) {
+            const planet = new THREE.Mesh(sharedGeometries.planet, sharedMaterials.planet);
+            const radius = 1500 + Math.random() * 3000;
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos((Math.random() * 2) - 1);
+            
+            planet.position.set(radius * Math.sin(phi) * Math.cos(theta), radius * Math.sin(phi) * Math.sin(theta), radius * Math.cos(phi));
+            planet.userData = {
+              type: 'planet', discovered: false, claimed: false, size: 1,
+              resources: { 
+                ores: Math.floor(Math.random() * 1000) + 500, 
+                crystals: Math.floor(Math.random() * 300) + 100, 
+                gas: Math.floor(Math.random() * 800) + 200,
+                water: Math.floor(Math.random() * 1500) + 500 
+              }
+            };
+            
+            scene.add(planet);
+            planets.push(planet);
+          }
+        }
+
+        // Generate particle fields (asteroids, comets)
+        function generateParticles() {
+          for (let i = 0; i < 200; i++) {
+            const particle = new THREE.Mesh(sharedGeometries.particle, sharedMaterials.particle);
+            
+            const radius = 500 + Math.random() * 4000;
+            const theta = Math.random() * Math.PI * 2;
+            const phi = Math.acos((Math.random() * 2) - 1);
+            
+            particle.position.set(radius * Math.sin(phi) * Math.cos(theta), radius * Math.sin(phi) * Math.sin(theta), radius * Math.cos(phi));
+            particle.userData = { 
+              type: 'particle',
+              velocity: new THREE.Vector3(
+                (Math.random() - 0.5) * 0.5,
+                (Math.random() - 0.5) * 0.5,
+                (Math.random() - 0.5) * 0.5
+              )
+            };
+            
+            scene.add(particle);
+            particles.push(particle);
+          }
+        }
+
+        // Console functions
+        function addConsoleMessage(message) {
+          const timestamp = new Date().toLocaleTimeString();
+          logMessages.push(`[${timestamp}] ${message}`);
+          if (logMessages.length > maxLogMessages) logMessages.shift();
+          
+          const consoleLog = document.getElementById('consoleLog');
+          if (consoleLog) {
+            consoleLog.innerHTML = logMessages.map(msg => `<p>${msg}</p>`).join('');
+            consoleLog.scrollTop = consoleLog.scrollHeight;
+          }
+        }
+
+        function updateStatusOverlay() {
+          const statusOverlay = document.getElementById('statusOverlay');
+          if (statusOverlay) {
+            statusOverlay.textContent = `Resources: ${resourceCount} | Throttle: ${throttle} | Energy: ${Math.floor(playerEnergy)}`;
+          }
+        }
+
+        // Keyboard controls
+        const keys = { 
+          ArrowUp: false, ArrowDown: false, ArrowLeft: false, ArrowRight: false,
+          KeyW: false, KeyA: false, KeyS: false, KeyD: false, 
+          ShiftLeft: false, Space: false, ControlLeft: false, KeyC: false, KeyM: false
+        };
+        
+        window.addEventListener('keydown', e => {
+          if (e.code in keys) { 
+            keys[e.code] = true; 
+            e.preventDefault(); 
+            
+            // Handle special keys
+            if (e.code === 'ShiftLeft') {
+              toggleThrottle();
+            }
+            else if (e.code === 'Space') {
+              startMining();
+            }
+            else if (e.code === 'ControlLeft') {
+              scanArea();
+            }
+            else if (e.code === 'KeyC') {
+              claimPlanet();
+            }
+          }
+        });
+        
+        window.addEventListener('keyup', e => { 
+          if (e.code in keys) keys[e.code] = false; 
+        });
+
+        // Console commands
+        function handleCommand(input) {
+          const cmd = input.trim().toLowerCase();
+          if (!cmd.startsWith('/')) { addChatMessage('player', input); return; }
+          const parts = cmd.slice(1).split(' ');
+          const command = parts[0];
+          const args = parts.slice(1);
+
+          switch (command) {
+            case 'help': addConsoleMessage('Commands: /mine, /scan, /deploy, /claim, /resources'); break;
+            case 'mine': startMining(); break;
+            case 'scan': scanArea(); break;
+            case 'deploy': deployDrone(); break;
+            case 'claim': claimPlanet(); break;
+            case 'resources': showResources(); break;
+            default: addConsoleMessage('Unknown command. Type /help for commands.');
+          }
+        }
+
+        const consoleInput = document.getElementById('consoleInput');
+        if (consoleInput) {
+          consoleInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+              const input = consoleInput.value;
+              if (input) { addConsoleMessage(`> ${input}`); handleCommand(input); consoleInput.value = ''; }
+            }
+          });
+        }
+
+        // Chat system
+        function addChatMessage(sender, message) {
+          const chatMessages = document.getElementById('chatMessages');
+          if (!chatMessages) return;
+          
+          const messageEl = document.createElement('p');
+          if (sender === 'agent') messageEl.innerHTML = `<span style="color: #4a90e2;">GalaxyCraft-Agent:</span> ${message}`;
+          else if (sender === 'system') messageEl.innerHTML = `<span style="color: #ff4444;">System:</span> ${message}`;
+          else messageEl.innerHTML = `<span style="color: #4a90e2;">Explorer:</span> ${message}`;
+          
+          chatMessages.appendChild(messageEl);
+          chatMessages.scrollTop = chatMessages.scrollHeight;
+        }
+
+        const chatInput = document.getElementById('chatInput');
+        if (chatInput) {
+          chatInput.addEventListener('keydown', e => {
+            if (e.key === 'Enter') {
+              const message = chatInput.value;
+              if (message) {
+                addChatMessage('player', message);
+                chatInput.value = '';
+              }
+            }
+          });
+        }
+
+        // Throttle control
+        function toggleThrottle() {
+          throttle = throttle === 0 ? 150 : 0;
+          const throttleBtn = document.getElementById('throttleBtn');
+          if (throttleBtn) throttleBtn.classList.toggle('active', throttle > 0);
+          
+          const throttleIndicator = document.getElementById('throttleIndicator');
+          if (throttleIndicator) {
+            throttleIndicator.textContent = throttle > 0 ? `Thrust: ${throttle}` : '';
+            throttleIndicator.classList.toggle('active', throttle > 0);
+          }
+          
+          addConsoleMessage(throttle > 0 ? 'Full throttle engaged!' : 'Throttle disengaged.');
+          updateStatusOverlay();
+        }
+
+        // Scan area function
+        function scanArea() {
+          if (isScanning) return;
+          isScanning = true;
+          scanEndTime = performance.now() + 3000;
+          
+          addConsoleMessage('Scanning area for resources...');
+          
+          // Clear previous mining nodes and paths
+          document.querySelectorAll('.mining-node, .mining-path').forEach(el => el.remove());
+          
+          // Find resources and create visual indicators
+          resources.forEach(resource => {
+            if (resource.userData.collected) return;
+            
+            const distance = camera.position.distanceTo(resource.position);
+            if (distance < 600) {
+              // Create mining node indicator
+              const node = document.createElement('div');
+              node.className = 'mining-node';
+              
+              // Convert 3D position to screen position
+              const vector = resource.position.clone();
+              vector.project(camera);
+              
+              const x = (vector.x * 0.5 + 0.5) * window.innerWidth;
+              const y = (-(vector.y * 0.5 - 0.5)) * window.innerHeight;
+              
+              node.style.left = `${x - 5}px`;
+              node.style.top = `${y - 5}px`;
+              
+              document.body.appendChild(node);
+              
+              // Create path line to resource
+              if (distance < 250) {
+                const path = document.createElement('div');
+                path.className = 'mining-path';
+                path.style.width = `${distance}px`;
+                path.style.height = '2px';
+                path.style.left = `${window.innerWidth/2}px`;
+                path.style.top = `${window.innerHeight/2}px`;
+                
+                // Calculate angle to resource
+                const angle = Math.atan2(y - window.innerHeight/2, x - window.innerWidth/2);
+                path.style.transform = `rotate(${angle}rad)`;
+                path.style.transformOrigin = '0 0';
+                
+                document.body.appendChild(path);
+              }
+            }
+          });
+          
+          setTimeout(() => {
+            const found = document.querySelectorAll('.mining-node').length;
+            addConsoleMessage(`Scan complete: Found ${found} resource deposits nearby`);
+            isScanning = false;
+            
+            // Remove indicators after 10 seconds
+            setTimeout(() => {
+              document.querySelectorAll('.mining-node, .mining-path').forEach(el => el.remove());
+            }, 10000);
+          }, 3000);
+        }
+
+        // Mining system
+        function startMining() {
+          if (miningActive) { addConsoleMessage('Mining already in progress'); return; }
+          if (playerEnergy < 10) { addConsoleMessage('Not enough energy to mine'); return; }
+          
+          let closestResource = null;
+          let closestDistance = Infinity;
+          resources.forEach(resource => {
+            if (resource.userData.collected) return;
+            const distance = camera.position.distanceTo(resource.position);
+            if (distance < 80 && distance < closestDistance) { 
+              closestDistance = distance; 
+              closestResource = resource; 
+            }
+          });
+          
+          if (!closestResource) { addConsoleMessage('No resources in range'); return; }
+          
+          miningActive = true;
+          miningTarget = closestResource;
+          miningProgress = 0;
+          miningYield = 0;
+          
+          const miningResource = document.getElementById('miningResource');
+          if (miningResource) miningResource.textContent = miningTarget.userData.resourceType;
+          
+          const miningOverlay = document.getElementById('miningOverlay');
+          if (miningOverlay) miningOverlay.classList.add('active');
+          
+          addConsoleMessage(`Mining ${miningTarget.userData.resourceType}...`);
+        }
+        
+        function updateMining(deltaTime) {
+          if (!miningActive) return;
+          const distance = camera.position.distanceTo(miningTarget.position);
+          if (distance > 90 || miningTarget.userData.collected) { 
+            stopMining(); 
+            addConsoleMessage('Mining interrupted - target out of range'); 
+            return; 
+          }
+          
+          playerEnergy -= deltaTime * 5;
+          if (playerEnergy < 0) playerEnergy = 0;
+          updateEnergyDisplay();
+          
+          miningProgress += deltaTime * 0.5;
+          if (miningProgress >= 1) { miningProgress = 1; completeMining(); }
+          
+          const miningProgressBar = document.getElementById('miningProgress');
+          if (miningProgressBar) miningProgressBar.style.width = `${miningProgress * 100}%`;
+          
+          miningYield = Math.floor(miningProgress * miningTarget.userData.value);
+          const miningYieldEl = document.getElementById('miningYield');
+          if (miningYieldEl) miningYieldEl.textContent = miningYield;
+        }
+        
+        function completeMining() {
+          playerResources[miningTarget.userData.resourceType] += miningYield;
+          playerStorage += miningYield;
+          updateStorageDisplay();
+          updateResourceDisplay();
+          addConsoleMessage(`Mined ${miningYield} units of ${miningTarget.userData.resourceType}`);
+          
+          miningTarget.userData.collected = true;
+          miningTarget.visible = false;
+          resourceCount--;
+          stopMining();
+        }
+        
+        function stopMining() {
+          miningActive = false;
+          miningTarget = null;
+          const miningOverlay = document.getElementById('miningOverlay');
+          if (miningOverlay) miningOverlay.classList.remove('active');
+        }
+
+        // Update displays
+        function updateEnergyDisplay() {
+          const energyValue = document.getElementById('energyValue');
+          const energyBar = document.getElementById('energyBar');
+          if (energyValue) energyValue.textContent = Math.floor(playerEnergy);
+          if (energyBar) energyBar.style.width = `${playerEnergy}%`;
+        }
+        
+        function updateStorageDisplay() {
+          const storageValue = document.getElementById('storageValue');
+          const storageBar = document.getElementById('storageBar');
+          const storagePercent = (playerStorage / 1000) * 100;
+          if (storageValue) storageValue.textContent = playerStorage;
+          if (storageBar) storageBar.style.width = `${storagePercent}%`;
+        }
+        
+        function updateResourceDisplay() {
+          const resourceOres = document.getElementById('resourceOres');
+          const resourceCrystals = document.getElementById('resourceCrystals');
+          const resourceGas = document.getElementById('resourceGas');
+          const resourceWater = document.getElementById('resourceWater');
+          const fuelValue = document.getElementById('fuelValue');
+          const fuelBar = document.getElementById('fuelBar');
+          const creditsValue = document.getElementById('creditsValue');
+          
+          if (resourceOres) resourceOres.textContent = playerResources.ores;
+          if (resourceCrystals) resourceCrystals.textContent = playerResources.crystals;
+          if (resourceGas) resourceGas.textContent = playerResources.gas;
+          if (resourceWater) resourceWater.textContent = playerResources.water;
+          if (fuelValue) fuelValue.textContent = playerResources.fuel;
+          if (fuelBar) fuelBar.style.width = `${(playerResources.fuel / 1000) * 100}%`;
+          if (creditsValue) creditsValue.textContent = playerResources.credits;
+        }
+
+        // Drone system
+        function deployDrone() {
+          if (playerDrones.length >= 5) { addConsoleMessage('Maximum drone limit reached (5)'); return; }
+          if (playerResources.ores < 50) { addConsoleMessage('Not enough ores to deploy drone (need 50)'); return; }
+          if (playerResources.fuel < 100) { addConsoleMessage('Not enough fuel to deploy drone (need 100)'); return; }
+          
+          playerResources.ores -= 50;
+          playerResources.fuel -= 100;
+          updateResourceDisplay();
+          
+          const droneId = 'DRN-' + Math.random().toString(36).substr(2, 5).toUpperCase();
+          playerDrones.push({ 
+            id: droneId, 
+            position: camera.position.clone(), 
+            status: 'idle', 
+            fuel: 100 
+          });
+          
+          addConsoleMessage(`Drone ${droneId} deployed!`);
+          addChatMessage('system', `New drone ${droneId} deployed to sector`);
+        }
+
+        // Planet claiming
+        function claimPlanet() {
+          if (playerPlanets.length >= 3) { addConsoleMessage('Maximum planet limit reached (3)'); return; }
+          
+          let closestPlanet = null;
+          let closestDistance = Infinity;
+          planets.forEach(planet => {
+            const distance = camera.position.distanceTo(planet.position);
+            if (distance < 200 && distance < closestDistance) { closestDistance = distance; closestPlanet = planet; }
+          });
+          
+          if (!closestPlanet) { addConsoleMessage('No planet in range to claim'); return; }
+          if (closestPlanet.userData.claimed) { addConsoleMessage('This planet is already claimed'); return; }
+          
+          closestPlanet.userData.claimed = true;
+          closestPlanet.userData.discovered = true;
+          
+          playerPlanets.push({
+            id: 'PLN-' + Math.random().toString(36).substr(2, 5).toUpperCase(),
+            position: closestPlanet.position.clone(),
+            resources: Object.assign({}, closestPlanet.userData.resources)
+          });
+          
+          addConsoleMessage('Planet claimed! Resources available for mining');
+          addChatMessage('system', 'New planet claimed in sector');
+        }
+
+        // Generate initial content
+        generateResourceClusters();
+        generatePlanets(5);
+        generateParticles();
+
+        // Make UI windows draggable
+        function makeDraggable(element, handle) {
+          let isDragging = false;
+          let offset = { x: 0, y: 0 };
+          
+          handle.addEventListener('mousedown', (e) => {
+            isDragging = true;
+            offset.x = e.clientX - element.offsetLeft;
+            offset.y = e.clientY - element.offsetTop;
+            element.style.cursor = 'grabbing';
+          });
+          
+          document.addEventListener('mousemove', (e) => {
+            if (isDragging) {
+              element.style.left = (e.clientX - offset.x) + 'px';
+              element.style.top = (e.clientY - offset.y) + 'px';
+              element.style.right = 'auto';
+              element.style.bottom = 'auto';
+            }
+          });
+          
+          document.addEventListener('mouseup', () => {
+            isDragging = false;
+            element.style.cursor = 'default';
+          });
+        }
+        
+        // Make windows draggable
+        const statsWindow = document.getElementById('statsWindow');
+        const statsHeader = document.getElementById('statsHeader');
+        const chatWindow = document.getElementById('chatWindow');
+        const chatHeader = document.getElementById('chatHeader');
+        
+        if (statsWindow && statsHeader) makeDraggable(statsWindow, statsHeader);
+        if (chatWindow && chatHeader) makeDraggable(chatWindow, chatHeader);
+
+        // Animation loop
+        function animate() {
+          requestAnimationFrame(animate);
+          const now = performance.now();
+          const deltaTime = Math.min((now - lastTime) / 1000, 0.1);
+          lastTime = now;
+
+          if (miningActive) updateMining(deltaTime);
+
+          // Update crosshair color based on mining availability
+          const crosshair = document.querySelector('.crosshair');
+          if (crosshair) {
+            let canMine = false;
+            
+            // Check if any resource is in range
+            for (const resource of resources) {
+              if (resource.userData.collected) continue;
+              const distance = camera.position.distanceTo(resource.position);
+              if (distance < 80) {
+                canMine = true;
+                break;
+              }
+            }
+            
+            crosshair.classList.toggle('active', canMine);
+          }
+
+          // Handle keyboard controls for both arrow keys and WASD
+          if (keys.ArrowLeft || keys.KeyA) rotationVelocity.yaw += 0.05;
+          if (keys.ArrowRight || keys.KeyD) rotationVelocity.yaw -= 0.05;
+          if (keys.ArrowUp || keys.KeyW) rotationVelocity.pitch -= 0.05;
+          if (keys.ArrowDown || keys.KeyS) rotationVelocity.pitch += 0.05;
+
+          rotation.pitch += rotationVelocity.pitch * deltaTime;
+          rotation.yaw += rotationVelocity.yaw * deltaTime;
+          rotation.pitch = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, rotation.pitch));
+          rotationVelocity.pitch *= 0.95;
+          rotationVelocity.yaw *= 0.95;
+
+          camera.quaternion.setFromEuler(new THREE.Euler(rotation.pitch, rotation.yaw, 0, 'YXZ'));
+
+          const forward = new THREE.Vector3(0, 0, -1).applyQuaternion(camera.quaternion);
+          velocity.copy(forward.multiplyScalar(throttle));
+          
+          // Consume fuel when using throttle
+          if (throttle > 0 && playerResources.fuel > 0) {
+            const fuelConsumption = throttle * deltaTime * 0.1;
+            playerResources.fuel = Math.max(0, playerResources.fuel - fuelConsumption);
+            updateResourceDisplay();
+          }
+          
+          camera.position.add(velocity.clone().multiplyScalar(deltaTime));
+
+          // Update particles
+          particles.forEach(particle => {
+            particle.position.add(particle.userData.velocity);
+            
+            // Reset particles that move too far
+            if (particle.position.length() > 5000) {
+              particle.position.set(
+                (Math.random() - 0.5) * 1000,
+                (Math.random() - 0.5) * 1000,
+                (Math.random() - 0.5) * 1000
+              );
+            }
+          });
+
+          // Regenerate energy slowly
+          playerEnergy = Math.min(100, playerEnergy + deltaTime * 2);
+          updateEnergyDisplay();
+          
+          // Handle scanning animation
+          if (isScanning && performance.now() < scanEndTime) {
+            const scanProgress = 1 - ((scanEndTime - performance.now()) / 3000);
+            document.body.style.boxShadow = `0 0 ${50 + scanProgress * 100}px rgba(0, 255, 0, ${0.3 * scanProgress})`;
+          } else if (isScanning) {
+            isScanning = false;
+            document.body.style.boxShadow = 'none';
+          }
+          
+          renderer.render(scene, camera);
+        }
+
+        // Initialize
+        addConsoleMessage('GalaxyCraft API MMO initialized. Type /help for commands.');
+        updateStatusOverlay();
+        updateResourceDisplay();
+        animate();
+
+        // Resize handler
+        window.addEventListener('resize', () => {
+          camera.aspect = window.innerWidth / window.innerHeight;
+          camera.updateProjectionMatrix();
+          renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // Button event listeners
+        document.getElementById('throttleBtn').addEventListener('click', toggleThrottle);
+        document.getElementById('mineBtn').addEventListener('click', startMining);
+        document.getElementById('scanBtn').addEventListener('click', scanArea);
+        document.getElementById('planetBtn').addEventListener('click', claimPlanet);
+        document.getElementById('droneBtn').addEventListener('click', deployDrone);
+        document.getElementById('resetBtn').addEventListener('click', () => {
+          if (confirm('Reset the game? All progress will be lost.')) {
+            location.reload();
+          }
+        });
+
+      } catch (e) {
+        console.error('Initialization error:', e);
+        addConsoleMessage('Error initializing GalaxyCraft: ' + e.message);
+      }
+    }
+
+    // Start the game when the window loads
+    window.onload = initGame;
+  </script>
+</body>
+</html>
