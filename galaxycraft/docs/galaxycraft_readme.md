@@ -4,12 +4,6 @@ Welcome to **GalaxyCraft**, the premier open-source, lightweight, and innovative
 
 *BETA TEST IS NOW LIVE: webxos.netlify.app/galaxycraft*
 
-
-
-![Alt text](./galaxycraft/galaxycraft.jpeg)
-
-
-
 ## 🌠 Project Overview
 
 GalaxyCraft is more than just a game—it's a dynamic, ever-evolving universe where players can claim planets, build instanced sectors, engage in a thriving online economy, and craft unique items using a fun and innovative mining system. 💎 Built with a WebGPU engine, this browser-based MMO delivers stunning graphics and seamless performance, all while leveraging Web3 technologies for decentralized ownership and interaction. 🌐 The project is designed with a templated SDK, empowering game developers to build upon its foundation and create their own interstellar adventures. 🛠️
