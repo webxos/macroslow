@@ -4,9 +4,9 @@ Welcome to **GalaxyCraft**, the premier open-source, lightweight, and innovative
 
 *BETA TEST IS NOW LIVE: webxos.netlify.app/galaxycraft*
 
-DEMO VIDEOS:
-https://kick.com/webxos/clips/clip_01K3MN6H4TSGSGJBBFBMRDCRP1
-https://kick.com/webxos/clips/clip_01K3PTH4J9TTE00QDGD2F7JYEH
+## DEMO VIDEOS: ##
+ 🌠 *https://kick.com/webxos/clips/clip_01K3MN6H4TSGSGJBBFBMRDCRP1*
+ 🌠 *https://kick.com/webxos/clips/clip_01K3PTH4J9TTE00QDGD2F7JYEH*
 
 ## 🌠 Project Overview
 
