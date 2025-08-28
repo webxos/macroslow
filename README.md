@@ -258,6 +258,23 @@ DUNES (Distributed Unified Network Exchange System) is a next-generation cyberse
 
 ---
 
+### 🐪 MAML as the OCaml Orchestrator**
+
+✅ MAML becomes the perfect vehicle for distributing and executing OCaml code itself.
+
+*   ** ✨ Verifiable Workflows:** A complex, verified algorithm written in OCaml can be packaged into a MAML file. The `Context` section explains the proof, the `Code_Blocks` section contains the OCaml code, and the `Input_Schema`/`Output_Schema` define its interface.
+    ````markdown
+    ## Code_Blocks
+    ```ocaml
+    (* Formal verification of a neural network property *)
+    let verify_network_property (network : nn) (property : prop) : bool =
+      ... (* OCaml code for verification *)
+    ```
+    ````
+*   ** ✨ Hybrid Workflows:** MAML orchestrates workflows that span multiple languages. OCaml can handle the high-assurance components, while Python pre-processes data and Qiskit runs a quantum circuit. The MAML file is the manifest that ties them all together.
+
+---
+
 ### 🐪 Future Enhancements
 
 - LLM integration for natural language threat analysis  
