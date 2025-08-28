@@ -42,7 +42,7 @@ graph TB
             K8S[Kubernetes Cluster]
             HELM[Helm Charts<br>NVIDIA GPU Operator]
         end
-
+```
         UI --> API
         API --> HEAD1
         API --> HEAD2
@@ -60,6 +60,7 @@ graph TB
         K8S --> HELM
         DB --> K8S
     end
+```
 
 ### 📊 Performance Metrics
 
