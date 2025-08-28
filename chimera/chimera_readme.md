@@ -1,7 +1,4 @@
-
-maml_version: 2.0.0id: chimera-hub-readmetype: documentationorigin: WebXOS Research Grouprequires:  python: ">=3.10"  cuda: ">=12.0"  dependencies:    - torch    - qiskit    - fastapi    - prometheus_client    - sqlalchemy    - pynvmlpermissions:  execute: admin  read: publicverification:  schema: maml-documentation-v1
-  signature: CRYSTALS-Dilithium
-🐪 CHIMERA HUB: Quantum-Distributed Control Hub with NVIDIA CUDA Cores
+🐪 CHIMERA API GATEWAY: Quantum-Distributed Control Hub with NVIDIA CUDA Cores
 CHIMERA HUB is a quantum-distributed, AI-driven control hub optimized for the CHIMERA 2048 agentic system, supercharged with NVIDIA CUDA Cores to deliver unparalleled computational power. Integrated with Jupyter Notebooks, Prometheus, and Helm charts, it leverages the MAML (Markdown as Medium Language) protocol to orchestrate four CHIMERA HEADS, each secured with 512-bit AES encryption, collectively forming a 2048-bit AES-equivalent quantum-simulated security layer. The hub supports BELUGA sensor fusion, PyTorch for high-performance AI workflows, and Qiskit for quantum mathematics, ensuring robust processing for the Model Context Protocol (MCP).
 Copyright: © 2025 Webxos. All Rights Reserved. Licensed under MIT for research and prototyping with attribution.Maintained by: WebXOS Research Group (webxos.netlify.app)License Inquiries: legal@webxos.ai
 🧠 Key Features
@@ -242,8 +239,8 @@ Blockchain Audit Trails: Immutable logging for enhanced security.
 LLM Integration: Natural language threat analysis with advanced models.
 Ethical AI Modules: Bias mitigation and transparency frameworks.
 
+
+maml_version: 2.0.0id: chimera-hub-readmetype: documentationorigin: WebXOS Research Grouprequires:  python: ">=3.10"  cuda: ">=12.0"  dependencies:    - torch    - qiskit    - fastapi    - prometheus_client    - sqlalchemy    - pynvmlpermissions:  execute: admin  read: publicverification:  schema: maml-documentation-v1  signature: CRYSTALS-Dilithium
+
 📜 License & Copyright
 Copyright: © 2025 Webxos. All Rights Reserved.CHIMERA HUB, MAML, and Project Dunes are trademarks of Webxos. Licensed under MIT for research and prototyping with attribution. Unauthorized reproduction or distribution is prohibited.Contact: legal@webxos.ai
-📢 Contributing
-Submit issues and pull requests at github.com/webxos/chimera-hub.Join the WebXOS community at webxos.netlify.app.
-Unleash the power of NVIDIA CUDA Cores with CHIMERA HUB and WebXOS 2025! ✨
