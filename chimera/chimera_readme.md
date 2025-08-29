@@ -73,69 +73,6 @@ graph TB
     end
 ```
 
-### 🚀 Deployment with Helm (NVIDIA-Optimized)
-
-```
-<xaiArtifact artifact_id="dbb9488a-299f-4d3e-9036-b20391dc1ba7" artifact_version_id="c7d082d5-8a67-42aa-bba0-2a6a6fbc7404" title="helm-chart.yaml" contentType="text/yaml">
-apiVersion: v2
-name: chimera-hub
-description: Helm chart for CHIMERA HUB with NVIDIA CUDA Cores
-version: 0.1.1
-
-dependencies:
-  - name: nvidia-gpu-operator
-    version: "23.9.0"
-    repository: "https://nvidia.github.io/gpu-operator"
-
-type: application
-appVersion: "1.0.1"
-
-install:
-  namespace: chimera-hub
-  createNamespace: true
-
-resources:
-  limits:
-    nvidia.com/gpu: 4
-  requests:
-    cpu: "8"
-    memory: "32Gi"
-    nvidia.com/gpu: 4
-
-autoscaling:
-  enabled: true
-  minReplicas: 2
-  maxReplicas: 10
-  targetCPUUtilizationPercentage: 80
-  targetGPUUtilizationPercentage: 85
-
-service:
-  type: ClusterIP
-  ports:
-    - name: api
-      port: 8000
-      targetPort: 8000
-    - name: metrics
-      port: 9090
-      targetPort: 9090
-
-env:
-  - name: NVIDIA_DRIVER_CAPABILITIES
-    value: "compute,utility,video"
-  - name: CUDA_VISIBLE_DEVICES
-    value: "0,1,2,3"
-  - name: SQLALCHEMY_DATABASE_URI
-    value: "postgresql://user:pass@localhost:5432/chimera_hub"
-  - name: PROMETHEUS_MULTIPROC_DIR
-    value: "/var/lib/prometheus"
-  - name: NVIDIA_CUDA_CORES
-    value: "enabled"
-
-nodeSelector:
-  nvidia.com/gpu: "true"
-</xaiArtifact>
-```
-
 ### 🔮 Future Enhancements
 
 Federated Learning: Privacy-preserving intelligence across distributed heads.
