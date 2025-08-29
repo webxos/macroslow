@@ -1,4 +1,4 @@
-# DUNES Project: Decentralized Unified Nigerian Empowerment Stack
+# Decentralized Unified Nigerian Empowerment Stack
 
 **Version**: 1.0.0  
 **Inspired by**: Philip Emeagwali's Connection Machine  
