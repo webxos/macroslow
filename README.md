@@ -354,7 +354,16 @@ MAML redefines Markdown as a **living, executable container**—a "USB-C" for AP
 
 ```
 
-🌌 GalaxyCraft: Ultimate Space MMO - Open Source Web3 Sandbox Universe
+## 🇳🇬 PROJECT DUNES NIGERIA: Decentralized Unified Nigerian Empowerment Stack 
+
+Version: 1.0.0
+Inspired by: Philip Emeagwali's Connection Machine
+Mission: To empower Nigerian developers with a quantum-ready, high-performance SDK and server framework for Web3, AI, and advanced computational fields, fostering global collaboration and innovation.
+
+Overview
+The DUNES Project is an open-source initiative that reimagines Philip Emeagwali’s Connection Machine as a modern, decentralized computational fabric. The project provides a Python-based SDK (dunes-sdk) and a Model Context Protocol (MCP) server, leveraging NVIDIA CUDA for accelerated computing, Qiskit for quantum simulation, and OCaml/Ortac for formal verification. The SDK enables developers to build applications that perform parallel computations across four logical nodes (the "Quadrilinear Core"), simulating a high-throughput system suitable for AI/ML, data analysis, and quantum workflows.
+
+## 🌌 GalaxyCraft: Ultimate Space MMO - Open Source Web3 Sandbox Universe
 
 Welcome to GalaxyCraft, the premier open-source, lightweight, and innovative Web3 sandbox universe designed to redefine the future of online gaming! Brought to you by the developers at webXOS.netlify.app, this GitHub repository hosts the source code, documentation, and community resources for GalaxyCraft, a cutting-edge project that combines state-of-the-art WebGPU technology, an expansive real-time galaxy, and a robust API Gateway tailored for API-driven gaming. 🎮 Whether you're a player, developer, or enthusiast, GalaxyCraft offers a limitless playground for exploration, creativity, and collaboration. 🌍
 
