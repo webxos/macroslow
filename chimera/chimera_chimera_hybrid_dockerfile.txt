@@ -1,0 +1,62 @@
+# File Route: /chimera/chimera_hybrid_dockerfile
+# Purpose: Multi-stage Dockerfile for CHIMERA 2048 API Gateway.
+# Description: Builds a hybrid environment with TensorFlow, PyTorch, Next.js, Node.js, OCaml, and Qiskit.
+#              Supports BELUGA SOLIDAR streaming, MongoDB RAG, and quadra-segment regeneration.
+# Version: 1.0.0
+# Publishing Entity: WebXOS Research Group
+# Publication Date: August 29, 2025
+# Copyright: © 2025 Webxos. All Rights Reserved.
+
+# Stage 1: Build OCaml Environment
+FROM ocaml/opam:ubuntu-24.04 AS ocaml-builder
+RUN opam init --disable-sandboxing && opam install ortac qiskit-ocaml
+COPY maml/hybrid_spec.ml /app/maml/hybrid_spec.ml
+RUN opam exec -- ocamlc -o /app/verifier /app/maml/hybrid_spec.ml
+
+# Stage 2: Build Python Environment
+FROM nvidia/cuda:12.2.0-devel-ubuntu24.04 AS python-builder
+RUN apt-get update && apt-get install -y python3 python3-pip
+RUN pip install tensorflow==2.15.0 torch==2.0.1 dspy==2.4.0 sqlalchemy==2.0.0 qiskit==0.45.0 pymongo==4.6.0 prometheus-client==0.17.0 [YOUR_SDK_MODULE]
+COPY src /app/src
+COPY maml/chimera_hybrid_workflow.maml.md /app/maml/chimera_hybrid_workflow.maml.md
+COPY notebooks/chimera_control.ipynb /app/notebooks/chimera_control.ipynb
+
+# Stage 3: Build Node.js/Next.js Environment
+FROM node:20 AS nodejs-builder
+WORKDIR /app
+COPY chimera/chimera_hybrid_core.js /app/chimera/chimera_hybrid_core.js
+COPY package.json /app/package.json
+RUN npm install @tensorflow/tfjs-node mongodb node-fetch [YOUR_SDK_MODULE]
+RUN npm install next@14.2.0 react react-dom
+
+# Stage 4: Final Image
+FROM nvidia/cuda:12.2.0-runtime-ubuntu24.04
+RUN apt-get update && apt-get install -y python3 python3-pip curl mongodb-clients
+RUN npm install -g pm2
+COPY --from=ocaml-builder /app/verifier /app/verifier
+COPY --from=python-builder /app /app
+COPY --from=nodejs-builder /app /app
+WORKDIR /app
+EXPOSE 8000 3000 8001
+
+# Environment Variables
+ENV DATABASE_URL="[YOUR_DATABASE_URL]"  # e.g., postgresql://user:pass@localhost/chimera
+ENV MONGODB_URI="[YOUR_MONGODB_URI]"  # e.g., mongodb://localhost:27017/chimera
+ENV OBS_STREAM_URL="[YOUR_OBS_STREAM_URL]"  # e.g., rtmp://localhost/live
+ENV AES_MODE="[YOUR_AES_MODE]"  # e.g., AES-256 or AES-2048
+ENV NEXTJS_ENDPOINT="[YOUR_NEXTJS_ENDPOINT]"  # e.g., http://localhost:3000/api/chimera
+
+# Start CHIMERA Gateway
+CMD ["pm2-runtime", "start", "chimera/chimera_hybrid_core.js", "--name", "chimera", "--", "&&", "python3", "src/chimera_analytics_core.py"]
+
+# Customization Instructions:
+# 1. Replace [YOUR_SDK_MODULE] with your SDK's pip and npm packages (e.g., my_sdk).
+# 2. Set [YOUR_DATABASE_URL], [YOUR_MONGODB_URI], [YOUR_OBS_STREAM_URL], [YOUR_AES_MODE], and [YOUR_NEXTJS_ENDPOINT].
+# 3. Copy your Python modules to /src and JavaScript modules to /chimera.
+# 4. Update /maml/hybrid_spec.ml with your OCaml verification logic.
+# 5. Build: `docker build -f chimera/chimera_hybrid_dockerfile -t chimera-2048 .`.
+# 6. Run: `docker run --gpus all -p 8000:8000 -p 3000:3000 -p 8001:8001 chimera-2048`.
+# 7. Publish package: Use /chimera/setup.py for Python distribution.
+# 8. Generate docs: `sphinx-build docs docs/_build`.
+# 9. Scale to AES-2048 or deploy to Kubernetes via /chimera/chimera_helm_chart.yaml.
+# 10. Ensure LICENSE (Apache-2.0) is included in /chimera/LICENSE.
