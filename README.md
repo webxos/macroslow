@@ -30,7 +30,7 @@ DUNES is a next-generation cybersecurity framework powered by Multi-Augmented Ma
 
 **🐪 DUNES empowers open-source developers to build secure, MAML-compliant applications. ✨**
 
-🐪 .MAML.ml Files: Virtual camel containers for structured, executable data, validated with MAML schemas. Dual-Mode Encryption: 256-bit AES (lightweight, fast) and 512-bit AES (advanced, secure) with CRYSTALS-Dilithium signatures. OAuth2.0 Sync: JWT-based authentication via AWS Cognito for secure import/export. Reputation-Based Validation: Integrates with $WEBXOS wallet reputation system by default but it can be modified to fit any type of token as a templated system. Quantum-Resistant Security: Implements post-quantum cryptography (liboqs) and Qiskit-based key generation. Prompt Injection Defense: Semantic analysis and jailbreak detection for secure MAML processing. ✨
+🐪 .MAML.ml Files: Virtual camel containers for structured, executable data, validated with MAML schemas. Dual-Mode Encryption: 256-bit AES (lightweight, fast) and 512-bit AES (advanced, secure) with CRYSTALS-Dilithium signatures. OAuth2.0 Sync: JWT-based authentication via AWS Cognito for secure import/export. Reputation-Based Validation: Integrates with $CUSTOM wallet (using $webxos for example) reputation system by default but it can be modified to fit any type of token as a templated system. Quantum-Resistant Security: Implements post-quantum cryptography (liboqs) and Qiskit-based key generation. Prompt Injection Defense: Semantic analysis and jailbreak detection for secure MAML processing. ✨
 
 *📋 MAML CLAUDE CODE ARTIFACT:https://claude.ai/public/artifacts/b3f2ded2-dbd6-41ee-a7d4-703ce4358048*
 
