@@ -1,4 +1,4 @@
-#Connection Machine 2048-AES
+## Connection Machine 2048-AES
 
 **Version**: 1.0.0  
 **Inspired by**: Philip Emeagwali's Connection Machine  
