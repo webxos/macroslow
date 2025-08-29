@@ -20,15 +20,15 @@ This model context protocol SDK fuses:
 
 
 
-## DUNES 🐪 (2048-AES Distributed Unified Network Exchange System) ##
+## PROJECT DUNES 🐪 (2048-AES Distributed Unified Network Exchange System) ##
 
-DUNES is a next-generation cybersecurity framework powered by Multi-Augmented Machine Learning (aka MARKDOWN AS MEDIUM LANGUAGE). It introduces the `.MAML` protocol—a novel markup language for encoding multimodal security data—and a multi-agent architecture designed for quantum-resistant, adaptive threat detection. ✨
+PROJECT DUNES is a next-generation cybersecurity framework powered by Multi-Augmented Machine Learning (aka MARKDOWN AS MEDIUM LANGUAGE). It introduces the `.MAML` protocol—a novel markup language for encoding multimodal security data—and a multi-agent architecture designed for quantum-resistant, adaptive threat detection. ✨
  
- *📋 DUNES CLAUDE CODE ARTIFACT: https://claude.ai/public/artifacts/77e9ef0d-fb8b-4124-aa31-ac4a49a29bca*
+ *📋 PROJECT DUNES CLAUDE CODE ARTIFACT: https://claude.ai/public/artifacts/77e9ef0d-fb8b-4124-aa31-ac4a49a29bca*
 
-🐪 Introducing the MAML Encryption Protocol standardized model context protocol use in 2025. A quantum-resistant encryption protocol for .MAML.ml files. Branded with the camel emoji 🐪, DUNES transforms Markdown into secure, virtual data containers for workflows, datasets, and agent blueprints, with seamless OAuth2.0 synchronization and global encryption validation. 
+🐪 Introducing the MAML Encryption Protocol standardized model context protocol use in 2025. A quantum-resistant encryption protocol for .MAML.ml files. Branded with the camel emoji 🐪, PROJECT DUNES transforms Markdown into secure, virtual data containers for workflows, datasets, and agent blueprints, with seamless OAuth2.0 synchronization and global encryption validation. 
 
-**🐪 DUNES 2048-AES empowers open-source developers to build secure, MAML-compliant applications. ✨**
+**🐪 PROJECT DUNES 2048-AES empowers open-source developers to build secure, MAML-compliant applications. ✨**
 
 🐪 .MAML.ml Files: Virtual camel containers for structured, executable data, validated with MAML schemas. Dual-Mode Encryption: 256-bit AES (lightweight, fast) and 512-bit AES (advanced, secure) with CRYSTALS-Dilithium signatures. OAuth2.0 Sync: JWT-based authentication via AWS Cognito for secure import/export. Reputation-Based Validation: Integrates with $CUSTOM wallet (using $webxos for example) reputation system by default but it can be modified to fit any type of token as a templated system. Quantum-Resistant Security: Implements post-quantum cryptography (liboqs) and Qiskit-based key generation. Prompt Injection Defense: Semantic analysis and jailbreak detection for secure MAML processing. ✨
 
