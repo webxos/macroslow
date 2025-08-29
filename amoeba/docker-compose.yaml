@@ -1,5 +1,5 @@
 # AMOEBA 2048AES Docker Compose Configuration
-# Description: Docker Compose configuration for running AMOEBA 2048AES services, including the orchestrator, monitoring, and quantum scheduler.
+# Description: Updated Docker Compose configuration for running AMOEBA 2048AES services, including orchestrator, monitoring, quantum scheduler, and Dropbox addon.
 
 version: '3.8'
 
@@ -38,3 +38,19 @@ services:
     environment:
       - NVIDIA_VISIBLE_DEVICES=0
       - CUDA_VERSION=12.2
+
+  dropbox_addon:
+    image: amoeba2048_dropbox:latest
+    build:
+      context: .
+      dockerfile: Dockerfile.dropbox
+    ports:
+      - "8002:8002"
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=0
+      - CUDA_VERSION=12.2
+      - DROPBOX_ACCESS_TOKEN=${DROPBOX_ACCESS_TOKEN}
+      - DROPBOX_APP_KEY=${DROPBOX_APP_KEY}
+      - DROPBOX_APP_SECRET=${DROPBOX_APP_SECRET}
+    depends_on:
+      - prometheus
