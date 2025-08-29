@@ -1,4 +1,4 @@
-## Connection Machine 2048-AES SDK System
+## Connection Machine 2048-AES SDK
 *for model context procotol*
 
 **Version**: 1.0.0  
