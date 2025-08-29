@@ -1,0 +1,20 @@
+#!/bin/bash
+# AMOEBA 2048AES Cleanup Script
+# Description: Cleans up Docker containers, images, and volumes for the AMOEBA 2048AES SDK to ensure a fresh environment.
+
+echo "Cleaning up AMOEBA 2048AES Docker resources..."
+
+# Stop and remove containers
+docker-compose -f docker-compose.yml down --volumes --remove-orphans
+
+# Remove Docker images
+docker rmi amoeba2048_orchestrator:latest amoeba2048_scheduler:latest amoeba2048_dropbox:latest 2>/dev/null
+
+# Prune unused Docker resources
+docker system prune -f
+docker volume prune -f
+
+# Remove temporary files
+rm -rf amoeba2048_project generated_sample.maml.md
+
+echo "Cleanup complete."

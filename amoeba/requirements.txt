@@ -1,0 +1,14 @@
+# AMOEBA 2048AES SDK Dependencies
+# Description: Lists Python dependencies required for the AMOEBA 2048AES SDK, including Dropbox integration and quantum libraries.
+
+qiskit==1.0.0
+torch==2.0.1
+pydantic
+dropbox==11.36.2
+cryptography
+click
+pytest
+prometheus-client
+fastapi
+uvicorn
+pyyaml
