@@ -1,0 +1,11 @@
+# AMOEBA 2048AES Environment Variables
+# Description: Example environment variable configuration for AMOEBA 2048AES SDK, including Dropbox and monitoring settings.
+
+DROPBOX_ACCESS_TOKEN=your_dropbox_access_token
+DROPBOX_APP_KEY=your_dropbox_app_key
+DROPBOX_APP_SECRET=your_dropbox_app_secret
+PRIVATE_KEY_PATH=/path/to/private_key.pem
+PUBLIC_KEY_PATH=/path/to/public_key.pem
+PROMETHEUS_PORT=9090
+CUDA_VERSION=12.2
+NVIDIA_VISIBLE_DEVICES=0

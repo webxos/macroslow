@@ -1,0 +1,42 @@
+# AMOEBA 2048AES SDK Bug Report Template
+# Description: GitHub issue template for reporting bugs in the AMOEBA 2048AES SDK.
+
+name: Bug Report
+description: Report a bug in the AMOEBA 2048AES SDK
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "Thank you for reporting a bug! Please provide as much detail as possible."
+  - type: textarea
+    id: description
+    attributes:
+      label: Description
+      description: A clear description of the bug.
+      placeholder: "Describe the issue you encountered."
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Steps to Reproduce
+      description: Steps to reproduce the bug.
+      placeholder: "1. Run command X\n2. Observe error Y"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: SDK Version
+      description: The version of the SDK you are using.
+      placeholder: "1.0.0"
+    validations:
+      required: true
+  - type: textarea
+    id: environment
+    attributes:
+      label: Environment
+      description: Details about your environment (OS, Python version, etc.).
+      placeholder: "OS: Ubuntu 22.04, Python: 3.8"
+    validations:
+      required: true
