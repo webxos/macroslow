@@ -1,0 +1,84 @@
+version: '3.8'
+services:
+  server_1:
+    build:
+      context: ./app_server_1
+      dockerfile: Dockerfile
+    ports:
+      - "50051:50051"
+    environment:
+      - AES_KEY_SEGMENT_1=segment1
+    networks:
+      - qfn-network
+  server_2:
+    build:
+      context: ./app_server_2
+      dockerfile: Dockerfile
+    ports:
+      - "50052:50052"
+    environment:
+      - AES_KEY_SEGMENT_2=segment2
+    networks:
+      - qfn-network
+  server_3:
+    build:
+      context: ./app_server_3
+      dockerfile: Dockerfile
+    ports:
+      - "50053:50053"
+    environment:
+      - AES_KEY_SEGMENT_3=segment3
+    networks:
+      - qfn-network
+  server_4:
+    build:
+      context: ./app_server_4
+      dockerfile: Dockerfile
+    ports:
+      - "50054:50054"
+    environment:
+      - AES_KEY_SEGMENT_4=segment4
+    networks:
+      - qfn-network
+  orchestrator:
+    build:
+      context: ./sdk/python
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=postgresql://qfn_user:secure_pass@db:5432/qfn_state
+      - AES_MASTER_KEY=your-2048-bit-key
+      - SERVER_1_HOST=server_1:50051
+      - SERVER_2_HOST=server_2:50052
+      - SERVER_3_HOST=server_3:50053
+      - SERVER_4_HOST=server_4:50054
+    depends_on:
+      - db
+      - server_1
+      - server_2
+      - server_3
+      - server_4
+    networks:
+      - qfn-network
+  db:
+    image: postgres:15
+    environment:
+      - POSTGRES_USER=qfn_user
+      - POSTGRES_PASSWORD=secure_pass
+      - POSTGRES_DB=qfn_state
+    volumes:
+      - db-data:/var/lib/postgresql/data
+    networks:
+      - qfn-network
+
+networks:
+  qfn-network:
+    driver: bridge
+
+volumes:
+  db-data:
+
+# Embedded Guidance: Save this file in the root of `qfn-system`. Create Dockerfiles in `app_server_X/` and `sdk/python/`.
+# Build and run with: docker-compose up -d
+# Ensure Docker and docker-compose are installed. Use a reverse proxy (e.g., Nginx) for production to secure ports.

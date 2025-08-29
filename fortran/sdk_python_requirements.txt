@@ -1,0 +1,14 @@
+grpcio==1.60.0
+grpcio-tools==1.60.0
+torch==2.0.1
+sqlalchemy==2.0.23
+psycopg2-binary==2.9.9
+python-dotenv==1.0.0
+pytest==7.4.0
+numpy==1.26.4
+jupyter==1.0.0
+
+# Embedded Guidance: Save this file in `sdk/python/`. Install dependencies with:
+# pip install -r sdk/python/requirements.txt
+# For GPU support, install PyTorch with CUDA: pip install torch --index-url https://download.pytorch.org/whl/cu118
+# Verify installation by running `pytest sdk/python/tests/` after setup.
