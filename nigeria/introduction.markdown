@@ -15,7 +15,7 @@ The **Connection Machine 2048-AES SDK** is an open-source initiative that reimag
 - **Quantum Integration**: Qiskit-based quantum circuit simulation with CUDA acceleration for hybrid quantum-classical workflows.
 - **MCP Server**: A Model Context Protocol server for standardized communication with AI systems, supporting real-time video processing and quantum-enhanced retrieval-augmented generation (RAG).
 - **Formal Verification**: OCaml and Ortac integration for mathematically verified workflows, ensuring correctness in high-stakes applications.
-- **Humanitarian Focus**: Designed to empower Nigerian developers through accessible tools and educational resources.
+- **Humanitarian Focus**: Designed to empower Nigerian web3 developers through accessible tools and educational resources.
 
 ## Prerequisites
 
