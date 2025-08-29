@@ -1,0 +1,22 @@
+# legal_hybrid_dockerfile
+# Description: Multi-stage Dockerfile for the Lawmakers Suite 2048-AES, inspired by CHIMERA 2048. Builds the Python backend with CUDA support and Angular frontend for legal research. Designed for deployment on Kubernetes with NVIDIA GPU nodes.
+
+FROM nvidia/cuda:12.0.0-base-ubuntu20.04 AS backend
+WORKDIR /app
+COPY requirements.txt .
+RUN apt-get update && apt-get install -y python3.10 python3-pip
+RUN pip install -r requirements.txt
+COPY server/ .
+EXPOSE 8000
+CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
+
+FROM node:18 AS frontend
+WORKDIR /app
+COPY frontend/package.json frontend/package-lock.json ./
+RUN npm install
+COPY frontend/ .
+RUN npm run build --prod
+FROM nginx:alpine
+COPY --from=frontend /app/dist/lawmakers-suite /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
