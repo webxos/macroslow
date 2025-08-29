@@ -9,7 +9,7 @@ This model context protocol SDK fuses:
 - ✅ **SQLAlchemy databases**
 - ✅ **Advanced .yaml and .md files**
 - ✅ **Multi-stage Dockerfile deployments**
-- ✅ **$custom`.md` wallets and tokenizatin**
+- ✅ **$custom`.md` wallets and tokenization**
 
 *📋 It acts as a collection of tools and agents for users to fork and build off of as boilerplates and OEM project templates.* ✨
 
