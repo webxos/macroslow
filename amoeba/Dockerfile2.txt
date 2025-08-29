@@ -1,0 +1,39 @@
+# AMOEBA 2048AES Dropbox Addon Dockerfile
+# Description: Dockerfile for building a containerized AMOEBA 2048AES service with Dropbox integration, including Python, Qiskit, and PyTorch dependencies.
+
+FROM nvidia/cuda:12.2.0-devel-ubuntu22.04
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    git \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+RUN pip install --no-cache-dir \
+    qiskit==1.0.0 \
+    torch==2.0.1 \
+    pydantic \
+    dropbox==11.36.2 \
+    cryptography
+
+# Install OCaml and Ortac for verification
+RUN apt-get update && apt-get install -y opam && \
+    opam init --disable-sandboxing && \
+    opam install -y ortac
+
+# Copy project files
+WORKDIR /app
+COPY amoeba_2048_sdk.py .
+COPY security_manager.py .
+COPY dropbox_integration.py .
+COPY dropbox_maml_handler.maml.md .
+COPY chimera_spec.mli .
+COPY dropbox_config.yml .
+
+# Expose ports for API and monitoring
+EXPOSE 8000 9090
+
+# Run orchestrator with Dropbox integration
+CMD ["python3", "dropbox_integration.py"]
