@@ -1,0 +1,35 @@
+# --- CUSTOMIZATION POINT: Define Helm chart configuration ---
+# Replace with your specific deployment settings
+replicaCount: 3  # --- CUSTOMIZATION POINT: Adjust replica count ---
+
+image:
+  repository: your-registry/chimera-2048  # --- CUSTOMIZATION POINT: Replace with your image repository ---
+  tag: "latest"  # --- CUSTOMIZATION POINT: Specify your image tag ---
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP  # --- CUSTOMIZATION POINT: Change to LoadBalancer if needed ---
+  port: 8000  # --- CUSTOMIZATION POINT: Adjust service port ---
+
+resources:
+  limits:
+    cpu: "4"  # --- CUSTOMIZATION POINT: Adjust CPU limits ---
+    memory: "16Gi"
+    nvidia.com/gpu: 4
+  requests:
+    cpu: "2"
+    memory: "8Gi"
+    nvidia.com/gpu: 2
+
+nodeSelector:
+  nvidia.com/gpu: "true"  # --- CUSTOMIZATION POINT: Adjust node selector ---
+
+tolerations:
+- key: "nvidia.com/gpu"
+  operator: "Exists"
+  effect: "NoSchedule"  # --- CUSTOMIZATION POINT: Customize tolerations ---
+
+# --- CUSTOMIZATION POINT: Add custom environment variables ---
+env:
+  - name: CUDA_VISIBLE_DEVICES
+    value: "0,1,2,3"
