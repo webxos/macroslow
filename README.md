@@ -60,10 +60,9 @@ Our SDK integrates multiple AI orchestration frameworks:
 | **🏗️ GIBS Telescope** | View NASA API Data real time with Gibs telescope terminal and AR features. OBS Streaming Output | (Coming Soon) 
 | **🏗️ Lawmakers Suite** | Boilerplate files for the core build of the Lawmakers Suite 2048-AES | (Coming Soon) 
 
-## 🏗️ 2048-AES Jupyter Notebook Support (Coming Soon) ##
+## 🏗️ 2048-AES Jupyter Notebook and Angular.js (Coming Soon) ##
 
-With 2048-AES integration, your Jupyter notebook evolves from an isolated analysis environment into a connected powerhouse that can leverage the full capabilities of your organization's data and tooling ecosystem while maintaining the flexibility and interactivity that makes notebooks so valuable for data science work. ✨
-
+With 2048-AES integration, your Jupyter notebook and Angular.js, you workflow evolves from an isolated analysis environment into a connected powerhouse that can leverage the full capabilities of your organization's data and tooling ecosystem while maintaining the flexibility and interactivity that makes notebooks so valuable for data science work. ✨
 
 ## 🏗️ 2048-AES System Architecture
 
