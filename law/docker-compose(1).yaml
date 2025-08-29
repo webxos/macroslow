@@ -1,0 +1,31 @@
+# docker-compose.yml
+# Description: Docker Compose configuration for the Lawmakers Suite 2048-AES. Defines services for the FastAPI server and PostgreSQL database, ensuring seamless deployment and scalability. Maps ports for API access and database connectivity, and links environment variables for secure configuration.
+
+version: '3.8'
+services:
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+      - AES_KEY=${AES_KEY}
+    volumes:
+      - ./:/app
+    depends_on:
+      - db
+  db:
+    image: postgres:13
+    environment:
+      - POSTGRES_DB=lawmakers
+      - POSTGRES_USER=user
+      - POSTGRES_PASSWORD=password
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
