@@ -1,0 +1,32 @@
+#!/bin/bash
+# helm_pre_deploy_hook.sh
+# Description: Pre-deploy validation hook for DUNE Server Helm charts. Checks for protocol schema, agent capabilities, and CUDA availability before deployment. Designed for law school IT teams to ensure robust Kubernetes deployments.
+
+set -e
+
+# Validate schema existence
+if [ ! -f "dune_protocol_schema.json" ]; then
+  echo "Error: DUNE protocol schema not found"
+  exit 1
+fi
+
+# Validate CUDA availability
+if ! nvidia-smi > /dev/null 2>&1; then
+  echo "Error: CUDA-enabled GPU not detected"
+  exit 1
+fi
+
+# Validate manifest
+if ! yq eval '.spec.protocolVersion' dune_manifest.yaml > /dev/null; then
+  echo "Error: Invalid DUNE manifest"
+  exit 1
+fi
+
+# Validate dependencies
+pip show torch qiskit dspy > /dev/null || {
+  echo "Error: Required dependencies (torch, qiskit, dspy) not installed"
+  exit 1
+}
+
+echo "Pre-deploy validation passed"
+exit 0

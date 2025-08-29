@@ -1,0 +1,65 @@
+{
+  "description": "JSON Schema for DUNE Server protocol, defining semantic structure for agent messages, MAML workflows, and legal research tasks. Ensures protocol fidelity across distributed LEGAL HEADS, with support for CUDA-accelerated processing and quantum-safe encryption.",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "DUNE Protocol Schema",
+  "type": "object",
+  "properties": {
+    "maml_version": {
+      "type": "string",
+      "pattern": "^\\d+\\.\\d+\\.\\d+$",
+      "description": "MAML version for protocol compatibility."
+    },
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "description": "Unique identifier for the DUNE message."
+    },
+    "type": {
+      "type": "string",
+      "enum": ["legal_workflow", "agent_negotiation", "trace_validation", "data_fusion"],
+      "description": "Type of DUNE message or workflow."
+    },
+    "origin": {
+      "type": "string",
+      "pattern": "^agent://[a-zA-Z0-9-_]+$",
+      "description": "Agent identifier (e.g., agent://legal-head-1)."
+    },
+    "requires": {
+      "type": "object",
+      "properties": {
+        "resources": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Required resources (e.g., cuda, qiskit)."
+        },
+        "dependencies": {
+          "type": "array",
+          "items": { "type": "string" },
+          "description": "Software dependencies (e.g., torch, dspy)."
+        }
+      },
+      "required": ["resources"]
+    },
+    "permissions": {
+      "type": "object",
+      "properties": {
+        "read": { "type": "array", "items": { "type": "string" } },
+        "execute": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["execute"]
+    },
+    "verification": {
+      "type": "object",
+      "properties": {
+        "schema": { "type": "string", "description": "Schema reference (e.g., maml-workflow-v1)." },
+        "signature": { "type": "string", "enum": ["CRYSTALS-Dilithium", "RSA"] }
+      },
+      "required": ["schema", "signature"]
+    },
+    "content": {
+      "type": "object",
+      "description": "Workflow content, including code blocks and metadata."
+    }
+  },
+  "required": ["maml_version", "id", "type", "origin", "requires", "permissions", "verification"]
+}
