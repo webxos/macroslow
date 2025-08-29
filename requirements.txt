@@ -17,6 +17,5 @@ toml==0.10.2
 langchain==0.2.0
 langchain-community==0.2.0
 langchain-openai==0.1.0
-# --- CUSTOMIZATION POINT: Replace with a valid langgraph version ---
-# Choose from available versions (e.g., 0.0.9, 0.2.76, 1.0.0a1) based on your needs
-langgraph==0.2.76  # Default suggestion; adjust as required
+# --- CUSTOMIZATION POINT: Ensure valid langgraph version ---
+langgraph==0.2.76  # Updated from 0.1.0 to resolve prior dependency issue
