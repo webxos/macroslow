@@ -1,0 +1,14 @@
+# requirements.txt
+# Description: Dependency list for the Lawmakers Suite 2048-AES. Includes Python packages for the FastAPI server, Streamlit dashboard, Jupyter Notebook environment, data science libraries, LLM integration, and cryptographic security. Install with `pip install -r requirements.txt` after setting up the Conda environment.
+
+fastapi==0.103.0
+uvicorn==0.23.2
+streamlit==1.38.0
+jupyter==1.0.0
+pandas==2.2.2
+numpy==1.26.4
+nltk==3.8.1
+transformers==4.44.2
+python-dotenv==1.0.1
+psycopg2-binary==2.9.9
+cryptography==42.0.8
