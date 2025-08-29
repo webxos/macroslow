@@ -1,4 +1,4 @@
-# 🐪 **WebXOS 2025 Vial MCP SDK: MAML (Markdown as Medium Language) - Official README**
+# 🐪 **MAML (Markdown as Medium Language) - Official README**
 
  This README introduces **MAML (Markdown as Medium Language)**, a revolutionary protocol developed by the Webxos Advanced Development Group. Copyrighted © 2025 Webxos, MAML transforms Markdown into a dynamic, executable, and agent-aware medium, available for collaboration at [github.com/webxos](https://github.com/webxos) and hosted at [webxos.netlify.app](https://webxos.netlify.app). As of 06:45 PM EDT on Monday, August 25, 2025, this README serves as the definitive guide for developers to explore, fork, and contribute to MAML.
 
