@@ -354,7 +354,7 @@ MAML redefines Markdown as a **living, executable container**—a "USB-C" for AP
 
 ```
 
-## 🇳🇬 PROJECT DUNES NIGERIA: Decentralized Unified Nigerian Empowerment Stack 
+## 🇳🇬 HUMANITARIAN EFFORT: Decentralized Unified Nigerian Empowerment Stack 
 
 Version: 1.0.0
 Inspired by: Philip Emeagwali's Connection Machine
