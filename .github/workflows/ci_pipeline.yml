@@ -24,13 +24,20 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           # --- CUSTOMIZATION POINT: Update pip install command with your requirements file ---
-          pip install -r requirements.txt  # Ensure langgraph version is valid
+          pip install -r requirements.txt
           pip install dune  # Integrate OCaml Dune 3.20.0 for build checks
 
       - name: Run tests
         run: |
           # --- CUSTOMIZATION POINT: Add your test commands ---
           pytest --cov=./ --cov-report=xml
+
+      - name: Upload artifacts
+        # --- CUSTOMIZATION POINT: Replace v3 with v4 for upload-artifact action ---
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-results
+          path: ./coverage.xml
 
       - name: Upload coverage
         uses: codecov/codecov-action@v3
