@@ -80,10 +80,6 @@ Blockchain Audit Trails: Immutable logging for enhanced security.
 LLM Integration: Natural language threat analysis with advanced models.
 Ethical AI Modules: Bias mitigation and transparency frameworks.
 
-### 🐪 CHIMERA 2048 API GATEWAY:
-
-maml_version: 2.0.0id: chimera-hub-readmetype: documentationorigin: WebXOS Research Grouprequires:  python: ">=3.10"  cuda: ">=12.0"  dependencies:    - torch    - qiskit    - fastapi    - prometheus_client    - sqlalchemy    - pynvmlpermissions:  execute: admin  read: publicverification:  schema: maml-documentation-v1  signature: CRYSTALS-Dilithium
-
 ### 📜 License & Copyright
 
 Copyright: © 2025 Webxos. All Rights Reserved.CHIMERA HUB, MAML, and Project Dunes are trademarks of Webxos. Licensed under MIT for research and prototyping with attribution. Unauthorized reproduction or distribution is prohibited.Contact: legal@webxos.ai
