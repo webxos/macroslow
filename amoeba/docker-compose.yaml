@@ -1,0 +1,40 @@
+# AMOEBA 2048AES Docker Compose Configuration
+# Description: Docker Compose configuration for running AMOEBA 2048AES services, including the orchestrator, monitoring, and quantum scheduler.
+
+version: '3.8'
+
+services:
+  amoeba_orchestrator:
+    image: amoeba2048_orchestrator:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    deploy:
+      resources:
+        limits:
+          nvidia.com/gpu: 1
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=0
+      - CUDA_VERSION=12.2
+    depends_on:
+      - prometheus
+
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./monitoring_config.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+  quantum_scheduler:
+    image: amoeba2048_scheduler:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      - NVIDIA_VISIBLE_DEVICES=0
+      - CUDA_VERSION=12.2

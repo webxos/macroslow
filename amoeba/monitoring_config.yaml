@@ -1,0 +1,28 @@
+# AMOEBA 2048AES Monitoring Configuration
+# Description: Prometheus configuration for monitoring CHIMERA head performance, quantum task execution, and system health in the AMOEBA 2048AES ecosystem.
+
+global:
+  scrape_interval: 10s
+  evaluation_interval: 10s
+
+scrape_configs:
+  - job_name: 'amoeba_2048_chimera'
+    static_configs:
+      - targets: ['localhost:8000']
+        labels:
+          group: 'chimera_heads'
+  - job_name: 'quantum_scheduler'
+    static_configs:
+      - targets: ['localhost:8001']
+        labels:
+          group: 'quantum_tasks'
+  - job_name: 'security_manager'
+    static_configs:
+      - targets: ['localhost:8002']
+        labels:
+          group: 'security_metrics'
+  - job_name: 'system_health'
+    static_configs:
+      - targets: ['localhost:8003']
+        labels:
+          group: 'system_metrics'
