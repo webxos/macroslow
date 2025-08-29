@@ -22,11 +22,11 @@ This model context protocol SDK fuses:
 
 ## PROJECT DUNES 🐪 (2048-AES Distributed Unified Network Exchange System) ##
 
-PROJECT DUNES is a next-generation cybersecurity framework powered by Multi-Augmented Machine Learning (aka MARKDOWN AS MEDIUM LANGUAGE). It introduces the `.MAML` protocol—a novel markup language for encoding multimodal security data—and a multi-agent architecture designed for quantum-resistant, adaptive threat detection. ✨
- 
- *📋 PROJECT DUNES CLAUDE CODE ARTIFACT: https://claude.ai/public/artifacts/77e9ef0d-fb8b-4124-aa31-ac4a49a29bca*
+*📋 PROJECT DUNES CLAUDE CODE ARTIFACT: https://claude.ai/public/artifacts/77e9ef0d-fb8b-4124-aa31-ac4a49a29bca*
 
 🐪 Introducing the MAML Encryption Protocol standardized model context protocol use in 2025. A quantum-resistant encryption protocol for .MAML.ml files. Branded with the camel emoji 🐪, PROJECT DUNES transforms Markdown into secure, virtual data containers for workflows, datasets, and agent blueprints, with seamless OAuth2.0 synchronization and global encryption validation. 
+
+PROJECT DUNES is a next-generation cybersecurity framework powered by Multi-Augmented Machine Learning (aka MARKDOWN AS MEDIUM LANGUAGE). It introduces the `.MAML` protocol—a novel markup language for encoding multimodal security data—and a multi-agent architecture designed for quantum-resistant, adaptive threat detection. ✨
 
 **🐪 PROJECT DUNES 2048-AES empowers open-source developers to build secure, MAML-compliant applications. ✨**
 
