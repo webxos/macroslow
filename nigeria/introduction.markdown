@@ -1,4 +1,5 @@
 ## Connection Machine 2048-AES SDK System
+*for model context procotol*
 
 **Version**: 1.0.0  
 **Inspired by**: Philip Emeagwali's Connection Machine  
