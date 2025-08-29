@@ -72,21 +72,3 @@ Execute a Sample Quantum Workflow:Use the provided verifiable_simulator.maml.md 
 dunes-sdk run src/dunes_sdk/quantum/verifiable_simulator.maml.md
 
 
-
-Contributing
-We welcome contributions from the global developer community:
-
-Fork and Contribute: Add features, fix bugs, or improve documentation at https://github.com/webxos/dunes-sdk.
-Host a Node: Run one of the four Quadrilinear Core nodes to support the network.
-Mentor: Guide Nigerian developers in using the SDK and MCP server.
-Spread the Word: Share the project through blogs, social media, or hackathons.
-
-Roadmap
-
-Q1 2025: Solidify quadrilinear engine and MCP server compatibility.
-Q2 2025: Integrate OCaml/Ortac for formal verification of workflows.
-Q3 2025: Add quantum simulation capabilities with Qiskit and CUDA acceleration.
-Q4 2025: Launch a global "Build for Nigeria" hackathon to showcase the SDK.
-
-License
-MIT License. © 2025 Webxos Technologies.
