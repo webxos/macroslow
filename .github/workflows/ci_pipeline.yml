@@ -1,0 +1,39 @@
+name: CI Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          # --- CUSTOMIZATION POINT: Update pip install command with your requirements file ---
+          pip install -r requirements.txt  # Ensure langgraph version is valid
+          pip install dune  # Integrate OCaml Dune 3.20.0 for build checks
+
+      - name: Run tests
+        run: |
+          # --- CUSTOMIZATION POINT: Add your test commands ---
+          pytest --cov=./ --cov-report=xml
+
+      - name: Upload coverage
+        uses: codecov/codecov-action@v3
+        with:
+          files: ./coverage.xml
+          fail_ci_if_error: true
