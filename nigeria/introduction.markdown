@@ -7,7 +7,7 @@
 
 ## Overview
 
-The **DUNES Project** is an open-source initiative that reimagines Philip Emeagwali’s Connection Machine as a modern, decentralized computational fabric. The project provides a Python-based SDK (`dunes-sdk`) and a Model Context Protocol (MCP) server, leveraging NVIDIA CUDA for accelerated computing, Qiskit for quantum simulation, and OCaml/Ortac for formal verification. The SDK enables developers to build applications that perform parallel computations across four logical nodes (the "Quadrilinear Core"), simulating a high-throughput system suitable for AI/ML, data analysis, and quantum workflows. Allowing developers to use this as a template to develop super computers over a highly adaptive networking utilizing modern ML, LLMs, and API connections to sync quantum neural networks.
+The **DUNES Project** is an open-source initiative that reimagines Philip Emeagwali’s Connection Machine as a modern, decentralized computational fabric. The project provides a Python-based SDK (`dunes-sdk`) and a Model Context Protocol (MCP) server, leveraging NVIDIA CUDA for accelerated computing, Qiskit for quantum simulation, and OCaml/Ortac for formal verification. The SDK enables developers to build applications that perform parallel computations across four logical nodes (the "Quadrilinear Core"), simulating a high-throughput system suitable for AI/ML, data analysis, and quantum workflows. Allowing developers to use this as a template to develop super computers over a highly adaptive network. Utilizing modern ML, LLMs, and API connections to sync quantum neural networks.
 
 ## Features
 
