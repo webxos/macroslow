@@ -1,0 +1,16 @@
+```plaintext
+# requirements.txt
+# Purpose: Lists Python dependencies required for the CHIMERA 2048 OEM Boilerplate.
+# Customization: Add or modify dependencies based on your project needs.
+
+torch>=2.0.1
+qiskit>=0.45.0
+fastapi>=0.100.0
+prometheus_client>=0.17.0
+sqlalchemy>=2.0.0
+pynvml>=11.5.0
+uvicorn>=0.23.0
+
+# To install: Run `pip install -r requirements.txt` in the /chimera/core/ directory
+# Note: Ensure NVIDIA CUDA Toolkit >= 12.0 is installed for GPU support
+```

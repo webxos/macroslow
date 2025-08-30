@@ -1,0 +1,20 @@
+```ocaml
+(* model_spec.mli *)
+(* Purpose: OCaml Gospel specification for formal verification of CHIMERA 2048 workflows. *)
+(* Customization: Add new types and functions to verify your custom logic. *)
+
+type model
+type label = Positive | Negative
+
+val load : string -> model
+(** [load path] loads a model from [path].
+    @raises Invalid_argument if the file is malformed. *)
+
+val predict : model -> float array -> label
+(** [predict m features] runs prediction on [features].
+    @requires Array.length features = 128
+    @ensures result = Positive || result = Negative *)
+
+(* To verify: Use Ortac with `ortac run model_spec.mli` *)
+(* Customization: Extend with additional specifications for your models *)
+```
