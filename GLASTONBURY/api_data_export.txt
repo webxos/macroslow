@@ -1,0 +1,99 @@
+{
+ "cells": [
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "# INFINITY UI: API Data Sync and Export\n",
+    "\n",
+    "This Jupyter notebook demonstrates the **INFINITY UI** for syncing and exporting API data with **GLASTONBURY 2048 MCP SDK**. It uses RAG to treat API data as a temporary knowledge base, integrates with Neuralink, and supports humanitarian applications (e.g., Nigerian medical records). The workflow processes data through GLASTONBURY’s four modes, exporting to MAML files."
+   ]
+  },
+  {
+   "cell_type": "code",
+   "execution_count": null,
+   "metadata": {},
+   "outputs": [],
+   "source": [
+    "import asyncio\n",
+    "import json\n",
+    "import torch\n",
+    "from src.glastonbury_2048.mcp_server import GlastonburyQuantumOrchestrator\n",
+    "import yaml\n",
+    "\n",
+    "# Initialize orchestrator\n",
+    "orchestrator = GlastonburyQuantumOrchestrator()\n",
+    "\n",
+    "# Load config\n",
+    "with open('infinity_config.yaml', 'r') as f:\n",
+    "    config = yaml.safe_load(f)\n",
+    "\n",
+    "# Sample API data\n",
+    "api_data = {\n",
+    "    'patient_id': '12345',\n",
+    "    'vitals': [120, 95, 1.5],\n",
+    "    'diagnoses': ['D123', 'D456']\n",
+    "}\n",
+    "\n",
+    "# Define node signals, Neuralink stream, and donor wallet\n",
+    "node_signals = {'node_0': True, 'node_1': True, 'node_2': True, 'node_3': True}\n",
+    "neuralink_stream = config['neuralink_stream']\n",
+    "wallet_id = config['donor_wallet_id']\n",
+    "\n",
+    "# Run API data workflow\n",
+    "async def run_api_workflow():\n",
+    "    maml_file = 'workflows/infinity_workflow.maml.md'\n",
+    "    export_codes, wallet_balance = await orchestrator.execute_workflow(\n",
+    "        maml_file, {'data': json.dumps(api_data)}, node_signals, neuralink_stream, wallet_id\n",
+    "    )\n",
+    "    print(f'Export codes: {export_codes[:10]}... Count: {len(export_codes)}')\n",
+    "    print(f'Wallet balance: {wallet_balance} ETH')\n",
+    "    return export_codes, wallet_balance\n",
+    "\n",
+    "# Execute\n",
+    "export_codes, wallet_balance = asyncio.run(run_api_workflow())\n",
+    "assert len(export_codes) > 0, 'No export codes generated'\n",
+    "\n",
+    "# Save results\n",
+    "with open(f'/data/output/infinity_export_{int(__import__('time').time())}.maml.md', 'w') as f:\n",
+    "    maml_data = {\n",
+    "        'maml_version': '2.0',\n",
+    "        'id': f'urn:uuid:{str(__import__('time').time()).replace('.', '-')}', \n",
+    "        'type': 'api-data-export',\n",
+    "        'data': api_data,\n",
+    "        'timestamp': __import__('datetime').datetime.now().isoformat()\n",
+    "    }\n",
+    "    f.write(f'---\\n{yaml.dump(maml_data, sort_keys=False)}\\n---\\n# API Data Export\\n\\nExported at {maml_data['timestamp']}')"
+   ]
+  },
+  {
+   "cell_type": "markdown",
+   "metadata": {},
+   "source": [
+    "## Validation\n",
+    "The workflow is validated using `infinity_workflow_validation.mu.md`, ensuring export codes align with API data, suitable for SPACE HVAC and legacy systems."
+   ]
+  }
+ ],
+ "metadata": {
+  "kernelspec": {
+   "display_name": "Python 3",
+   "language": "python",
+   "name": "python3"
+  },
+  "language_info": {
+   "codemirror_mode": {
+    "name": "ipython",
+    "version": 3
+   },
+   "file_extension": ".py",
+   "mimetype": "text/x-python",
+   "name": "python",
+   "nbconvert_exporter": "python",
+   "pygments_lexer": "ipython3",
+   "version": "3.10.12"
+  }
+ },
+ "nbformat": 4,
+ "nbformat_minor": 4
+}
