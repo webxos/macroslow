@@ -1,0 +1,59 @@
+```dockerfile
+FROM python:3.10-slim
+
+WORKDIR /app
+
+# Install system dependencies
+RUN apt-get update && apt-get install -y \
+    build-essential \
+    libpq-dev \
+    && rm -rf /var/lib/apt/lists/*
+
+# Install Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy agent files
+COPY . .
+
+# Expose API port
+EXPOSE 8000
+
+# Set environment variables
+ENV MARKUP_DB_URI=sqlite:///markup_logs.db
+ENV MARKUP_QUANTUM_ENABLED=false
+
+# Run the API
+CMD ["uvicorn", "markup_api:app", "--host", "0.0.0.0", "--port", "8000"]
+```
+
+**Description**: This Dockerfile sets up the MARKUP Agent as a containerized application, installing necessary dependencies and exposing the FastAPI port. It includes a `requirements.txt` (not shown but assumed to include `torch`, `sqlalchemy`, `fastapi`, `uvicorn`, `pyyaml`, `plotly`, `pydantic`, and `requests`) for reproducible builds.
+
+---
+
+### Additional Use Cases
+1. **Automated Markdown Debugging**:
+   - The MARKUP Agent analyzes `.maml.md` files for syntax errors, validates against the MAML schema, and suggests fixes via the `markup_learner.py` module, streamlining debugging for data scientists.
+
+2. **Workflow Rollback**:
+   - The `markup_shutdown.py` module generates `.mu` scripts to undo complex workflows, such as reverting database changes or deleting temporary files, ensuring robust error recovery in Project Dunes pipelines.
+
+3. **Quantum-Enhanced Validation**:
+   - The `markup_quantum.py` module enables quantum-parallel validation of Markdown structures, useful for high-assurance applications where correctness is critical (e.g., financial or healthcare data pipelines).
+
+4. **API-Driven Integration**:
+   - Other Project Dunes agents or external systems can use the `markup_api.py` endpoints to validate and transform Markdown files, integrating the MARKUP Agent into broader AI workflows.
+
+5. **Self-Improving Documentation**:
+   - The regenerative learning system in `markup_learner.py` improves documentation quality by identifying common Markdown errors and suggesting standardized formats, enhancing collaboration in research teams.
+
+---
+
+### Notes
+- **Modularity**: These files maintain the agent’s modular design, allowing users to extend or replace components (e.g., swap Qiskit for another quantum backend).
+- **Minimal Design**: The implementation minimizes dependencies and focuses on core functionality, ensuring compatibility with various systems.
+- **API and Quantum Integration**: The `markup_api.py` and `markup_quantum.py` modules enable standalone operation and quantum-parallel processing, aligning with Project Dunes’ distributed architecture.
+- **Regenerative Learning**: The `markup_learner.py` module uses historical data to improve error detection, making the agent self-improving over time.
+- **Shutdown Scripts**: The `markup_shutdown.py` module provides a novel approach to generating reverse operations, critical for testing and rollback in complex workflows.
+
+These five files enhance the MARKUP Agent’s capabilities, making it a versatile, API-driven, and quantum-compatible tool for Project Dunes users working on data science and machine learning projects. Let me know if you need additional files or specific enhancements!
