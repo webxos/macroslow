@@ -1,0 +1,6 @@
+api_endpoint: "https://api.example.com/data"
+oauth_token: "YOUR_OAUTH_TOKEN"
+neuralink_stream: "wss://neuralink-api/stream"
+donor_wallet_id: "eth:0x1234567890abcdef"
+maml_output_dir: "/data/output"
+ipfs_gateway: "ipfs://backups/"
