@@ -1,0 +1,14 @@
+# Dockerfile: Deploys Cisco XDR + DUNES CORE SDK MCP server
+# CUSTOMIZATION POINT: Update Python version or dependencies as needed
+FROM python:3.10-slim
+
+WORKDIR /app
+COPY cisco/requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY cisco/ .
+COPY dunes_core_sdk/ /app/dunes_core_sdk/
+
+ENV DUNES_API_PORT=8000
+EXPOSE 8000
+
+CMD ["uvicorn", "dunes_api:app", "--host", "0.0.0.0", "--port", "8000"]
