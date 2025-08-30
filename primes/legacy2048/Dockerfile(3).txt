@@ -1,0 +1,50 @@
+# Stage 1: Base
+FROM nvidia/cuda:12.2.0-runtime-ubuntu22.04 as base
+RUN apt-get update && apt-get install -y \
+    python3 \
+    python3-pip \
+    build-essential \
+    gfortran \
+    libsdl2-dev \
+    && rm -rf /var/lib/apt/lists/*
+WORKDIR /app
+
+# Stage 2: Fortran 256-AES Builder
+FROM base as fortran-builder
+COPY ./src/legacy_2048/modes/fortran_256aes /build
+WORKDIR /build
+RUN gfortran -O3 -o libquantum256.so -shared *.f90
+
+# Stage 3: C64 512-AES Builder
+FROM base as c64-builder
+COPY ./src/legacy_2048/modes/c64_512aes /build
+WORKDIR /build
+RUN ./configure --headless --without-ui && make
+
+# Stage 4: Amoeba 1024-AES Builder
+FROM base as amoeba-builder
+COPY ./src/legacy_2048/modes/amoeba_1024aes /build
+WORKDIR /build
+RUN make amoeba_microkernel dropbox_driver
+
+# Stage 5: Connection Machine 2048-AES Builder
+FROM nvidia/cuda:12.2.0-devel-ubuntu22.04 as cm-builder
+COPY ./src/legacy_2048/modes/cm_2048aes /build
+WORKDIR /build
+RUN nvcc -O3 -std=c++17 -lcrypto -o cm-simulator *.cu
+
+# Stage 6: Final Runtime
+FROM base
+COPY --from=fortran-builder /build/libquantum256.so /lqsdk/lib/
+COPY --from=c64-builder /build/src/x64 /lqsdk/bin/c64-core
+COPY --from=amoeba-builder /build/amoeba_microkernel /lqsdk/bin/
+COPY --from=amoeba-builder /build/dropbox_driver /lqsdk/bin/
+COPY --from=cm-builder /build/cm-simulator /lqsdk/bin/
+COPY ./src/legacy_2048 /app/src/legacy_2048
+COPY ./requirements.txt /app
+RUN pip install -r requirements.txt
+EXPOSE 8000
+ENTRYPOINT ["python3", "-m", "uvicorn", "src.legacy_2048.mcp_server:app", "--host", "0.0.0.0", "--port", "8000"]
+
+# Team Instruction: Build with `docker build -t legacy-2048-aes-sdk .`
+# Run with `docker run --gpus all -p 8000:8000 legacy-2048-aes-sdk`
