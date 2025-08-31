@@ -3,8 +3,6 @@
 ## Abstract
 **GLASTONBURY 2048**, a Project Dunes initiative, is a quantum-ready Medical MCP SDK built on the **Legacy 2048 AES SDK**, inspired by Philip Emeagwali’s parallel computing vision. Designed for Nigeria and global humanitarian efforts, it integrates **medical IoT**, **Apple Watch biometrics**, and **donor reputation wallets** to enhance healthcare networks with **2048-bit AES encryption**. Tested for **SPACE HVAC Medical AI**, it supports real-time healthcare databases for home and professional use, enabling patients to self-manage care via Jupyter notebooks. The SDK uses **sacred geometry** and **geometric calculus** for a secure **data hive**, connecting legacy systems to Neuralink’s neural streams.
 
-## Project Overview
-- **Mission**: Empower doctors and patients in Nigeria and beyond to upgrade outdated healthcare systems, integrating IoMT and Neuralink for real-time care.
 - **Core Components**:
   - **Four Modes**: Fortran 256-AES (input), C64 512-AES (pattern recognition), Amoeba 1024-AES (distributed storage), Connection Machine 2048-AES (billing/Neuralink).
   - **MCP Server**: FastAPI-based gateway for orchestrating workflows, inspired by Anthropic’s MCP.
