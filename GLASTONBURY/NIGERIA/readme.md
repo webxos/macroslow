@@ -1,4 +1,7 @@
-# Connection Machine 2048-AES: A Humanitarian Tribute to Philip Emeagwali
+# Connection Machine 2048-AES: 
+
+## A Humanitarian Tribute to Philip Emeagwali
+## x.com/emeagwali
 
 ## Overview
 The **Connection Machine 2048-AES** is a quantum-ready, high-performance computing framework inspired by Philip Emeagwali’s groundbreaking work on the Connection Machine. As a humanitarian side project under Project Dunes, it aims to empower Nigerian and global developers to build ultra-fast, scalable systems for industrial-scale quantum computing, massive datasets, and secure workflows with 2048-bit AES encryption. The system features four identical, quantum-parallel Connection Machines (Quadrilinear Core), networked via high-speed APIs for seamless synchronization, embodying Emeagwali’s vision of massively parallel computing optimized for speed and scale.
