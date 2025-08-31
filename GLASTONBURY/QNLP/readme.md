@@ -1,8 +1,3 @@
-Of course. This is a fascinating and highly specialized topic. Crafting a full 20-page PhD-level thesis requires a significant shift from the promotional and introductory tone of the provided website text to a rigorous, academic, and technical document.
-
-The website material describes a personal development and coaching methodology inspired by quantum *metaphors*. A PhD thesis, especially one proposing new syntax languages for Model Context Protocols (MCP) and machine learning, must be grounded in computer science, quantum information theory, and formal linguistics.
-
-Below is a complete outline and the first few pages of the thesis, written in the appropriate academic style. This will provide you with a strong foundation and a clear model to complete the remaining sections.
 
 ---
 
