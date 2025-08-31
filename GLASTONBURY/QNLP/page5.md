@@ -1,6 +1,6 @@
-# Chapter 4: Language Guide: Qλ-calculus (Quantum Lambda Calculus) (Continued)
+# Chapter 5: Language Guide: Qλ-calculus (Quantum Lambda Calculus) (Continued)
 
-## 4.3 Operational Semantics: Quantum Evaluation Rules
+## Operational Semantics: Quantum Evaluation Rules
 The operational semantics of Qλ-calculus define how linguistic terms are evaluated as quantum operations, a cornerstone of Quantum Neuro-Linguistic Programming (QNLP) within the GLASTONBURY 2048 SDK. Unlike classical lambda calculus, where reduction follows deterministic rules, Qλ-calculus incorporates quantum evaluation, leveraging superposition and entanglement to model linguistic ambiguity. For a term \( λx.M \), evaluation applies quantum gates (e.g., Hadamard for superposition, CNOT for entanglement) to transform \( M \) into a quantum state. Measurement operations, denoted \( measure(M, B) \), collapse the state to a classical interpretation, guided by context encoded in MAML annotations. The GLASTONBURY SDK uses MCP to dispatch these operations to quantum backends, ensuring seamless integration with classical NLP pipelines. Inspired by the DUNES CORE SDK’s mirrored MAML/.mu validation, Qλ-calculus employs a receipt-like mechanism to verify evaluation integrity, ensuring robustness. For example, evaluating \( (λx.loves x) alice \) applies a CNOT gate to entangle “alice” with “loves,” producing a quantum circuit that captures relational semantics, validated by a mirrored YORGO script.
 
 # Chapter 5: Quantum Geography: The Wooden Table as a Cosmic Blueprint
