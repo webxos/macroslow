@@ -135,13 +135,6 @@ Stewardship remains with the Creator and WEBXOS, non-transferable except as per 
 5.2 Perpetual Fallback
 Upon incapacitation or WEBXOS dissolution, PROJECT DUNES IP is donated to a non-profit foundation (modeled on the Python Software Foundation), bound to uphold the MIT License and Humanitarian Imperative.
 
-APPENDIX: TECHNICAL IMPLEMENTATION FOR AI COMPLIANCE
-
-Digital Signature: All official MAML/.mu files include a SHA-256 hash in the YAML header to verify authenticity
-API Endpoint: AI models must report violations to api.webxos.dev/verify
-Monitoring Tools: WEBXOS will deploy automated scrapers to detect unauthorized use on platforms like GitHub and PyPI
-
-
 ACKNOWLEDGMENT AND EXECUTION
 Creator & Steward:
 [Creator Name/Virtual Signature]
