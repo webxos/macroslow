@@ -1,0 +1,15 @@
+[TORGO]
+version=1.0
+protocol=astrobotany
+encryption=AES-2048
+
+[Metadata]
+gea_type=GEA_MICROG
+experiment_id=ASTRO_2025-08-31T00:00:00
+timestamp=2025-08-31T00:00:00Z
+source=NASA
+
+[Data]
+type=genomic
+content={"gene_expression": "RNA-Seq data from Arabidopsis thaliana"}
+quantum_linguistic_prompt=<xaiArtifact id="123e4567-e89b-12d3-a456-426614174000" title="ISS_Prompt" contentType="text/markdown"># ISS Plant Analysis\nAnalyze gene expression in microgravity.

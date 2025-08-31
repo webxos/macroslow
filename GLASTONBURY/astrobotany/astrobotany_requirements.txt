@@ -1,0 +1,7 @@
+httpx
+qiskit
+click
+peewee
+jinja2
+bcrypt
+emoji>=2
