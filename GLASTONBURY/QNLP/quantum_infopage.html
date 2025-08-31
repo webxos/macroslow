@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quantum Wave-Particle Duality</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #0b0b2a, #1a1a40);
+            color: #fff;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+        
+        #particles-js {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        header {
+            text-align: center;
+            padding: 2rem 0;
+        }
+        
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, #4e54c8, #8f94fb);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .subtitle {
+            font-size: 1.5rem;
+            opacity: 0.9;
+            margin-bottom: 2rem;
+        }
+        
+        .visualization-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 3rem 0;
+        }
+        
+        #wave-particle-canvas {
+            width: 100%;
+            height: 400px;
+            border-radius: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            margin-bottom: 2rem;
+        }
+        
+        .graph-container {
+            width: 100%;
+            max-width: 800px;
+            margin: 2rem auto;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .graph {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            height: 300px;
+            margin: 2rem 0;
+        }
+        
+        .graph-axis {
+            display: flex;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #fff, transparent);
+            position: absolute;
+            top: 50%;
+        }
+        
+        .wave-side, .particle-side {
+            position: absolute;
+            top: 20px;
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .wave-side {
+            left: 20%;
+            color: #4e54c8;
+        }
+        
+        .particle-side {
+            right: 20%;
+            color: #8f94fb;
+        }
+        
+        .wave-container {
+            position: absolute;
+            top: 50%;
+            left: 25%;
+            width: 30%;
+            height: 100px;
+            overflow: hidden;
+        }
+        
+        .wave {
+            width: 100%;
+            height: 100%;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1200 120' preserveAspectRatio='none'%3E%3Cpath d='M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z' opacity='.25' fill='%234e54c8'%3E%3C/path%3E%3Cpath d='M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z' opacity='.5' fill='%234e54c8'%3E%3C/path%3E%3Cpath d='M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z' fill='%234e54c8'%3E%3C/path%3E%3C/svg%3E");
+            background-size: cover;
+            opacity: 0.8;
+            animation: waveAnim 3s linear infinite;
+        }
+        
+        @keyframes waveAnim {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(-50%); }
+        }
+        
+        .particles-container {
+            position: absolute;
+            top: 50%;
+            right: 25%;
+            width: 30%;
+            height: 100px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        
+        .particle {
+            width: 12px;
+            height: 12px;
+            background: #8f94fb;
+            border-radius: 50%;
+            animation: particleAnim 2s infinite;
+        }
+        
+        .particle:nth-child(2) {
+            animation-delay: 0.4s;
+        }
+        
+        .particle:nth-child(3) {
+            animation-delay: 0.8s;
+        }
+        
+        @keyframes particleAnim {
+            0%, 100% { transform: translateY(0); opacity: 0.5; }
+            50% { transform: translateY(-30px); opacity: 1; }
+        }
+        
+        .info-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .info-card {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .info-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .info-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #8f94fb;
+        }
+        
+        .info-card ul {
+            list-style-type: none;
+            padding-left: 1rem;
+        }
+        
+        .info-card li {
+            margin-bottom: 0.5rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .info-card li:before {
+            content: "•";
+            color: #4e54c8;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .references {
+            margin-top: 3rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        }
+        
+        .references h3 {
+            margin-bottom: 1rem;
+            color: #8f94fb;
+        }
+        
+        .references ol {
+            padding-left: 1.5rem;
+            columns: 2;
+        }
+        
+        .references li {
+            margin-bottom: 0.5rem;
+            break-inside: avoid;
+        }
+        
+        .references a {
+            color: #4e54c8;
+            text-decoration: none;
+        }
+        
+        .references a:hover {
+            text-decoration: underline;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 2rem 0;
+            margin-top: 3rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+            
+            .subtitle {
+                font-size: 1.2rem;
+            }
+            
+            .info-section {
+                grid-template-columns: 1fr;
+            }
+            
+            .references ol {
+                columns: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="particles-js"></div>
+    
+    <div class="container">
+        <header>
+            <h1>Wave-Particle Duality</h1>
+            <p class="subtitle">Exploring the Quantum Nature of Reality</p>
+        </header>
+        
+        <section class="visualization-section">
+            <div id="wave-particle-canvas"></div>
+            
+            <div class="graph-container">
+                <div class="graph">
+                    <div class="graph-axis"></div>
+                    <div class="wave-side">Wave-like</div>
+                    <div class="particle-side">Particle-like</div>
+                    
+                    <div class="wave-container">
+                        <div class="wave"></div>
+                    </div>
+                    
+                    <div class="particles-container">
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                        <div class="particle"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section class="info-section">
+            <div class="info-card">
+                <h3>What is Wave-Particle Duality?</h3>
+                <p>Wave-particle duality is a core quantum mechanical principle stating that fundamental entities like light and electrons possess both wave-like and particle-like properties, with their manifestation depending on the experimental setup.</p>
+                <p>While light was historically considered a wave, Albert Einstein's work on photons in 1905 and Arthur Compton's Compton effect confirmed its particle-like nature. Conversely, Louis de Broglie proposed in 1924 that matter particles, such as electrons, also exhibit wave-like properties.</p>
+            </div>
+            
+            <div class="info-card">
+                <h3>Light as Both Wave and Particle</h3>
+                <ul>
+                    <li><strong>Wave properties:</strong> Light exhibits diffraction and interference, classic wave phenomena</li>
+                    <li><strong>Particle properties:</strong> Light also interacts as discrete packets of energy called photons</li>
+                </ul>
+            </div>
+            
+            <div class="info-card">
+                <h3>Matter as Both Wave and Particle</h3>
+                <ul>
+                    <li><strong>Particle properties:</strong> Electrons and other matter particles have mass and can be localized</li>
+                    <li><strong>Wave properties:</strong> Electrons exhibit wave-like behavior such as interference and diffraction</li>
+                </ul>
+            </div>
+            
+            <div class="info-card">
+                <h3>Origin and Development</h3>
+                <ul>
+                    <li><strong>Max Planck (1900):</strong> Suggested energy is emitted in discrete units</li>
+                    <li><strong>Albert Einstein (1905):</strong> Proposed light is quantized into photons</li>
+                    <li><strong>Louis de Broglie (1924):</strong> Extended duality to matter particles</li>
+                </ul>
+            </div>
+        </section>
+        
+        <section class="references">
+            <h3>References</h3>
+            <ol>
+                <li><a href="https://www.youtube.com/watch?v=L9ub_B71U0E" target="_blank">YouTube: Wave-Particle Duality Explained</a></li>
+                <li><a href="https://en.wikipedia.org/wiki/Wave%E2%80%93particle_duality" target="_blank">Wikipedia: Wave-Particle Duality</a></li>
+                <li><a href="https://science.howstuffworks.com/light6.htm" target="_blank">HowStuffWorks: Is light a particle or a wave?</a></li>
+                <li><a href="https://www.britannica.com/science/wave-particle-duality" target="_blank">Britannica: Wave-Particle Duality</a></li>
+                <li><a href="https://chem.libretexts.org/Bookshelves/Physical_and_Theoretical_Chemistry_Textbook_Maps/Supplemental_Modules_(Physical_and_Theoretical_Chemistry)/Quantum_Mechanics/02._Fundamental_Concepts_of_Quantum_Mechanics/Wave-Particle_Duality" target="_blank">LibreTexts: Wave-Particle Duality</a></li>
+                <li><a href="https://plus.maths.org/content/quantum-uncertainty" target="_blank">Plus Maths: Quantum Uncertainty</a></li>
+                <li><a href="https://www.sciencedirect.com/topics/physics-and-astronomy/de-broglie-wavelengths" target="_blank">ScienceDirect: De Broglie Wavelengths</a></li>
+                <li><a href="https://pswscience.org/meeting/quantum-entanglement-einsteinas-spooky-action-at-a-distance/" target="_blank">PSW Science: Quantum Entanglement</a></li>
+            </ol>
+        </section>
+    </div>
+    
+    <footer>
+        <p>© 2023 Quantum Physics Education | Wave-Particle Duality Interactive</p>
+    </footer>
+
+    <script>
+        // Initialize particles.js background
+        particlesJS('particles-js', {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#8f94fb" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5, random: true },
+                size: { value: 3, random: true },
+                line_linked: {
+                    enable: true,
+                    distance: 150,
+                    color: "#4e54c8",
+                    opacity: 0.4,
+                    width: 1
+                },
+                move: {
+                    enable: true,
+                    speed: 2,
+                    direction: "none",
+                    random: true,
+                    straight: false,
+                    out_mode: "out",
+                    bounce: false
+                }
+            },
+            interactivity: {
+                detect_on: "canvas",
+                events: {
+                    onhover: { enable: true, mode: "repulse" },
+                    onclick: { enable: true, mode: "push" },
+                    resize: true
+                }
+            },
+            retina_detect: true
+        });
+        
+        // Three.js Wave-Particle Visualization
+        let scene, camera, renderer;
+        let waves = [];
+        let particles = [];
+        
+        function init() {
+            // Create scene
+            scene = new THREE.Scene();
+            
+            // Create camera
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.z = 5;
+            
+            // Create renderer
+            renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+            renderer.setSize(document.getElementById('wave-particle-canvas').offsetWidth, 
+                             document.getElementById('wave-particle-canvas').offsetHeight);
+            document.getElementById('wave-particle-canvas').appendChild(renderer.domElement);
+            
+            // Create wave geometry
+            const waveGeometry = new THREE.BufferGeometry();
+            const points = 100;
+            const vertices = [];
+            
+            for (let i = 0; i <= points; i++) {
+                const x = (i / points) * 4 - 2;
+                vertices.push(x, 0, 0);
+            }
+            
+            waveGeometry.setAttribute('position', new THREE.Float32BufferAttribute(vertices, 3));
+            
+            // Create wave material
+            const waveMaterial = new THREE.LineBasicMaterial({ 
+                color: 0x4e54c8,
+                linewidth: 2
+            });
+            
+            // Create multiple waves
+            for (let i = 0; i < 3; i++) {
+                const wave = new THREE.Line(waveGeometry, waveMaterial);
+                wave.position.y = (i - 1) * 0.5;
+                wave.userData.offset = i;
+                waves.push(wave);
+                scene.add(wave);
+            }
+            
+            // Create particles
+            const particleGeometry = new THREE.BufferGeometry();
+            const particleCount = 50;
+            const posArray = new Float32Array(particleCount * 3);
+            
+            for (let i = 0; i < particleCount * 3; i += 3) {
+                posArray[i] = (Math.random() - 0.5) * 4;
+                posArray[i + 1] = (Math.random() - 0.5) * 2;
+                posArray[i + 2] = (Math.random() - 0.5) * 2;
+            }
+            
+            particleGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+            
+            const particleMaterial = new THREE.PointsMaterial({
+                color: 0x8f94fb,
+                size: 0.05,
+                transparent: true
+            });
+            
+            const particleSystem = new THREE.Points(particleGeometry, particleMaterial);
+            scene.add(particleSystem);
+            particles.push(particleSystem);
+            
+            // Add lighting
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 0.8);
+            directionalLight.position.set(0, 1, 1);
+            scene.add(directionalLight);
+            
+            // Handle window resize
+            window.addEventListener('resize', onWindowResize, false);
+            
+            // Start animation
+            animate();
+        }
+        
+        function onWindowResize() {
+            camera.aspect = document.getElementById('wave-particle-canvas').offsetWidth / 
+                            document.getElementById('wave-particle-canvas').offsetHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(document.getElementById('wave-particle-canvas').offsetWidth, 
+                             document.getElementById('wave-particle-canvas').offsetHeight);
+        }
+        
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            // Animate waves
+            const time = Date.now() * 0.002;
+            
+            waves.forEach((wave, index) => {
+                const positions = wave.geometry.attributes.position.array;
+                for (let i = 0; i < positions.length; i += 3) {
+                    const x = positions[i];
+                    positions[i + 1] = Math.sin(x * 2 + time + index) * 0.3;
+                }
+                wave.geometry.attributes.position.needsUpdate = true;
+            });
+            
+            // Animate particles
+            particles.forEach(particleSystem => {
+                particleSystem.rotation.y += 0.002;
+                const positions = particleSystem.geometry.attributes.position.array;
+                for (let i = 0; i < positions.length; i += 3) {
+                    positions[i + 1] += Math.sin(time + positions[i] * 2) * 0.01;
+                    if (positions[i + 1] > 2) positions[i + 1] = -2;
+                }
+                particleSystem.geometry.attributes.position.needsUpdate = true;
+            });
+            
+            renderer.render(scene, camera);
+        }
+        
+        // Initialize the visualization
+        init();
+    </script>
+</body>
+</html>
