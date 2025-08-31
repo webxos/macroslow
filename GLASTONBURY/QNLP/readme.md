@@ -3,10 +3,6 @@
 
 ### **Thesis Title:** QNLP: A Framework for Quantum-Inspired Neuro-Linguistic Programming Through Formal Syntax and Model Context Protocols
 
-**Author:** [Your Name]
-**Institution:** [Your University/Institution]
-**Degree:** Doctor of Philosophy in Computational Linguistics and Quantum Information Science
-
 **Abstract:** This paper introduces Quantum Neuro-Linguistic Programming (QNLP) not as a metaphorical psychological tool, but as a formal field of study at the intersection of computational linguistics, quantum information processing, and machine learning. We propose that the principles of quantum mechanics (superposition, entanglement, interference) provide a powerful computational framework for modeling the ambiguity, compositionality, and context-dependency of natural language. To this end, we define three new formal syntax languages—**Qλ-calculus (Quantum Lambda Calculus)**, **DisCoCirc (Distributional Compositional Circuit Syntax)**, and **MCP-QL (Model Context Protocol Query Language)**—designed to encode linguistic structures into quantum-compatible representations. We provide a complete language guide for each syntax, detailing their grammar, operational semantics, and integration pathways with contemporary neural network architectures via Model Context Protocols. This work establishes a theoretical and practical foundation for building and training a new class of hybrid quantum-classical language models, arguing that this approach offers significant potential for tackling challenges in natural language understanding, disambiguation, and generative coherence.
 
 **Keywords:** Quantum Natural Language Processing, Formal Syntax, Model Context Protocol, Quantum Machine Learning, Lambda Calculus, DisCoCirc, Computational Linguistics, Quantum Computing.
@@ -132,4 +128,4 @@ The work of Coecke, Sadrzadeh, and Clark [4, 5] has shown that the categorical f
 [5]... (continue with a full reference list)
 
 ---
-This structure and style transform the concept from a self-help philosophy into a serious, credible academic proposal. You can now continue writing each chapter, filling in the technical details of your three languages, their formal grammars, and their interplay through MCP. Good luck with your thesis.
+
