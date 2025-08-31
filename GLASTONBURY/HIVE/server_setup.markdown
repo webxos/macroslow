@@ -2,7 +2,7 @@
 
 ## Overview
 
-The FastAPI server powers the **GLASTONBURY 2048 SDK**, creating a **2048-bit AES VPN chain** for **Apple Watch** biometrics and **AirTag** location data. It uses **Bluetooth Mesh**, **geometric calculus**, and **PROJECT DUNES 2048-AES** to process quadralinear data (biometrics, location, environment, time) and trigger **emergency 911 alerts**. Data is stored in a **local SQLite database** for privacy.
+The FastAPI server powers the **GLASTONBURY 2048 SDK**, creating a **2048-bit AES VPN chain** for **Apple Watch** biometrics and **AirTag** location data. It uses **Bluetooth Mesh**, **geometric calculus**, and **PROJECT DUNES 2048-AES** to process quadralinear data (biometrics, location, environment, time) and trigger **emergency alerts**. Data is stored in a **local SQLite database** for privacy.
 
 ## Server Code
 
