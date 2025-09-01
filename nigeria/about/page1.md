@@ -3,7 +3,7 @@
 ## **Page 1 of 10**
 
 **Journal of Quantum Integrative Medicine**
-Vol. 1, Issue 1, October 2025
+Vol. 1, Issue 1, August 2025
 
 ### **The Glastonbury Project: Towards a Quantum Herbalism SDK—Unlocking the Synergistic Potential of Botanical Medicine Through Hybrid Quantum-Classical Computing**
 
