@@ -2,7 +2,7 @@
 
 ***
 
-## **Project Title: The Emeagwali SDK: A Hybrid Quantum-Classical Framework for Massively Parallelized Fluid Dynamics Simulations**
+## 🐝 The Emeagwali SDK: A Hybrid Quantum-Classical Framework for Massively Parallelized Fluid Dynamics Simulations**
 
 **Document Type:** Technical Development Guide & Scientific Justification
 **Audience:** Software Development Team, Architects, and Stakeholders
