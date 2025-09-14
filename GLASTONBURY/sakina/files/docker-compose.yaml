@@ -1,0 +1,48 @@
+```yaml
+version: '3.8'
+services:
+  sakina:
+    image: custom-sakina:latest
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        CUDA_VERSION: 12.2
+    environment:
+      - GLASTONBURY_API_KEY=${GLASTONBURY_API_KEY}
+      - TOR_ADDRESS=tor://glastonbury.onion
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./sdk:/app/sdk
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              capabilities: [gpu]
+  prometheus:
+    image: prom/prometheus:latest
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9090:9090"
+
+# Instructions:
+# 1. Create a prometheus.yml file to scrape sakina:8000/metrics:
+#    scrape_configs:
+#      - job_name: 'sakina'
+#        static_configs:
+#          - targets: ['sakina:8000']
+# 2. Customize services for additional integrations (e.g., JupyterHub, Angular).
+# 3. For LLM scaling, add a PyTorch-based LLM service:
+#    llm-service:
+#      image: pytorch/pytorch:latest
+#      environment:
+#        - MODEL_PATH=/app/models/llm
+#      volumes:
+#        - ./sdk/models:/app/models
+# 4. Create a Dockerfile with Python 3.9+, PyTorch, and Qiskit dependencies.
+# 5. Run: docker-compose up -d
+# 6. Ensure Tor is configured for secure communication.
+```

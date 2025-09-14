@@ -1,0 +1,37 @@
+```yaml
+name: Drone Navigation Workflow
+context:
+  type: emergency
+  solidar: true
+  bluetooth_mesh: true
+  encryption: 2048-aes
+actions:
+  - fetch_data:
+      source: solidar
+      id: drone_path_123
+  - analyze:
+      cuda: true
+      qiskit: false
+      output: navigation_plan
+  - process_llm:
+      model: openai-swarm
+      input: "Optimize drone path for medical supply delivery in Martian terrain."
+  - navigate:
+      type: drone
+      target: medical_outpost_01
+  - archive:
+      format: maml
+      id: navigation_plan_123
+metadata:
+  created: 2025-09-12
+  author: Webxos
+  license: MIT
+
+# Instructions:
+# 1. Save in sdk/templates/ directory.
+# 2. Modify 'source' to include other data sources (e.g., glastonbury_library).
+# 3. Add new actions (e.g., visualize: plotly) for real-time navigation display.
+# 4. For LLM scaling, extend 'process_llm' with additional models or inputs.
+# 5. Load with WorkflowManager.load_workflow in workflow_manager.py.
+# 6. Ensure sakina_client.py, workflow_manager.py, and llm_integration.py are in the project.
+```

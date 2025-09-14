@@ -1,0 +1,38 @@
+```yaml
+name: Aerospace Telemetry Workflow
+context:
+  type: aerospace
+  solidar: true
+  encryption: 2048-aes
+actions:
+  - fetch_data:
+      source: solidar
+      id: starship_telemetry_789
+  - analyze:
+      cuda: true
+      qiskit: false
+      output: telemetry_analysis
+  - process_llm:
+      model: claude-flow
+      input: "Interpret telemetry data for anomalies in starship propulsion."
+  - visualize:
+      type: plotly
+      x_key: timestamp
+      y_key: thrust_level
+      title: Starship Propulsion Analysis
+  - archive:
+      format: maml
+      id: telemetry_analysis_789
+metadata:
+  created: 2025-09-12
+  author: Webxos
+  license: MIT
+
+# Instructions:
+# 1. Save in sdk/templates/ directory.
+# 2. Modify 'source' to include other data sources (e.g., glastonbury_library).
+# 3. Add new actions (e.g., notify: emergency_team) for real-time alerts.
+# 4. For LLM scaling, extend 'process_llm' with additional models or inputs.
+# 5. Load with WorkflowManager.load_workflow in workflow_manager.py.
+# 6. Ensure sakina_client.py, workflow_manager.py, llm_integration.py, and visualization.py are in the project.
+```

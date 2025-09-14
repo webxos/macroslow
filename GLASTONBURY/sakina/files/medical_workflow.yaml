@@ -1,0 +1,37 @@
+```yaml
+name: Medical Diagnostic Workflow
+context:
+  type: healthcare
+  neuralink: true
+  solidar: false
+  encryption: 2048-aes
+actions:
+  - fetch_data:
+      source: neuralink
+      id: patient_123
+  - analyze:
+      cuda: true
+      qiskit: true
+      output: neural_analysis
+  - archive:
+      format: maml
+      id: neural_analysis_123
+  - generate_receipt:
+      format: mu
+      id: neural_receipt_123
+metadata:
+  created: 2025-09-12
+  author: Webxos
+  license: MIT
+
+# Instructions:
+# 1. Save in sdk/templates/ directory.
+# 2. Modify 'source' to include other data sources (e.g., bluetooth_mesh, medical_library).
+# 3. Add new actions (e.g., visualize: plotly) for UI integration.
+# 4. For LLM scaling, add 'llm: claude-flow' to context and include LLM-specific actions:
+#    - process_llm:
+#        model: claude-flow
+#        input: patient_notes
+# 5. Load with WorkflowManager.load_workflow in workflow_manager.py.
+# 6. Ensure sakina_client.py and workflow_manager.py are in the same project.
+```
