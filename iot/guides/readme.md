@@ -33,35 +33,6 @@ IoT ecosystems require secure, scalable, and interoperable solutions to manage d
 - **GLASTONBURY 2048 SDK**: A quantum-distributed graph database SDK for processing complex IoT data streams, leveraging Qiskit and graph neural networks.
 - **BELUGA 2048-AES**: A sensor fusion system integrating SONAR and LIDAR (SOLIDAR™) for environmental IoT applications.
 
-### Architecture Overview
-The 2048-AES IoT framework integrates MAML and Markup with MCP servers and agentic ecosystems:
-
-```mermaid
-graph TB
-    subgraph "IoT Device Ecosystem"
-        IOT[IoT Devices]
-        subgraph "2048-AES Core"
-            MAML[MAML Protocol]
-            MARKUP[Markup (.mu) Processor]
-            API[FastAPI Gateway]
-            DB[SQLAlchemy DB]
-        end
-        subgraph "Agentic Layer"
-            CHIMERA[CHIMERA 2048 SDK]
-            GLASTONBURY[GLASTONBURY 2048 SDK]
-            BELUGA[BELUGA Sensor Fusion]
-        end
-        IOT --> MAML
-        MAML --> MARKUP
-        MAML --> API
-        MARKUP --> API
-        API --> CHIMERA
-        API --> GLASTONBURY
-        API --> BELUGA
-        API --> DB
-    end
-```
-
 ### Getting Started
 1. **Clone the Repository**:
    ```bash
