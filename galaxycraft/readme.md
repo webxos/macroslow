@@ -26,7 +26,10 @@ Open-source with a focus on modularity, enabling developers to create new game m
 
 ## 🎮 Game Modes
 GALAXYCRAFT offers a diverse set of game modes, each designed to leverage the core engine while providing unique gameplay experiences. Below is an overview of each mode, including their mechanics, objectives, and technical details.
-1. GALAXYCRAFT MMO (Crafting Open World)
+
+
+
+## 1. GALAXYCRAFT MMO 
 The flagship mode, an open-world MMO supporting up to 1000 players, focused on mining, crafting, and trading in a seamless universe.
 
 ## Core Features:
@@ -52,10 +55,14 @@ Networking: Mock WebSocket endpoints (/nft/mint, /token/transfer) stored in loca
 Performance: Optimized for 60 FPS with WebGL optimizations.
 
 
-## Future Plans: Full multiplayer support with WebSocket-based networking, secure NFT minting, and a persistent world state.
+## Future Plans: 
+Full multiplayer support with WebSocket-based networking, secure NFT minting, and a persistent world state.
 
 
-2. GALAXYCRAFT: Red vs Blue (10v10 Team Deathmatch)
+
+## 2. GALAXYCRAFT: RED VS BLUE
+
+Red vs Blue (10v10 Team Deathmatch)
 A fast-paced, first-person shooter with 10v10 team deathmatch, where players attack opposing team cores on a sci-fi Mars-like map.
 
 ## Core Features:
@@ -64,7 +71,6 @@ A fast-paced, first-person shooter with 10v10 team deathmatch, where players att
 Scout: Equipped with a jetpack (inspired by Unreal Tournament), scope (right-click, 4x zoom), and scan (left-click). Light damage to cores, one-shot kills on drones/players.
 Assault: Fastest run speed, shotgun (left-click, yellow neurots, high core damage at close range), energy shield (right-click, like Overwatch’s Reinhardt). One-shot kills on drones/players.
 Medic: Homing neurots (left-click, purple), shield repair (right-click) for allies. Light core damage, one-shot kills on drones/players.
-
 
 ## Gameplay: 
 Players spawn behind mirrored tower bases, aiming to destroy the enemy core (300,000 HP). Drones auto-balance teams but cannot attack cores.
@@ -86,7 +92,7 @@ Multiplayer Placeholders: $WEBXOS earnings and leaderboards stored locally.
 
 
 
-## 3. GALAXYCRAFT: Tower Defense
+## 3. GALAXYCRAFT: TOWER DEFENSE
 A strategic mode where players defend a core against waves of enemy drones in a 500-entity sector.
 
 ## Core Features:
@@ -103,7 +109,6 @@ Map: Sci-fi arena with a neon green aesthetic, randomized asteroid and planet pl
 Rendering: Instanced meshes and frustum culling for performance.
 Physics: Cannon.js for drone movement and collision detection.
 Performance: Targets 30-60 FPS on low-end devices.
-
 
 
 ## 4. GALAXYCRAFT: VTEC Paintball (3v3 Team Deathmatch)
@@ -126,7 +131,8 @@ Networking: Local JSON with multiplayer placeholders.
 
 
 
-## 5. GALAXYCRAFT: 
+
+## 5. GALAXYCRAFT: ROCKET BUILDER
 Rocket Building Studio
 A creative mode for designing and simulating rockets, inspired by real-world aerospace engineering.
 
@@ -158,7 +164,8 @@ Uses basic materials and GPU instancing for performance.
 
 
 
-## 6. GALAXYCRAFT: Dog Fight (Flight Simulator)
+
+## 6. GALAXYCRAFT: DOG FIGHT
 
 A 360° flight simulator with WASD and mouse controls, focusing on dogfights in a 500-entity sector.
 
@@ -199,8 +206,9 @@ Lightweight line box around locked targets for fly-by aiming.
 
 
 
-## 7. GALAXYCRAFT: 
-Tempest 2K25 Edition
+
+## 7. GALAXYCRAFT: TEMPEST 2k25
+A remake of the ATARI classic, Tempest 2K25 Edition
 A high-energy action mode with a focus on survival and combat in a neon-green sci-fi arena.
 
 ## Core Features:
