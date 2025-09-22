@@ -1,21 +1,26 @@
 ## 🌌 GALAXYCRAFT: A Browser-Based Space MMO Ecosystem
-
 GALAXYCRAFT is an ambitious, open-source, browser-based space MMO ecosystem built with Three.js, React Three Fiber (R3F), Cannon.js, and React, targeting seamless 30-60 FPS performance across desktop and mobile devices. Inspired by games like EVE Online, Starcraft, Unreal Tournament, StarSiege Tribes, and Team Fortress 2, GALAXYCRAFT offers a variety of game modes, from open-world crafting to intense team-based shooters and flight simulators, all unified by a single universe with a centralized economy ($WEBXOS) and NFT-based crafting. This project invites the open-source community to contribute to its development, from game mechanics to multiplayer scalability.
 
 ## Developed by WebXOS © 2025
 
 
 ## 🚀 Project Vision
-## GALAXYCRAFT aims to deliver a lightweight, modular, and extensible gaming platform that runs smoothly on low-end devices while supporting up to 1000 players in its MMO mode. The ecosystem includes multiple game modes, each leveraging a shared architecture for rendering, physics, and UI. Key features include:
+GALAXYCRAFT aims to deliver a lightweight, modular, and extensible gaming platform that runs smoothly on low-end devices while supporting up to 1000 players in its MMO mode. The ecosystem includes multiple game modes, each leveraging a shared architecture for rendering, physics, and UI. Key features include:
 
-## Seamless Universe: A  connected via 3D gateway portals for smooth transitions.
+## Seamless Universe: 
+A connected via 3D gateway portals for smooth transitions.
 
-## NFT Crafting: A Continuum Transfunctioner for crafting NFT engines with randomized stats, inspired by Diablo 2’s Horadric Cube.
+## NFT Crafting: 
+A Continuum Transfunctioner for crafting NFT engines with randomized stats, inspired by Diablo 2’s Horadric Cube.
 
-## Universal Economy and Auction House via FastAPI Gateway: A centralized auction house for trading resources and NFTs using $WEBXOS currency.
+## Universal Economy and Auction House via FastAPI Gateway: 
+A centralized auction house for trading resources and NFTs using $WEBXOS currency.
 
-## Modular UI: Draggable, resizable pop-up windows with Tailwind CSS styling, ensuring a consistent and intuitive user experience.
-Community-Driven: Open-source with a focus on modularity, enabling developers to create new game modes or extend existing ones. Open sourced HTML BROWSER BASED games that users can download from this very repo and play single player in their favorite browser or studio for seemless localdb play, and customizable games where you create the content, leave it to GALAXYCRAFT to provide a baseline of templates and starter games you can use to literally, create your own version of the game from scratch. SAND BOX fun unlike any other community in a lightweight three js setting for even users on low end devices to compete and participate in the GALAXYCRAFT open sourced community!
+## Modular UI: 
+Draggable, resizable pop-up windows with Tailwind CSS styling, ensuring a consistent and intuitive user experience.
+
+## Community-Driven: 
+Open-source with a focus on modularity, enabling developers to create new game modes or extend existing ones. Open sourced HTML BROWSER BASED games that users can download from this very repo and play single player in their favorite browser or studio for seemless localdb play, and customizable games where you create the content, leave it to GALAXYCRAFT to provide a baseline of templates and starter games you can use to literally, create your own version of the game from scratch. SAND BOX fun unlike any other community in a lightweight three js setting for even users on low end devices to compete and participate in the GALAXYCRAFT open sourced community!
 
 *This README serves as a guide for players, developers, and contributors, detailing each game mode, the technical stack, and how to get involved.*
 
@@ -61,11 +66,14 @@ Assault: Fastest run speed, shotgun (left-click, yellow neurots, high core damag
 Medic: Homing neurots (left-click, purple), shield repair (right-click) for allies. Light core damage, one-shot kills on drones/players.
 
 
-## Gameplay: Players spawn behind mirrored tower bases, aiming to destroy the enemy core (300,000 HP). Drones auto-balance teams but cannot attack cores.
+## Gameplay: 
+Players spawn behind mirrored tower bases, aiming to destroy the enemy core (300,000 HP). Drones auto-balance teams but cannot attack cores.
 
-## Controls: WASD for movement (Unreal Tournament-style), spacebar for auto-fire neurots (unlimited ammo), shift for jetpack (Scout only), and mouse for aiming.
+## Controls:
+WASD for movement (Unreal Tournament-style), spacebar for auto-fire neurots (unlimited ammo), shift for jetpack (Scout only), and mouse for aiming.
 
-## UI: Simplified ESC menu with stats (score, health, armor, energy), settings (mouse sensitivity, invert W/S), and team status.
+## UI:
+Simplified ESC menu with stats (score, health, armor, energy), settings (mouse sensitivity, invert W/S), and team status.
 Map: Randomized, paintball-like Mars surface with boxes and obstacles, 500 entities per map.
 
 
@@ -103,7 +111,8 @@ A compact version of Red vs Blue, designed for 3v3 matches with a paintball-like
 
 ## Core Features:
 
-## Classes: Same as Red vs Blue (Scout, Assault, Medic), with identical mechanics.
+## Classes: 
+Same as Red vs Blue (Scout, Assault, Medic), with identical mechanics.
 Gameplay: Smaller, mirrored maps with faster-paced matches, focusing on one-shot kills and core attacks.
 Controls: Identical to Red vs Blue, with WASD, spacebar for auto-fire, and class-specific abilities.
 UI: Streamlined ESC menu, with mobile-optimized one-click buttons.
@@ -111,32 +120,41 @@ UI: Streamlined ESC menu, with mobile-optimized one-click buttons.
 
 ## Technical Details:
 
-## Rendering: Optimized for mobile with reduced entity count (300 per map).
+## Rendering: 
+Optimized for mobile with reduced entity count (300 per map).
 Networking: Local JSON with multiplayer placeholders.
 
 
 
-## 5. GALAXYCRAFT: Rocket Building Studio
+## 5. GALAXYCRAFT: 
+Rocket Building Studio
 A creative mode for designing and simulating rockets, inspired by real-world aerospace engineering.
 
 ## Core Features:
 
-## Parts Library: Includes body tubes, nose cones, fins, engines (e.g., Merlin 1D), and IoT components (Arduino, Raspberry Pi, sensors).
+## Parts Library: 
+Includes body tubes, nose cones, fins, engines (e.g., Merlin 1D), and IoT components (Arduino, Raspberry Pi, sensors).
 
-## Tools: Select, move, rotate, scale, measure, wire, and code for precise rocket assembly.
+## Tools: 
+Select, move, rotate, scale, measure, wire, and code for precise rocket assembly.
 
-## UI: Left panel for parts and properties, top toolbar for actions (new, save, undo), and a 3D canvas for real-time visualization.
+## UI: 
+Left panel for parts and properties, top toolbar for actions (new, save, undo), and a 3D canvas for real-time visualization.
 
-## Physics: Cannon.js for simulating rocket dynamics and connections.
+## Physics: 
+Cannon.js for simulating rocket dynamics and connections.
 
-## Output: Export designs as JSON for integration with other GALAXYCRAFT modes.
+## Output: 
+Export designs as JSON for integration with other GALAXYCRAFT modes.
 
 
 ## Technical Details:
 
-## Rendering: Three.js with OrbitControls and TransformControls for intuitive manipulation.
+## Rendering: 
+Three.js with OrbitControls and TransformControls for intuitive manipulation.
 
-## Optimization: Uses basic materials and GPU instancing for performance.
+## Optimization: 
+Uses basic materials and GPU instancing for performance.
 
 
 
@@ -164,19 +182,25 @@ Shift: Lightspeed boost.
 ESC: Lock/unlock mouse for joystick simulation.
 
 
-## Crosshair: 2x larger with range-finder markings, perfectly aligned with gatling neurots for pinpoint accuracy.
-## Map: Multicolored planets (Mars, Saturn-like) and neon green stars, with randomized asteroid belts.
+## Crosshair: 
+2x larger with range-finder markings, perfectly aligned with gatling neurots for pinpoint accuracy.
+## Map: 
+Multicolored planets (Mars, Saturn-like) and neon green stars, with randomized asteroid belts.
 
 
 ## Technical Details:
 
-## Rendering: Three.js with R3F, optimized for 30 FPS with frustum culling.
-## Physics: Cannon.js for ship and projectile dynamics.
-## Auto-Aim: Lightweight line box around locked targets for fly-by aiming.
+## Rendering: 
+Three.js with R3F, optimized for 30 FPS with frustum culling.
+## Physics: 
+Cannon.js for ship and projectile dynamics.
+## Auto-Aim: 
+Lightweight line box around locked targets for fly-by aiming.
 
 
 
-## 7. GALAXYCRAFT: Tempest 2K25 Edition
+## 7. GALAXYCRAFT: 
+Tempest 2K25 Edition
 A high-energy action mode with a focus on survival and combat in a neon-green sci-fi arena.
 
 ## Core Features:
@@ -196,6 +220,7 @@ Physics: Cannon.js for drone and player interactions.
 
 ## 🛠️ Technical Architecture
 GALAXYCRAFT’s architecture is designed for modularity, performance, and scalability, making it easy for contributors to extend or modify the game.
+
 Core Technologies
 
 Frontend: React, React Three Fiber, Three.js, Tailwind CSS.
