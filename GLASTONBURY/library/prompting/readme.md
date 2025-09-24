@@ -4,10 +4,6 @@
 **Invented by WebXOS Research Group**  
 **License: MAML Protocol v1.0 – Attribution Required**  
 
-![Alt text](./dunes.jpeg)  
-
-🐪 **PROJECT DUNES 2048-AES: OPEN SOURCE BETA** by WEBXOS ([webxos.netlify.app](https://webxos.netlify.app)) – A quantum-distributed, AI-orchestrated framework fusing PyTorch cores, SQLAlchemy databases, advanced .yaml and .md files, multi-stage Dockerfile deployments, and $custom`.md` wallets with tokenization. This guide, built from community-driven .MAML.ml and .mu files, serves as a foundational resource for MCP builders and developers integrating JSON Prompting into the DUNES 2048-AES ecosystem. Fork it on GitHub ([webxos/dunes-2048-aes](https://github.com/webxos/dunes-2048-aes)) and join the future of secure, scalable AI orchestration! ✨  
-
 ---
 
 ## Page 1: Introduction to JSON Prompting in Model Context Protocol (MCP)  
