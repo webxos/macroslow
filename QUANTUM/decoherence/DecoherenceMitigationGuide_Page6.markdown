@@ -39,52 +39,6 @@ The edge-native workflow in Chimera 2048-AES includes:
 ### Edge-Native Architecture  
 The architecture integrates edge-native Qiskit workflows with the 2048-AES ecosystem:  
 
-```mermaid  
-graph TB  
-    subgraph "2048-AES Edge-Native Stack"  
-        UI[Vehicle HUD/AR Interface]  
-        subgraph "Chimera Core"  
-            CAPI[Chimera API Gateway]  
-            subgraph "Edge Layer"  
-                EDGE[Edge-Native Qiskit]  
-                DOCKER[Docker Containers]  
-                VALID[MARKUP Agent Validation]  
-            end  
-            subgraph "Data Storage"  
-                QDB[Quantum Graph DB]  
-                MDB[MongoDB for Logs]  
-                MAML[.MAML.ml Vials]  
-            end  
-            subgraph "Visualization Layer"  
-                GLAST[Glastonbury AR Rendering]  
-                GC[GalaxyCraft Integration]  
-            end  
-        end  
-        subgraph "Vehicle Applications"  
-            ATV[ATV Real-Time Navigation]  
-            TRUCK[Military Secure Routing]  
-            FOUR4[4x4 Anomaly Detection]  
-        end  
-        subgraph "DUNES Integration"  
-            SDK[DUNES SDK]  
-            MCP[MCP Server]  
-        end  
-        UI --> CAPI  
-        CAPI --> EDGE  
-        CAPI --> DOCKER  
-        CAPI --> VALID  
-        CAPI --> GLAST  
-        EDGE --> MAML  
-        DOCKER --> QDB  
-        VALID --> MDB  
-        GLAST --> GC  
-        QDB --> ATV  
-        MDB --> TRUCK  
-        MAML --> FOUR4  
-        CAPI --> SDK  
-        SDK --> MCP  
-```  
-
 ### Setting Up Edge-Native Environment  
 To implement edge-native Qiskit workflows, configure the 2048-AES SDK with lightweight dependencies and deploy via Docker for edge devices.  
 
