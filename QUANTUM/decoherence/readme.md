@@ -49,52 +49,6 @@ The 2048-AES SDKs incorporate a multi-layered approach to decoherence mitigation
 ### Architecture Overview  
 The decoherence mitigation architecture integrates with the **BELUGA 2048-AES** sensor fusion engine and **Chimera 2048-AES Systems** to process SOLIDAR™ point clouds securely. Below is a high-level view:  
 
-```mermaid  
-graph TB  
-    subgraph "2048-AES Decoherence Mitigation Architecture"  
-        UI[Vehicle HUD/AR Interface]  
-        subgraph "Chimera Core"  
-            CAPI[Chimera API Gateway]  
-            subgraph "Quantum Layer"  
-                QISKIT[Qiskit Noise Models & Mitigation]  
-                PQC[Post-Quantum Crypto (liboqs)]  
-                EDGE[Edge-Native Qiskit Workflows]  
-            end  
-            subgraph "Data Storage"  
-                QDB[Quantum Graph DB]  
-                MDB[MongoDB for Logs]  
-                MAML[.MAML.ml Vials]  
-            end  
-            subgraph "Visualization Layer"  
-                GLAST[Glastonbury Visualization]  
-                GC[GalaxyCraft Integration]  
-            end  
-        end  
-        subgraph "Vehicle Applications"  
-            ATV[ATV Terrain Navigation]  
-            TRUCK[Military Secure Routing]  
-            FOUR4[4x4 Anomaly Detection]  
-        end  
-        subgraph "DUNES Integration"  
-            SDK[DUNES SDK]  
-            MCP[MCP Server]  
-        end  
-        UI --> CAPI  
-        CAPI --> QISKIT  
-        CAPI --> PQC  
-        CAPI --> EDGE  
-        CAPI --> GLAST  
-        QISKIT --> MAML  
-        PQC --> MAML  
-        EDGE --> QDB  
-        GLAST --> GC  
-        QDB --> ATV  
-        MDB --> TRUCK  
-        MAML --> FOUR4  
-        CAPI --> SDK  
-        SDK --> MCP  
-```  
-
 ### Guide Structure  
 This 10-page guide is structured to provide a comprehensive approach to decoherence mitigation:  
 - **Page 1**: Introduction (this page).  
