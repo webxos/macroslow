@@ -39,49 +39,6 @@ The workflow for error mitigation in Chimera 2048-AES includes:
 ### Error Mitigation Architecture  
 The architecture integrates Qiskit error mitigation with Chimera 2048-AES for robust quantum workflows:  
 
-```mermaid  
-graph TB  
-    subgraph "2048-AES Error Mitigation Stack"  
-        UI[Vehicle HUD/AR Interface]  
-        subgraph "Chimera Core"  
-            CAPI[Chimera API Gateway]  
-            subgraph "Error Mitigation Layer"  
-                ZNE[Zero-Noise Extrapolation]  
-                PEC[Probabilistic Error Cancellation]  
-                MEAS[Measurement Error Mitigation]  
-                ML[PyTorch ML Validation]  
-            end  
-            subgraph "Data Storage"  
-                QDB[Quantum Graph DB]  
-                MDB[MongoDB for Logs]  
-                MAML[.MAML.ml Vials]  
-            end  
-        end  
-        subgraph "Vehicle Applications"  
-            ATV[ATV Terrain Navigation]  
-            TRUCK[Military Secure Routing]  
-            FOUR4[4x4 Anomaly Detection]  
-        end  
-        subgraph "DUNES Integration"  
-            SDK[DUNES SDK]  
-            MCP[MCP Server]  
-        end  
-        UI --> CAPI  
-        CAPI --> ZNE  
-        CAPI --> PEC  
-        CAPI --> MEAS  
-        CAPI --> ML  
-        ZNE --> MAML  
-        PEC --> MAML  
-        MEAS --> QDB  
-        ML --> MDB  
-        QDB --> ATV  
-        MDB --> TRUCK  
-        MAML --> FOUR4  
-        CAPI --> SDK  
-        SDK --> MCP  
-```  
-
 ### Setting Up Error Mitigation Environment  
 To implement error mitigation, configure the 2048-AES SDK with Qiskit and deploy via Docker for edge-native processing.  
 
