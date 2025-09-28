@@ -41,52 +41,6 @@ The community contribution workflow integrates with the 2048-AES SDKs:
 ### Community Contribution Architecture  
 The architecture supports community contributions within the 2048-AES ecosystem:  
 
-```mermaid  
-graph TB  
-    subgraph "2048-AES Community Contribution Stack"  
-        UI[Community Dev Interface]  
-        subgraph "Contribution Core"  
-            GITHUB[GitHub Repository]  
-            subgraph "Contribution Layer"  
-                NOISE[New Noise Models]  
-                ALGO[Error Mitigation Algorithms]  
-                MAML[.MAML.ml Templates]  
-                VIS[Visualization Enhancements]  
-            end  
-            subgraph "Data Storage"  
-                QDB[Quantum Graph DB]  
-                MDB[MongoDB for Logs]  
-            end  
-            subgraph "Testing Layer"  
-                GC[GalaxyCraft Testing]  
-                FIELD[Field Testing]  
-            end  
-        end  
-        subgraph "Vehicle Applications"  
-            ATV[ATV Navigation Enhancements]  
-            TRUCK[Military Workflow Improvements]  
-            FOUR4[4x4 Anomaly Detection]  
-        end  
-        subgraph "DUNES Integration"  
-            SDK[DUNES SDK]  
-            MCP[MCP Server]  
-        end  
-        UI --> GITHUB  
-        GITHUB --> NOISE  
-        GITHUB --> ALGO  
-        GITHUB --> MAML  
-        GITHUB --> VIS  
-        NOISE --> QDB  
-        ALGO --> MDB  
-        MAML --> QDB  
-        VIS --> GC  
-        QDB --> ATV  
-        MDB --> TRUCK  
-        MAML --> FOUR4  
-        GITHUB --> SDK  
-        SDK --> MCP  
-```  
-
 ### Setting Up Contribution Environment  
 To contribute to decoherence mitigation, set up the 2048-AES SDK environment and follow open-source guidelines.  
 
