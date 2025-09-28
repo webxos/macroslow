@@ -40,46 +40,6 @@ The visualization workflow in Glastonbury 2048-AES includes:
 ### Visualization Architecture  
 The architecture integrates Glastonbury 2048-AES with the 2048-AES ecosystem for robust visualization:  
 
-```mermaid  
-graph TB  
-    subgraph "2048-AES Visualization Stack"  
-        UI[Vehicle HUD/AR Interface]  
-        subgraph "Glastonbury Core"  
-            GAPI[Glastonbury API Gateway]  
-            subgraph "Visualization Layer"  
-                PLOTLY[Plotly 3D Graphs]  
-                WEBGPU[WebGPU Rendering]  
-                QISKIT[Qiskit Quantum Processing]  
-            end  
-            subgraph "Data Storage"  
-                QDB[Quantum Graph DB]  
-                MDB[MongoDB for Logs]  
-                MAML[.MAML.ml Vials]  
-            end  
-        end  
-        subgraph "Vehicle Applications"  
-            ATV[ATV Terrain Rendering]  
-            TRUCK[Military AR Navigation]  
-            FOUR4[4x4 Anomaly Visualization]  
-        end  
-        subgraph "DUNES Integration"  
-            SDK[DUNES SDK]  
-            MCP[MCP Server]  
-        end  
-        UI --> GAPI  
-        GAPI --> PLOTLY  
-        GAPI --> WEBGPU  
-        GAPI --> QISKIT  
-        PLOTLY --> MAML  
-        WEBGPU --> QDB  
-        QISKIT --> MDB  
-        QDB --> ATV  
-        MDB --> TRUCK  
-        MAML --> FOUR4  
-        GAPI --> SDK  
-        SDK --> MCP  
-```  
-
 ### Setting Up Visualization Environment  
 To implement visualization enhancements, configure the 2048-AES SDK with necessary dependencies and deploy via Docker for edge-native rendering.  
 
