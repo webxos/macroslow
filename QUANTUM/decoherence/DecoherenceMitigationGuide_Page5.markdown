@@ -40,52 +40,6 @@ The PQC fallback workflow in Chimera 2048-AES includes:
 ### PQC Fallback Architecture  
 The architecture integrates PQC with the 2048-AES ecosystem for secure fallback operations:  
 
-```mermaid  
-graph TB  
-    subgraph "2048-AES PQC Fallback Stack"  
-        UI[Vehicle HUD/AR Interface]  
-        subgraph "Chimera Core"  
-            CAPI[Chimera API Gateway]  
-            subgraph "PQC Layer"  
-                DILITHIUM[CRYSTALS-Dilithium]  
-                KYBER[CRYSTALS-Kyber]  
-                HYBRID[Hybrid AES-PQC]  
-            end  
-            subgraph "Data Storage"  
-                QDB[Quantum Graph DB]  
-                MDB[MongoDB for Logs]  
-                MAML[.MAML.ml Vials]  
-            end  
-            subgraph "Visualization Layer"  
-                GLAST[Glastonbury AR Rendering]  
-                GC[GalaxyCraft Integration]  
-            end  
-        end  
-        subgraph "Vehicle Applications"  
-            ATV[ATV Secure Navigation]  
-            TRUCK[Military Data Security]  
-            FOUR4[4x4 Anomaly Detection]  
-        end  
-        subgraph "DUNES Integration"  
-            SDK[DUNES SDK]  
-            MCP[MCP Server]  
-        end  
-        UI --> CAPI  
-        CAPI --> DILITHIUM  
-        CAPI --> KYBER  
-        CAPI --> HYBRID  
-        CAPI --> GLAST  
-        DILITHIUM --> MAML  
-        KYBER --> MAML  
-        HYBRID --> QDB  
-        GLAST --> GC  
-        QDB --> ATV  
-        MDB --> TRUCK  
-        MAML --> FOUR4  
-        CAPI --> SDK  
-        SDK --> MCP  
-```  
-
 ### Setting Up PQC Fallback Environment  
 To implement PQC fallbacks, configure the 2048-AES SDK with **liboqs-python** and deploy via Docker for edge-native processing.  
 
