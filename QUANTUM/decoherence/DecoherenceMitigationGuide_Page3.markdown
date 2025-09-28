@@ -41,52 +41,6 @@ The 2048-AES SDKs integrate Qiskit noise models with **BELUGA’s SOLIDAR™** p
 ### Noise Simulation Architecture  
 The architecture integrates Qiskit noise models with the 2048-AES ecosystem for robust simulation:  
 
-```mermaid  
-graph TB  
-    subgraph "2048-AES Noise Simulation Stack"  
-        UI[Vehicle HUD/AR Interface]  
-        subgraph "Chimera Core"  
-            CAPI[Chimera API Gateway]  
-            subgraph "Quantum Simulation Layer"  
-                QISKIT[Qiskit NoiseModel]  
-                SIM[AerSimulator with Noise]  
-                EDGE[Edge-Native Qiskit]  
-            end  
-            subgraph "Data Storage"  
-                QDB[Quantum Graph DB]  
-                MDB[MongoDB for Logs]  
-                MAML[.MAML.ml Vials]  
-            end  
-            subgraph "Visualization Layer"  
-                GLAST[Glastonbury AR Rendering]  
-                GC[GalaxyCraft Integration]  
-            end  
-        end  
-        subgraph "Vehicle Applications"  
-            ATV[ATV Terrain Simulation]  
-            TRUCK[Military Noise Testing]  
-            FOUR4[4x4 Anomaly Simulation]  
-        end  
-        subgraph "DUNES Integration"  
-            SDK[DUNES SDK]  
-            MCP[MCP Server]  
-        end  
-        UI --> CAPI  
-        CAPI --> QISKIT  
-        CAPI --> SIM  
-        CAPI --> EDGE  
-        CAPI --> GLAST  
-        QISKIT --> MAML  
-        SIM --> QDB  
-        EDGE --> MDB  
-        GLAST --> GC  
-        QDB --> ATV  
-        MDB --> TRUCK  
-        MAML --> FOUR4  
-        CAPI --> SDK  
-        SDK --> MCP  
-```  
-
 ### Setting Up Noise Simulation Environment  
 To simulate decoherence, configure the 2048-AES SDK with Qiskit and deploy via Docker for edge-native testing.  
 
