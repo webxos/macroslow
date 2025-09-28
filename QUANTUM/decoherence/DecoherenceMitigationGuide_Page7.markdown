@@ -37,51 +37,6 @@ The validation workflow in the 2048-AES SDKs includes:
 ### Validation Architecture  
 The architecture integrates .MAML.ml and .mu receipts with the 2048-AES ecosystem for robust validation:  
 
-```mermaid  
-graph TB  
-    subgraph "2048-AES Validation Stack"  
-        UI[Vehicle HUD/AR Interface]  
-        subgraph "Chimera Core"  
-            CAPI[Chimera API Gateway]  
-            subgraph "Validation Layer"  
-                MAML[.MAML.ml Containers]  
-                MU[MARKUP Agent .mu Receipts]  
-                VALID[Schema Validation]  
-            end  
-            subgraph "Data Storage"  
-                QDB[Quantum Graph DB]  
-                MDB[MongoDB for Logs]  
-            end  
-            subgraph "Visualization Layer"  
-                GLAST[Glastonbury AR Rendering]  
-                GC[GalaxyCraft Integration]  
-            end  
-        end  
-        subgraph "Vehicle Applications"  
-            ATV[ATV Terrain Validation]  
-            TRUCK[Military Data Integrity]  
-            FOUR4[4x4 Anomaly Detection]  
-        end  
-        subgraph "DUNES Integration"  
-            SDK[DUNES SDK]  
-            MCP[MCP Server]  
-        end  
-        UI --> CAPI  
-        CAPI --> MAML  
-        CAPI --> MU  
-        CAPI --> VALID  
-        CAPI --> GLAST  
-        MAML --> QDB  
-        MU --> MDB  
-        VALID --> MDB  
-        GLAST --> GC  
-        QDB --> ATV  
-        MDB --> TRUCK  
-        MAML --> FOUR4  
-        CAPI --> SDK  
-        SDK --> MCP  
-```  
-
 ### Setting Up Validation Environment  
 To implement .MAML.ml and .mu receipt validation, configure the 2048-AES SDK with necessary dependencies and deploy via Docker.  
 
