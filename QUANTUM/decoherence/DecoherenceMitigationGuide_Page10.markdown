@@ -63,56 +63,6 @@ PROJECT DUNES 2048-AES is an open-source project that thrives on community contr
 ### Final Architecture Overview  
 The 2048-AES ecosystem integrates all components for decoherence mitigation:  
 
-```mermaid  
-graph TB  
-    subgraph "2048-AES Ecosystem"  
-        UI[Vehicle HUD/AR Interface]  
-        subgraph "Core Systems"  
-            CHIMERA[Chimera 2048-AES]  
-            GLAST[Glastonbury 2048-AES]  
-            BELUGA[BELUGA Sensor Fusion]  
-            MAML[.MAML.ml Containers]  
-            MU[MARKUP Agent .mu Receipts]  
-        end  
-        subgraph "Data Storage"  
-            QDB[Quantum Graph DB]  
-            MDB[MongoDB for Logs]  
-        end  
-        subgraph "Community Layer"  
-            GITHUB[GitHub Contributions]  
-            GC[GalaxyCraft Testing]  
-        end  
-        subgraph "Applications"  
-            ATV[ATV Navigation]  
-            TRUCK[Military Routing]  
-            FOUR4[4x4 Anomaly Detection]  
-            SIM[Interplanetary Dropship Sim]  
-            GIBS[GIBS Telescope]  
-        end  
-        subgraph "DUNES Integration"  
-            SDK[DUNES SDK]  
-            MCP[MCP Server]  
-        end  
-        UI --> CHIMERA  
-        UI --> GLAST  
-        CHIMERA --> BELUGA  
-        CHIMERA --> MAML  
-        GLAST --> MAML  
-        BELUGA --> QDB  
-        MAML --> MU  
-        MU --> MDB  
-        GITHUB --> MAML  
-        GITHUB --> GC  
-        QDB --> ATV  
-        MDB --> TRUCK  
-        MAML --> FOUR4  
-        GC --> SIM  
-        GC --> GIBS  
-        CHIMERA --> SDK  
-        GLAST --> SDK  
-        SDK --> MCP  
-```  
-
 ### Closing Remarks  
 **PROJECT DUNES 2048-AES** represents a quantum leap in secure, scalable, and community-driven quantum computing for extreme environments. By addressing decoherence through noise modeling, error mitigation, PQC fallbacks, edge-native processing, and robust validation, the SDKs empower developers to build reliable applications for navigation, visualization, and beyond. The open-source ethos, inspired by initiatives like the **Connection Machine 2048-AES**, ensures that global collaboration drives innovation for humanitarian and mission-critical goals.  
 
