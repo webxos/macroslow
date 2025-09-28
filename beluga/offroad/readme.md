@@ -77,6 +77,6 @@ Subsequent pages will detail: sensor setup, SDK programming, .MAML.ml workflows,
 ## 📜 2048-AES License & Copyright  
 **Copyright:** © 2025 Webxos. All Rights Reserved.  
 The MAML concept, `.maml.md` format, BELUGA, and SOLIDAR™ are Webxos’s intellectual property, licensed under MIT for research and prototyping with attribution.  
-**Inquiries:** legal@webxos.ai  
+**Inquiries:** project_dunes@outlook.com 
 
 **🐪 Explore the future of off-road autonomy with WebXOS 2025! ✨**
