@@ -1,0 +1,23 @@
+---
+theme: jekyll-theme-primer
+title: PROJECT DUNES 2048-AES
+description: Distributed Unified Network Exchange System
+baseurl: "/DUNES"
+url: "https://webxos.netlify.app"
+markdown: kramdown
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+plugins:
+  - jekyll-github-metadata
+  - jekyll-seo-tag
+  - jekyll-coffeescript
+  - jekyll-commonmark-ghpages
+  - jekyll-gist
+  - jekyll-paginate
+  - jekyll-relative-links
+  - jekyll-optional-front-matter
+  - jekyll-readme-index
+  - jekyll-default-layout
+  - jekyll-titles-from-headings
+---
