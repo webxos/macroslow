@@ -1,0 +1,12 @@
+# Stage 1: Build
+FROM python:3.9-slim AS builder
+RUN pip install qiskit qiskit-aer torch fastapi uvicorn sqlalchemy
+COPY . /app
+WORKDIR /app
+
+# Stage 2: Runtime
+FROM python:3.9-slim
+COPY --from=builder /app /app
+WORKDIR /app
+EXPOSE 8000
+CMD ["uvicorn", "quantum_progress:app", "--host", "0.0.0.0", "--port", "8000"]
