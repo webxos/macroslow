@@ -1,0 +1,39 @@
+name: Build and Validate
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+      - name: Install Node dependencies
+        run: npm install
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+      - name: Install Python dependencies
+        run: pip install -r server/requirements.txt
+      - name: Lint YAML
+        run: npm run yaml:lint
+      - name: Validate MAML
+        run: npm run maml:validate
+      - name: Test Sandbox
+        run: npm run sandbox:test
+      - name: Test 3D Visualization
+        run: npm run test-3d
+      - name: Log Error
+        run: npm run error:log -- $GITHUB_SHA "GitHub Actions workflow error"
+      - name: Set up Ruby
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: '3.0'
+      - name: Install Jekyll
+        run: |
+          gem install bundler
+          bundle install
+      - name: Build Jekyll site
+        run: npm run jekyll:build
