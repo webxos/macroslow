@@ -3,21 +3,23 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GLASTONBURY 2048 SUITE SDK Documentation</title>
+    <title>🐪 PROJECT DUNES 2048-AES | Open-Source Community</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #0a2463;
-            --secondary: #3e92cc;
-            --accent: #2dc7ff;
-            --quantum: #8a2be2;
+            --primary: #000000;
+            --secondary: #ffffff;
+            --accent: #d4af37; /* Golden tan for camel theme */
+            --quantum: #8a8a8a;
             --nvidia: #76b900;
             --light: #f8f9fa;
-            --dark: #121212;
+            --dark: #000000;
             --success: #28a745;
             --warning: #ffc107;
             --danger: #dc3545;
             --gray: #6c757d;
+            --card-bg: #1a1a1a;
+            --card-border: #333333;
         }
         
         * {
@@ -28,8 +30,8 @@
         }
         
         body {
-            background: linear-gradient(135deg, #0a0f2d 0%, #1a1f3a 100%);
-            color: var(--light);
+            background: var(--primary);
+            color: var(--secondary);
             line-height: 1.6;
             overflow-x: hidden;
         }
@@ -43,13 +45,13 @@
         
         /* Header Styles */
         header {
-            background: rgba(10, 36, 99, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             backdrop-filter: blur(10px);
             padding: 15px 0;
             position: sticky;
             top: 0;
             z-index: 100;
-            border-bottom: 1px solid var(--secondary);
+            border-bottom: 1px solid var(--card-border);
         }
         
         .header-content {
@@ -67,9 +69,7 @@
         .logo-text {
             font-size: 24px;
             font-weight: 700;
-            background: linear-gradient(90deg, var(--accent), var(--secondary));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--accent);
         }
         
         .nav-links {
@@ -78,7 +78,7 @@
         }
         
         .nav-links a {
-            color: var(--light);
+            color: var(--secondary);
             text-decoration: none;
             font-weight: 500;
             transition: color 0.3s;
@@ -108,23 +108,21 @@
         .hero {
             padding: 80px 0;
             text-align: center;
-            background: radial-gradient(circle at top right, rgba(46, 199, 255, 0.2), transparent 400px),
-                        radial-gradient(circle at bottom left, rgba(138, 43, 226, 0.2), transparent 400px);
+            background: radial-gradient(circle at top right, rgba(212, 175, 55, 0.1), transparent 400px),
+                        radial-gradient(circle at bottom left, rgba(255, 255, 255, 0.05), transparent 400px);
         }
         
         .hero h1 {
             font-size: 3.5rem;
             margin-bottom: 20px;
-            background: linear-gradient(90deg, var(--accent), var(--secondary), var(--quantum));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--accent);
         }
         
         .hero p {
             font-size: 1.2rem;
             max-width: 800px;
             margin: 0 auto 30px;
-            color: #d0d0d0;
+            color: #cccccc;
         }
         
         .hero-badges {
@@ -139,41 +137,43 @@
             border-radius: 20px;
             font-size: 0.9rem;
             font-weight: 600;
+            background: var(--card-bg);
+            color: var(--secondary);
+            border: 1px solid var(--card-border);
         }
         
-        .badge-nvidia {
-            background: var(--nvidia);
-            color: black;
+        .badge-cyber {
+            border-color: var(--accent);
         }
         
         .badge-quantum {
-            background: var(--quantum);
-            color: white;
+            border-color: #8a8a8a;
         }
         
-        .badge-medical {
-            background: var(--success);
-            color: white;
+        .badge-ai {
+            border-color: #28a745;
         }
         
         .cta-button {
             display: inline-block;
             padding: 12px 30px;
-            background: linear-gradient(90deg, var(--secondary), var(--accent));
-            color: white;
+            background: transparent;
+            color: var(--accent);
             text-decoration: none;
             border-radius: 30px;
             font-weight: 600;
-            transition: transform 0.3s, box-shadow 0.3s;
-            box-shadow: 0 4px 15px rgba(46, 199, 255, 0.3);
+            transition: all 0.3s;
+            border: 2px solid var(--accent);
+            box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
         }
         
         .cta-button:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(46, 199, 255, 0.4);
+            box-shadow: 0 6px 20px rgba(212, 175, 55, 0.3);
+            background: rgba(212, 175, 55, 0.1);
         }
         
-        /* Features Section */
+        /* Section Styles */
         .section-title {
             text-align: center;
             margin: 60px 0 40px;
@@ -181,47 +181,115 @@
             color: var(--accent);
         }
         
-        .features {
+        /* Card Styles */
+        .cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
             margin-bottom: 60px;
         }
         
-        .feature-card {
-            background: rgba(30, 35, 65, 0.6);
+        .card {
+            background: var(--card-bg);
             border-radius: 15px;
             padding: 25px;
             transition: transform 0.3s, box-shadow 0.3s;
-            border: 1px solid rgba(46, 199, 255, 0.1);
+            border: 1px solid var(--card-border);
         }
         
-        .feature-card:hover {
+        .card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(46, 199, 255, 0.2);
-            border-color: rgba(46, 199, 255, 0.3);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.1);
+            border-color: var(--accent);
         }
         
-        .feature-icon {
+        .card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--accent);
+        }
+        
+        .card p {
+            color: #cccccc;
+            margin-bottom: 15px;
+        }
+        
+        .card ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .card li {
+            margin-bottom: 10px;
+            color: #cccccc;
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+        }
+        
+        .card li i {
+            color: var(--accent);
+            margin-top: 5px;
+        }
+        
+        .card-icon {
             font-size: 2.5rem;
             margin-bottom: 20px;
             color: var(--accent);
         }
         
-        .feature-card h3 {
-            font-size: 1.4rem;
+        /* Community Section */
+        .community-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .community-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s, box-shadow 0.3s;
+            border: 1px solid var(--card-border);
+        }
+        
+        .community-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(212, 175, 55, 0.1);
+            border-color: var(--accent);
+        }
+        
+        .community-card h3 {
+            color: var(--accent);
             margin-bottom: 15px;
-            color: var(--secondary);
+        }
+        
+        .community-card p {
+            color: #cccccc;
+            margin-bottom: 15px;
+        }
+        
+        .community-card a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+        
+        .community-card a:hover {
+            text-decoration: underline;
         }
         
         /* Code Section */
         .code-section {
-            background: rgba(20, 25, 45, 0.8);
+            background: var(--card-bg);
             border-radius: 10px;
             padding: 30px;
             margin: 40px 0;
             overflow-x: auto;
-            border-left: 4px solid var(--nvidia);
+            border-left: 4px solid var(--accent);
         }
         
         .code-header {
@@ -235,7 +303,7 @@
         .copy-btn {
             background: rgba(255, 255, 255, 0.1);
             border: none;
-            color: var(--light);
+            color: var(--secondary);
             padding: 5px 10px;
             border-radius: 5px;
             cursor: pointer;
@@ -248,12 +316,13 @@
         
         pre {
             color: #f8f8f2;
-            background: #1e1e1e;
+            background: #000000;
             padding: 15px;
             border-radius: 5px;
             overflow-x: auto;
             tab-size: 4;
             -moz-tab-size: 4;
+            border: 1px solid var(--card-border);
         }
         
         code {
@@ -281,39 +350,12 @@
             color: #9cdcfe;
         }
         
-        /* Application Cards */
-        .applications {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            margin-bottom: 60px;
-        }
-        
-        .app-card {
-            background: rgba(30, 35, 65, 0.6);
-            border-radius: 10px;
-            padding: 20px;
-            border-left: 4px solid var(--quantum);
-        }
-        
-        .app-card h3 {
-            color: var(--accent);
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .app-card i {
-            font-size: 1.2rem;
-        }
-        
         /* Footer */
         footer {
-            background: rgba(10, 15, 30, 0.95);
+            background: #000000;
             padding: 40px 0 20px;
             margin-top: 60px;
-            border-top: 1px solid rgba(46, 199, 255, 0.2);
+            border-top: 1px solid var(--card-border);
         }
         
         .footer-content {
@@ -338,7 +380,7 @@
         }
         
         .footer-links a {
-            color: #d0d0d0;
+            color: #cccccc;
             text-decoration: none;
             transition: color 0.3s;
         }
@@ -350,8 +392,8 @@
         .copyright {
             text-align: center;
             padding-top: 20px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-            color: #d0d0d0;
+            border-top: 1px solid var(--card-border);
+            color: #cccccc;
             font-size: 0.9rem;
         }
         
@@ -382,15 +424,15 @@
     <header>
         <div class="container header-content">
             <div class="logo">
-                <i class="fas fa-atom" style="color: var(--accent); font-size: 28px;"></i>
-                <span class="logo-text">GLASTONBURY 2048 SUITE</span>
+                <i class="fas fa-shield-alt" style="color: var(--accent); font-size: 28px;"></i>
+                <span class="logo-text">🐪 PROJECT DUNES 2048-AES</span>
             </div>
             <nav class="nav-links">
-                <a href="#features">Features</a>
-                <a href="#applications">Applications</a>
-                <a href="#installation">Installation</a>
-                <a href="#docs">Documentation</a>
-                <a href="#support">Support</a>
+                <a href="#about">About</a>
+                <a href="#dunes">Dunes</a>
+                <a href="#glastonbury">Glastonbury</a>
+                <a href="#nvidia">NVIDIA</a>
+                <a href="#community">Community</a>
             </nav>
         </div>
     </header>
@@ -398,192 +440,164 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="container">
-            <h1>GLASTONBURY 2048 SUITE SDK</h1>
-            <p>Quantum and NVIDIA CHIMERA Integration for Medical Libraries and Research</p>
+            <h1>🐪 Welcome to PROJECT DUNES 2048-AES</h1>
+            <p>Building the Future of AI, Quantum Computing, and Medical Research</p>
+            <p class="text-sm mt-2">An open-source adventure by WebXOS 🌟</p>
             
             <div class="hero-badges">
-                <div class="badge badge-nvidia"><i class="fas fa-microchip"></i> NVIDIA CHIMERA</div>
+                <div class="badge badge-cyber"><i class="fas fa-shield-alt"></i> Quantum Cybersecurity</div>
                 <div class="badge badge-quantum"><i class="fas fa-atom"></i> Quantum Computing</div>
-                <div class="badge badge-medical"><i class="fas fa-heartbeat"></i> Medical Research</div>
+                <div class="badge badge-ai"><i class="fas fa-brain"></i> AI Research</div>
             </div>
             
-            <a href="#installation" class="cta-button">Get Started <i class="fas fa-arrow-right"></i></a>
+            <a href="#community" class="cta-button">Join Our Community <i class="fas fa-arrow-right"></i></a>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features">
-        <div class="container">
-            <h2 class="section-title">Key Features</h2>
-            
-            <div class="features">
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-brain"></i>
+    <main class="container">
+        <!-- About the Project -->
+        <section id="about" class="mb-12">
+            <h2 class="section-title">What's PROJECT DUNES All About?</h2>
+            <div class="card">
+                <p>
+                    Hey there, open-source enthusiasts! 👋 PROJECT DUNES 2048-AES is our big, bold vision to revolutionize cybersecurity, AI, and medical research with cutting-edge tech. We're talking quantum-resistant security, AI-powered workflows, and game-changing medical tools—all open source and ready for you to dive in!
+                </p>
+                <p class="mt-4">
+                    This landing page is your gateway to explore three awesome projects: <strong>PROJECT DUNES</strong>, <strong>GLASTONBURY 2048 SUITE</strong>, and the <strong>NVIDIA CUDA Quantum RAG MCP Server</strong>. Whether you're a developer, researcher, or just curious, join our community to build, experiment, and innovate together! 🚀
+                </p>
+            </div>
+        </section>
+
+        <!-- PROJECT DUNES 2048-AES -->
+        <section id="dunes" class="mb-12">
+            <h2 class="section-title">🐪 PROJECT DUNES 2048-AES</h2>
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-shield-alt"></i>
+                </div>
+                <p>
+                    PROJECT DUNES is your go-to for next-level cybersecurity. It uses our shiny new .MAML protocol (think Markdown, but supercharged) to keep data secure and workflows smooth. With quantum-resistant encryption and smart AI agents, it's ready to tackle modern threats.
+                </p>
+                <h3>Why You'll Love It</h3>
+                <ul>
+                    <li><i class="fas fa-lock"></i> Quantum-safe encryption to protect your data 🔒</li>
+                    <li><i class="fas fa-robot"></i> Smart AI agents that detect threats in a flash</li>
+                    <li><i class="fas fa-file-code"></i> .MAML files for easy, secure data handling</li>
+                    <li><i class="fas fa-chart-line"></i> 94.7% true positive rate for spotting bad stuff</li>
+                    <li><i class="fas fa-bolt"></i> Blazing fast detection in just 247ms!</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- GLASTONBURY 2048 SUITE -->
+        <section id="glastonbury" class="mb-12">
+            <h2 class="section-title">🏥 GLASTONBURY 2048 SUITE</h2>
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-heartbeat"></i>
+                </div>
+                <p>
+                    GLASTONBURY is all about transforming medical research with quantum computing and NVIDIA's CHIMERA tech. From spotting tiny lesions to speeding up drug discovery, it's a game-changer for doctors and researchers.
+                </p>
+                <h3>Why It's Awesome</h3>
+                <ul>
+                    <li><i class="fas fa-search-plus"></i> 30% better detection of micro-lesions in imaging 🩺</li>
+                    <li><i class="fas fa-flask"></i> 40% faster drug screening with quantum algorithms</li>
+                    <li><i class="fas fa-dna"></i> 25% more accurate DNA sequencing</li>
+                    <li><i class="fas fa-lock"></i> Secure 2048-bit quantum encryption for patient data</li>
+                    <li><i class="fas fa-stethoscope"></i> Supports everything from cancer detection to telemedicine</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- NVIDIA CUDA Quantum RAG MCP Server -->
+        <section id="nvidia" class="mb-12">
+            <h2 class="section-title">⚙️ NVIDIA CUDA Quantum RAG MCP Server</h2>
+            <div class="card">
+                <div class="card-icon">
+                    <i class="fas fa-microchip"></i>
+                </div>
+                <p>
+                    This beast of a server combines NVIDIA's CUDA power with quantum computing for mind-blowing performance. It's perfect for real-time video processing, scientific research, and AI workloads that need serious muscle.
+                </p>
+                <h3>What Makes It Cool</h3>
+                <ul>
+                    <li><i class="fas fa-bolt"></i> 76x faster training with NVIDIA GPUs ⚡</li>
+                    <li><i class="fas fa-video"></i> Real-time video streaming and analysis</li>
+                    <li><i class="fas fa-database"></i> Quantum-enhanced data retrieval for smarter results</li>
+                    <li><i class="fas fa-stream"></i> Handles up to 8 video streams at 4K resolution</li>
+                    <li><i class="fas fa-server"></i> Rock-solid 24/7 uptime for critical tasks</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Join the Community -->
+        <section id="community" class="mb-12">
+            <h2 class="section-title">🌍 Join Our Open-Source Community</h2>
+            <div class="card">
+                <p>
+                    We're thrilled to have you here! Whether you're coding, researching, or just exploring, there's a place for you in the WebXOS community. Fork our repos, share your ideas, or jump into our forums to connect with other innovators.
+                </p>
+                <div class="community-grid">
+                    <div class="community-card">
+                        <h3>GitHub</h3>
+                        <p>Check out our repos and contribute!</p>
+                        <a href="https://github.com/webxos">Visit GitHub</a>
                     </div>
-                    <h3>Quantum-Enhanced Diagnostics</h3>
-                    <p>Leverage quantum algorithms for 30% improvement in micro-lesion detection with NVIDIA TensorRT acceleration.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-flask"></i>
+                    <div class="community-card">
+                        <h3>Community Forum</h3>
+                        <p>Chat with us and share ideas!</p>
+                        <a href="https://webxos.netlify.app/community">Join the Forum</a>
                     </div>
-                    <h3>Drug Discovery</h3>
-                    <p>Reduce drug screening time by 40% using VQE algorithms on CHIMERA hardware with NVIDIA CUDA-Q.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-dna"></i>
+                    <div class="community-card">
+                        <h3>Contact Us</h3>
+                        <p>Got questions? Reach out!</p>
+                        <a href="mailto:project_dunes@outlook.com">Email Us</a>
                     </div>
-                    <h3>Genomic Analysis</h3>
-                    <p>25% improvement in DNA sequence assembly accuracy through quantum annealing techniques.</p>
-                </div>
-                
-                <div class="feature-card">
-                    <div class="feature-icon">
-                        <i class="fas fa-shield-alt"></i>
-                    </div>
-                    <h3>Quantum Encryption</h3>
-                    <p>2048-bit quantum encryption ensures complete protection of sensitive medical data.</p>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Installation Section -->
-    <section id="installation">
-        <div class="container">
-            <h2 class="section-title">Installation Guide</h2>
-            
-            <div class="code-section">
-                <div class="code-header">
-                    <span>Terminal</span>
-                    <button class="copy-btn" onclick="copyCode()">Copy Code <i class="fas fa-copy"></i></button>
-                </div>
-                <pre><code># Set installation paths (customize these for your environment)
-export NVIDIA_DRIVER_PATH="/usr/local/nvidia"
-export CUDA_VERSION="11.8"
-export TENSORRT_VERSION="8.5"
-export GLASTONBURY_HOME="/opt/glastonbury_2048"
-
-# Create installation directory
-mkdir -p $GLASTONBURY_HOME/build
-cd $GLASTONBURY_HOME/build
-
-# Configure the build
-cmake .. -DCMAKE_BUILD_TYPE=Release -DBUILD_WITH_PYTHON=ON \
-         -DCUDA_TOOLKIT_ROOT_DIR=$NVIDIA_DRIVER_PATH/cuda-$CUDA_VERSION \
-         -DTENSORRT_DIR=$NVIDIA_DRIVER_PATH/tensorrt-$TENSORRT_VERSION
-
-# Compile and install
-make -j$(nproc)
-sudo make install
-
-# Verify installation
-glastonbury-sdk --version</code></pre>
+        <!-- About This Page -->
+        <section class="mb-12">
+            <h2 class="section-title">📄 About This Page</h2>
+            <div class="card">
+                <p>
+                    This landing page is your one-stop shop to learn about PROJECT DUNES, GLASTONBURY, and the NVIDIA CUDA server. It's built with Tailwind CSS for a sleek look and is 100% open source, just like our projects. Deploy it on Netlify or any static host to share with the world! ✨
+                </p>
+                <p class="mt-4">
+                    <strong>Purpose:</strong> To introduce the open-source community to our projects and invite collaboration.<br>
+                    <strong>Usage:</strong> Save as `docs/dunes_landing.html` in your repo and deploy via Netlify.<br>
+                    <strong>License:</strong> MIT License with attribution to WebXOS.
+                </p>
             </div>
-        </div>
-    </section>
+        </section>
+    </main>
 
-    <!-- Applications Section -->
-    <section id="applications">
-        <div class="container">
-            <h2 class="section-title">Medical Applications</h2>
-            
-            <div class="applications">
-                <div class="app-card">
-                    <h3><i class="fas fa-x-ray"></i> Medical Imaging</h3>
-                    <p>Quantum machine learning increases imaging sensitivity by 35% for early cancer detection.</p>
-                </div>
-                
-                <div class="app-card">
-                    <h3><i class="fas fa-radiation-alt"></i> Radiotherapy</h3>
-                    <p>Quantum optimization reduces off-target radiation by 20%, optimizing dose distribution.</p>
-                </div>
-                
-                <div class="app-card">
-                    <h3><i class="fas fa-user-md"></i> Personalized Medicine</h3>
-                    <p>QML models enhance treatment prediction by 28%, tailoring therapies based on genomic data.</p>
-                </div>
-                
-                <div class="app-card">
-                    <h3><i class="fas fa-laptop-medical"></i> Telemedicine</h3>
-                    <p>Quantum encryption and QML reduce latency by 25%, enhancing remote diagnostics security.</p>
-                </div>
-                
-                <div class="app-card">
-                    <h3><i class="fas fa-graduation-cap"></i> Medical Training</h3>
-                    <p>Quantum Monte Carlo simulations improve procedural accuracy by 33%.</p>
-                </div>
-                
-                <div class="app-card">
-                    <h3><i class="fas fa-clipboard-list"></i> Clinical Decision-Making</h3>
-                    <p>Quantum-assisted decisions improve diagnostic concordance by 22% with real-time analysis.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Documentation Section -->
-    <section id="docs">
-        <div class="container">
-            <h2 class="section-title">Documentation</h2>
-            
-            <div class="code-section">
-                <div class="code-header">
-                    <span>Configuration Example</span>
-                </div>
-                <pre><code><span class="token comment"># Example configuration for medical imaging pipeline</span>
-<span class="token keyword">server:</span>
-  <span class="token keyword">ingest:</span>
-    <span class="token keyword">protocol:</span> <span class="token string">"dicom"</span>
-    <span class="token keyword">port:</span> <span class="token number">104</span>
-  <span class="token keyword">output:</span>
-    <span class="token keyword">protocol:</span> <span class="token string">"https"</span>
-    <span class="token keyword">url:</span> <span class="token string">"https://medical-center.com/api/results"</span>
-  <span class="token keyword">gpu_id:</span> <span class="token number">0</span>
-
-<span class="token keyword">pipeline:</span>
-  <span class="token keyword">- name:</span> <span class="token string">"quantum_imaging_enhancement"</span>
-    <span class="token keyword">parameters:</span>
-      <span class="token keyword">algorithm:</span> <span class="token string">"QML-U-Net"</span>
-      <span class="token keyword">precision:</span> <span class="token string">"fp16"</span>
-  <span class="token keyword">- name:</span> <span class="token string">"anomaly_detection"</span>
-    <span class="token keyword">parameters:</span>
-      <span class="token keyword">sensitivity:</span> <span class="token number">0.95</span>
-      <span class="token keyword">quantum_circuit_depth:</span> <span class="token number">2048</span></code></pre>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer id="support">
+    <footer>
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
-                    <h3>GLASTONBURY 2048 SUITE</h3>
-                    <p>Quantum and NVIDIA CHIMERA Integration for Medical Research</p>
+                    <h3>🐪 PROJECT DUNES 2048-AES</h3>
+                    <p>Building the Future of AI, Quantum Computing, and Medical Research</p>
                 </div>
                 
                 <div class="footer-section">
                     <h3>Quick Links</h3>
                     <ul class="footer-links">
-                        <li><a href="#features">Features</a></li>
-                        <li><a href="#installation">Installation</a></li>
-                        <li><a href="#applications">Applications</a></li>
-                        <li><a href="#docs">Documentation</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#dunes">Dunes</a></li>
+                        <li><a href="#glastonbury">Glastonbury</a></li>
+                        <li><a href="#nvidia">NVIDIA</a></li>
                     </ul>
                 </div>
                 
                 <div class="footer-section">
                     <h3>Support</h3>
                     <ul class="footer-links">
-                        <li><a href="#">Documentation</a></li>
-                        <li><a href="#">API Reference</a></li>
-                        <li><a href="#">Community Forum</a></li>
-                        <li><a href="#">Contact Support</a></li>
+                        <li><a href="https://github.com/webxos">GitHub</a></li>
+                        <li><a href="https://webxos.netlify.app/community">Community Forum</a></li>
+                        <li><a href="mailto:project_dunes@outlook.com">Contact Support</a></li>
                     </ul>
                 </div>
                 
@@ -598,7 +612,7 @@ glastonbury-sdk --version</code></pre>
             </div>
             
             <div class="copyright">
-                <p>&copy; 2025 PROJECT DUNES 2048: Institution, No Name. All rights reserved.</p>
+                <p>© 2025 WebXOS Research Group. All rights reserved.</p>
                 <p>NVIDIA, CUDA, and TensorRT are trademarks of NVIDIA Corporation.</p>
             </div>
         </div>
