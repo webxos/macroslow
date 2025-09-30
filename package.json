@@ -1,0 +1,16 @@
+**File Path:** `./package.json`
+
+{
+  "name": "project-dunes-2048-aes",
+  "version": "1.0.0",
+  "description": "PROJECT DUNES 2048-AES: Open-source cybersecurity and AI framework",
+  "scripts": {
+    "build": "echo 'Copying static files to docs/' && mkdir -p docs && cp -r src/static/* docs/",
+    "dev": "echo 'Serving static files locally' && python3 -m http.server 8888 --directory docs",
+    "test": "echo 'No frontend tests configured' && exit 0"
+  },
+  "dependencies": {},
+  "devDependencies": {},
+  "author": "WebXOS Research Group",
+  "license": "MIT"
+}
