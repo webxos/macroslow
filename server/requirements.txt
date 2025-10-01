@@ -1,0 +1,7 @@
+fastapi==0.115.0
+langchain==0.0.335
+crewai==0.1.0
+python-jose==3.3.0
+httpx==0.23.0
+sqlalchemy==1.4.23
+pydantic==2.9.2
