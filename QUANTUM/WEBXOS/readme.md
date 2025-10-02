@@ -2,7 +2,7 @@
 
 This guide fuses the **CHIMERA 2048-AES SDK**—a hybrid PyTorch-SQLAlchemy-FastAPI package—with the **Quantum IDE** front-end page to enable seamless **Model Context Protocol (MCP)** integration. The *CHIMERA 2048-AES SDK* is boilerplate modular software development kit that empowers developers to deploy quantum-ready backends for MCP, featuring neural network optimization, qubit simulation, and .MAML.ml-secured workflows. ✨
 
-🐪 **CHIMERA 2048-AES** introduces the **Quantum MCP Layer**—a quantum-resistant protocol for IDE environments. It transforms HTML front-ends into secure, Quantum IDEs for MCP workflows, datasets, and agent blueprints, with seamless JWT/OAuth2.0 synchronization and CRYSTALS-Dilithium validation.
+🐪 **CHIMERA 2048-AES** introduces the **Quantum back-end MCP Layer**—a quantum-resistant back-end SDK for Quantum IDE environments. It transforms HTML front-ends into secure, Quantum IDEs for MCP workflows, datasets, and agent blueprints, with seamless JWT/OAuth2.0 synchronization and CRYSTALS-Dilithium validation.
 
 **💻 CHIMERA 2048-AES** empowers open-source developers to build MCP-compliant quantum IDEs. It includes dual-mode encryption (256-bit AES lightweight, 512-bit AES advanced), Qiskit-based key generation, and prompt injection defense via semantic .MAML analysis. ✨
 
