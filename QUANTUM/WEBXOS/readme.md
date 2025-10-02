@@ -27,7 +27,6 @@ The Quantum IDE HTML is a front-end placeholder requiring backend APIs for MCP f
 ## 🛠️ **Prerequisites**
 - Python 3.12+ with pip
 - Docker (for containerized deployment)
-- GitHub account (fork [webxos/webXOS](https://github.com/webxos/webXOS))
 - AWS Cognito or similar for JWT (optional for OAuth2.0 sync)
 - Libraries: Install via `pip install torch sqlalchemy fastapi qiskit liboqs uvicorn celery`
 
@@ -35,11 +34,10 @@ The Quantum IDE HTML is a front-end placeholder requiring backend APIs for MCP f
 
 ## 🚀 **Step-by-Step Setup: Connecting CHIMERA Backend to Quantum IDE**
 
-### **Step 1: Download & Fork the Quantum IDE Front-End**
+### **Step 1: Download the Quantum IDE Front-End**
 1. Clone the repo: `git clone https://github.com/webxos/webXOS.git`
 2. Save `quantumide.html` locally (raw: [https://github.com/webxos/webXOS/blob/main/quantumide.html](https://github.com/webxos/webXOS/blob/main/quantumide.html))
 3. Open in a browser—note "Backend Connection Required" placeholders.
-4. Fork the repo on GitHub for your project.
 
 ### **Step 2: Install CHIMERA 2048-AES SDK**
 CHIMERA is a templated package for MCP backends. Install as follows:
@@ -233,10 +231,6 @@ flowchart TD
   | API Latency | <100ms | 247ms |
   | Qubit Sim Time | <1s | 1.8s |
   | Neural Response | <24ms | 50ms |
-
-## 🌌 **Future Enhancements: GalaxyCraft Quantum IDE**
-- Integrate with GalaxyCraft MMO for collaborative quantum coding (BETA: [webxos.netlify.app/galaxycraft](https://webxos.netlify.app/galaxycraft)).
-- Add BELUGA 2048-AES for SOLIDAR™ sensor fusion in IDE visualizations.
 
 ## 📜 **2048-AES Attribution & License**
 **Copyright:** © 2025 WebXOS Research Group. All rights reserved.  
