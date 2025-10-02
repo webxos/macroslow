@@ -3,6 +3,8 @@
 
 Welcome to the **PROJECT DUNES 2048-AES: OPEN SOURCE BETA** by WEBXOS ([webxos.netlify.app](https://webxos.netlify.app)), a quantum-distributed, AI-orchestrated project hosted on GitHub! 
 
+*A decentralized unified network exchange system is a vision for distributed infrastructure and services where networks and exchanges operate without a single point of control, offering secure and user-friendly experiences through peer-to-peer interactions and token-based incentives. Examples include Decentralized Exchanges (DEXs) for cryptocurrency, which facilitate direct trading without intermediaries, and emerging frameworks like DePIN (Decentralized Physical Infrastructure Networks), which use blockchain to build and manage physical infrastructure like sensors and connectivity hardware*
+
 This model context protocol SDK fuses: 
 
 - ✅ **PyTorch cores**
