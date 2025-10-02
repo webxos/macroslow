@@ -1,21 +1,4 @@
----
-maml_version: 2.0.0
-id: chimera-workflow-guide
-type: documentation
-origin: WebXOS Research Group
-requires:
-  python: ">=3.10"
-  cuda: ">=12.0"
-  ocaml: ">=5.2"  # Supports Dune 3.20.0 implicit_transitive_deps
-permissions:
-  read: public
-  execute: admin
-verification:
-  schema: maml-documentation-v1
-  signature: CRYSTALS-Dilithium
----
-
-# 🐪 CHIMERA 2048 API Gateway: Workflow Guide
+# 🐪 CHIMERA 2048 MAML FILE EXAMPLE
 
 This guide outlines how to create and execute workflows using the **CHIMERA 2048 API Gateway** with **MAML (Markdown as Medium Language)**, now extended to support OCaml Dune 3.20.0 features, CPython, and standard Markdown.
 
