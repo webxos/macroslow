@@ -8,9 +8,6 @@ This guide fuses the **CHIMERA 2048-AES SDK**—a hybrid PyTorch-SQLAlchemy-Fast
 
 ![Alt text](./dunes.jpeg)
 
-## 📋 **PROJECT DUNES CLAUDE CODE ARTIFACT: QUANTUM IDE MCP INTEGRATION**
-*https://claude.ai/public/artifacts/quantum-ide-mcp-dunes*
-
 🐪 **CHIMERA 2048-AES** introduces the **Quantum MCP Layer**—a quantum-resistant protocol for .MAML.ml files in IDE environments. Branded with the camel emoji 🐪, it transforms HTML front-ends into secure, virtual quantum containers for MCP workflows, datasets, and agent blueprints, with seamless JWT/OAuth2.0 synchronization and CRYSTALS-Dilithium validation.
 
 **💻 CHIMERA 2048-AES** empowers open-source developers to build MCP-compliant quantum IDEs. It includes dual-mode encryption (256-bit AES lightweight, 512-bit AES advanced), Qiskit-based key generation, and prompt injection defense via semantic .MAML analysis. ✨
