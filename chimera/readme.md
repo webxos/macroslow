@@ -275,7 +275,7 @@ As we stand on the precipice of a new computational era, CHIMERA 2048 is the bea
 
 ## Epilogue: The Call to Adventure
 
-The Chimera of old was a challenge to heroes, a test of courage and ingenuity. Today, CHIMERA 2048 issues a new call to developers, researchers, and visionaries. Join the Webxos Research Group in shaping this quantum future. Contribute to Project Dunes at [github.com/webxos/project-dunes](https://github.com/webxos/project-dunes), explore the MAML specification, and build workflows that harness the full might of NVIDIA CUDA Cores and quantum mathematics.
+The Chimera of old was a challenge to heroes, a test of courage and ingenuity. Today, CHIMERA 2048 issues a new call to developers, researchers, and visionaries. Join the Webxos Research Group in shaping this quantum future. Contribute to Project Dunes at [github.com/webxos/dunes](https://github.com/webxos/dunes), explore the MAML specification, and build workflows that harness the full might of NVIDIA CUDA Cores and quantum mathematics.
 
 The beast is awake. The question is no longer whether it exists, but what you will create with its power.
 
