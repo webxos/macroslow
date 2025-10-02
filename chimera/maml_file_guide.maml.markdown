@@ -78,6 +78,6 @@ MAML integrates OCaml Dune 3.20.0 enhancements (e.g., test aliases, timeouts) wi
 ## 📜 License & Copyright
 **Copyright:** © 2025 Webxos. All Rights Reserved.  
 Licensed under MIT with attribution.  
-**Contact:** `legal@webxos.ai`
+**Contact:** `project_dunes@outlook.com`
 
 **Build your workflows with CHIMERA 2048 and WebXOS 2025!** ✨
