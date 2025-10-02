@@ -36,24 +36,22 @@ The webXOS 2025 Quantum IDE HTML is a front-end placeholder requiring backend AP
 3. Open in a browser—note "Backend Connection Required" placeholders.
 
 ### **Step 2: Install CHIMERA 2048-AES SDK**
-CHIMERA is a templated package for MCP backends. Install as follows:
+CHIMERA is a templated package for MCP backends. All files are found in this repo. Install as follows:
 
 ```bash
 # Create virtual env
 python -m venv chimera-env
-source chimera-env/bin/activate  # On Windows: chimera-env\Scripts\activate
 
 # Install core deps
 pip install fastapi uvicorn sqlalchemy torch qiskit celery liboqs-python
 pip install requests plotly  # For visualizations
 
-# Download CHIMERA boilerplate (from GitHub template)
-git clone https://github.com/webxos/project-dunes-chimera-sdk.git
+# Download CHIMERA boilerplate (found in this GitHub repo)
 cd project-dunes-chimera-sdk
 pip install -e .  # Editable install
 ```
 
-**CHIMERA Structure** (Key Files):
+**Ideal CHIMERA Structure** (EXample only, can be customized):
 ```
 chimera-sdk/
 ├── app/
@@ -69,7 +67,7 @@ chimera-sdk/
 ```
 
 ### **Step 3: Configure MCP API Endpoints**
-Edit `chimera-sdk/config/maml_schema.yaml` for your setup:
+Insert your own API info for your setup:
 
 ```yaml
 mcp:
@@ -93,7 +91,7 @@ Update `quantumide.html` to point to your backend:
 - Add `<script>` for dynamic API calls: e.g., `fetch('/api/simulator')` for launches.
 
 ### **Step 4: Implement Core MCP Endpoints**
-In `chimera-sdk/app/main.py`, extend the FastAPI app for IDE sections:
+In your back-end, extend the FastAPI app for IDE sections, Example only scripts below:
 
 ```python
 from fastapi import FastAPI, Depends, HTTPException
@@ -161,17 +159,17 @@ if __name__ == "__main__":
 - **Security Note**: Wrap endpoints in .MAML.ml encryption using CHIMERA's `maml_validator.py` for quantum-resistant JWTs.
 
 ### **Step 5: Run the Backend & Connect Front-End**
-1. Start MCP Server: `uvicorn app.main:app --reload --port 8000`
-2. Dockerize (Optional): `docker build -t chimera-mcp . && docker run -p 8000:8000 chimera-mcp`
+1. Start your own MCP Server: `uvicorn app.main:app --reload --port 8000`
+2. Make sure to Dockerize all deploys (Optional): `docker build -t chimera-mcp . && docker run -p 8000:8000 chimera-mcp`
 3. Launch IDE: Open `quantumide.html` in browser (serve via `python -m http.server 3000`).
-4. Test: Click "Launch Quantum Simulator"—it should hit `/api/simulator` and return qubit results.
+4. Test in your own environment: Click "Launch Quantum Simulator"—it should hit `/api/simulator` and return qubit results.
 5. Authenticate: Use JWT tokens in headers (e.g., via browser dev tools or IDE's Settings modal).
 
-### **Step 6: Enable Advanced MCP Features**
+### **Step 6: Study this repo and use Advanced MCP Features in your back-end**
 - **Neural Network Analysis**: Integrate PyTorch in `/api/neural` for model deployment.
 - **Integrations**: Add Celery tasks for cloud quantum (IBM/Google) in `celery_tasks.py`.
 - **Quantum Projects**: Use SQLAlchemy to persist projects; visualize with Plotly in IDE.
-- **.MAML Workflows**: Package OCaml-verified quantum algos in .maml.md files:
+- **.MAML Workflows**: Examples of advanced Packages in OCaml-verified quantum algos and.maml.md files:
   ```maml
   ---
   schema: MAML v1.0
@@ -193,7 +191,7 @@ if __name__ == "__main__":
 | `/api/neural/analysis` | Neural Network Analysis | Training visualization |
 | `/api/integrations` | Integrations Modal | Cloud quantum hooks |
 
-## 🧠 **2048-AES CHIMERA AGENTIC WORKFLOW**
+## 🧠 **2048-AES CHIMERA AGENTIC WORKFLOW EXAMPLE**
 Integrate with DUNES agents for autonomous MCP:
 
 ```mermaid
@@ -214,19 +212,8 @@ flowchart TD
     MAML -->|Secure| All
 ```
 
-- **Agents**: Use CrewAI for task orchestration (e.g., Curator validates .MAML inputs).
+- **Agents**: If needed, Use CrewAI for task orchestration (e.g., Curator validates .MAML inputs).
 
-## 🔧 **Troubleshooting & Best Practices**
-- **Backend Errors**: Check logs with `uvicorn --log-level debug`. Ensure Qiskit backend is Aer.
-- **CORS Issues**: Add `from fastapi.middleware.cors import CORSMiddleware` to `main.py`.
-- **Quantum Limits**: Start with 20 qubits; scale to 50 for full IDE perf (87% Quantum CPU target).
-- **Security**: Always validate .MAML files to prevent injection—CHIMERA's semantic analyzer flags 94.7% threats.
-- **Performance Metrics**:
-  | Metric | CHIMERA Target | Baseline |
-  |--------|----------------|----------|
-  | API Latency | <100ms | 247ms |
-  | Qubit Sim Time | <1s | 1.8s |
-  | Neural Response | <24ms | 50ms |
 
 ## 📜 **2048-AES Attribution & License**
 **Copyright:** © 2025 WebXOS Research Group. All rights reserved.  
