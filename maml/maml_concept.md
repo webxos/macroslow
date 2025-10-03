@@ -259,11 +259,6 @@ qc.h(0)
    - Add MCP endpoints in `urls.py`.
    - Integrate MongoDB for storage.
 
-### Contribute
-- Fork [github.com/webxos](https://github.com/webxos).
-- Create a branch (e.g., `feature/maml-enhancement`).
-- Submit a PR with examples or tools.
-
 ---
 
 ## 📈 **Performance Metrics**
@@ -276,23 +271,6 @@ qc.h(0)
 | Concurrent Users  | 1000+   | 500+    |
 | WebSocket Latency | < 50ms  | < 100ms |
 | Task Execution    | 30/hr   | 150/hr  |
-
----
-
-## 🚦 **Future Roadmap**
-
-- **v0.2.0 (Q4 2025):** Add visual editor, mobile agent support.
-- **v0.3.0 (Q1 2026):** Integrate machine learning for predictive updates.
-- **v1.0.0 (Q2 2026):** Full semantic web and blockchain integration.
-
----
-
-## 🤝 **Contributing**
-
-1. **Fork the Repo:** [github.com/webxos](https://github.com/webxos).
-2. **Create Issues:** Suggest features or report bugs.
-3. **Submit PRs:** Add tools (parsers, CLI) or use cases.
-4. **Join Us:** Discuss on [Discord](https://discord.gg/webxos).
 
 ---
 
