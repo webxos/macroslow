@@ -1,4 +1,4 @@
-## 🚀 PROJECT ARACHNID: The Rooster Booster – A Cybernetic Marvel for the Stars 🌌
+## 🚀 PROJECT ARACHNID: The Rooster Booster 🌌
 
 ## Version: 1.0.0 
 Publishing Entity: WebXOS Technologies 
