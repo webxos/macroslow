@@ -45,7 +45,7 @@ GLASTONBURY 2048 Suite SDK
 SpaceX Starbase access for integration
 
 Installation
-git clone https://github.com/webxos/arachnid-dunes-2048aes.git
+git clone
 cd arachnid-dunes-2048aes
 pip install -r requirements.txt
 
@@ -63,8 +63,6 @@ qc.measure_all()
 # Execute rescue mission
 sensor_data = torch.tensor([...], device='cuda:0')
 fused_graph = engine.process_data(sensor_data)
-
-
 
 📜 License
 This project is licensed under the WebXOS Proprietary License. See LICENSE for details.
