@@ -24,27 +24,6 @@ Quantum Control: Qiskit’s variational quantum eigensolver (VQE) optimizes traj
 IoT HIVE: 9,600 sensors (1,200 per leg) feed data to SQLAlchemy-managed arachnid.db, coordinated by BELUGA’s quantum neural network (readme(1).md).
 QLP Integration: MAML, MU, and YORGO translate commands like “launch HVAC to lunar crater” into quantum circuits, scripted in MARKDOWN and routed via MCP.
 
-## 3. Emergency Medical Space HVAC 🚑
-
-READY Mode: Silent, smokeless standby with CHIMERA 2048 AES encryption, booting in milliseconds via BELUGA’s SOLIDAR™ fusion.
-Rescue Capability: Deploys ladders from titanium armos, rescues astronauts, and returns to Earth in under an hour using a single methalox tank.
-Hospital Airbase: Carries a full-service medical facility, transforming Starship into a cosmic ambulance.
-
-   ┌──────────────┐
-   │  Starship    │
-   │  (Hospital)  │◄── 300-ton Payload
-   └──────┬───────┘
-          │
-   ┌──────▼──────┐
-   │  ARACHNID   │◄── 8 Raptor-X Engines
-   │  HVAC Drone │    BELUGA Neural Net
-   └──────┬──────┘
-          │
-   ┌──────▼──────┐
-   │ Lunar/Mars  │◄── Quantum Fins Navigate
-   │  Landing    │    200 mph Winds
-   └─────────────┘
-
 ## 4. Factory Integration and Scalability 🏭
 
 Starbase Production: Integrated with SpaceX’s Raptor assembly lines, producing 10 units by Q2 2026 using EOS M400 3D printers for titanium plating (arachnid_schematics_part4.markdown).
@@ -52,7 +31,7 @@ Quality Control: CUDA-accelerated AutoCAD simulations and OCaml/Ortac verificati
 
 ## 5. GLASTONBURY 2048 Suite SDK 🌌
 
-MARKDOWN AS A MEDIUM: Scripts quantum workflows, routing tasks via MCP to CHIMERA’s four-headed architecture (authentication, computation, visualization, storage).
+MARKDOWN AS A MEDIUM: Scripts quantum workflows, routing tasks via MCP to a MCP server called CHIMERA’s four-headed architecture (authentication, computation, visualization, storage).
 PyTorch and SQLAlchemy: Optimize neural networks and manage sensor data for real-time control.
 NVIDIA CUDA: Accelerates Qiskit simulations for trajectory and cooling optimization.
 
