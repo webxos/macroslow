@@ -17,24 +17,6 @@ ARACHNID is a revolutionary autonomous rocket booster system, enhancing Starship
 
 ## Caltech PAM Chainmail Cooling: 16 AI-controlled fins per leg, synced with 1,200 IoT sensors, use liquid nitrogen to manage heat during re-entry or Martian landings (arachnid_schematics_part3.markdown).
 
-## Laser-Guided Landing: BELUGA’s SOLIDAR™ fusion processes LIDAR and sensor data for pinpoint accuracy on lunar heliports or Martian plains.
-
-   ┌───────┐
-   │ Raptor-X│
-   │ Engine  │
-   └───────┘
-       |||        2m Stroke, 500 kN
-       |||        Titanium Plating
-   ┌───▼───┐
-   │  PAM   │◄── 16 Cooling Fins
-   │ Sensors│     1,200 IoT Sensors
-   └────────┘
-       |||
-   ┌───▼───┐
-   │ Landing│◄── Laser-Guided
-   │  Base  │
-   └────────┘
-
 ## 2. Quantum Engine Controls and IoT HIVE 🧠
 
 Quantum Control: Qiskit’s variational quantum eigensolver (VQE) optimizes trajectories using (\Delta v = \sqrt{\frac{2\mu}{r_1} + \frac{2\mu}{r_2} - \frac{\mu}{a}}), accelerated by CUDA H200 GPUs (arachnid_schematics_part2.markdown).
