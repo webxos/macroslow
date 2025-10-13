@@ -1,4 +1,4 @@
-# 🔐 AES2048Encryptor
+# 🔐 AEGIS
 
 A high-security, quantum-resistant AES encryption module leveraging CUDA for key generation. This Python class provides 2048-bit AES encryption using PyCryptodome and PyTorch, ideal for secure data processing in high-performance environments.
 
