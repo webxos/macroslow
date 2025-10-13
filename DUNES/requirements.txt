@@ -1,0 +1,13 @@
+# Requirements for PROJECT DUNES 2048-AES SDK
+# Install with: pip install -r requirements.txt
+fastapi==0.103.0  # FastAPI for building the MCP server
+uvicorn==0.23.2  # ASGI server for running FastAPI
+pytorch==2.0.1  # PyTorch for ML-based error detection
+sqlalchemy==2.0.20  # SQLAlchemy for database integration
+pydantic==2.4.2  # Pydantic for data validation
+qiskit==0.44.0  # Qiskit for quantum cryptography
+liboqs-python==0.7.2  # Post-quantum cryptography
+python-dotenv==1.0.0  # Environment variable management
+plotly==5.15.0  # Plotly for 3D visualization
+pyyaml==6.0  # YAML parsing for MAML metadata
+aiohttp==3.8.5  # Async HTTP client for third-party APIs
