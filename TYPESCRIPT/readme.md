@@ -38,6 +38,8 @@ Event handling in MCP involves managing **sessions**, **notifications**, and **t
 
 ---
 
+## 10 PAGE GUIDE, IN THIS REPO WILL BE LEARNING ABOUT THESE TOPICS:
+
 ## Page 2: Setting Up the MACROSLOW TypeScript Environment
 
 ### Prerequisites
