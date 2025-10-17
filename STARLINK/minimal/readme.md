@@ -17,10 +17,13 @@ Minimal Footprint: Deploy on a Raspberry Pi 5 with a slim DUNES SDK stack for po
 
 ## Target Audience
 
-Developers: Fork DUNES boilerplates to build custom MCP servers for edge AI applications.
-Researchers: Run quantum-resistant ML models and data pipelines in remote or unstable environments.
-Survivalists/Preppers: Establish secure, off-grid networks for emergency comms and data backup.
-Humanitarian Teams: Deploy rapid-response AI systems in disaster zones with no infrastructure.
+*Developers: who want to build custom MCP servers for edge AI applications.*
+
+*Researchers: who want to Run quantum-resistant ML models and data pipelines in remote or unstable environments.*
+
+*Survivalists/Preppers: who want to Establish secure, off-grid networks for emergency comms and data backup.*
+
+*Humanitarian Teams: who want to Deploy rapid-response AI systems in disaster zones with no infrastructure.*
 
 ## System Highlights
 
