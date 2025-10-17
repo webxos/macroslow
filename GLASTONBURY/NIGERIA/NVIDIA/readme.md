@@ -1,5 +1,5 @@
-# title: DUNES Minimal SDK Hardware Guide: NVIDIA DGX Spark for Emeagwali's Connection Machine Vision
-# part: MACROSLOW 2048-AES Humanitarian Effort
+# DUNES Minimal SDK Hardware Guide: NVIDIA DGX Spark for Emeagwali's Connection Machine Vision
+# MACROSLOW 2048-AES Humanitarian Effort
 # version: 1.0.0
 # date: October 16, 2025
 
