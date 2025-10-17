@@ -1,6 +1,6 @@
 ## 🐪 WELCOME TO MACROSLOW (x.com/macroslow)
 
-*Welcome to MACROSLOW: an Open Source Library, a quantum computing, AI-orchestrated educational repository hosted on GitHub. MACROSLOW is a source for guides, tutorials, and templates to build qubit based systems in 2048-AES security protocol. Designed for decentralized unified network exchange systems and quantum computing running QISKIT/QUTIP/PYTORCH based qubit logc. It enables secure, distributed infrastructure for peer-to-peer interactions and token-based incentives without a single point of control, supporting applications like Decentralized Exchanges (DEXs) and DePIN frameworks for blockchain-managed physical infrastructure harnessing Qubit based systems and networks.*
+*Welcome to MACROSLOW: an Open Source Library, for quantum computing and AI-orchestrated educational repository hosted on GitHub. MACROSLOW is a source for guides, tutorials, and templates to build qubit based systems in 2048-AES security protocol. Designed for decentralized unified network exchange systems and quantum computing running QISKIT/QUTIP/PYTORCH based qubit logc. It enables secure, distributed infrastructure for peer-to-peer interactions and token-based incentives without a single point of control, supporting applications like Decentralized Exchanges (DEXs) and DePIN frameworks for blockchain-managed physical infrastructure harnessing Qubit based systems and networks.*
 
 ## Overview
 
