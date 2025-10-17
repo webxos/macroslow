@@ -78,21 +78,21 @@ These integrate via layered architecture: FastAPI/MCP core, AI orchestration (Cl
 ## MAML Protocol
 MACROSLOW 2048-AES introduces the MAML (Markdown as Medium Language) protocol, a novel markup language for encoding multimodal security data. It features:
 
--.MAML.ml Files: Structured, executable data containers validated with MAML schemas
--Dual-Mode Encryption: 256-bit AES (lightweight, fast) and 512-bit AES (advanced, secure) with CRYSTALS-Dilithium signatures
--OAuth2.0 Sync: JWT-based authentication via AWS Cognito
--Reputation-Based Validation: Customizable token-based reputation system
--Quantum-Resistant Security: Post-quantum cryptography with liboqs and Qiskit
--Prompt Injection Defense: Semantic analysis and jailbreak detection
+# .MAML.ml Files: Structured, executable data containers validated with MAML schemas
 
+# Dual-Mode Encryption: 256-bit AES (lightweight, fast) and 512-bit AES (advanced, secure) with CRYSTALS-Dilithium signatures
 
-    MAML (Markdown as Medium Language): A protocol that extends the Markdown (.md) format into a structured, executable container for agent-to-agent communication.
-    .maml.md: The official file extension for a MAML-compliant document.
-    MAML Gateway: A runtime server that validates, routes, and executes the instructions within a MAML file.
-    MCP (Model Context Protocol): A protocol for tools and LLMs to communicate with external data sources. MAML is the ideal format for MCP servers to return rich, executable content.
-    Front Matter: The mandatory YAML section at the top of a MAML file, enclosed by ---, containing machine-readable metadata.
-    Content Body: The section of a MAML file after the front matter, using structured Markdown headers (##) to define content sections.
-    Signed Execution Ticket: A cryptographic grant appended to a MAML file's History by a MAML Gateway, authorizing the execution of its code blocks.
+# OAuth2.0 Sync: JWT-based authentication via AWS Cognito
+
+# Reputation-Based Validation: Customizable token-based reputation system
+
+# Quantum-Resistant Security: Post-quantum cryptography with liboqs and Qiskit
+
+# Prompt Injection Defense: Semantic analysis and jailbreak detection
+
+# MORE INFO:
+
+MAML (Markdown as Medium Language): A protocol that extends the Markdown (.md) format into a structured, executable container for agent-to-agent communication. .maml.md: The official file extension for a MAML-compliant document. MAML Gateway: A runtime server that validates, routes, and executes the instructions within a MAML file. MCP (Model Context Protocol): A protocol for tools and LLMs to communicate with external data sources. MAML is the ideal format for MCP servers to return rich, executable content. Front Matter: The mandatory YAML section at the top of a MAML file, enclosed by ---, containing machine-readable metadata. Content Body: The section of a MAML file after the front matter, using structured Markdown headers (##) to define content sections. Signed Execution Ticket: A cryptographic grant appended to a MAML file's History by a MAML Gateway, authorizing the execution of its code blocks.
 
 
 ## MACROSLOW
