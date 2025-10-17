@@ -91,9 +91,19 @@ Quantum-Resistant Security: Post-quantum cryptography with liboqs and Qiskit
 
 Prompt Injection Defense: Semantic analysis and jailbreak detection
 
-# Markdown as Medium Language (MAML):
+# Markdown as Medium Language (MAML) more about the syntax:
 
-Markdown as Medium Language: A protocol that extends the Markdown (.md) format into a structured, executable container for agent-to-agent communication. .maml.md: The official file extension for a MAML-compliant document. MAML Gateway: A runtime server that validates, routes, and executes the instructions within a MAML file. MCP (Model Context Protocol): A protocol for tools and LLMs to communicate with external data sources. MAML is the ideal format for MCP servers to return rich, executable content. Front Matter: The mandatory YAML section at the top of a MAML file, enclosed by ---, containing machine-readable metadata. Content Body: The section of a MAML file after the front matter, using structured Markdown headers (##) to define content sections. Signed Execution Ticket: A cryptographic grant appended to a MAML file's History by a MAML Gateway, authorizing the execution of its code blocks.
+Markdown as Medium Language: A protocol that extends the Markdown (.md) format into a structured, executable container for agent-to-agent communication. 
+
+.maml.md: The official file extension for a MAML-compliant document. MAML Gateway: A runtime server that validates, routes, and executes the instructions within a MAML file. 
+
+Desgined for MCP (Model Context Protocol): A protocol for tools and LLMs to communicate with external data sources. MAML is the ideal format for MCP servers to return rich, executable content. 
+
+Examples of Front Matter: The mandatory YAML section at the top of a MAML file, enclosed by ---, containing machine-readable metadata. 
+
+Examples of Content Body: The section of a MAML file after the front matter, using structured Markdown headers (##) to define content sections. 
+
+Features Signed Execution Ticket: A cryptographic grant appended to a MAML file's History by a MAML Gateway, authorizing the execution of its code blocks.
 
 
 ## MACROSLOW
