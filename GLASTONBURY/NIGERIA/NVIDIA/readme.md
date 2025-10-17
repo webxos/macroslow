@@ -1,14 +1,15 @@
 # DUNES Minimal SDK Hardware Guide: NVIDIA DGX Spark for Emeagwali's Connection Machine Vision
-# MACROSLOW 2048-AES Humanitarian Effort
-# version: 1.0.0
-# date: October 16, 2025
+
+*MACROSLOW 2048-AES Humanitarian Effort*
+*version: 1.0.0*
+*date: October 16, 2025*
 
 
 # The Emeagwali Connection Machine 2048-AES: Quantum Computing in 2025 with NVIDIA DGX Spark
 
-**© 2025 WebXOS Research Group. All Rights Reserved.**  
-**License: MIT for Research and Prototyping with Attribution to WebXOS.**  
-**MACROSLOW 2048-AES: Model Context Protocol SDK**  
+*© 2025 WebXOS Research Group. All Rights Reserved.*
+*License: MIT for Research and Prototyping with Attribution to WebXOS.*
+*MACROSLOW 2048-AES: Model Context Protocol SDK*
 *x.com/macroslow | project_dunes@outlook.com | webxos.netlify.app*
 
 ## Introduction to this Guide
