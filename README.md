@@ -14,7 +14,7 @@ PyTorch for machine learning and SQLAlchemy databases for robust data management
 
 ## DUNES 2048-AES SDK: The Minimalist SDK 
 
-Within the MAML (Markdown as Medium Language) protocol, DUNES serves as the baseline minimalist SDK. DUNES offers a set of 10 core files for building a hybrid Model Context Protocol (MCP) server with MAML processing and MARKUP Agent functionality. It enables quantum-distributed workflows with verifiable OCaml-based algorithms, hybrid multi-language orchestration (Python, Qiskit), and integration with MCP servers. Key features include:
+DUNES serves as the baseline minimalist SDK. DUNES offers a set of 10 core files for building a hybrid Model Context Protocol (MCP) server with MAML processing and MARKUP Agent functionality. It enables quantum-distributed workflows with verifiable OCaml-based algorithms, hybrid multi-language orchestration (Python, Qiskit), and integration with MCP servers. Key features include:
 
 ## CHIMERA 2048-AES SDK: A Qubit ready SDK!
 
