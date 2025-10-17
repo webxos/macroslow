@@ -6,15 +6,7 @@
 
 ## The MACROSLOW libraries include and integrate:
 
-PyTorch cores for machine learning
-
-SQLAlchemy databases for robust data management
-
-Advanced .yaml and .md files for configuration and documentation
-
-Multi-stage Dockerfile deployments for scalable setups
-
-$custom web3 .md wallets and tokenization for flexible, secure transactions
+PyTorch for machine learning and SQLAlchemy databases for robust data management. Sync them together with Advanced .yaml and .md files for configuration and documentation. Enabling for Multi-stage Dockerfile deployments for scalable setups and $custom web3 .md wallets and tokenization for flexible, secure transactions.
 
 
 *MACROSLOW provides a collection of tools and agents for developers to fork and build upon as boilerplates and OEM templates*
