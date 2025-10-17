@@ -76,19 +76,20 @@ Additional agents include: The Curator (data validation), The Alchemist (orchest
 These integrate via layered architecture: FastAPI/MCP core, AI orchestration (Claude-Flow, OpenAI Swarm, CrewAI), and databases (MongoDB/SQLAlchemy). Supports Jupyter/Angular.js workflows and upcoming UIs like GalaxyCraft MMO.
 
 ## MAML Protocol
+
 MACROSLOW 2048-AES introduces the MAML (Markdown as Medium Language) protocol, a novel markup language for encoding multimodal security data. It features:
 
-# .MAML.ml Files: Structured, executable data containers validated with MAML schemas
+.MAML.ml Files: Structured, executable data containers validated with MAML schemas
 
-# Dual-Mode Encryption: 256-bit AES (lightweight, fast) and 512-bit AES (advanced, secure) with CRYSTALS-Dilithium signatures
+Dual-Mode Encryption: 256-bit AES (lightweight, fast) and 512-bit AES (advanced, secure) with CRYSTALS-Dilithium signatures
 
-# OAuth2.0 Sync: JWT-based authentication via AWS Cognito
+OAuth2.0 Sync: JWT-based authentication via AWS Cognito
 
-# Reputation-Based Validation: Customizable token-based reputation system
+Reputation-Based Validation: Customizable token-based reputation system
 
-# Quantum-Resistant Security: Post-quantum cryptography with liboqs and Qiskit
+Quantum-Resistant Security: Post-quantum cryptography with liboqs and Qiskit
 
-# Prompt Injection Defense: Semantic analysis and jailbreak detection
+Prompt Injection Defense: Semantic analysis and jailbreak detection
 
 # MORE INFO:
 
