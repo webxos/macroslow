@@ -4,29 +4,23 @@
 
 ## Overview
 
-## The MACROSLOW libraries integrate:
+## The MACROSLOW libraries include and integrate:
 
 PyTorch cores for machine learning
 SQLAlchemy databases for robust data management
 Advanced .yaml and .md files for configuration and documentation
 Multi-stage Dockerfile deployments for scalable setups
-$custom .md wallets and tokenization for flexible, secure transactions
+$custom web3 .md wallets and tokenization for flexible, secure transactions
 
-This SDK provides a collection of tools and agents for developers to fork and build upon as boilerplates and OEM templates for 2048-AES applications.
-DUNES: Minimalist SDK within MAML
+
+*MACROSLOW provides a collection of tools and agents for developers to fork and build upon as boilerplates and OEM templates*
+
+
+## DUNES 2048-AES SDK: The Minimalist SDK 
+
 Within the MAML (Markdown as Medium Language) protocol, DUNES serves as the baseline minimalist SDK. DUNES offers a set of 10 core files for building a hybrid Model Context Protocol (MCP) server with MAML processing and MARKUP Agent functionality. It enables quantum-distributed workflows with verifiable OCaml-based algorithms, hybrid multi-language orchestration (Python, Qiskit), and integration with MCP servers. Key features include:
 
-
-## Includes NVIDIA Integration: The DUNES SDK leverages NVIDIA’s hardware ecosystem for robotics, AI, and quantum-classical computing. It supports:
-
-Jetson Orin (Nano, AGX Orin): Up to 275 TOPS for edge AI, enabling real-time robotics/IoT with sub-100ms latency.
-A100/H100 GPUs: Up to 3,000 TFLOPS for AI training, quantum simulations, and data analytics.
-Isaac Sim: GPU-accelerated virtual environments for robotics validation, reducing deployment risks by 30%.
-cuQuantum SDK/CUDA-Q: Quantum algorithm simulation with 99% fidelity for quantum key distribution and variational algorithms.
-Guides cover hardware setup, CUDA/Tensor Core optimization, and integration with DUNES’ .MAML.ml pipelines for secure, quantum-resistant workflows.
-
-
-## CHIMERA 2048: Quantum-Enhanced API Gateway
+## CHIMERA 2048-AES SDK: A Qubit ready SDK!
 
 CHIMERA 2048 is a quantum-enhanced, maximum-security API gateway for MCP servers, powered by NVIDIA’s advanced GPUs. Featuring four CHIMERA HEADS—each a self-regenerative, CUDA-accelerated core with 512-bit AES encryption—it forms a 2048-bit AES-equivalent security layer. Key features include:
 
@@ -38,29 +32,29 @@ NVIDIA Optimization: Achieves 76x training speedup, 4.2x inference speed, and 12
 
 CHIMERA 2048 supports scientific research, AI development, security monitoring, and data science, with deployment via Kubernetes/Helm and monitoring through Prometheus.
 
-
-## ARACHNID ROCKET DRONE SOFTWARE: Quantum Rocket Booster System
-
-PROJECT ARACHNID, the Rooster Booster, is a quantum-powered rocket booster system designed to enhance SpaceX’s Starship for triple-stacked, 300-ton Mars colony missions by December 2026. Integrated with the DUNES SDK, ARACHNID features eight hydraulic legs with Raptor-X engines, 9,600 IoT sensors, and Caltech PAM chainmail cooling, orchestrated by quantum neural networks and MAML workflows. Key features include:
-
-Quantum Hydraulics: 
-Eight legs (2m stroke, 500 kN force) with titanium crystal plating for 10,000-flight durability, cooled by AI-controlled liquid nitrogen fins.
-IoT HIVE: 9,600 sensors feed data to SQLAlchemy-managed arachnid.db, coordinated by BELUGA’s quantum neural network.
-Quantum Control: Qiskit’s variational quantum eigensolver optimizes trajectories, accelerated by NVIDIA H200 GPUs.
-Use Case: Emergency medical rescues, lunar exploration, and global travel in <1 hour, with quantum linguistic programming (QLP) via MAML/YORGO.
-Starbase Integration: Produces 10 units by Q2 2026 using EOS M400 3D printers, with CUDA-accelerated AutoCAD simulations and OCaml/Ortac verification.
-
-## GLASTONBURY 2048 Suite SDK
-The GLASTONBURY 2048 Suite SDK accelerates AI-driven robotics and quantum workflows, leveraging NVIDIA’s Jetson Orin and Isaac Sim. Key features include:
+## GLASTONBURY 2048-AES Suite SDK
+The GLASTONBURY 2048 Suite SDK is a qubit based medical and science research library that accelerates AI-driven robotics and quantum workflows, leveraging NVIDIA’s Jetson Orin and Isaac Sim. Key features include:
 
 MAML Scripting: Routes tasks via MCP to CHIMERA’s four-headed architecture (authentication, computation, visualization, storage).
 PyTorch/SQLAlchemy: Optimizes neural networks and manages sensor data for real-time control.
 NVIDIA CUDA: Accelerates Qiskit simulations for trajectory and cooling optimization in ARACHNID and other applications.
 Applications: Autonomous navigation, robotic arm manipulation, and humanoid skill learning, optimized for CUDA-enabled GPUs.
 
-## Key Agents and Components
 
-MACROSLOW features a rich ecosystem of specialized agents:
+## DRONE SOFTWARE: Qubit based Drone Software
+
+PROJECT ARACHNID, the Rooster Booster, is a quantum-powered rocket booster system designed to enhance SpaceX’s Starship for triple-stacked, 300-ton Mars colony missions by December 2026. Integrated with the DUNES SDK, ARACHNID features eight hydraulic legs with Raptor-X engines, 9,600 IoT sensors, and Caltech PAM chainmail cooling, orchestrated by quantum neural networks and MAML workflows. Key features include:
+
+## MACROSLOW includes NVIDIA hardware guides and Integration: 
+
+The DUNES SDK leverages NVIDIA’s hardware ecosystem for robotics, AI, and quantum-classical computing. It supports:
+Jetson Orin (Nano, AGX Orin): Up to 275 TOPS for edge AI, enabling real-time robotics/IoT with sub-100ms latency.
+A100/H100 GPUs: Up to 3,000 TFLOPS for AI training, quantum simulations, and data analytics.
+Isaac Sim: GPU-accelerated virtual environments for robotics validation, reducing deployment risks by 30%.
+cuQuantum SDK/CUDA-Q: Quantum algorithm simulation with 99% fidelity for quantum key distribution and variational algorithms.
+Guides cover hardware setup, CUDA/Tensor Core optimization, and integration with DUNES’ .MAML.ml pipelines for secure, quantum-resistant workflows.
+
+## MACROSLOW specialized agents:
 
 MARKUP Agent: Modular PyTorch-SQLAlchemy-FastAPI micro-agent for Markdown/MAML processing. Introduces Reverse Markdown (.mu) syntax for error detection, digital receipts (e.g., word mirroring like "Hello" to "olleH"), shutdown scripting, recursive ML training, quantum-parallel processing, and 3D ultra-graph visualization with Plotly. Supports API endpoints, Docker deployment, and use cases like MAML validation and workflow integrity for ARACHNID’s quantum workflows.
 
@@ -70,10 +64,7 @@ Sakina Agent: Adaptive reconciliation agent for conflict resolution in multi-age
 
 Chimera Agent: Hybrid fusion agent combining classical and quantum data streams into unified models, using NVIDIA CUDA-Q and cuQuantum for quantum-enhanced machine learning. Achieves 89.2% efficacy in novel threat detection with adaptive reinforcement learning. Supports cross-domain simulations like ARACHNID’s interplanetary dropship coordination.
 
-Infinity TOR/GO Network: Ensures anonymous, decentralized communication for robotic swarms, IoT systems, and quantum networks, leveraging Jetson Nano and DGX systems.
-
-Additional agents include: The Curator (data validation), The Alchemist (orchestration/rewards), The Astronomer (API/satellite data), The Mechanic (resources), The Chancellor (economy), and The Architect (project creation). Secured by The Sentinel and powered by The Librarian for knowledge access.
-These integrate via layered architecture: FastAPI/MCP core, AI orchestration (Claude-Flow, OpenAI Swarm, CrewAI), and databases (MongoDB/SQLAlchemy). Supports Jupyter/Angular.js workflows and upcoming UIs like GalaxyCraft MMO.
+Infinity TOR/GO Network: Ensures anonymous, decentralized communication for robotic swarms, IoT systems, and quantum networks, leveraging Jetson Nano and DGX systems. A concept network under development using the TOR and GO file systems for lightweight seamless emergency backup networks and data storage.
 
 ## MAML Protocol
 
