@@ -1,4 +1,4 @@
-# Introduction to MAML
+# Introduction to TORGO (aka INFINITY) NETWORKS
 ## Role in Glastonbury 2048 SDK with TORGO
 
 MAML (Markdown as Medium Language) is a Markdown-based protocol for defining executable workflows in the Glastonbury 2048 AES Suite SDK. Integrated with TORGO, it supports secure, federated data archiving for astrobotany and quantum linguistics, enhancing space research and sustainable technologies.
