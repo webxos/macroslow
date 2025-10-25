@@ -1,6 +1,6 @@
 # 🐉 CHIMERA 2048-AES Homelab: Page 5 – Software Installation and Configuration
 
-This page guides you through installing and configuring the software stack for your **CHIMERA 2048-AES Homelab** across Budget, Mid-Tier, and High-End builds. The process includes setting up **Ubuntu**, **NVIDIA CUDA**, and **MACROSLOW CHIMERA 2048-AES SDK** dependencies to support quantum, AI, and IoT workloads.
+This page guides you through installing and configuring the software stack for your **CHIMERA 2048-AES Homelab** across Budget, Mid-Tier, and High-End builds. The process includes setting up **Ubuntu**, **NVIDIA CUDA**, and **MACROSLOW CHIMERA 2048-AES SDK** dependencies, ensuring compatibility with quantum, AI, and IoT workloads.
 
 ## 🛠️ Installation Steps
 
@@ -8,9 +8,9 @@ This page guides you through installing and configuring the software stack for y
 - **All Builds**:
   1. Download Ubuntu 24.04 LTS ISO from [ubuntu.com](https://ubuntu.com).
   2. For Jetson/GPU (Budget/Mid-Tier/High-End):
-     - Flash ISO to USB drive using Balena Etcher.
-     - Boot from USB and install Ubuntu on SSD/NVMe.
-  3. For Raspberry Pi:
+     - Flash ISO to a USB drive using Balena Etcher.
+     - Boot from USB, follow prompts to install Ubuntu on SSD/NVMe.
+  3. For Raspberry Pi (all builds):
      - Flash Ubuntu 24.04 (server) to microSD/NVMe using Raspberry Pi Imager.
      - Insert microSD/NVMe into Pi, boot, and complete setup via SSH.
   4. Update system: `sudo apt update && sudo apt upgrade -y`.
@@ -25,7 +25,7 @@ This page guides you through installing and configuring the software stack for y
 - **High-End (RTX A6000/A100)**:
   1. Download CUDA 12.2 from [developer.nvidia.com/cuda-downloads](https://developer.nvidia.com).
   2. Install: `sudo bash cuda_12.2.0_535.86.10_linux.run`.
-  3. Install cuDNN 9.0: Follow NVIDIA instructions.
+  3. Install cuDNN 9.0: Follow NVIDIA instructions for library setup.
   4. Verify: `nvidia-smi` and `nvcc --version`.
 
 ### 3. Install CHIMERA 2048-AES SDK Dependencies
@@ -37,14 +37,14 @@ This page guides you through installing and configuring the software stack for y
      sudo apt install build-essential libssl-dev libffi-dev python3-dev -y
      pip3 install numpy scipy requests
      ```
-  4. Clone repo: `git clone https://github.com/webxos/chimera-sdk.git`.
-  5. Navigate: `cd chimera-sdk`.
+  4. Clone MACROSLOW repo: `git clone https://github.com/webxos/chimera-sdk.git`.
+  5. Navigate to repo: `cd chimera-sdk`.
 
 ### 4. Install Qiskit for Quantum Computing
 - **All Builds**:
   1. Install Qiskit 1.2.0: `pip3 install qiskit==1.2.0 qiskit-aer`.
-  2. Enable CUDA: `pip3 install qiskit-aer-gpu`.
-  3. Verify: `python3 -c "import qiskit; print(qiskit.__version__)"`.
+  2. Enable CUDA acceleration: `pip3 install qiskit-aer-gpu`.
+  3. Verify: Run `python3 -c "import qiskit; print(qiskit.__version__)"`.
 
 ### 5. Install PyTorch for AI
 - **All Builds**:
@@ -65,25 +65,25 @@ This page guides you through installing and configuring the software stack for y
 
 ### 7. Initial Configuration
 - **System Tuning**:
-  - Set swap: `sudo fallocate -l 4G /swapfile; sudo chmod 600 /swapfile; sudo mkswap /swapfile; sudo swapon /swapfile`.
+  - Set swap space: `sudo fallocate -l 4G /swapfile; sudo chmod 600 /swapfile; sudo mkswap /swapfile; sudo swapon /swapfile`.
   - Optimize GPU: `sudo nvidia-persistenced`.
 - **Networking**:
-  - Set static IP in `/etc/netplan/01-netcfg.yaml`.
-  - Enable VLANs on Ethernet switch.
+  - Configure static IP for each device in `/etc/netplan/01-netcfg.yaml`.
+  - Enable VLANs on Ethernet switch for IoT tasks.
 - **Docker**:
   - Add user to Docker group: `sudo usermod -aG docker $USER`.
   - Test: `docker run hello-world`.
 
 ## 💡 Tips for Success
-- **Verify**: Test CUDA, Qiskit, and PyTorch after installation.
+- **Verification**: Test each component (CUDA, Qiskit, PyTorch) after installation.
 - **Storage**: Ensure 50GB (Budget) or 200GB (High-End) free space.
-- **Backups**: Save `/etc` and `~/.config` before changes.
-- **Logs**: Check `/var/log/syslog` for errors.
+- **Backups**: Save `/etc` and `~/.config` before major changes.
+- **Logs**: Monitor `/var/log/syslog` for errors during setup.
 
 ## ⚠️ Common Issues
-- **CUDA Errors**: Verify driver compatibility with CUDA version.
-- **Pi Boot Failure**: Reflash microSD/NVMe if corrupted.
-- **Network Issues**: Check IP conflicts and VLAN support.
+- **CUDA Errors**: Verify GPU driver compatibility with CUDA version.
+- **Pi Boot Failure**: Check microSD/NVMe integrity; reflash if needed.
+- **Network Issues**: Ensure switch supports VLANs; check IP conflicts.
 
 ## 🔗 Next Steps
 Proceed to **Page 6: Setting Up CHIMERA 2048 SDK** to deploy the CHIMERA gateway and test MAML workflows.
