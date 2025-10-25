@@ -36,3 +36,58 @@ This page guides you through installing and configuring the software stack for y
      ```bash
      sudo apt install build-essential libssl-dev libffi-dev python3-dev -y
      pip3 install numpy scipy requests
+     ```
+  4. Clone repo: `git clone https://github.com/webxos/chimera-sdk.git`.
+  5. Navigate: `cd chimera-sdk`.
+
+### 4. Install Qiskit for Quantum Computing
+- **All Builds**:
+  1. Install Qiskit 1.2.0: `pip3 install qiskit==1.2.0 qiskit-aer`.
+  2. Enable CUDA: `pip3 install qiskit-aer-gpu`.
+  3. Verify: `python3 -c "import qiskit; print(qiskit.__version__)"`.
+
+### 5. Install PyTorch for AI
+- **All Builds**:
+  1. Install PyTorch 2.4.0 with CUDA:
+     ```bash
+     pip3 install torch==2.4.0 torchvision torchaudio --index-url https://download.pytorch.org/whl/cu122
+     ```
+  2. Install TensorRT: Follow NVIDIA guide for your GPU.
+  3. Verify: `python3 -c "import torch; print(torch.cuda.is_available())"`.
+
+### 6. Install FastAPI and Networking Tools
+- **All Builds**:
+  1. Install FastAPI: `pip3 install fastapi uvicorn`.
+  2. Install Nginx: `sudo apt install nginx -y`.
+  3. Install Prometheus: Download from [prometheus.io](https://prometheus.io) and configure.
+  4. Install Grafana: Follow [grafana.com](https://grafana.com) setup guide.
+  5. Configure Nginx as reverse proxy for FastAPI (port 8000).
+
+### 7. Initial Configuration
+- **System Tuning**:
+  - Set swap: `sudo fallocate -l 4G /swapfile; sudo chmod 600 /swapfile; sudo mkswap /swapfile; sudo swapon /swapfile`.
+  - Optimize GPU: `sudo nvidia-persistenced`.
+- **Networking**:
+  - Set static IP in `/etc/netplan/01-netcfg.yaml`.
+  - Enable VLANs on Ethernet switch.
+- **Docker**:
+  - Add user to Docker group: `sudo usermod -aG docker $USER`.
+  - Test: `docker run hello-world`.
+
+## 💡 Tips for Success
+- **Verify**: Test CUDA, Qiskit, and PyTorch after installation.
+- **Storage**: Ensure 50GB (Budget) or 200GB (High-End) free space.
+- **Backups**: Save `/etc` and `~/.config` before changes.
+- **Logs**: Check `/var/log/syslog` for errors.
+
+## ⚠️ Common Issues
+- **CUDA Errors**: Verify driver compatibility with CUDA version.
+- **Pi Boot Failure**: Reflash microSD/NVMe if corrupted.
+- **Network Issues**: Check IP conflicts and VLAN support.
+
+## 🔗 Next Steps
+Proceed to **Page 6: Setting Up CHIMERA 2048 SDK** to deploy the CHIMERA gateway and test MAML workflows.
+
+*Unleash the Quantum Beast with CHIMERA 2048 and WebXOS 2025!* 🐉
+
+**xAI Artifact Updated**: File `readme.md` updated with Page 5 content for CHIMERA 2048-AES Homelab guide.
