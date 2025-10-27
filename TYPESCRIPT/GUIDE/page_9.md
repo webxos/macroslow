@@ -1,4 +1,3 @@
-```markdown
 # 🐪 PROJECT DUNES 2048-AES: TypeScript Guide for Quantum-Secure Model Context Protocol (MCP) Server
 
 *TypeScript-Powered Quantum MCP Server with DUNES Minimalist SDK for Legacy and Quantum Integration*
@@ -24,7 +23,7 @@ This page enhances the `src/monitoring.ts` and `src/markup_visualizer.ts` module
 
 The project structure from Page 7 remains largely unchanged, but we’ll enhance the monitoring and visualization modules:
 
-```
+```markdown
 dunes-2048-aes/
 ├── src/
 │   ├── server.ts              # Main Fastify server
@@ -349,6 +348,5 @@ This page has implemented advanced monitoring with Prometheus and visualization 
 - **Page 10**: Advanced features and future enhancements.
 
 **© 2025 WebXOS Research Group. All Rights Reserved. Licensed under MIT with attribution to [webxos.netlify.app](https://webxos.netlify.app).**
-```
 
 This page provides a detailed implementation of Prometheus monitoring and Plotly visualization for the MCP server, integrated with TypeScript and Kubernetes. Let me know if you’d like to proceed with Page 10 or focus on specific aspects!
