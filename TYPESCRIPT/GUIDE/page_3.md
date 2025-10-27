@@ -1,4 +1,3 @@
-```markdown
 # 🐪 PROJECT DUNES 2048-AES: TypeScript Guide for Quantum-Secure Model Context Protocol (MCP) Server
 
 *TypeScript-Powered Quantum MCP Server with DUNES Minimalist SDK for Legacy and Quantum Integration*
@@ -25,7 +24,7 @@ The MARKUP Agent integrates with the MCP server’s Fastify-based architecture, 
 
 To incorporate the MARKUP Agent, update the project structure from Page 2 to include MARKUP-specific files:
 
-```
+```markdown
 dunes-2048-aes/
 ├── src/
 │   ├── server.ts              # Main Fastify server
@@ -300,6 +299,5 @@ This page has implemented the MARKUP Agent, enabling `.mu` file processing, digi
 - **Page 10**: Advanced features and future enhancements.
 
 **© 2025 WebXOS Research Group. All Rights Reserved. Licensed under MIT with attribution to [webxos.netlify.app](https://webxos.netlify.app).**
-```
 
 This page provides a detailed implementation of the MARKUP Agent in TypeScript, including code examples and integration with the MCP server. Let me know if you’d like to proceed with additional pages or focus on specific aspects!
