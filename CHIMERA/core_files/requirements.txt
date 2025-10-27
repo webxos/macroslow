@@ -1,0 +1,12 @@
+# --- CUSTOMIZATION POINT: Add or modify Python dependencies ---
+# Include specific versions or additional packages for your use case
+torch>=2.0.0
+qiskit>=0.45.0
+fastapi>=0.100.0
+prometheus_client>=0.17.0
+sqlalchemy>=2.0.0
+pynvml>=11.0.0
+uvicorn>=0.23.0
+psycopg2-binary>=2.9.0
+cryptography>=41.0.0
+pydantic>=2.0.0
