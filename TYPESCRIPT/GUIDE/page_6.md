@@ -1,4 +1,3 @@
-```markdown
 # 🐪 PROJECT DUNES 2048-AES: TypeScript Guide for Quantum-Secure Model Context Protocol (MCP) Server
 
 *TypeScript-Powered Quantum MCP Server with DUNES Minimalist SDK for Legacy and Quantum Integration*
@@ -274,6 +273,5 @@ This page has implemented the 2048-AES security layer and CRYSTALS-Dilithium sig
 - **Page 10**: Advanced features and future enhancements.
 
 **© 2025 WebXOS Research Group. All Rights Reserved. Licensed under MIT with attribution to [webxos.netlify.app](https://webxos.netlify.app).**
-```
 
 This page provides a detailed implementation of the security layer with 2048-AES encryption and CRYSTALS-Dilithium signatures, integrated with the MCP server. Let me know if you’d like to proceed with additional pages or focus on specific aspects!
