@@ -1,4 +1,3 @@
-```markdown
 # 🐪 PROJECT DUNES 2048-AES: TypeScript Guide for Quantum-Secure Model Context Protocol (MCP) Server
 
 *TypeScript-Powered Quantum MCP Server with DUNES Minimalist SDK for Legacy and Quantum Integration*
@@ -366,6 +365,5 @@ This page has demonstrated practical use cases for the MCP server in healthcare,
 - **Page 10**: Advanced features and future enhancements.
 
 **© 2025 WebXOS Research Group. All Rights Reserved. Licensed under MIT with attribution to [webxos.netlify.app](https://webxos.netlify.app).**
-```
 
 This page provides detailed use cases for the MCP server, with TypeScript implementations and MAML workflows for healthcare, real estate, and cybersecurity. Let me know if you’d like to proceed with additional pages or focus on specific aspects!
