@@ -1,4 +1,3 @@
-```markdown
 # 🐪 PROJECT DUNES 2048-AES: TypeScript Guide for Quantum-Secure Model Context Protocol (MCP) Server
 
 *TypeScript-Powered Quantum MCP Server with DUNES Minimalist SDK for Legacy and Quantum Integration*
@@ -23,35 +22,6 @@ The legacy system bridge works in tandem with the MARKUP Agent (Page 3) and quan
 
 To incorporate the legacy system bridge, update the project structure from Page 4 to include legacy-specific files:
 
-```
-dunes-2048-aes/
-├── src/
-│   ├── server.ts              # Main Fastify server
-│   ├── maml_processor.ts      # MAML parsing and execution
-│   ├── markup_agent.ts        # MARKUP Agent logic
-│   ├── markup_parser.ts       # Parses .mu syntax
-│   ├── markup_receipts.ts     # Digital receipts
-│   ├── markup_shutdown.ts     # Shutdown scripts
-│   ├── markup_learner.ts      # PyTorch-based error detection
-│   ├── markup_visualizer.ts   # Plotly visualization
-│   ├── quantum_layer.ts       # Quantum circuit execution
-│   ├── quantum_circuits.ts    # Quantum circuit definitions
-│   ├── legacy_bridge.ts       # Legacy system integration
-│   ├── legacy_rest.ts         # REST API integration
-│   ├── legacy_sql.ts          # SQL database integration
-│   ├── security.ts            # 2048-AES and CRYSTALS-Dilithium
-│   ├── database.ts            # TypeORM/SQLAlchemy integration
-│   ├── monitoring.ts          # Prometheus metrics
-│   ├── types.ts              # TypeScript interfaces
-├── Dockerfile                 # Multi-stage Dockerfile
-├── helm/                      # Helm charts
-├── .env                       # Environment variables
-├── tsconfig.json             # TypeScript configuration
-├── package.json              # Node.js dependencies
-├── requirements.txt          # Python dependencies
-├── README.md                 # Documentation дитя
-
-```
 
 ### Implementing the Legacy System Bridge
 
@@ -295,6 +265,5 @@ This page has implemented the legacy system bridge, enabling REST and SQL integr
 - **Page 10**: Advanced features and future enhancements.
 
 **© 2025 WebXOS Research Group. All Rights Reserved. Licensed under MIT with attribution to [webxos.netlify.app](https://webxos.netlify.app).**
-```
 
 This page provides a detailed implementation of the legacy system bridge, including TypeScript code for REST and SQL integration, with secure data transformation into MAML format. Let me know if you’d like to proceed with additional pages or focus on specific aspects!
