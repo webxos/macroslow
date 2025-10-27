@@ -298,11 +298,9 @@ qc.h(0)
 qc.cx(0, 1)
 qc.measure_all()
 ```
-```
 
 The `.mu` validator generates a mirrored receipt (e.g., “Intent” to “tnentI”), stored in `/app/workflows/receipts` for auditability.
 
----
 
 ### Benefits of Kubernetes/Helm Deployment
 
