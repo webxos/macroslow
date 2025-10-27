@@ -1,4 +1,3 @@
-```markdown
 # 🐪 PROJECT DUNES 2048-AES: TypeScript Guide for Quantum-Secure Model Context Protocol (MCP) Server
 
 *TypeScript-Powered Quantum MCP Server with DUNES Minimalist SDK for Legacy and Quantum Integration*
@@ -25,7 +24,8 @@ This page implements the quantum integration layer, enabling the MCP server to h
 
 To support quantum integration, update the project structure from Page 3 to include quantum-specific files:
 
-```
+```markdown
+
 dunes-2048-aes/
 ├── src/
 │   ├── server.ts              # Main Fastify server
@@ -300,6 +300,5 @@ This page has integrated quantum logic into the MCP server, enabling quantum cir
 - **Page 10**: Advanced features and future enhancements.
 
 **© 2025 WebXOS Research Group. All Rights Reserved. Licensed under MIT with attribution to [webxos.netlify.app](https://webxos.netlify.app).**
-```
 
 This page provides a detailed implementation of the quantum integration layer using NVIDIA CUDA-Q and cuQuantum, with TypeScript code examples and integration with the MCP server. Let me know if you’d like to proceed with additional pages or focus on specific aspects!
