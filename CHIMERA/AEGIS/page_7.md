@@ -145,9 +145,6 @@ from aegis_performance_monitor import PerformanceMonitor
 monitor = PerformanceMonitor()
 metrics = monitor.collect_metrics()
 ```
-```
-
----
 
 ### Integration with CHIMERA 2048 and MACROSLOW
 
@@ -170,7 +167,7 @@ MAML workflows integrate with **CHIMERA 2048** and **MACROSLOW** as follows:
 3. **SQLAlchemy Database**: Logs workflow execution details (e.g., processing time, errors) for compliance.
 4. **Prometheus Integration**: Exports metrics from executed workflows, accessible at `http://localhost:9090/metrics`.
 
----
+---markdown
 
 ### Performance Metrics
 
@@ -190,8 +187,6 @@ MAML workflows integrate with **CHIMERA 2048** and **MACROSLOW** as follows:
 - **Database Logging**: Confirm `mongodb_uri` or SQLite URI is valid in the workflow context.
 
 For support, contact the WebXOS community or open a GitHub issue.
-
----
 
 ### Call to Action
 
