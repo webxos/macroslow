@@ -1,4 +1,3 @@
-```markdown
 # 🐪 PROJECT DUNES 2048-AES: TypeScript Guide for Quantum-Secure Model Context Protocol (MCP) Server
 
 *TypeScript-Powered Quantum MCP Server with DUNES Minimalist SDK for Legacy and Quantum Integration*
@@ -251,6 +250,5 @@ This page has established the initial setup for the TypeScript MCP server, inclu
 By the end of this guide, you’ll have a fully functional, quantum-secure MCP server ready to bridge legacy and quantum systems.
 
 **© 2025 WebXOS Research Group. All Rights Reserved. Licensed under MIT with attribution to [webxos.netlify.app](https://webxos.netlify.app).**
-```
 
 This page provides a detailed setup guide for the TypeScript MCP server, including code examples and best practices. Let me know if you’d like to proceed with additional pages or focus on specific components!
