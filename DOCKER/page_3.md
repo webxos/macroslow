@@ -245,11 +245,10 @@ qc.h(0)
 qc.cx(0, 1)
 qc.measure_all()
 ```
-```
+
 
 The `.mu` validator ensures reverse syntax integrity, critical for auditability and recursive ML training.
 
----
 
 ### Key Benefits of the Multi-Stage Approach
 
