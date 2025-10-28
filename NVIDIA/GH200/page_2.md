@@ -1,3 +1,20 @@
+# 🚀 **CHIMERA 2048 SDK on NVIDIA GH200 – Page 2: Qubit-Accelerated Supercomputing**
+
+**© 2025 WebXOS Research Group. All Rights Reserved. MIT License – Attribution Required**
+
+---
+
+## ⚡ **GH200 Bandwidth & Memory Optimization**
+
+| Feature | GH200 Spec | CHIMERA 2048 Use |
+|--------|------------|------------------|
+| **Memory** | 480GB LPDDR5X + 141GB HBM3e | Coherent `.maml.md` containers |
+| **Bandwidth** | 4.8TB/s HBM3e | Real-time MAML execution |
+| **Interconnect** | 900GB/s NVLink-C2C | Head-to-head sync <5s |
+| **Network** | 100GB/s InfiniBand | 256-node scaling |
+
+---
+
 ```mermaid
 %% MACROSLOW CHIMERA 2048 on GH200 – Page 2
 %% Qubit-Driven Supercomputing Architecture
@@ -60,24 +77,6 @@ graph TB
     CUQ --> P128
     MCP --> P42
 ```
-
----
-
-# 🚀 **CHIMERA 2048 SDK on NVIDIA GH200 – Page 2: Qubit-Accelerated Supercomputing**
-
-**© 2025 WebXOS Research Group. All Rights Reserved. MIT License – Attribution Required**
-
----
-
-## ⚡ **GH200 Bandwidth & Memory Optimization**
-
-| Feature | GH200 Spec | CHIMERA 2048 Use |
-|--------|------------|------------------|
-| **Memory** | 480GB LPDDR5X + 141GB HBM3e | Coherent `.maml.md` containers |
-| **Bandwidth** | 4.8TB/s HBM3e | Real-time MAML execution |
-| **Interconnect** | 900GB/s NVLink-C2C | Head-to-head sync <5s |
-| **Network** | 100GB/s InfiniBand | 256-node scaling |
-
 ---
 
 ## 🧬 **Qubit Offload Code (GH200-Optimized)**
