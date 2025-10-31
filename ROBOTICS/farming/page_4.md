@@ -59,7 +59,7 @@ yield_tons = simulate_harvest(optimized_params)  # 300% boost
 }
 ## History
 - 2025-10-31T16:00:00Z: [FORECAST] Optimized via Chimera HEAD_1
-```
+
 
 **Run Pipeline**:
 ```bash
@@ -73,15 +73,6 @@ curl -X POST http://localhost:8000/forecast_yield \
 ## **DISEASE DETECTION: 89.2% ACCURACY WITH HYBRID ML**  
 **PyTorch CNNs + quantum-enhanced inference** detect **blight, rust, and pests** from **multispectral cams**, achieving **89.2% efficacy** with **4.2x speed** on **Chimera HEADS 3/4**.  
 
-**Detection Flow**:
-```mermaid
-graph TD
-    A[Drone Cam Feed] --> B[BELUGA Fusion]
-    B --> C[PyTorch CNN]
-    C --> D[Quantum Enhancer (Grover's)]
-    D --> E[Detect Blight → Auto-Spray]
-    E --> F[Harvest Saved]
-```
 
 | Disease | Detection Latency | Prevention |
 |---------|-------------------|------------|
