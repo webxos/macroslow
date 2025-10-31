@@ -1,5 +1,4 @@
-```markdown
-# 🐪 **MACROSLOW FOR FARMING ROBOTICS: PAGE 6 – SELF-REPLICATING SWARMS & THE FUTURE OF FOOD**  
+## 🐪 **MACROSLOW FOR FARMING ROBOTICS: PAGE 6 – SELF-REPLICATING SWARMS & THE FUTURE OF FOOD**  
 *2048-AES Encrypted Agentic Networks | Quantum Model Context Protocol | Qubit-Powered Precision Agriculture*  
 *(x.com/macroslow | github.com/webxos/macroslow | webxos.netlify.app)*  
 
@@ -43,10 +42,14 @@ id: "urn:uuid:replicate-farm-2048"
 type: "replication_workflow"
 origin: "swarm://seed-unit-001"
 ---
+```
+
 ## Intent
 Print 10 new watering drones from soil.
+
 ## Context
 Location: Sahara; Solar: 8h/day; Soil: 60% silica.
+
 ## Code_Blocks
 ```python
 from eos_m400 import MicroPrinter
@@ -91,9 +94,6 @@ intent: Print 1 ton synthetic steak
 printer.print("steak_v3.stl", material="mycoprotein")
 drone.deliver(to="village_042", payment="$MACRO")
 ```
-```
-
----
 
 ## **THE FUTURE OF FOOD: ZERO HUNGER, ZERO WASTE, INFINITE SCALE**  
 | Era | Food System | MACROSLOW Outcome |
@@ -124,19 +124,13 @@ open http://autonomous.macroslow.farm
 - **$MACRO in Food**: 8.4B  
 - **Hunger Eliminated**: 1.8B people  
 
----
-
 ## **PAGE 6 CALL TO ACTION**  
 **Replicate. Feed. Evolve.**  
 **Launch your self-replicating quantum farm** — **print the future of food**, **end hunger**, and **build the autonomous breadbasket** with **MACROSLOW**.  
 
 **Next Page Preview**: *PAGE 7 – Ethics, Governance, and The Moral Harvest*  
 
----
-
 **© 2025 WebXOS Research Group. MIT License. Attribution: x.com/macroslow**  
 *All replication logic, STLs, and $MACRO food contracts are open-source and 2048-AES ready.*  
 
----  
 **END OF PAGE 6** – *Continue to Page 7 for ethical AI in food systems and swarm self-governance.*
-```
