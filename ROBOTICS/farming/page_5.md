@@ -12,17 +12,6 @@
 ## **PLANETARY-SCALE SWARM ARCHITECTURE: 1M+ UNITS**  
 **MACROSLOW** uses **Kubernetes + Helm**, **Infinity TOR/GO mesh**, and **satellite QKD** to orchestrate **global swarms** with **<1s latency** and **99.99% uptime**.  
 
-```mermaid
-graph TD
-    A[1M Drones] --> B[Jetson Nano Relays]
-    B --> C[Infinity TOR/GO Mesh]
-    C --> D[GEO Satellite QKD]
-    D --> E[Chimera Global Gateway (DGX H100)]
-    E --> F[Swarm Treasury + $MACRO Mint]
-    F --> A
-    style D fill:#00ced1,stroke:#333
-```
-
 | Scale Tier | Units | Infrastructure |
 |-----------|-------|----------------|
 | **Local (1K)** | 1,000 bots | 5G + local DGX |
