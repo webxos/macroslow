@@ -23,16 +23,6 @@
 | **Platinum** | $MACRO-SOL mint | 100 $MACRO/kg |
 | **Carbon** | Algae fuel | 500 kg/day |
 
-```mermaid
-graph TD
-    A[Asteroid 162173 Ryugu] --> B[Swarm Lands (100 units)]
-    B --> C[Mine 10 tons ice]
-    C --> D[Print 10 Hydroponic Pods]
-    D --> E[Grow 100 tons algae]
-    E --> F[Feed 1,000 miners]
-    style D fill:#1e90ff,stroke:#333
-```
-
 **Asteroid Farm MAML**:
 ```yaml
 ---
