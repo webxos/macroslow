@@ -1,4 +1,4 @@
-# PROJECT DUNES 2048-AES: DIGITAL TWINS FOR REAL ESTATE REVOLUTION
+# PROJECT DUNES 2048-AES: DIGITAL TWINS FOR REAL A ESTATE REVOLUTION
 
 *Multi-Augmented Model Agnostic Meta Machine Learning and 2048-AES Integration for Network Exchange Systems*
 
