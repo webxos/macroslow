@@ -1,6 +1,11 @@
+// package.json (full minimal + yaml:lint)
 {
   "name": "macroslow",
   "version": "1.0.0",
-  "scripts": { "start": "node index.js" },
-  "dependencies": {}
+  "scripts": {
+    "yaml:lint": "yamllint .github/workflows/*.yml"
+  },
+  "devDependencies": {
+    "yamllint": "^1.0.0"
+  }
 }
