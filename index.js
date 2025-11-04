@@ -1,1 +1,1 @@
-console.log("MACROSLOW quantum bridge online 🐪");
+console.log("MACROSLOW Resource Library Loaded 🐪");
