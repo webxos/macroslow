@@ -1,10 +1,12 @@
 {
   "name": "macroslow",
   "version": "1.0.0",
+  "description": "Library of quantum resources, templates & guides",
+  "main": "index.js",
   "scripts": {
-    "yaml:lint": "yamllint .github/workflows/*.yml"
+    "yaml:lint": "yaml-lint **/*.yml **/*.yaml --ignore=node_modules/**"
   },
   "devDependencies": {
-    "yamllint": "^1.0.0"
+    "yaml-lint": "^1.7.0"
   }
 }
