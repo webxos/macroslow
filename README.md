@@ -46,7 +46,7 @@ Applications: Autonomous navigation, robotic arm manipulation, and humanoid skil
 
 ## DRONE SOFTWARE: Qubit based Drone Software
 
-PROJECT ARACHNID, the Rooster Booster, is a quantum-powered rocket booster system designed to enhance SpaceX’s Starship for triple-stacked, 300-ton Mars colony missions by December 2026. Integrated with the DUNES SDK, ARACHNID features eight hydraulic legs with Raptor-X engines, 9,600 IoT sensors, and Caltech PAM chainmail cooling, orchestrated by quantum neural networks and MAML workflows. Key features include:
+PROJECT ARACHNID, the Rooster Booster, is a quantum-powered rocket booster system designed to enhance SpaceX’s Starship for triple-stacked, 300-ton Mars colony missions by December 2026. Integrated with the DUNES SDK, ARACHNID features eight hydraulic legs with Raptor-X engines, 9,600 IoT sensors, and Caltech PAM chainmail cooling, orchestrated by quantum neural networks and MAML workflows.
 
 ## MACROSLOW includes NVIDIA hardware guides and Integration: 
 
