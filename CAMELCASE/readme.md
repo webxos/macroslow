@@ -1,0 +1,18 @@
+# 🐪 CamelCase Quantum Study Guide – Page 1
+
+## Introduction to CamelCase in Quantum Programming
+
+CamelCase is more than a naming convention; it is a disciplined philosophy of clarity, rhythm, and precision that has quietly shaped modern software and, increasingly, the emerging field of quantum computing. At its core, CamelCase eliminates spaces and punctuation in multi-word identifiers by capitalizing the first letter of each new word after the initial one, creating a visual "hump" that marks semantic boundaries. This results in two primary forms: lowerCamelCase, where the first word begins in lowercase, and UpperCamelCase, where the initial letter is capitalized. Both forms serve as silent cartographers of intent, guiding the reader through complex logic without the visual noise of underscores or hyphens.
+
+The elegance of CamelCase lies in its balance between human readability and machine efficiency. Unlike snake_case, which relies on horizontal separators, or kebab-case, which mimics natural language at the cost of syntactic friction in many languages, CamelCase flows vertically through capitalization. Each hump acts as a cognitive waypoint, allowing developers to parse compound concepts at a glance. In the high-stakes, error-intolerant world of quantum programming—where a single misplaced gate can collapse an entire superposition—this visual rhythm becomes not just convenient, but essential.
+
+Consider the act of prompting a quantum language model or reasoning through a variational algorithm. The human mind, under cognitive load, performs rapid pattern matching. CamelCase leverages this by transforming abstract operations into recognizable silhouettes: `prepareBellState`, `applyQuantumFourierTransform`, `executeVariationalQuantumEigensolver`. These are not mere labels; they are compressed narratives. The capitalization serves as a prosodic cue, much like stress in spoken language, helping both programmers and AI systems maintain contextual coherence amid nested operations and probabilistic outcomes.
+
+In the quantum domain, where classical intuition often fails, naming becomes a form of documentation in motion. A well-camel-cased identifier carries its own specification: `entangleQubitsWithCnot` immediately conveys subject, action, and mechanism. This self-documenting quality reduces cognitive overhead when navigating circuits with dozens or hundreds of gates, especially in collaborative environments where team members must onboard rapidly to shared codebases. Moreover, in the nascent ecosystem of quantum SDKs—whether built atop Qiskit, Goose, Cirq, or emerging OCaml-native frameworks—consistent CamelCase adoption creates a lingua franca that transcends individual toolchains.
+
+The convention also aligns beautifully with the constraints of quantum prompt engineering. When instructing large language models to generate or refactor quantum code, the structured predictability of CamelCase reduces ambiguity. A prompt that demands "all function names in lowerCamelCase" yields more reliable outputs than one allowing stylistic variance. This is particularly critical in hybrid classical-quantum workflows, where AI-generated snippets must integrate seamlessly into rigorously typed environments like OCaml or Rust.
+
+Ultimately, CamelCase is a bridge between the chaotic creativity of quantum exploration and the disciplined order required for reproducible science. It transforms the act of naming from a trivial detail into a foundational practice of clarity—one that honors both the legacy of software engineering and the frontier spirit of quantum discovery.
+
+---
+**Next: Page 2 – The 30-Year Evolution of CamelCase**
