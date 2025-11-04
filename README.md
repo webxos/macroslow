@@ -20,14 +20,15 @@ PyTorch for machine learning and SQLAlchemy databases for robust data management
 
 ## DUNES 2048-AES SDK: The Minimalist SDK 
 
-DUNES serves as the baseline minimalist SDK. DUNES offers a set of 10 core files for building a hybrid Model Context Protocol (MCP) server with MAML processing and MARKUP Agent functionality. It enables quantum-distributed workflows with verifiable OCaml-based algorithms, hybrid multi-language orchestration (Python, Qiskit), and integration with MCP servers. Key features include:
+DUNES serves as the baseline minimalist SDK. DUNES offers a set of 10 core files for building a hybrid Model Context Protocol (MCP) server with MAML processing and MARKUP Agent functionality. It enables quantum-distributed workflows with verifiable OCaml-based algorithms, hybrid multi-language orchestration (Python, Qiskit), and integration with MCP servers.
 
 ## CHIMERA 2048-AES SDK: A Qubit ready SDK!
 
-CHIMERA 2048 is a quantum-enhanced, maximum-security API gateway for MCP servers, powered by NVIDIA’s advanced GPUs. Featuring four CHIMERA HEADS—each a self-regenerative, CUDA-accelerated core with 512-bit AES encryption—it forms a 2048-bit AES-equivalent security layer. Key features include:
+CHIMERA 2048 is a quantum-enhanced, maximum-security API gateway for MCP servers, powered by NVIDIA’s advanced GPUs. Featuring four CHIMERA HEADS—each a self-regenerative, CUDA-accelerated core with 512-bit AES encryption—it forms a 2048-bit AES-equivalent security layer. 
 
 Hybrid Cores: Two heads run Qiskit for quantum circuits (<150ms latency), and two use PyTorch for AI training/inference (up to 15 TFLOPS).
 Quadra-Segment Regeneration: Rebuilds compromised heads in <5s using CUDA-accelerated data redistribution.
+
 MAML Integration: Processes .maml.md files as executable workflows, combining Python, Qiskit, OCaml, and SQL with formal verification via Ortac.
 Security: Combines 2048-bit AES-equivalent encryption, CRYSTALS-Dilithium signatures, lightweight double tracing, and self-healing mechanisms.
 NVIDIA Optimization: Achieves 76x training speedup, 4.2x inference speed, and 12.8 TFLOPS for quantum simulations and video processing.
@@ -35,7 +36,7 @@ NVIDIA Optimization: Achieves 76x training speedup, 4.2x inference speed, and 12
 CHIMERA 2048 supports scientific research, AI development, security monitoring, and data science, with deployment via Kubernetes/Helm and monitoring through Prometheus.
 
 ## GLASTONBURY 2048-AES Suite SDK
-The GLASTONBURY 2048 Suite SDK is a qubit based medical and science research library that accelerates AI-driven robotics and quantum workflows, leveraging NVIDIA’s Jetson Orin and Isaac Sim. Key features include:
+The GLASTONBURY 2048 Suite SDK is a qubit based medical and science research library that accelerates AI-driven robotics and quantum workflows, leveraging NVIDIA’s Jetson Orin and Isaac Sim.
 
 MAML Scripting: Routes tasks via MCP to CHIMERA’s four-headed architecture (authentication, computation, visualization, storage).
 PyTorch/SQLAlchemy: Optimizes neural networks and manages sensor data for real-time control.
