@@ -1,0 +1,5 @@
+# requirements.txt - MACROSLOW quantum core deps
+qiskit==1.2.4
+qiskit-aer==0.15.1
+numpy==2.1.2
+matplotlib==3.9.2
