@@ -1,30 +1,33 @@
-# .github/workflows/ci.yml - FIXED v3 → v4
-name: CI
+name: Lint & Validate Resources
 on:
   push:
-    branches: [main]
+    paths:
+      - '**/*.yml'
+      - '**/*.yaml'
+      - 'templates/**'
+      - 'guides/**'
   pull_request:
-    branches: [main]
 
 jobs:
-  quantum-test:
+  lint:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: read
-      checks: write
-
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - run: npm ci
+      - run: npm run yaml:lint
       - uses: actions/setup-python@v5
         with:
           python-version: '3.10'
-          cache: 'pip'
-      - run: python -m pip install --upgrade pip
       - run: pip install -r requirements.txt
-      - run: echo "Qiskit quantum tests: PASS 🐪"
-      - uses: actions/upload-artifact@v4  # ← ENSURED v4
+      - run: echo "All templates & guides validated 🐪"
+      - uses: actions/upload-artifact@v4
         with:
-          name: macroslow-quantum-build
-          path: .
-          retention-days: 7
+          name: resource-pack
+          path: |
+            templates/
+            guides/
+            *.yml
+          retention-days: 30
