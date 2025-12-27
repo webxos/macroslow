@@ -2,9 +2,11 @@
 
 *Integrating OpenAI for Tool Calling, Agentic Workflows, and Quantum-Enhanced Applications with MACROSLOW SDKs*
 
+*OPENAI Fees and Rates may apply if you use the API*
+
 **Copyright:** © 2025 WebXOS Research Group. All Rights Reserved.  
 **License:** MIT License for research and prototyping with attribution to [webxos.netlify.app](https://webxos.netlify.app).  
-**Contact:** [x.com/macroslow](https://x.com/macroslow) | [macroslow@outlook.com](mailto:macroslow@outlook.com)  
+**Contact:** [x.com/macroslow](https://x.com/macroslow)
 **Repository:** [github.com/webxos/macroslow](https://github.com/webxos/macroslow)  
 **Date:** October 17, 2025  
 
