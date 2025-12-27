@@ -1,4 +1,4 @@
-# 🐪 PROJECT DUNES 2048-AES: Guide to Using Anthropic’s Claude API 
+# 🐪 MACROSLOW: Guide to Using Anthropic’s Claude API 
 
 *Integrating Claude for Tool Calling, Agentic Workflows, and Quantum-Enhanced Applications with MACROSLOW SDKs*
 
