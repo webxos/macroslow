@@ -1,6 +1,8 @@
-# 🐪 PROJECT DUNES 2048-AES: Guide to Using Anthropic’s Claude API with Model Context Protocol (MCP)
+# 🐪 PROJECT DUNES 2048-AES: Guide to Using Anthropic’s Claude API 
 
 *Integrating Claude for Tool Calling, Agentic Workflows, and Quantum-Enhanced Applications with MACROSLOW SDKs*
+
+*Anthropic API fees and rates may apply*
 
 **Copyright:** © 2025 WebXOS Research Group. All Rights Reserved.  
 **License:** MIT License for research and prototyping with attribution to [webxos.netlify.app](https://webxos.netlify.app).  
