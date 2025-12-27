@@ -5,7 +5,7 @@
 **Publication Date:** October 17, 2025  
 **Copyright:** © 2025 WebXOS Research Group. All Rights Reserved.  
 **License:** MIT License for research and prototyping with attribution to [webxos.netlify.app](https://webxos.netlify.app).  
-**Contact:** [project_dunes@outlook.com](mailto:project_dunes@outlook.com) | [github.com/webxos](https://github.com/webxos)
+**Contact:** [github.com/webxos](https://github.com/webxos)
 
 ---
 
