@@ -1,16 +1,16 @@
-# MAML Main Library Guide
-## Enhanced with TORGO for Glastonbury 2048 SDK
+# MAML Library Guide
+## Updated 2025
 
-**Objective**: This guide provides a comprehensive reference for **Markdown as Medium Language (MAML)** and its integration with the **TORGO archival protocol** within the Glastonbury 2048 AES Suite SDK. It supports astrobotany, quantum linguistics, and space operations, leveraging NASA/SpaceX APIs, NVIDIA CUDA, and 2048-bit AES encryption.
+**Objective**: This guide provides a comprehensive reference for **Markdown as Medium Language (MAML)** and its integration with the **MACROSLOW** within the Glastonbury 2048 AES Suite SDK. It supports astrobotany, quantum linguistics, and space operations, leveraging NASA/SpaceX APIs, NVIDIA CUDA, and 2048-bit AES encryption.
 
-**Purpose**: MAML standardizes executable workflows, while TORGO ensures secure, federated data archiving. Together, they enable researchers to build quantum-ready, interoperable systems for space missions and sustainable technologies.
+**Purpose**: The MAML syntax standardizes executable workflows, while ensuring secure, federated data archiving. Together, it enables researchers to build quantum-ready, interoperable systems for space missions and sustainable technologies within Model Context Protocol.
 
-**Structure**: This guide includes 10 Markdown files, covering MAML’s syntax, TORGO integration, and use cases, with an index, glossary, and library for reference.
+**Structure**: This guide includes 10 Markdown files, covering MAML’s syntax, integration, and use cases, with an index, glossary, and library for reference.
 
 ## Index
 1. **MAML_Introduction.md**: Overview of MAML and its role in the SDK.
 2. **MAML_Syntax.md**: Structure and components of MAML files.
-3. **MAML_TORGO_Integration.md**: Combining MAML with TORGO for archiving.
+3. **MAML_Integration.md**: Combining MAML with TORGO for archiving.
 4. **MAML_Astrobotany_UseCase.md**: Archiving astrobotany data with TORGO.
 5. **MAML_Quantum_Linguistics.md**: Quantum linguistic workflows with MAML.
 6. **MAML_SpaceX_NASA_APIs.md**: Integrating space data with MAML/TORGO.
@@ -21,8 +21,7 @@
 
 ## Glossary
 - **MAML**: Markdown as Medium Language, a protocol for executable workflows.
-- **TORGO**: Terrestrially Optimized, Research-Grounded Observatory protocol for secure archiving.
-- **GEA**: Growth Environment Anchor, metadata tag for astrobotany data.
+- **META DATA**: Metadata tags for astrobotany data.
 - **AES-2048**: 2048-bit Advanced Encryption Standard for data security.
 - **MCP**: Model Context Protocol, servers for deploying workflows.
 - **Quantum Linguistics**: NLP enhanced by quantum computing.
@@ -38,7 +37,7 @@
 glastonbury_sdk/docs/maml/
 ├── MAML_Introduction.md
 ├── MAML_Syntax.md
-├── MAML_TORGO_Integration.md
+├── MAML_Integration.md
 ├── MAML_Astrobotany_UseCase.md
 ├── MAML_Quantum_Linguistics.md
 ├── MAML_SpaceX_NASA_APIs.md
