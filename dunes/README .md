@@ -1,5 +1,5 @@
-🌌 DUNES: MAML Encryption Protocol for WebXOS 2025 🐪
-Welcome to DUNES (Distributed Unified Network Exchange System), a quantum-resistant encryption protocol for .MAML.ml files, integrated with the WebXOS 2025 Vial MCP SDK. Branded with the camel emoji 🐪, DUNES transforms Markdown into secure, virtual data containers for workflows, datasets, and agent blueprints, with seamless OAuth2.0 synchronization and global encryption validation. Hosted at github.com/webxos/dunes and webxos.netlify.app, DUNES empowers open-source developers to build secure, MAML-compliant applications.
+## DUNES MINIMALIST SDK 🐪
+
 ✨ Key Features
 
 🐪 .MAML.ml Files: Virtual camel containers for structured, executable data, validated with MAML schemas.
