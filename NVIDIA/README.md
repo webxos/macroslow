@@ -1,6 +1,6 @@
 # 🐪 **MACROSLOW: NVIDIA FOR QUBIT SYSTEMS**
 
-*Robotics, AI, and Quantum-Classical Computing with NVIDIA Hardware*
+*Robotics, AI, and Quantum Computing with NVIDIA Hardware*
 
 ## INTRODUCTION:
 
