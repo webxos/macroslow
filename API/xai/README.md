@@ -1,4 +1,6 @@
-# 🐪 MACROSLOW and xAI API Integration Guide: Quantum-Enhanced Tool Calling with DUNES, CHIMERA, and GLASTONBURY SDKs
+# 🐪 MACROSLOW and xAI API Integration Guide
+
+*xAI API fees and rates may apply*
 
 **Version:** 1.0.0  
 **Publishing Entity:** WebXOS Research Group  
