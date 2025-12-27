@@ -7,8 +7,7 @@
 **Publication Date:** October 29, 2025  
 **Copyright:** © 2025 WebXOS Technologies. All Rights Reserved.  
 **xAI Artifact ID:** `mcp-iot-drones-8dbim-guide-v1`  
-**License:** MIT for Research and Prototyping with Attribution to [webxos.netlify.app](https://webxos.netlify.app). For Commercial Licensing, Contact: [x.com/macroslow](https://x.com/macroslow).  
-**Email:** project_dunes@outlook.com | **Repository:** [github.com/webxos/macroslow-chimera-mcp](https://github.com/webxos/macroslow-chimera-mcp)  
+**License:** MIT for Research and Prototyping with Attribution to [webxos.netlify.app](https://webxos.netlify.app). For Commercial Licensing, Contact: [x.com/macroslow](https://x.com/macroslow). 
 
 ---
 
