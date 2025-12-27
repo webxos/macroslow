@@ -10,7 +10,7 @@
 *© 2025 WebXOS Research Group. All Rights Reserved.*
 *License: MIT for Research and Prototyping with Attribution to WebXOS.*
 *MACROSLOW 2048-AES: Model Context Protocol SDK*
-*x.com/macroslow | project_dunes@outlook.com | webxos.netlify.app*
+*x.com/macroslow | webxos.netlify.app*
 
 ## Introduction to this Guide
 
