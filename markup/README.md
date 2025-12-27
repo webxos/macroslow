@@ -378,25 +378,28 @@ docker run -p 8000:8000 -e MARKUP_DB_URI=sqlite:///markup_logs.db markup-agent
 - **Quantum Issues** ⚛️: Verify Qiskit dependencies and `MARKUP_QUANTUM_ENABLED`.
 - **Visualization Missing** 📊: Install Plotly (`pip install plotly`) and check for `transformation_graph.html`.
 
-For help, check logs in the database or contact the Project Dunes community! 🤝
+For help, check logs in the database or contact the Project Dunes community! 
 
 ---
 
 ## 🌍 Integration with Project Dunes SDK
 
-The MARKUP Agent is a **Chimera Head** agent, designed for seamless integration with Project Dunes’ MCP servers and quantum gateways. Use it to:
+The MARKUP Agent is a **VALIDATOR** agent, designed for seamless validation of .markdown files within the MCP servers and quantum gateways. 
+
+Use it to:
+
 - Validate MAML files before submission.
 - Generate receipts for workflow auditing.
 - Create shutdown scripts for rollback.
 - Train recursive ML models with mirrored data.
 
-Deploy it standalone via Docker or integrate it into Dunes’ distributed architecture for quantum-parallel execution. 🚀
+Deploy it standalone via Docker or integrate it into Dunes’ distributed architecture for quantum-parallel execution.
 
 ---
 
 
 ## 🎉 Get Started!
 
-The MARKUP Agent is your go-to tool for Markdown processing, receipt generation, and recursive ML training in Project Dunes. Install it, explore the APIs, and start building robust, self-checking workflows today! 🌟
+The MARKUP Agent is your go-to tool for Markdown processing, receipt generation, and recursive ML training in Project Dunes. Install it, explore the APIs, and start building robust, self-checking workflows today! 
 
 For questions, reach out to the Project Dunes community or open an issue on GitHub. Happy coding! 💻
