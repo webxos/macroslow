@@ -18,49 +18,6 @@ MAML-Driven Coordination: Orchestrates executable commands and data using MAML s
 BELUGA Support: Integrates with BELUGA's SOLIDAR™ sensor fusion for multi-modal data processing (SONAR + LIDAR).
 Quantum-Enhanced Security: Uses Qiskit-based quantum mathematics for cryptographic operations and workflow optimization.
 
-### 🏗️ System Architecture
-
-graph TB
-    subgraph "CHIMERA HUB Architecture"
-        UI[Jupyter Notebook UI]
-        subgraph "CHIMERA Core"
-            API[FastAPI Gateway]
-            HEAD1[HEAD_1<br>512-bit AES<br>NVIDIA CUDA]
-            HEAD2[HEAD_2<br>512-bit AES<br>NVIDIA CUDA]
-            HEAD3[HEAD_3<br>512-bit AES<br>NVIDIA CUDA]
-            HEAD4[HEAD_4<br>512-bit AES<br>NVIDIA CUDA]
-            QS[Qiskit Quantum Engine]
-            PS[PyTorch Engine<br>NVIDIA CUDA]
-            DB[PostgreSQL Database]
-            PM[Prometheus Monitoring<br>CUDA Metrics]
-        end
-        subgraph "MAML Processing"
-            MP[MAML Parser]
-            VE[Verification Engine]
-        end
-        subgraph "Deployment"
-            K8S[Kubernetes Cluster]
-            HELM[Helm Charts<br>NVIDIA GPU Operator]
-        end
-
-        UI --> API
-        API --> HEAD1
-        API --> HEAD2
-        API --> HEAD3
-        API --> HEAD4
-        HEAD1 --> QS
-        HEAD2 --> QS
-        HEAD3 --> PS
-        HEAD4 --> PS
-        API --> MP
-        MP --> VE
-        VE --> DB
-        API --> PM
-        PM --> K8S
-        K8S --> HELM
-        DB --> K8S
-    end
-
 ### 📊 Performance Metrics
 
 
