@@ -1,4 +1,4 @@
-# 🐪 **MACROSLOW: NVIDIA QUANTUM HARDWARE LIBRARY INTRODUCTION**
+# 🐪 **MACROSLOW: NVIDIA FOR MODEL CONTEXT PROTOCOL**
 
 *Robotics, AI, and Quantum-Classical Computing with NVIDIA Hardware*
 
