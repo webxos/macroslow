@@ -1,4 +1,4 @@
-## These form the backbone of the law folder.
+## MACROSLOW Law Library 2025:
 
 agentic_legal_orchestrator.py coordinates multiple agents for tasks like legal document processing or compliance checks. 
 
