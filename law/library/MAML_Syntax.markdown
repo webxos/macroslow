@@ -1,7 +1,8 @@
-# MAML Syntax
+## MAML Syntax
+
 ## Structure and Components
 
-MAML files are human-readable Markdown documents with YAML front matter and structured sections, designed for executable workflows in the Glastonbury 2048 SDK.
+MAML files are human-readable Markdown documents with YAML front matter and structured sections, designed for executable workflows.
 
 ### Components
 - **YAML Front Matter**:
