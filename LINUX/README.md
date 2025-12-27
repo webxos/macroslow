@@ -1,10 +1,9 @@
-# 🐪 PROJECT DUNES 2048-AES: A Comprehensive Guide to Qubit Systems, Quantum Model Context Protocol, and Linux CLI/Kernel Integration
+# 🐪 MACROSLOW: Qubit Systems, Quantum Model Context Protocol, and Linux CLI/Kernel Integration
 
-*Unleashing Quantum Computing, AI, and Secure Distributed Systems with WebXOS and NVIDIA Hardware*
+*Quantum Computing, AI, and Secure Distributed Systems with WebXOS and NVIDIA Hardware*
 
 **© 2025 WebXOS Research Group. All Rights Reserved.**  
-**License: MIT License for research and prototyping with attribution to [webxos.netlify.app](https://webxos.netlify.app).**  
-**Contact: [project_dunes@outlook.com](mailto:project_dunes@outlook.com) | Repository: [github.com/webxos/project-dunes-2048-aes](https://github.com/webxos/project-dunes-2048-aes)**
+**License: MIT License for research and prototyping with attribution to [webxos.netlify.app](https://webxos.netlify.app).**
 
 ## Page 1: Introduction to Qubit Systems and Quantum Model Context Protocol
 
