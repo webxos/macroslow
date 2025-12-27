@@ -1,3 +1,3 @@
-This section of the MACROSLOW repo provides information on outside API access info, such as XAI, ANTHROPIC, MICROSOFT, GOOGLE, and more. 
+This section of the MACROSLOW repo provides information on integrating outside API access info, such as XAI, ANTHROPIC, MICROSOFT, GOOGLE, and more. 
 
 *Under Development and always updated, this is a one stop shop for API info for MACROSLOW.*
