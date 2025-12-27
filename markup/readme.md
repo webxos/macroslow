@@ -8,7 +8,7 @@ Whether you're a data scientist, a developer, or a researcher, this manual will 
 
 ## 🌟 What is the MARKUP Agent?
 
-The MARKUP Agent is a **Chimera Head** agent in the Project Dunes ecosystem, acting as a decoder, transpiler, and translator for Markdown/MAML files. It converts `.maml.md` or `.md` files to `.mu` (Markup) files, which serve as reverse mirrors of the original content. The `.mu` syntax supports:
+The MARKUP Agent is a **VALIDATOR** agent in the ecosystem, acting as a decoder, transpiler, and translator for Markdown/MAML files. It converts `.maml.md` or `.md` files to `.mu` (Markup) files, which serve as reverse mirrors of the original content. The `.mu` syntax supports:
 - **Error Detection** 🛡️: Compares forward and reverse structures to catch syntax or structural issues.
 - **Digital Receipts** 🧾: Creates `.mu` files as literal reverse mirrors (e.g., "Hello" to "olleH") for self-checking and auditability.
 - **Shutdown Scripts** 🔧: Generates reverse operations to undo workflows, ensuring robust rollback capabilities.
