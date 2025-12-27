@@ -6,10 +6,6 @@
 
 MACROSLOW is a source for guides, tutorials, and templates to build qubit based systems in 2048-AES security protocol (CONCEPT). *Designed for decentralized unified network exchange systems (DUNES)* and quantum computing utilizing *QISKIT/QUTIP/PYTORCH* based qubit systems. It enables secure, distributed infrastructure for peer-to-peer interactions and token-based incentives without a single point of control, supporting applications like Decentralized Exchanges (DEXs) and DePIN frameworks for blockchain-managed physical infrastructure harnessing Qubit based systems and networks. All Files and Guides are designed and optimized for quantum networking and legacy system integrations, with qubit logic. Also includes Hardware guides included for quantum computing based systems (NVIDIA, INTEL, MORE).
 
-
-![Alt text](https://github.com/webxos/macroslow/blob/main/assets/duneslogo.jpeg)
-
-
 ## Overview
 
 ## The MACROSLOW libraries include and integrate:
@@ -21,6 +17,7 @@ PyTorch for machine learning and SQLAlchemy databases for robust data management
 
 
 ## DUNES 2048-AES SDK: The Minimalist SDK 
+![Alt text](https://github.com/webxos/macroslow/blob/main/assets/duneslogo.jpeg)
 
 DUNES serves as the baseline minimalist SDK. DUNES offers a set of 10 core files for building a hybrid Model Context Protocol (MCP) server with MAML processing and MARKUP Agent functionality. It enables quantum-distributed workflows with verifiable OCaml-based algorithms, hybrid multi-language orchestration (Python, Qiskit), and integration with MCP servers.
 
