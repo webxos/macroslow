@@ -352,7 +352,5 @@ message = client.messages.create(
 - **Blockchain Audit Trails**: Immutable logging for compliance.
 - **Ethical AI**: Use Claude for bias mitigation in medical and cybersecurity applications.
 
-**Contributing**:
-Fork the repository at [github.com/webxos/project-dunes-2048-aes](https://github.com/webxos/project-dunes-2048-aes), add features (e.g., advanced Claude tool calling), and submit pull requests. Join the WebXOS community at [webxos.netlify.app](https://webxos.netlify.app) to collaborate on quantum-ready AI solutions.
 
 This guide empowers developers to harness Claude and MACROSLOW for secure, scalable, and quantum-enhanced applications. Start building today! 🌟
