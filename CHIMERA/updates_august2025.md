@@ -169,11 +169,6 @@ start_service
 ## 📜 License & Copyright
 
 **Copyright:** © 2025 Webxos. All Rights Reserved.  
-Aegis, CHIMERA 2048 API Gateway, MAML, and Project Dunes are trademarks of Webxos. Licensed under MIT with attribution.  
-**Contact:** `legal@webxos.ai`
 
-**Complete your Aegis AI Video Processing Server with CHIMERA 2048 and WebXOS 2025!** ✨
 
----
 
-These files finalize the Aegis build, providing a fully functional video processing server with advanced features and deployment support as outlined in the technical guide.
