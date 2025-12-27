@@ -13,7 +13,7 @@ MACROSLOW is a source for guides, tutorials, and templates to build qubit based 
 PyTorch for machine learning and SQLAlchemy databases for robust data management. Sync them together with Advanced .yaml and .md files for configuration and documentation. Enabling for Multi-stage Dockerfile deployments for scalable setups and $custom web3 .md wallets and tokenization for flexible, secure transactions.
 
 
-*MACROSLOW provides a collection of tools and agents for developers to fork and build upon as boilerplates and OEM templates*
+> **"*MACROSLOW provides a collection SDKs for developers to fork and build upon as prompts and templates*"**  
 
 
 ## DUNES 2048-AES SDK: The Minimalist SDK 
