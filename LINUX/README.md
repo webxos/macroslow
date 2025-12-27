@@ -1,4 +1,4 @@
-# 🐪 MACROSLOW: Qubit Systems, Quantum Model Context Protocol, and Linux CLI/Kernel Integration
+# 🐪 MACROSLOW: Qubit Systems, Model Context Protocol, and Linux CLI/Kernel Integration
 
 *Quantum Computing, AI, and Secure Distributed Systems with WebXOS and NVIDIA Hardware*
 
