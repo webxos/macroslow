@@ -1,17 +1,14 @@
-# Alchemist User Guide
+## Alchemist User Guide
 
 # Overview
 
-The Alchemist is a model training agent within the WebXOS 2025 Vial MCP SDK, designed to orchestrate machine learning workflows using PyTorch and integrate with The Mechanic for resource management.
+The Alchemist is a model training agent within a MCP SDK, designed to orchestrate machine learning workflows using PyTorch and integrate with The Mechanic for resource management.
 
 # Getting Started
-
 
 Configure Environment:Copy .env.example to .env and update with your credentials.
 Run the Application:docker-compose up -d
 helm install webxos ./deploy/helm/mcp-stack -f deploy/helm/mcp-stack/alchemist.yaml
-
-
 
 # Features
 
