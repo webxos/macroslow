@@ -6,7 +6,7 @@
 
 **Copyright:** © 2025 WebXOS Research Group. All Rights Reserved.  
 **License:** MIT License for research and prototyping with attribution to [webxos.netlify.app](https://webxos.netlify.app).  
-**Contact:** [x.com/macroslow](https://x.com/macroslow) | [project_dunes@outlook.com](mailto:project_dunes@outlook.com)  
+**Contact:** [x.com/macroslow](https://x.com/macroslow)
 **Repository:** [github.com/webxos/project-dunes-2048-aes](https://github.com/webxos/project-dunes-2048-aes)  
 **Date:** October 17, 2025  
 
