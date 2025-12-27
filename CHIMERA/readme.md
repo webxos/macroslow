@@ -4,11 +4,13 @@
 **Publishing Entity:** webXOS 
 **Publication Date:** August 30, 2025  
 **Copyright:** © 2025 webXOS. All Rights Reserved.  
+
+```
 **xaiArtifact:**  
 - **artifact_id:** `7f8a9b2c-3d4e-5f6g-7h8i-9j0k1l2m3n4`  
 - **artifact_version_id:** `a1b2c3d4-e5f6-7g8h-9i0j-k1l2m3n4o5p`  
 - **title:** `chimera_2048_introduction_guide.md`
-
+```
 
 ## Prologue: The Myth Reborn in Silicon
 
