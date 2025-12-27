@@ -2,6 +2,8 @@
 
 *Integrating Azure APIs with MACROSLOW for Model Context Protocol Enhancements Using DUNES, CHIMERA, and GLASTONBURY SDKs*
 
+*MICROSOFT Fees and Rates my apply if you use the APi access*
+
 **Copyright:** © 2025 WebXOS Research Group. All Rights Reserved.  
 **License:** MIT License for research and prototyping with attribution to [webxos.netlify.app](https://webxos.netlify.app).  
 **Contact:** [x.com/macroslow](https://x.com/macroslow) | [macroslow@outlook.com](mailto:macroslow@outlook.com)  
