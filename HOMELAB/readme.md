@@ -51,10 +51,6 @@ Welcome to the **MACROSLOW Home Lab Guide 2025**, a 10-page blueprint for hobbyi
 - Linux/Python basics
 - NVIDIA developer account
 - Screwdrivers, thermal paste, Cat6/10GbE cables
-
-## 🌍 Join the DUNES Movement
-Contribute at [github.com/webxos/dunes](https://github.com/webxos/dunes)  
-Contact: [project_dunes@outlook.com](mailto:project_dunes@outlook.com)
-
+- 
 **Copyright**: © 2025 Webxos Technologies. MIT License.  
 *From Legacy to GH200 — Build Your Future with MACROSLOW 2025!* 🏜️
