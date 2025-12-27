@@ -158,27 +158,6 @@ start_service
 - **Deployment Script**: Automates installation, build, and service startup, with customizable paths and commands.
 - **OEM Customization**: **CUSTOMIZATION POINT** markers highlight critical areas (e.g., model paths, device IDs, installation directories) where users must insert their details.
 
-## 🏗️ System Architecture (Aegis Complete)
-
-```mermaid
-graph TD
-    A[Ingest: RTMP/SRT/WebRTC Input] --> B[CUDA Decoder<br>(NVCODEC)]
-    B --> C[Raw Frame<br>(GPU Memory)]
-    C --> D[AIPipelineOrchestrator<br>(TensorRT Modules)]
-    D --> E[CUDA Encoder<br>(NVENC)]
-    E --> F[Output: RTMP/SRT/HLS/WebRTC]
-    D --> G[ContentModeration<br>(NSFW Detection)]
-    D --> H[VirtualBackground<br>(Segmentation)]
-    MCPS[MCPS Server<br>(HTTP/gRPC/WS)] --> D
-    PM[PerformanceMonitor<br>(Metrics)] --> MCPS
-    DS[DeploymentScript<br>(Shell)] --> A
-
-    style C fill:#90EE90
-    style D fill:#FFD580
-    style E fill:#87CEEB
-```
-*Key: Green (GPU Memory), Orange (CUDA Processing), Blue (NVENC)*
-
 ## 📊 Performance Metrics
 
 | Metric                | Aegis Value       | Baseline Comparison |
