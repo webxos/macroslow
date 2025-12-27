@@ -1,4 +1,4 @@
-# 🐪 MACROSLOW and xAI API Integration Guide
+# 🐪 MACROSLOW with xAI API Integration Guide
 
 *xAI API fees and rates may apply*
 
