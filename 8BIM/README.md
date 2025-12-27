@@ -1,4 +1,4 @@
-# 🐪 MACROSLOW: DIGITAL TWINS FOR REAL A ESTATE REVOLUTION
+# 🐪 MACROSLOW: DIGITAL TWINS FOR REAL ESTATE
 
 *Multi-Augmented Model Agnostic Meta Machine Learning and 2048-AES Integration for Network Exchange Systems*
 
