@@ -2,7 +2,7 @@
 
 ## Integrating Space Data
 
-MAML workflows in the Glastonbury 2048 SDK integrate NASA and SpaceX APIs, with MCP calling to archive results for astrobotany and quantum linguistics.
+MAML workflows can integrate NASA and SpaceX APIs, with MCP calling to archive results for astrobotany and quantum linguistics.
 
 ### Supported APIs
 - **NASA**: POWER (weather), SATCAT (orbital), APOD.
