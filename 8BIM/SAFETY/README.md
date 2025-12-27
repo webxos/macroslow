@@ -1,4 +1,4 @@
-# 🐪 MACROSLOW 8BIM Design Guide: Revolutionizing Construction with Digital Twins
+# 🐪 MACROSLOW 8BIM Design Guide: Revolutionizing Construction Safety with Digital Twins
 
 **Version:** 1.0.0  
 **Publishing Entity:** WebXOS Research Group  
