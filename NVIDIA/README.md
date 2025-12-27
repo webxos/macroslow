@@ -1,4 +1,4 @@
-# 🐪 **MACROSLOW: NVIDIA FOR MODEL CONTEXT PROTOCOL**
+# 🐪 **MACROSLOW: NVIDIA FOR QUBIT SYSTEMS**
 
 *Robotics, AI, and Quantum-Classical Computing with NVIDIA Hardware*
 
