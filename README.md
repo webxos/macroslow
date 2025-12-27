@@ -99,10 +99,9 @@ Examples of Content Body: The section of a MAML file after the front matter, usi
 Features Signed Execution Ticket: A cryptographic grant appended to a MAML file's History by a MAML Gateway, authorizing the execution of its code blocks.
 
 
-## MACROSLOW
+## Final
 
 > **"
 *a library to empower developers to create secure, oauth 2.0 compliant applications with a focus on quantum-resistant, adaptive threat detection.* "**  
 
-Copyright & License
-Copyright: © 2025 WebXOS Research Group. All rights reserved. MIT License for research and prototyping with attribution to webxos.netlify.app For licensing inquiries, contact: x.com/macroslow
+Copyright: © 2025 WebXOS.
