@@ -2,7 +2,7 @@
 
 # Overview
 
-Rube.app integrates over 500 business and productivity apps into the WebXOS 2025 Vial MCP SDK, enhancing agentic workflows for scientific data study and OBS live streams.
+Rube.app integrates over 500 business and productivity apps into the MCP SDK, enhancing agentic workflows for scientific data study and OBS live streams.
 
 # Features
 
@@ -14,7 +14,7 @@ Optimization: Enhance tool execution with rube_optimizer.py.
 # Usage
 
 Connecting Apps: Authenticate apps in the Rube dashboard once.
-Executing Tasks: Use commands like "Create a GitHub issue for this dataset" in Claude.
+Executing Tasks: Use commands like "Create a GitHub issue for this dataset" in Claude Code for example.
 Visualization: View task status on the canvas in index.html.
 Optimization: Leverage rube_optimizer.py for efficient tool use.
 
