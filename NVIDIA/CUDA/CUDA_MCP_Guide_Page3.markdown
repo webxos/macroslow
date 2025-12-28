@@ -2,7 +2,7 @@
 
 ## ⚛️ Configuring Qiskit for Quantum Parallel Processing with CUDA
 
-Welcome to **Page 3** of the **NVIDIA CUDA Hardware Integration Guide** for building high-performance Model Context Protocol (MCP) systems under the **PROJECT DUNES 2048-AES** framework by the **WebXOS Research Group**. This page focuses on configuring **Qiskit**, an open-source quantum computing framework, to leverage NVIDIA CUDA for quantum parallel processing within MCP systems. We’ll use the **MAML (Markdown as Medium Language)** protocol to structure configurations and ensure quantum-resistant, executable documentation. ✨
+Welcome to **Page 3** of the **NVIDIA CUDA Hardware Integration Guide** for building high-performance Model Context Protocol (MCP) systems under the **MACROSLOW** framework by the **WebXOS Research Group**. This page focuses on configuring **Qiskit**, an open-source quantum computing framework, to leverage NVIDIA CUDA for quantum parallel processing within MCP systems. We’ll use the **MAML (Markdown as Medium Language)** protocol to structure configurations and ensure quantum-resistant, executable documentation. ✨
 
 This page assumes you have installed the NVIDIA CUDA Toolkit (as covered in Page 2) and have a compatible NVIDIA GPU (e.g., RTX 3060 or higher). Let’s set up Qiskit to accelerate quantum simulations with CUDA!
 
@@ -293,7 +293,6 @@ Save as `beluga_quantum.maml.md`.
 ### 🔒 Copyright & Licensing
 **Copyright:** © 2025 WebXOS Research Group. All rights reserved.  
 The MAML protocol and BELUGA architecture are proprietary intellectual property, licensed under MIT for research with attribution to WebXOS.  
-For inquiries: `legal@webxos.ai`.
 
 ---
 
