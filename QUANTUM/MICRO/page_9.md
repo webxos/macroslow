@@ -1,8 +1,6 @@
 ## 🐪 Micro Quantum Sim PC Breadboard Build  
 # *Arduino Uno + ESP32*  
 **Version 1.0.0** | **WebXOS Research Group** | **Nov 04, 2025**  
-**Repo:** github.com/webxos/dunes-qubit-sdk  
-**Email:** project_dunes@outlook.com  
 ---  
 ## PAGE 9: Add Temp Sensor & Phase Drift  
 ### New Parts  
@@ -81,4 +79,4 @@ display.print("T:"); display.print(temp.getTempCByIndex(0),1); display.print("C"
 **Heat it → watch phase slip → decoherence!**  
 ---  
 **Next:** **Page 10 – Cloud Sync & Final Demo**  
-*© 2025 WebXOS – Heat, drift, error!* ✨
+*© 2025 WebXOS* ✨
