@@ -1,8 +1,6 @@
 ## 🐪 Micro Quantum Sim PC Breadboard Build  
 # *Arduino Uno + ESP32*  
-**Version 1.0.0** | **WebXOS Research Group** | **Nov 04, 2025**  
-**Repo:** github.com/webxos/dunes-qubit-sdk  
-**Email:** project_dunes@outlook.com  
+**Version 1.0.0** | **WebXOS Research Group** | **Nov 04, 2025**   
 ---  
 ## PAGE 10: Cloud Sync & Final Demo  
 ### ESP32 Cloud Push  
@@ -46,4 +44,4 @@ def syncCloud():
 **Push to GitHub. Share. Fork. Evolve.**  
 **The Dunes are open.** 🐪✨  
 
-*© 2025 WebXOS – From breadboard to quantum net.*
+*© 2025 WebXOS*
