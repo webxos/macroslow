@@ -1,8 +1,6 @@
 ## 🐪 Micro Quantum Sim PC Breadboard Build
 # *Arduino Uno + ESP32*
 **Version 1.0.0** | **WebXOS Research Group** | **Nov 04, 2025**
-**Repo:** github.com/webxos/dunes-qubit-sdk
-**Email:** project_dunes@outlook.com
 ---
 ## PAGE 8: Add Servo Lock & Quantum OTP
 ### New Parts
@@ -76,4 +74,4 @@ if(otpIdx > 4) display.print(" UNLOCKED");
 **Quantum one-time pad → servo clicks open.**
 ---
 **Next:** **Page 9 – Add Temp Sensor & Phase Drift**  
-*© 2025 WebXOS – OTP, unlock, secure!* ✨
+*© 2025 WebXOS* ✨
