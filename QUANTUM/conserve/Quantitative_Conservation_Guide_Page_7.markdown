@@ -3,18 +3,6 @@
 **Author**: WebXOS Research Group  
 **Date**: October 2025  
 
-## Table of Contents
-- [Introduction to Quantitative Conservation](#introduction-to-quantitative-conservation)
-- [Quantitative Metrics for MCP](#quantitative-metrics-for-mcp)
-- [Implementing Conservation in MCP](#implementing-conservation-in-mcp)
-- [MCP Monitoring and Auditing](#mcp-monitoring-and-auditing)
-- [Quantitative Metrics for MCP](#quantitative-metrics-for-MCP)
-- [Implementing Conservation in MCP](#implementing-conservation-in-MCP)
-- [Monitoring and Transparency](#monitoring-and-transparency)
-- [Integrating MCP and MAML](#integrating-mcp-and-MAML)
-- [Security and Quantum Resistance](#security-and-quantum-resistance)
-- [Future Enhancements and Conclusion](#future-enhancements-and-conclusion)
-
 ## DUNE Monitoring and Transparency
 
 These processes ensure that the decentralized exchange operates reliably, with asset integrity preserved through real-time oversight and public accountability. By leveraging blockchain’s immutable ledger, on-chain analytics, and the **.MAML** protocol, developers can monitor key metrics such as invariant deviation, Total Value Locked (TVL), fee ratios, and slippage, while providing stakeholders with transparent access to system data. This section outlines strategies for implementing real-time monitoring, public dashboards, automated alerts, and transparent reporting, aligning with the quantum-resistant and multi-agent architecture.
