@@ -1,8 +1,6 @@
 ## 🐪 Micro Quantum Sim PC Breadboard Build
 # *Arduino Uno + ESP32*
 **Version 1.0.0** | **WebXOS Research Group** | **Nov 04, 2025**
-**Repo:** github.com/webxos/dunes-qubit-sdk
-**Email:** project_dunes@outlook.com
 ---
 ## PAGE 6: Add Sensor Input & BB84 Crypto
 ### New Parts
@@ -66,4 +64,4 @@ for(int i=0;i<keyIdx;i++) display.print(key[i]);
 **Live key generation on screen.**
 ---
 **Next:** **Page 7 – RFID Voter ID & Quantum Ballot**  
-*© 2025 WebXOS – Sense, key, secure!* ✨
+*© 2025 WebXOS* ✨
