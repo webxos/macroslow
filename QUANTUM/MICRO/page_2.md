@@ -1,8 +1,6 @@
 ## 🐪 Micro Quantum Sim PC Breadboard Build
 # *Arduino Uno + ESP32*
 **Version 1.0.0** | **WebXOS Research Group** | **Nov 04, 2025**
-**Repo:** github.com/webxos/dunes-qubit-sdk
-**Email:** project_dunes@outlook.com
 ---
 ## PAGE 2: Code the Qubit Magic
 ### Full Arduino Sketch
@@ -109,4 +107,4 @@ wifi_ap(); web_server()
 **Entanglement live.**
 ---
 **Next:** **Page 3 – WiFi Dashboard & Qiskit Link**  
-*© 2025 WebXOS – Code, gate, entangle!* ✨
+*© 2025 WebXOS* ✨
