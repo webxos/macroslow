@@ -1,8 +1,6 @@
 ## 🐪 Micro Quantum Sim PC Breadboard Build
 # *Arduino Uno + ESP32*
 **Version 1.0.0** | **WebXOS Research Group** | **Nov 04, 2025**
-**Repo:** github.com/webxos/dunes-qubit-sdk
-**Email:** project_dunes@outlook.com
 ---
 ## PAGE 4: Add OLED Display & Grover Search
 ### New Parts
@@ -78,4 +76,4 @@ elif req == '/grov': i2c.writeto(0x08, bytes([11]))
 **Real-time quantum search on breadboard.**
 ---
 **Next:** **Page 5 – Teleport & Error Beep**  
-*© 2025 WebXOS – OLED, search, glow!* ✨
+*© 2025 WebXOS* ✨
