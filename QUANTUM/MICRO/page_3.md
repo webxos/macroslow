@@ -1,8 +1,6 @@
 ## 🐪 Micro Quantum Sim PC Breadboard Build
 # *Arduino Uno + ESP32*
 **Version 1.0.0** | **WebXOS Research Group** | **Nov 04, 2025**
-**Repo:** github.com/webxos/dunes-qubit-sdk
-**Email:** project_dunes@outlook.com
 ---
 ## PAGE 3: WiFi Dashboard & Qiskit Link
 ### Enhanced ESP32 Web UI (`dunes_qubit_core.py` update)
@@ -88,4 +86,4 @@ qc = QuantumCircuit(2); qc.h(0); qc.cx(0,1); run_circuit(qc)
 **Run on PC → Qiskit controls breadboard.**
 ---
 **Next:** **Page 4 – Add OLED Display & Grover Search**  
-*© 2025 WebXOS – Dash, sim, Qiskit!* ✨
+*© 2025 WebXOS * ✨
