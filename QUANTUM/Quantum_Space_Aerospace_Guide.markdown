@@ -6,7 +6,7 @@ Blast off into **quantum space and aerospace physics**, where quantum mathematic
 
 Space isn’t a simple grid of coordinates. It’s a chaotic, four-dimensional realm of gravitational fields, radiation, and relativistic effects. Classical bilinear systems track things like velocity vs. position, but that’s barely scratching the surface. Quantum logic, using **superposition** and **entanglement**, models these as a single state vector \( |\psi\rangle \), capturing interactions across space, time, and energy in a **Hilbert space**.
 
-The **PROJECT DUNES 2048-AES** framework, with its **MAML protocol**, encodes orbital data into quantum-ready files, secured by 2048-bit AES and CRYSTALS-Dilithium signatures. Its BELUGA system uses **quantum neural networks (QNNs)** to optimize trajectories, making interplanetary missions faster and cheaper.
+The **MACROSLOW** framework, with its **MAML syntax**, encodes orbital data into quantum-ready files, secured by 2048-bit AES and CRYSTALS-Dilithium signatures. Its BELUGA system uses **quantum neural networks (QNNs)** to optimize trajectories, making interplanetary missions faster and cheaper.
 
 ## Quantum Logic at Work
 
@@ -31,6 +31,6 @@ Classical aerospace models are bilinear, pairing variables like altitude and spe
 
 ## Real-World Impact
 
-Quantum space physics powers precise exoplanet detection, fusion propulsion, or satellite constellations. **PROJECT DUNES 2048-AES** uses its quantum graph database to model gravitational perturbations in real-time, slashing fuel costs. The math—**Lie algebras** for symmetries, **Quantum Field Theory (QFT)** for particle interactions, and **quantum calculus** for discrete changes—lets you navigate the cosmos with precision that feels like magic.
+Quantum space physics powers precise exoplanet detection, fusion propulsion, or satellite constellations. **MACROSLOW** uses its quantum graph database to model gravitational perturbations in real-time, slashing fuel costs. The math—**Lie algebras** for symmetries, **Quantum Field Theory (QFT)** for particle interactions, and **quantum calculus** for discrete changes—lets you navigate the cosmos with precision that feels like magic.
 
-By mastering these tools, you’re not just exploring space—you’re rewriting the rules of how we travel through it, with **PROJECT DUNES** lighting the way.
+By mastering these tools, you’re not just exploring space—you’re rewriting the rules of how we travel through it, with **MACROSLOW** lighting the way.
