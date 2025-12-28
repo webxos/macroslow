@@ -3,18 +3,6 @@
 **Author**: WebXOS Research Group  
 **Date**: October 2025  
 
-## Table of Contents
-- [Introduction to Quantitative Conservation](#introduction-to-quantitative-conservation)
-- [Quantitative Metrics for MCP](#quantitative-metrics-for-mcp)
-- [Implementing Conservation in MCP](#implementing-conservation-in-mcp)
-- [MCP Monitoring and Auditing](#mcp-monitoring-and-auditing)
-- [Quantitative Metrics for MCP](#quantitative-metrics-for-MCP)
-- [Implementing Conservation in MCP](#implementing-conservation-in-MCP)
-- [Monitoring and Transparency](#monitoring-and-transparency)
-- [Integrating MCP and MAML](#integrating-mcp-and-MAML)
-- [Security and Quantum Resistance](#security-and-quantum-resistance)
-- [Future Enhancements and Conclusion](#future-enhancements-and-conclusion)
-
 ## Implementing Conservation
 
 Implementing quantitative conservation ensures the integrity, stability, and trustworthiness of decentralized financial transactions. As a decentralized exchange (DEX) framework, DUNE relies on cryptographic primitives and auditable smart contract logic to maintain asset conservation. This section provides a comprehensive guide to implementing conservation in DUNE, focusing on provably secure smart contracts, on-chain transparency, regular security audits, public monitoring dashboards, and automated alerts. These strategies align with the quantum-resistant and multi-agent architecture, leveraging the **.MAML** protocol for structured data exchange and robust asset management.
