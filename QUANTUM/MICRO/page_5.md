@@ -1,8 +1,6 @@
 ## 🐪 Micro Quantum Sim PC Breadboard Build
 # *Arduino Uno + ESP32*
 **Version 1.0.0** | **WebXOS Research Group** | **Nov 04, 2025**
-**Repo:** github.com/webxos/dunes-qubit-sdk
-**Email:** project_dunes@outlook.com
 ---
 ## PAGE 5: Teleport & Error Beep
 ### Teleport Protocol (3-qubit)
@@ -66,4 +64,4 @@ void measureAll() {
 **Quantum teleport on breadboard.**
 ---
 **Next:** **Page 6 – Add Sensor Input & BB84 Crypto**  
-*© 2025 WebXOS – Teleport, beep, correct!* ✨
+*© 2025 WebXOS* ✨
