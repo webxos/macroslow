@@ -3,18 +3,6 @@
 **Author**: WebXOS Research Group  
 **Date**: October 2025  
 
-## Table of Contents
-- [Introduction to Quantitative Conservation](#introduction-to-quantitative-conservation)
-- [Quantitative Metrics for MCP](#quantitative-metrics-for-mcp)
-- [Implementing Conservation in MCP](#implementing-conservation-in-mcp)
-- [MCP Monitoring and Auditing](#mcp-monitoring-and-auditing)
-- [Quantitative Metrics for MCP](#quantitative-metrics-for-MCP)
-- [Implementing Conservation in MCP](#implementing-conservation-in-MCP)
-- [Monitoring and Transparency](#monitoring-and-transparency)
-- [Integrating MCP and MAML](#integrating-mcp-and-MAML)
-- [Security and Quantum Resistance](#security-and-quantum-resistance)
-- [Future Enhancements and Conclusion](#future-enhancements-and-conclusion)
-
 ## Quantitative Metrics for Decentralized unified Networks
 
 A decentralized exchange framework designed to ensure the integrity and stability of financial assets through cryptographic primitives and auditable smart contract logic. Quantitative conservation in MCP focuses on maintaining the integrity of assets and transactions, ensuring that the system operates predictably and securely. By defining precise metrics such as invariant tracking, Total Value Locked (TVL), transaction volume versus fees, and slippage percentage, developers can quantify the health and reliability of the DUNE system. This section details these metrics, providing a foundation for assessing and optimizing asset conservation in the decentralized ecosystem.
