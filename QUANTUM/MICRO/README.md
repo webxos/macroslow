@@ -4,9 +4,6 @@
 
 **Version 1.0.0** | **WebXOS Research Group** | **Nov 04, 2025**  
 
-**Repo:** github.com/webxos/dunes-qubit-sdk  
-**Email:** project_dunes@outlook.com  
-
 ---
 
 ## PAGE 1: Get Your Parts & Build the Board  
@@ -124,4 +121,4 @@ Both LEDs blink? **You’re live.**
 
 **Next:** **Page 2 – Code the Qubit Magic**  
 
-*© 2025 WebXOS – Build, flash, glow!* ✨
+*© 2025 WebXOS  ✨
