@@ -1,4 +1,4 @@
-# PROJECT DUNES: Quantitative Conservation Techniques for Model Context Protocol
+# MACROSLOW: Quantitative Conservation Techniques for Model Context Protocol
 
 **Author**: WebXOS Research Group  
 **Date**: October 2025  
