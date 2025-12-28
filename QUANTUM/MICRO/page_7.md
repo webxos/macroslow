@@ -1,8 +1,6 @@
 ## 🐪 Micro Quantum Sim PC Breadboard Build
 # *Arduino Uno + ESP32*
 **Version 1.0.0** | **WebXOS Research Group** | **Nov 04, 2025**
-**Repo:** github.com/webxos/dunes-qubit-sdk
-**Email:** project_dunes@outlook.com
 ---
 ## PAGE 7: RFID Voter ID & Quantum Ballot
 ### New Parts
@@ -81,4 +79,4 @@ display.setCursor(0,40); display.print("VOTE:"); display.print(vote);
 **Quantum-secure anonymous vote.**
 ---
 **Next:** **Page 8 – Add Servo Lock & Quantum OTP**  
-*© 2025 WebXOS – Tap, vote, secure!* ✨
+*© 2025 WebXOS* ✨
