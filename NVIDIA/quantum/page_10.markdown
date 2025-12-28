@@ -20,9 +20,7 @@ Over the preceding pages, we explored how to harness NVIDIA’s hardware strengt
 - **Infinity TOR/GO Network** (Page 8) enables anonymous, decentralized communication for robotic swarms, IoT systems, and quantum networks, optimized for Jetson and DGX platforms.
 - **Integration and Deployment Strategies** (Page 9) streamline end-to-end orchestration, hybrid workflow deployment, and network scaling, maximizing NVIDIA hardware performance.
 
-Together, these components achieve remarkable performance metrics: 94.7% true positive rates in threat detection, 247ms detection latency, and up to 100x faster processing on NVIDIA GPUs compared to CPU-based systems. By integrating Python, SQLAlchemy, Docker, and YAML with NVIDIA’s HPC capabilities, it provides a MIT-licensed ecosystem that empowers developers to build production-ready applications.
-
-### NVIDIA Hardware as the Backbone of DUNES
+### NVIDIA Hardware as the Backbone
 
 NVIDIA’s hardware ecosystem is the cornerstone of this builds’ success. The **Jetson Orin series** (Nano, AGX Orin) delivers up to 275 TOPS for edge AI, enabling real-time inference for robotics and IoT applications with sub-100ms latency. **A100 and H100 GPUs**, with up to 3,000 TFLOPS, accelerate training, simulation, and quantum workflows, reducing processing times by up to 80%. **Isaac Sim**, built on NVIDIA’s Omniverse, provides GPU-accelerated virtual environments for validating robotics pipelines, minimizing real-world deployment risks by 30%. The **cuQuantum SDK** and **CUDA-Q platform** enable quantum simulations with 99% fidelity, preparing applications for future QPUs. By optimizing for NVIDIA’s Tensor Cores, CUDA cores, and high-memory-bandwidth architectures, it ensures that developers can fully exploit these hardware capabilities to achieve unparalleled performance and scalability.
 
