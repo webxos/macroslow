@@ -8,7 +8,7 @@
 
 ## page_2.md: Architecture of Quantum Starlink with Dunes and Bluetooth Mesh Layers
 
-The architecture of the Quantum Starlink Emergency Backup Network within the PROJECT DUNES 2048-AES ecosystem is a robust, three-layer model that seamlessly integrates Starlink’s satellite constellation with Project Dunes’ quantum distribution protocols and Bluetooth mesh networks. This layered approach ensures resilient, secure, and context-aware communication for extreme edge use cases, such as aerospace operations, medical rescues, and planetary exploration (e.g., moon and Mars missions). By combining Starlink’s global reach, Bluetooth mesh’s local resilience, and Dunes’ Model Context Protocol (MCP) for intelligent orchestration, this system provides a failsafe emergency network with quantum-resistant security and OAuth 2.0 verifications. Specialized components—Sakina, Ininifty Torgo, and Arachnid—enhance functionality, ensuring adaptability and reliability in the harshest environments.
+The architecture of the Quantum Starlink Emergency Backup Network within the ecosystem is a robust, three-layer model that seamlessly integrates Starlink’s satellite constellation with Project Dunes’ quantum distribution protocols and Bluetooth mesh networks. This layered approach ensures resilient, secure, and context-aware communication for extreme edge use cases, such as aerospace operations, medical rescues, and planetary exploration (e.g., moon and Mars missions). By combining Starlink’s global reach, Bluetooth mesh’s local resilience, and Dunes’ Model Context Protocol (MCP) for intelligent orchestration, this system provides a failsafe emergency network with quantum-resistant security and OAuth 2.0 verifications. Specialized components—Sakina, Ininifty Torgo, and Arachnid—enhance functionality, ensuring adaptability and reliability in the harshest environments.
 
 ### Layer 1: Starlink Satellite Backbone (Global Relay)
 
@@ -23,7 +23,7 @@ To configure Starlink for Dunes integration:
 1. Deploy a Starlink kit (dish, Gen 3 router, power supply) in an open-sky location to maximize signal strength. For planetary missions, use a high-gain antenna variant optimized for deep-space communication.  
 2. Connect the Starlink router via Ethernet to a Dunes-enabled gateway, such as a Raspberry Pi 5 or NVIDIA Jetson Nano, running Qiskit libraries for quantum key generation.  
 3. Initialize the Dunes MCP client: `dunes init-starlink --router-ip 192.168.1.1 --api-key starlink-user-key`.  
-4. Enable OAuth 2.0 authentication with Sakina: `sakina auth-flow --provider starlink --scope data-relay --client-id mission-uuid`. This generates a JWT token for secure uplinks, validated against a WebXOS reputation ledger.  
+4. Enable OAuth 2.0 authentication with Sakina agent: `sakina auth-flow --provider starlink --scope data-relay --client-id mission-uuid`. This generates a JWT token for secure uplinks, validated against a WebXOS reputation ledger.  
 5. Test connectivity: `dunes test-uplink --destination earth-gs --payload-size 1MB`, ensuring <50ms latency and 99.9% packet delivery.
 
 **Features for Emergency Scenarios**  
@@ -80,13 +80,13 @@ The MCP client aggregates real-time data from the Bluetooth mesh (e.g., soil moi
 ### Role of Specialized Components
 
 **Sakina: Secure Authentication Oracle**  
-Sakina enforces OAuth 2.0 across layers, issuing JWT tokens for every handshake. In emergencies, it validates device identities (e.g., a medical wearable or rover sensor) using post-quantum signatures, preventing unauthorized access. Example: `sakina auth-flow --provider starlink --user mission-lead`, ensuring only verified users access critical data.
+Sakina agent enforces OAuth 2.0 across layers, issuing JWT tokens for every handshake. In emergencies, it validates device identities (e.g., a medical wearable or rover sensor) using post-quantum signatures, preventing unauthorized access. Example: `sakina auth-flow --provider starlink --user mission-lead`, ensuring only verified users access critical data.
 
 **Ininifty Torgo: Infinite Topology Generator**  
-Torgo dynamically reconfigures Bluetooth mesh topologies, adapting to environmental changes (e.g., Martian dust storms or terrestrial floods). It uses graph neural networks to predict optimal paths, reducing latency by 60% in dynamic scenarios. Example: `torgo evolve --env disaster-zone --hops-max 15`.
+Infinity Tor/go agents dynamically reconfigures Bluetooth mesh topologies, adapting to environmental changes (e.g., Martian dust storms or terrestrial floods). It uses graph neural networks to predict optimal paths, reducing latency by 60% in dynamic scenarios. Example: `torgo evolve --env disaster-zone --hops-max 15`.
 
 **Arachnid: Adaptive Routing Agent**  
-Arachnid spiders across layers, optimizing data routes with reinforcement learning. In aerospace, it prioritizes high-value packets (e.g., anomaly alerts from satellites) over Starlink’s laser links, ensuring 100% delivery. Example: `arachnid path --source hab-1 --dest earth-gs`.
+Arachnid routes across layers, optimizing data routes with reinforcement learning. In aerospace, it prioritizes high-value packets (e.g., anomaly alerts from satellites) over Starlink’s laser links, ensuring 100% delivery. Example: `arachnid path --source hab-1 --dest earth-gs`.
 
 ### Benefits of the Architecture
 
