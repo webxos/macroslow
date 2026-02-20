@@ -1,6 +1,8 @@
 # 🐪 **MAML (Markdown as Medium Language) - Official README**
 
- This README introduces **MAML (Markdown as Medium Language)**, a revolutionary protocol developed by the Webxos Advanced Development Group. Copyrighted © 2025 Webxos, MAML transforms Markdown into a dynamic, executable, and agent-aware medium, available for collaboration at [github.com/webxos](https://github.com/webxos) and hosted at [webxos.netlify.app](https://webxos.netlify.app). As of 06:45 PM EDT on Monday, August 25, 2025, this README serves as the definitive guide for developers to explore, fork, and contribute to MAML.
+ This README introduces **MAML (Markdown as Medium Language)**, a revolutionary protocol developed by the Webxos Advanced Development Group. 
+ 
+ *MACROSLOW and Copyrighted © 2026 Webxos, MAML transforms Markdown into a dynamic, executable, and agent-aware medium, available for collaboration at [github.com/webxos](https://github.com/webxos) and hosted at [webxos.netlify.app](https://webxos.netlify.app). This README serves as the definitive guide for developers to explore, fork, and contribute to MAML.*
 
 ---
 
@@ -9,7 +11,9 @@
 ### Overview
 MAML redefines Markdown as a **living, executable container**—a "USB-C" for API gateways, enabling seamless data transfer, context management, and agent orchestration. Built for the AI and quantum era, MAML integrates with the Model Context Protocol (MCP), Quantum Retrieval-Augmented Generation (RAG), and advanced security layers.
 
-**Copyright:** © 2025 Webxos. All Rights Reserved. The MAML concept, `.maml.md` format, and extended features (e.g., Quantum Context Layers, Dynamic Execution Blocks) are Webxos’s intellectual property, licensed under MIT for research and prototyping with attribution.
+**Copyright: MACROSLOW is an open source library hosted on Github by © 2026 Webxos. All Rights Reserved.**
+
+The MAML concept, `.maml.md` format, and extended features (e.g., Quantum Context Layers, Dynamic Execution Blocks) are Webxos’s intellectual property, licensed under MIT for research and prototyping with attribution.
 
 ---
 
