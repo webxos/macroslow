@@ -2,14 +2,13 @@
 
 **© 2025 WebXOS Research Group. All Rights Reserved.**  
 **License: MIT License for research and prototyping with attribution to Webxos.**  
-**Contact: project_dunes@outlook.com**
 
 ---
 
 ## Page 8: Agricultural IoT Systems with MAML and Markup
 
 ### Overview
-Agricultural IoT systems enhance farming efficiency by monitoring soil, weather, and crop conditions to optimize irrigation, fertilization, and pest control. The **PROJECT DUNES 2048-AES** framework leverages **MAML (Markdown as Medium Language)** and **Markup (.mu)** to configure, manage, and validate IoT devices in agricultural settings. This page provides a detailed engineering guide for implementing an agricultural IoT system using **CHIMERA 2048** and **GLASTONBURY 2048 SDKs**, focusing on secure data collection, real-time analytics, and robust error detection.
+Agricultural IoT systems enhance farming efficiency by monitoring soil, weather, and crop conditions to optimize irrigation, fertilization, and pest control. The **MACROSLOW** framework leverages **MAML (Markdown as Medium Language)** and **Markup (.mu)** to configure, manage, and validate IoT devices in agricultural settings. This page provides a detailed engineering guide for implementing an agricultural IoT system using **CHIMERA 2048** and **GLASTONBURY 2048 SDKs**, focusing on secure data collection, real-time analytics, and robust error detection.
 
 ### Use Case Description
 This use case focuses on an agricultural IoT system for precision farming:
