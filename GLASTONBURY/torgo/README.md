@@ -22,7 +22,7 @@ TORGO addresses the need for a unified archiving system in interdisciplinary spa
 **Structure**: This guide comprises 10 Markdown files, each focusing on a specific aspect of TORGO, with an index, glossary, and library for reference.
 
 ## Index
-1. **TORGO_Introduction.md**: Overview and goals of TORGO.
+1. **README.md**: Overview of TORGO.
 2. **TORGO_Structure.md**: Syntax and format of TORGO files.
 3. **TORGO_Security.md**: 2048-bit AES encryption and data protection.
 4. **TORGO_GEA_Integration.md**: Using Growth Environment Anchors (GEAs) for astrobotany.
@@ -50,8 +50,7 @@ TORGO addresses the need for a unified archiving system in interdisciplinary spa
 
 **Directory**:
 ```
-glastonbury_sdk/docs/torgo/
-├── TORGO_Introduction.md
+├── README.md
 ├── TORGO_Structure.md
 ├── TORGO_Security.md
 ├── TORGO_GEA_Integration.md
@@ -61,4 +60,5 @@ glastonbury_sdk/docs/torgo/
 ├── TORGO_Use_Cases.md
 ├── TORGO_Collaboration.md
 ├── TORGO_Future_Vision.md
++ MORE
 ```
