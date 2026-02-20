@@ -2,14 +2,14 @@
 
 **© 2025 WebXOS Research Group. All Rights Reserved.**  
 **License: MIT License for research and prototyping with attribution to Webxos.**  
-**Contact: project_dunes@outlook.com**
+
 
 ---
 
 ## Page 1: Introduction to MAML and Markup for IoT with 2048-AES
 
 ### Overview
-The **PROJECT DUNES 2048-AES** framework, developed by WebXOS, introduces a revolutionary approach to IoT device control and orchestration using the **MAML (Markdown as Medium Language)** protocol and **Markup (.mu)** syntax. This guide provides a comprehensive, 10-page manual for engineers to leverage MAML and Markup for designing, controlling, and integrating IoT devices with agentic systems like **CHIMERA 2048** and **GLASTONBURY 2048 SDKs**. These SDKs, available in the WebXOS GitHub repository, enable secure, quantum-resistant, and adaptive IoT workflows.
+The **MACROSLOW** framework, developed by WebXOS, introduces a revolutionary approach to IoT device control and orchestration using the **MAML (Markdown as Medium Language)** protocol and **Markup (.mu)** syntax. This guide provides a comprehensive, 10-page manual for engineers to leverage MAML and Markup for designing, controlling, and integrating IoT devices with agentic systems like **CHIMERA 2048** and **GLASTONBURY 2048 SDKs**. These SDKs, available in the WebXOS GitHub repository, enable secure, quantum-resistant, and adaptive IoT workflows.
 
 MAML transforms Markdown into a structured, executable, and secure data container, ideal for encoding IoT configurations, sensor data, and agent instructions. Markup (.mu) complements MAML by providing a reverse-syntax mechanism for error detection, digital receipts, and rollback operations. Together, they form a robust framework for IoT applications, integrating with the Model Context Protocol (MCP) for AI-orchestrated, edge-native operations.
 
