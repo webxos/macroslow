@@ -2,14 +2,13 @@
 
 **© 2025 WebXOS Research Group. All Rights Reserved.**  
 **License: MIT License for research and prototyping with attribution to Webxos.**  
-**Contact: project_dunes@outlook.com**
 
 ---
 
 ## Page 2: Smart Home Automation with MAML and Markup
 
 ### Overview
-Smart home automation integrates IoT devices such as lights, thermostats, security cameras, and smart locks to create intelligent, user-responsive environments. The **PROJECT DUNES 2048-AES** framework leverages **MAML (Markdown as Medium Language)** and **Markup (.mu)** to configure, control, and validate IoT device interactions. This page provides an in-depth engineering guide for using MAML and Markup with the **CHIMERA 2048** and **GLASTONBURY 2048 SDKs** to build a secure, scalable smart home system with real-time agentic control and quantum-resistant security.
+Smart home automation integrates IoT devices such as lights, thermostats, security cameras, and smart locks to create intelligent, user-responsive environments. The **MACROSLOW** framework leverages **MAML (Markdown as Medium Language)** and **Markup (.mu)** to configure, control, and validate IoT device interactions. This page provides an in-depth engineering guide for using MAML and Markup with the **CHIMERA 2048** and **GLASTONBURY 2048 SDKs** to build a secure, scalable smart home system with real-time agentic control and quantum-resistant security.
 
 ### Use Case Description
 This use case focuses on a smart home system controlling:
