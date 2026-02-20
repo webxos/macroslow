@@ -2,7 +2,6 @@
 
 **© 2025 WebXOS Research Group. All Rights Reserved.**  
 **License: MIT License for research and prototyping with attribution to Webxos.**  
-**Contact: project_dunes@outlook.com**
 
 ---
 
