@@ -22,7 +22,7 @@ pip install -r requirements.txt
 
 ### Step 2: Create a Basic LangChain Application
 
-Let’s create a simple LangChain application that uses a prompt template and a tool to query a **SQLAlchemy** database via the **MCP Server**. This example retrieves data from a mock sensor database used in the **BELUGA Agent**.
+Let’s create a simple LangChain application that uses a prompt template and a tool to query a **SQLAlchemy** database via the **MCP Server**. This example retrieves data from a mock sensor database:
 
 ```python
 from langchain.prompts import PromptTemplate
