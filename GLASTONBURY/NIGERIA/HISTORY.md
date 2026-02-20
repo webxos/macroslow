@@ -5,10 +5,6 @@
 **© 2025 WebXOS Research Group. All Rights Reserved.**  
 **License: MIT for Research and Prototyping with Attribution to WebXOS.** 
 
-![Alt text](./emeagwali-connection-machine.jpeg)
-
-## Overview
-
 The **Connection Machine 2048-AES** is a quantum-enhanced, high-performance SDK under **PROJECT DUNES 2048-AES**, honoring Philip Emeagwali's pioneering work on massively parallel computing. This humanitarian initiative empowers Nigerian and global developers to build scalable systems for AI, quantum simulations, and secure data processing. Featuring a **Quadrilinear Core**—four synchronized, quantum-parallel nodes with 2048-bit AES encryption—it emulates Emeagwali's vision of distributed processors solving "grand challenge" problems like oil reservoir modeling and weather forecasting.
 
 Integrated with **MAML Protocol** for verifiable workflows and **MACROSLOW SDK** for quantum-resistant security, this framework scales from desktops to clusters. It teaches Emeagwali's methodologies via tutorials, enabling unlimited throughput with modern hardware like NVIDIA DGX Spark.
