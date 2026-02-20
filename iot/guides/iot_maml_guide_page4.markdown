@@ -9,7 +9,7 @@
 ## Page 4: Environmental Sensor Networks with MAML and Markup
 
 ### Overview
-Environmental sensor networks monitor ecological conditions such as air quality, soil moisture, and weather parameters to support conservation, agriculture, and urban planning. The **PROJECT DUNES 2048-AES** framework utilizes **MAML (Markdown as Medium Language)** and **Markup (.mu)** to configure, manage, and validate distributed environmental IoT devices. This page provides a detailed engineering guide for implementing an environmental sensor network using **CHIMERA 2048** and **GLASTONBURY 2048 SDKs**, focusing on secure data aggregation, real-time analytics, and robust error detection.
+Environmental sensor networks monitor ecological conditions such as air quality, soil moisture, and weather parameters to support conservation, agriculture, and urban planning. The **MACROSLOW** framework utilizes **MAML (Markdown as Medium Language)** and **Markup (.mu)** to configure, manage, and validate distributed environmental IoT devices. This page provides a detailed engineering guide for implementing an environmental sensor network using **CHIMERA 2048** and **GLASTONBURY 2048 SDKs**, focusing on secure data aggregation, real-time analytics, and robust error detection.
 
 ### Use Case Description
 This use case focuses on an environmental sensor network for monitoring a nature reserve:
