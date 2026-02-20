@@ -2,14 +2,13 @@
 
 **© 2025 WebXOS Research Group. All Rights Reserved.**  
 **License: MIT License for research and prototyping with attribution to Webxos.**  
-**Contact: project_dunes@outlook.com**
 
 ---
 
 ## Page 3: Industrial IoT Monitoring with MAML and Markup
 
 ### Overview
-Industrial IoT (IIoT) monitoring enables real-time oversight of machinery, environmental conditions, and production processes in industrial settings. The **PROJECT DUNES 2048-AES** framework leverages **MAML (Markdown as Medium Language)** and **Markup (.mu)** to configure, monitor, and validate IIoT devices, ensuring robust, secure, and scalable operations. This page provides an engineering-focused guide for implementing an IIoT monitoring system using **CHIMERA 2048** and **GLASTONBURY 2048 SDKs**, with detailed instructions for integrating sensors, processing data, and ensuring system integrity.
+Industrial IoT (IIoT) monitoring enables real-time oversight of machinery, environmental conditions, and production processes in industrial settings. The **MACROSLOW** framework leverages **MAML (Markdown as Medium Language)** and **Markup (.mu)** to configure, monitor, and validate IIoT devices, ensuring robust, secure, and scalable operations. This page provides an engineering-focused guide for implementing an IIoT monitoring system using **CHIMERA 2048** and **GLASTONBURY 2048 SDKs**, with detailed instructions for integrating sensors, processing data, and ensuring system integrity.
 
 ### Use Case Description
 This use case focuses on an IIoT system for monitoring a manufacturing plant:
