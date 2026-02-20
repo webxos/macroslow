@@ -1,13 +1,13 @@
-# SAKINA: Building Your Custom Agent with Project Dunes 2048 AES - Core Files Guide
+# SAKINA: Building Your Custom Agent with MACROSLOW - Core Files Guide
 
 **Version:** 1.0.0  
-**Publishing Entity:** Webxos Advanced Development Group & Project Dunes 2048 AES Open-Source Community  
+**Publishing Entity:** Webxos Advanced Development Group & MACROSLOW 2048 AES Open-Source Community  
 **Publication Date:** September 12, 2025  
 **Copyright:** © 2025 Webxos. All Rights Reserved.  
 
 ## 🌌 Introduction to Building SAKINA
 
-SAKINA, the universal AI agent within the Glastonbury 2048 AES Suite SDK, embodies the serene essence of its Arabic namesake—meaning "calm" and "serenity"—to empower developers in healthcare and aerospace engineering across Earth, the Moon, and Mars. This guide provides a detailed roadmap for building a custom SAKINA agent, leveraging the open-source **Project Dunes 2048 AES** ecosystem. With a focus on **customization** and **privacy**, SAKINA integrates with the Glastonbury Infinity Network, BELUGA’s SOLIDAR™ (SONAR + LIDAR), Neuralink, Bluetooth mesh networks, and TORGO archival protocol, secured by 2048-bit AES encryption and the Model Context Protocol (MCP). The guide includes **four core files** to kickstart your SAKINA agent, with comprehensive instructions to create a full-scale Large Language Model (LLM) if desired. These files, sourced from the Glastonbury GitHub repository (`https://github.com/webxos/glastonbury-2048-sdk`), provide templates, APIs, and verification tools to support medical diagnostics, aerospace repairs, and emergency responses.
+SAKINA, the universal AI agent within the Glastonbury 2048 AES Suite SDK, embodies the serene essence of its Arabic namesake—meaning "calm" and "serenity"—to empower developers in healthcare and aerospace engineering across Earth, the Moon, and Mars. This guide provides a detailed roadmap for building a custom SAKINA agent, leveraging the open-source **MACROSLOW** ecosystem. With a focus on **customization** and **privacy**, SAKINA integrates with the Glastonbury Infinity Network, BELUGA’s SOLIDAR™ (SONAR + LIDAR), Neuralink, Bluetooth mesh networks, and INFINITY TOR/GO archival protocol, secured by 2048-bit AES encryption and the Model Context Protocol (MCP). The guide includes **four core files** to kickstart your SAKINA agent, with comprehensive instructions to create a full-scale Large Language Model (LLM) if desired. These files, sourced from the Glastonbury GitHub repository (`https://github.com/webxos/glastonbury-2048-sdk`), provide templates, APIs, and verification tools to support medical diagnostics, aerospace repairs, and emergency responses.
 
 This document is designed for developers, data scientists, and researchers, offering step-by-step guidance to build, customize, and deploy SAKINA. Future sections will introduce five additional files to complete the SDK setup.
 
@@ -110,7 +110,7 @@ func main() {
 ```
 
 **Instructions**:
-- **Purpose**: This file is the entry point for interacting with SAKINA’s services, supporting Neuralink, SOLIDAR™, and archival tasks.
+- **Purpose**: This file is the entry point for interacting with SAKINA’s services, supporting future Neuralink, SOLIDAR™, and archival tasks.
 - **Customization**: Extend `FetchNeuralData` to support other data sources (e.g., Bluetooth mesh) or add new analysis options.
 - **LLM Scaling**: Integrate with Claude-Flow or OpenAI Swarm by adding LLM-specific endpoints in `Analyze`. For a full-scale LLM, incorporate PyTorch-based models from `sdk/models/llm/`.
 - **Setup**: Save as `sakina/sakina_client.go` and run `go build` after cloning the repository.
@@ -207,7 +207,7 @@ let () = main ()
 
 **Instructions**:
 - **Purpose**: Ensures workflow reliability for medical and aerospace applications.
-- **Customization**: Add checks for specific actions or data sources (e.g., Neuralink, SOLIDAR™).
+- **Customization**: Add checks for specific actions or data sources (e.g., future Neuralink, SOLIDAR™).
 - **LLM Scaling**: Extend to verify LLM model parameters, integrating with PyTorch-based checks.
 - **Setup**: Save as `sdk/verify/verify_workflow.ml` and run with `opam install ortac core`.
 
@@ -330,13 +330,6 @@ To build a full-scale LLM with SAKINA, follow these steps:
 - **MAML and Markup (.mu)**: Creates verifiable, auditable records for transparency.
 
 ---
-
-## 🌌 Getting Started
-
-1. Clone the repository: `git clone https://github.com/webxos/glastonbury-2048-sdk.git`.
-2. Save the four core files in the appropriate directories (`sakina/`, `sdk/templates/`, `sdk/verify/`).
-3. Follow the instructions in each file to customize and deploy.
-4. Join the Project Dunes community to contribute and access additional resources.
 
 This guide lays the foundation for building a custom SAKINA agent. Future sections will introduce five more files to enhance functionality, including UI components and advanced LLM integration.
 
