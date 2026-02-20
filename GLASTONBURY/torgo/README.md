@@ -34,7 +34,7 @@ TORGO addresses the need for a unified archiving system in interdisciplinary spa
 10. **TORGO_Future_Vision.md**: Scaling TORGO for global impact.
 
 ## Glossary
-- **TORGO**: TOR meets GO in this conceptual framework.
+- **INFINITY: TOR/GO**: TOR meets GO in this conceptual framework.
 - **GEA**: Growth Environment Anchor, a metadata tag for astrobotany data (e.g., GEA_MICROG, GEA_REGOLITH).
 - **MAML**: Medium Artifact Markup Language, extends Markdown for quantum-ready prompts.
 - **AES-2048**: 2048-bit Advanced Encryption Standard for data security.
