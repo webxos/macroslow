@@ -3,8 +3,7 @@
 *Quantum-Ready Parallel Computing Framework Inspired by Emeagwali's Vision*
 
 **© 2025 WebXOS Research Group. All Rights Reserved.**  
-**License: MIT for Research and Prototyping with Attribution to WebXOS.**  
-**x.com/emeagwali | project_dunes@outlook.com**
+**License: MIT for Research and Prototyping with Attribution to WebXOS.** 
 
 ![Alt text](./emeagwali-connection-machine.jpeg)
 
