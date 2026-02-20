@@ -1,5 +1,5 @@
 ## Connection Machine 2048-AES SDK
-*concept for model context procotol*
+*An Open Source Humanitarian Effort research project for Nigeria*
 
 **Version**: 1.0.0  
 **Inspired by**: Philip Emeagwali's Connection Machine  
