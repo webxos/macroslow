@@ -2,14 +2,13 @@
 
 **© 2025 WebXOS Research Group. All Rights Reserved.**  
 **License: MIT License for research and prototyping with attribution to Webxos.**  
-**Contact: project_dunes@outlook.com**
 
 ---
 
 ## Page 6: Healthcare Wearables with MAML and Markup
 
 ### Overview
-Healthcare wearables, such as heart rate monitors, glucose sensors, and activity trackers, enable real-time health monitoring and personalized care. The **PROJECT DUNES 2048-AES** framework leverages **MAML (Markdown as Medium Language)** and **Markup (.mu)** to configure, manage, and validate IoT-based wearable devices, ensuring secure and reliable health data processing. This page provides a detailed engineering guide for implementing a healthcare wearable system using **CHIMERA 2048** and **GLASTONBURY 2048 SDKs**, focusing on secure data collection, real-time analytics, and robust error detection.
+Healthcare wearables, such as heart rate monitors, glucose sensors, and activity trackers, enable real-time health monitoring and personalized care. The **MACROSLOW** framework leverages **MAML (Markdown as Medium Language)** and **Markup (.mu)** to configure, manage, and validate IoT-based wearable devices, ensuring secure and reliable health data processing. This page provides a detailed engineering guide for implementing a healthcare wearable system using **CHIMERA 2048** and **GLASTONBURY 2048 SDKs**, focusing on secure data collection, real-time analytics, and robust error detection.
 
 ### Use Case Description
 This use case focuses on a healthcare wearable system for patient monitoring:
