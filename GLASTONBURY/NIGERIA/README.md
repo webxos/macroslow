@@ -1,8 +1,9 @@
 ## Connection Machine 2048-AES SDK
 *An Open Source Humanitarian Effort research project for Nigeria*
 
-**Version**: 1.0.0  
-**Inspired by**: Philip Emeagwali's Connection Machine  
+
+**Inspired by**: Philip Emeagwali's Connection Machine 
+
 **Mission**: To empower Nigerian developers with a quantum-ready, high-performance SDK and server framework for Web3, AI, and advanced computational fields, fostering global collaboration and innovation.
 
 ## Overview
