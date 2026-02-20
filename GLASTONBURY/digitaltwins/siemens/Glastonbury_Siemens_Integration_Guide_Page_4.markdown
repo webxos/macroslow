@@ -2,7 +2,7 @@
 
 ## 📜 *Page 4: Configuring MAML for Siemens Workflows*
 
-This page explores the configuration of **MAML (Markdown as Medium Language)** for Siemens healthcare workflows, enabling structured, executable, and HIPAA-compliant digital twin workflows within the **Glastonbury Healthcare SDK**, an extension of the **PROJECT DUNES 2048-AES** framework. MAML serves as a semantic, machine-readable format to define workflows for Siemens Healthineers platforms (e.g., syngo.via for imaging, Atellica for diagnostics, Teamplay for analytics), integrating with **FHIR** and **DICOM** standards. This guide details how to create and validate MAML files using **context-free grammars (CFGs)**, generate **Markup (.mu)** receipts for auditability, and prepare workflows for **Model Context Protocol (MCP)** orchestration. Secured with **2048-AES encryption** (256-bit for real-time tasks, 512-bit for archival security) and **CRYSTALS-Dilithium** signatures, it ensures compliance and security. Tailored for healthcare IT professionals, developers, and engineers, this page provides practical MAML examples, CFG validation, and integration with **Torgo/Tor-Go**, **Qiskit**, **PyTorch**, **FastAPI**, and AI frameworks like **Claude-Flow**, **OpenAI Swarm**, and **CrewAI**. Fork the repo at `https://github.com/webxos/dunes-2048-aes` and join the WebXOS community at `project_dunes@outlook.com` to streamline Siemens workflows! ✨
+This page explores the configuration of **MAML (Markdown as Medium Language)** for Siemens healthcare workflows, enabling structured, executable, and HIPAA-compliant digital twin workflows within the **Glastonbury Healthcare SDK**, an extension of the **MACROSLOW** framework. MAML serves as a semantic, machine-readable format to define workflows for Siemens Healthineers platforms (e.g., syngo.via for imaging, Atellica for diagnostics, Teamplay for analytics), integrating with **FHIR** and **DICOM** standards. This guide details how to create and validate MAML files using **context-free grammars (CFGs)**, generate **Markup (.mu)** receipts for auditability, and prepare workflows for **Model Context Protocol (MCP)** orchestration. Secured with **2048-AES encryption** (256-bit for real-time tasks, 512-bit for archival security) and **CRYSTALS-Dilithium** signatures, it ensures compliance and security. Tailored for healthcare IT professionals, developers, and engineers, this page provides practical MAML examples, CFG validation, and integration with **Torgo/Tor-Go**, **Qiskit**, **PyTorch**, **FastAPI**, and AI frameworks like **Claude-Flow**, **OpenAI Swarm**, and **CrewAI**.
 
 ---
 
@@ -176,12 +176,6 @@ print(result)  # Expected: {"alert": "Critical"}
 - **Agent Configuration**: Specify AI frameworks (e.g., Claude-Flow) in Agent_Blocks for optimal orchestration.
 - **Auditability**: Store Markup (.mu) receipts in PostgreSQL for HIPAA-compliant audit trails.
 - **Modularity**: Break complex workflows into multiple MAML files for reusability across Siemens platforms.
-
----
-
-## 📈 Next Steps
-
-With MAML configured for Siemens workflows, you’re ready to deploy MCP for orchestration (Page 5) and build digital twins for patient monitoring, diagnostics, and surgical planning (Pages 6-8). Join the WebXOS community at `project_dunes@outlook.com` to collaborate on this integration! ✨
 
 ---
 
