@@ -2,7 +2,7 @@
 
 ## 📜 *Page 2: System Requirements and Setup*
 
-This page provides a detailed guide to the system requirements and setup process for integrating the **Glastonbury Healthcare SDK**, an extension of the **PROJECT DUNES 2048-AES** framework, with Siemens healthcare systems, such as Siemens Healthineers platforms (e.g., syngo.via for imaging, Atellica for diagnostics, or Teamplay for data analytics). The setup ensures compatibility with **context-free grammars (CFGs)** for validating MAML files, **MAML (Markdown as Medium Language)** for structured workflows, **Markup (.mu)** for auditable receipts, and the **Model Context Protocol (MCP)** for orchestrating AI-driven and quantum-enhanced digital twins. Secured with **2048-AES encryption** (256-bit for real-time tasks, 512-bit for archival security) and **CRYSTALS-Dilithium** signatures, this setup enables HIPAA-compliant workflows that integrate seamlessly with Siemens-specific APIs, FHIR standards, and DICOM protocols. This guide is designed for healthcare IT professionals, developers, and engineers, offering comprehensive hardware, software, and network requirements, step-by-step setup instructions, code snippets, and best practices for integrating with **Torgo/Tor-Go**, **Qiskit**, **PyTorch**, **FastAPI**, and AI frameworks like **Claude-Flow**, **OpenAI Swarm**, and **CrewAI**. Fork the repo at `https://github.com/webxos/dunes-2048-aes` and join the WebXOS community at `project_dunes@outlook.com` to start building secure healthcare digital twins! ✨
+This page provides a detailed guide to the system requirements and setup process for integrating the **Glastonbury Healthcare SDK**, an extension of the **MACROSLOW** framework, with Siemens healthcare systems, such as Siemens Healthineers platforms (e.g., syngo.via for imaging, Atellica for diagnostics, or Teamplay for data analytics). The setup ensures compatibility with **context-free grammars (CFGs)** for validating MAML files, **MAML (Markdown as Medium Language)** for structured workflows, **Markup (.mu)** for auditable receipts, and the **Model Context Protocol (MCP)** for orchestrating AI-driven and quantum-enhanced digital twins. Secured with **2048-AES encryption** (256-bit for real-time tasks, 512-bit for archival security) and **CRYSTALS-Dilithium** signatures, this setup enables HIPAA-compliant workflows that integrate seamlessly with Siemens-specific APIs, FHIR standards, and DICOM protocols. This guide is designed for healthcare IT professionals, developers, and engineers, offering comprehensive hardware, software, and network requirements, step-by-step setup instructions, code snippets, and best practices for integrating with **Torgo/Tor-Go**, **Qiskit**, **PyTorch**, **FastAPI**, and AI frameworks like **Claude-Flow**, **OpenAI Swarm**, and **CrewAI**.
 
 ---
 
@@ -211,12 +211,6 @@ Obtain sample DICOM files and FHIR data from Siemens platforms for testing.
 - **Scalability**: Deploy multiple **Torgo/Tor-Go** nodes for distributed healthcare networks.
 - **Compliance**: Ensure all MAML files include `hipaa_compliant: true` in metadata for regulatory adherence.
 - **Monitoring**: Use **Plotly** to visualize setup logs and detect configuration errors early.
-
----
-
-## 📈 Next Steps
-
-With the environment set up, you’re ready to configure MAML files (Page 4), deploy MCP for orchestration (Page 5), and build digital twins for Siemens healthcare workflows (Pages 6-8). Join the WebXOS community at `project_dunes@outlook.com` to collaborate on this integration! ✨
 
 ---
 
