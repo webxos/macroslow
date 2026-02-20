@@ -2,14 +2,13 @@
 
 **© 2025 WebXOS Research Group. All Rights Reserved.**  
 **License: MIT License for research and prototyping with attribution to Webxos.**  
-**Contact: project_dunes@outlook.com**
 
 ---
 
 ## Page 5: Autonomous Vehicle Control with MAML and Markup
 
 ### Overview
-Autonomous vehicles rely on IoT ecosystems to process sensor data, navigate environments, and ensure safety. The **PROJECT DUNES 2048-AES** framework leverages **MAML (Markdown as Medium Language)** and **Markup (.mu)** to configure, control, and validate IoT devices in autonomous vehicles. This page provides a comprehensive engineering guide for implementing an autonomous vehicle control system using **CHIMERA 2048** and **GLASTONBURY 2048 SDKs**, focusing on secure sensor integration, real-time decision-making, and robust error detection.
+Autonomous vehicles rely on IoT ecosystems to process sensor data, navigate environments, and ensure safety. The **MACROSLOW** framework leverages **MAML (Markdown as Medium Language)** and **Markup (.mu)** to configure, control, and validate IoT devices in autonomous vehicles. This page provides a comprehensive engineering guide for implementing an autonomous vehicle control system using **CHIMERA 2048** and **GLASTONBURY 2048 SDKs**, focusing on secure sensor integration, real-time decision-making, and robust error detection.
 
 ### Use Case Description
 This use case focuses on an autonomous vehicle system controlling:
