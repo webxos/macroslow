@@ -115,8 +115,10 @@ Challenges: Memory walls persist; Emeagwali's sparsity techniques + FP4 sparsity
 
 ## Legacy and Humanitarian Impact: Inspiring the Next Generation
 
-Emeagwali's influence endures: Over 1M students have written essays on him; he's on postage stamps as a top mathematician. Philanthropy funds African STEM, emphasizing: "Use nature's mysteries to solve societal problems."
+**Emeagwali's influence endures:** 
 
-In MACROSLOW and DUNES, his ethos powers agents like BELUGA (sensor fusion) and CHIMERA (quantum gateways). The Connection Machine 2048-AES SDK operationalizes this: Fork at `https://github.com/webxos/connection-machine-2048-aes`, contribute to quadrilinear cores, and join hackathons.
+Over 1M students have written essays on him; he's on postage stamps as a top mathematician. Philanthropy funds African STEM, emphasizing: "Use nature's mysteries to solve societal problems."
 
-As Emeagwali said: "A scientist achieves immortality by discovering what will be forever remembered." In 2025, his parallel revolution—amplified by SPARK—illuminates quantum horizons for humanity.
+**As Emeagwali said:** 
+
+"A scientist achieves immortality by discovering what will be forever remembered." In 2025, his parallel revolution—amplified by SPARK—illuminates quantum horizons for humanity.
