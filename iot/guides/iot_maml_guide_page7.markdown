@@ -2,14 +2,13 @@
 
 **© 2025 WebXOS Research Group. All Rights Reserved.**  
 **License: MIT License for research and prototyping with attribution to Webxos.**  
-**Contact: project_dunes@outlook.com**
 
 ---
 
 ## Page 7: Smart City Infrastructure with MAML and Markup
 
 ### Overview
-Smart city infrastructure integrates IoT devices to optimize urban systems such as traffic management, energy distribution, and public safety. The **PROJECT DUNES 2048-AES** framework leverages **MAML (Markdown as Medium Language)** and **Markup (.mu)** to configure, manage, and validate IoT devices in a smart city ecosystem. This page provides a detailed engineering guide for implementing a smart city infrastructure system using **CHIMERA 2048** and **GLASTONBURY 2048 SDKs**, focusing on secure data aggregation, real-time analytics, and robust error detection.
+Smart city infrastructure integrates IoT devices to optimize urban systems such as traffic management, energy distribution, and public safety. The **MACROSLOW** framework leverages **MAML (Markdown as Medium Language)** and **Markup (.mu)** to configure, manage, and validate IoT devices in a smart city ecosystem. This page provides a detailed engineering guide for implementing a smart city infrastructure system using **CHIMERA 2048** and **GLASTONBURY 2048 SDKs**, focusing on secure data aggregation, real-time analytics, and robust error detection.
 
 ### Use Case Description
 This use case focuses on a smart city system managing:
