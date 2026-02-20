@@ -13,13 +13,13 @@
 **INFINITY TOR/GO** integrates with the SDK’s astrobotany module to archive things like plant growth data from space environments, such as ISS microgravity experiments or Martian regolith studies for example. It supports quantum linguistic analysis for mission communications, enhancing data-driven insights for NASA, SpaceX, and citizen scientists. This is just one of the many use cases that can be applied with this system.
 
 ### Why TOR/GO?
-TORGO addresses the need for a unified archiving system in interdisciplinary space research, ensuring data integrity, accessibility, and scalability for future missions. It harnesses the private databases of the TOR network and the lightweight modular capabilities of the GO language to form near instant access to advanced neural networks.
+TOR mixed with GO addresses the need for a unified archiving system in interdisciplinary space research, ensuring data integrity, accessibility, and scalability for future missions. It harnesses the private databases of the TOR network and the lightweight modular capabilities of the GO language to form near instant access to advanced neural networks.
 
-**Objective**: This guide introduces the TORGO archival protocol, a secure, federated, and semantically rich data archiving system designed for the Glastonbury 2048 AES Suite SDK. Tailored for astrobotany and quantum linguistics, TORGO enables researchers to archive, share, and analyze space-related data using 2048-bit AES encryption, NASA/SpaceX APIs, and MAML (Medium Artifact Markup Language).
+**Objective**: This guide introduces the **INFINITY TOR/GO** archival protocol, a secure, federated, and semantically rich data archiving system designed for the Glastonbury 2048 AES Suite SDK. Tailored for astrobotany and quantum linguistics, TORGO enables researchers to archive, share, and analyze space-related data using 2048-bit AES encryption, NASA/SpaceX APIs, and MAML (Medium Artifact Markup Language).
 
-**Purpose**: TORGO standardizes data archiving for interdisciplinary research, ensuring security, interoperability, and quantum-ready analysis. It supports Project Dunes’ mission to advance space exploration and sustainable technologies.
+**Purpose**: **INFINITY TOR/GO** standardizes data archiving for interdisciplinary research, ensuring security, interoperability, and quantum-ready analysis. It supports Project Dunes’ mission to advance space exploration and sustainable technologies.
 
-**Structure**: This guide comprises 10 Markdown files, each focusing on a specific aspect of TORGO, with an index, glossary, and library for reference.
+**Structure**: This guide comprises 10 Markdown files, each focusing on a specific aspect of **INFINITY TOR/GO**, with an index, glossary, and library for reference.
 
 ## Index
 1. **README.md**: Overview of TORGO.
