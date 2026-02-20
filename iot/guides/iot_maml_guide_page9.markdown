@@ -2,14 +2,13 @@
 
 **© 2025 WebXOS Research Group. All Rights Reserved.**  
 **License: MIT License for research and prototyping with attribution to Webxos.**  
-**Contact: project_dunes@outlook.com**
 
 ---
 
 ## Page 9: Subterranean IoT Exploration with MAML and Markup
 
 ### Overview
-Subterranean IoT exploration involves deploying sensors in underground environments for applications like mining, tunneling, and geological monitoring. The **PROJECT DUNES 2048-AES** framework leverages **MAML (Markdown as Medium Language)** and **Markup (.mu)** to configure, manage, and validate IoT devices in harsh subterranean conditions. This page provides a detailed engineering guide for implementing a subterranean IoT system using **CHIMERA 2048**, **GLASTONBURY 2048 SDKs**, and **BELUGA 2048-AES**, focusing on secure data collection, real-time analytics, and robust error detection.
+Subterranean IoT exploration involves deploying sensors in underground environments for applications like mining, tunneling, and geological monitoring. The **MACROSLOW** framework leverages **MAML (Markdown as Medium Language)** and **Markup (.mu)** to configure, manage, and validate IoT devices in harsh subterranean conditions. This page provides a detailed engineering guide for implementing a subterranean IoT system using **CHIMERA 2048**, **GLASTONBURY 2048 SDKs**, and **BELUGA 2048-AES**, focusing on secure data collection, real-time analytics, and robust error detection.
 
 ### Use Case Description
 This use case focuses on a subterranean IoT system for monitoring a mining operation:
