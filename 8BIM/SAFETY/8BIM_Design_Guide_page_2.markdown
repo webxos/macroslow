@@ -11,7 +11,7 @@
 
 ## Page 2: Safety Planning with 8BIM Digital Twins
 
-Safety planning is the cornerstone of any successful construction project, ensuring the protection of workers, equipment, and the environment. The **MACROSLOW 8BIM Design Framework**, part of the **PROJECT DUNES 2048-AES ecosystem**, revolutionizes safety planning by integrating detailed logistics and safety protocols into quantum-enhanced digital twins. Leveraging the **Model Context Protocol (MCP)**, **Markdown as Medium Language (MAML)**, and **NVIDIA CUDA-accelerated hardware**, 8BIM embeds comprehensive safety plans into virtual models of construction sites. This page introduces how MACROSLOW’s 8BIM framework enables developers, architects, and safety officers to create robust, verifiable, and secure safety plans, optimized for real-time execution and scalability.
+Safety planning is the cornerstone of any successful construction project, ensuring the protection of workers, equipment, and the environment. The **MACROSLOW 8BIM Design Framework**, revolutionizes safety planning by integrating detailed logistics and safety protocols into quantum-enhanced digital twins. Leveraging the **Model Context Protocol (MCP)**, **Markdown as Medium Language (MAML)**, and **NVIDIA CUDA-accelerated hardware**, 8BIM embeds comprehensive safety plans into virtual models of construction sites. This page introduces how MACROSLOW’s 8BIM framework enables developers, architects, and safety officers to create robust, verifiable, and secure safety plans, optimized for real-time execution and scalability.
 
 ### Why Safety Planning with 8BIM?
 
@@ -181,6 +181,6 @@ This workflow, secured by 2048-AES and verified by OCaml/Ortac, ensures zero err
 
 ### Next Steps
 
-Pages 3–4 will explore advanced safety planning techniques, including multi-agent coordination and real-time hazard response. Clone the MACROSLOW repository at [github.com/webxos/project-dunes-2048-aes](https://github.com/webxos/project-dunes-2048-aes) and join the WebXOS community at [webxos.netlify.app](https://webxos.netlify.app) to contribute to this quantum-powered construction revolution.
+Pages 3–4 will explore advanced safety planning techniques, including multi-agent coordination and real-time hazard response. 
 
 **© 2025 WebXOS Research Group. All rights reserved. Licensed under MIT with attribution.**
