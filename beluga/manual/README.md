@@ -1,7 +1,5 @@
 # BELUGA System: Model-Based Learning Implementation Guide
 
-## Key Points
-
 - **Model-Based Learning Overview**: Research suggests model-based reinforcement learning (MBRL) involves building an internal model of the environment to simulate and plan actions, making it efficient for complex, data-sparse scenarios like extreme environments. It contrasts with model-free approaches by prioritizing planning over trial-and-error, though it requires accurate modeling to avoid errors.
 
 - **BELUGA's Role**: BELUGA, a sensor fusion system for harsh conditions, integrates MBRL via its reinforcement learning (RL) module, using quantum graph databases and neural networks to model environments dynamically. It seems likely suited for quantum neuromorphic-inspired computing, enhancing efficiency in underwater or subterranean tasks.
