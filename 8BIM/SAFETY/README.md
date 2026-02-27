@@ -4,8 +4,7 @@
 **Publishing Entity:** WebXOS Research Group  
 **Publication Date:** October 21, 2025  
 **Copyright:** © 2025 WebXOS Research Group. All Rights Reserved.  
-**License:** MIT License for research and prototyping with attribution to [webxos.netlify.app](https://webxos.netlify.app)  
-**Contact:** [x.com/macroslow](https://x.com/macroslow)  
+**License:** MIT License for research and prototyping with attribution to [webxos.netlify.app](https://webxos.netlify.app)
 
 ---
 
