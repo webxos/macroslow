@@ -1,6 +1,5 @@
-# BELUGA SDK README
+# Overview
 
-## Overview
 BELUGA (Bilateral Environmental Linguistic Ultra Graph Agent) is a quantum-distributed database and sensor fusion system designed for extreme environmental applications, including drones, submarines, IoT cave mining drones, spacecraft, and AR goggles.
 
 ## Features
