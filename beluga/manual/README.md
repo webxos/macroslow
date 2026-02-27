@@ -14,7 +14,7 @@ Model-based learning, particularly in reinforcement learning, lets an AI agent c
 
 ## BELUGA System Basics
 
-BELUGA is designed for tough environments, fusing sound (SONAR) and visual (LIDAR) data into a graph-based model. It uses quantum-enhanced neural networks for processing, making it resilient to issues like no GPS or extreme temperatures. Start by installing from its GitHub (https://github.com/WebXOS/beluga-sdk) and configuring for your setup.
+BELUGA is designed for tough environments, fusing sound (SONAR) and visual (LIDAR) data into a graph-based model. It uses quantum-enhanced neural networks for processing, making it resilient to issues like no GPS or extreme temperatures.
 
 ## Step-by-Step Guide to Implementation
 
@@ -138,7 +138,7 @@ Run tests: `pytest tests/test_quantum_db.py`. For neuromorphic resilience, simul
 
 ### Step 5: Applications and Extensions
 
-Apply in marine biology (whale song via quantum audio), geology (cave mapping), or climate monitoring (IOT RL). Extend with WebXOS integrations for real-time streaming via OBS. Limitations include dependency on accurate annotations (OpenLex3D notes missing small parts) and quantum hardware scalability. Future work could fuse more modalities or address ethical concerns in autonomous systems. This guide provides a comprehensive pathway, drawing on established research to bridge theory and practice.
+Apply in marine biology (whale song via quantum audio), geology (cave mapping), or climate monitoring (IOT RL). Extend integrations for real-time streaming via OBS. Limitations include dependency on accurate annotations (OpenLex3D notes missing small parts) and quantum hardware scalability. Future work could fuse more modalities or address ethical concerns in autonomous systems. This guide provides a comprehensive pathway, drawing on established research to bridge theory and practice.
 
 ## Key Citations
 
