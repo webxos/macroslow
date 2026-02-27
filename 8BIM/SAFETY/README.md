@@ -31,10 +31,4 @@ This 10-page guide is designed to onboard new users to the MACROSLOW 8BIM framew
 - **Page 5–7: Risk Analysis** – Leveraging quantum neural networks and CUDA-accelerated simulations to identify and mitigate hazards with high precision.
 - **Page 8–10: Worker Training** – Building VR simulations with NVIDIA Isaac Sim, driven by 8BIM models, to train workers on safety procedures and emergency responses.
 
-Each section includes step-by-step instructions, sample MAML files, and Docker deployment guides, ensuring you can fork and adapt the MACROSLOW library for your projects. Backed by the **WebXOS Research Group**, this guide aligns with the vision of pioneers like Philip Emeagwali, emphasizing secure, inclusive, and innovative construction solutions for global communities, including underserved regions like Nigeria.
-
-### Call to Action
-
-Dive into the MACROSLOW 8BIM Design Guide to unlock the potential of quantum-enhanced construction. Clone the repository at [github.com/webxos/project-dunes-2048-aes](https://github.com/webxos/project-dunes-2048-aes), explore the **DUNES 2048-AES SDK**, and join the WebXOS community at [webxos.netlify.app](https://webxos.netlify.app). Whether you’re building a digital twin for a high-rise or training workers in VR, MACROSLOW empowers you to create safer, smarter, and more secure construction ecosystems. Let the camel 🐪 guide you through the computational frontier of 2025!
-
 **© 2025 WebXOS Research Group. All rights reserved. Licensed under MIT with attribution.**
