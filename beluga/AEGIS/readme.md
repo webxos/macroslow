@@ -52,12 +52,4 @@ print(f"CUDA-generated key: {cuda_key[:16]}...")
 
 ## 🛡️ License
 
-MIT License. See [LICENSE](LICENSE) for details.
-
-## 🤝 Contributing
-
-Pull requests welcome! If you have ideas for improving quantum resilience or optimizing CUDA performance, feel free to contribute.
-
----
-
-Would you like a logo or badge design for this repo? I can generate one to match your retro cyber aesthetic.
+MIT License.
