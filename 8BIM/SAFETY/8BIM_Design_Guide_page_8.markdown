@@ -4,14 +4,13 @@
 **Publishing Entity:** WebXOS Research Group  
 **Publication Date:** October 21, 2025  
 **Copyright:** © 2025 WebXOS Research Group. All Rights Reserved.  
-**License:** MIT License for research and prototyping with attribution to [webxos.netlify.app](https://webxos.netlify.app)  
-**Contact:** [x.com/macroslow](https://x.com/macroslow)  
+**License:** MIT License for research and prototyping with attribution to [webxos.netlify.app](https://webxos.netlify.app) 
 
 ---
 
 ## Page 8: Worker Training with Virtual Reality Simulations
 
-Effective worker training is essential for ensuring safety and efficiency on construction sites, where complex tasks and hazardous conditions demand rigorous preparation. The **MACROSLOW 8BIM Design Framework**, integrated within the **PROJECT DUNES 2048-AES ecosystem**, revolutionizes worker training by leveraging **virtual reality (VR) simulations** powered by **8BIM digital twins** and **NVIDIA Isaac Sim**. Using **Model Context Protocol (MCP)**, **Markdown as Medium Language (MAML)**, and **NVIDIA CUDA-accelerated hardware**, this framework delivers immersive, quantum-enhanced training environments that reduce onsite accidents by up to 30%. This page outlines how to implement VR-based worker training, focusing on creating realistic simulations, integrating IoT sensor data, and ensuring secure, scalable training workflows for construction professionals.
+Effective worker training is essential for ensuring safety and efficiency on construction sites, where complex tasks and hazardous conditions demand rigorous preparation. The **MACROSLOW 8BIM Design Framework**, revolutionizes worker training by leveraging **virtual reality (VR) simulations** powered by **8BIM digital twins** and **NVIDIA Isaac Sim**. Using **Model Context Protocol (MCP)**, **Markdown as Medium Language (MAML)**, and **NVIDIA CUDA-accelerated hardware**, this framework delivers immersive, quantum-enhanced training environments that reduce onsite accidents by up to 30%. This page outlines how to implement VR-based worker training, focusing on creating realistic simulations, integrating IoT sensor data, and ensuring secure, scalable training workflows for construction professionals.
 
 ### The Power of VR Simulations in Worker Training
 
@@ -225,6 +224,6 @@ This workflow, secured by 2048-AES and verified by OCaml/Ortac, achieves <100ms 
 
 ### Next Steps
 
-Page 9 will explore advanced VR training techniques, including multi-agent coordination and gamified learning. Clone the MACROSLOW repository at [github.com/webxos/project-dunes-2048-aes](https://github.com/webxos/project-dunes-2048-aes) and join the WebXOS community at [webxos.netlify.app](https://webxos.netlify.app) to contribute to this quantum-powered training revolution.
+Page 9 will explore advanced VR training techniques, including multi-agent coordination and gamified learning.
 
 **© 2025 WebXOS Research Group. All rights reserved. Licensed under MIT with attribution.**
