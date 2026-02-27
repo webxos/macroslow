@@ -1,4 +1,6 @@
-# 🐋 BELUGA: Bilateral Environmental Linguistic Ultra Graph Agent - The Quantum Whale of Data Science
+# 🐋 BELUGA: 
+
+*Bilateral Environmental Linguistic Ultra Graph Agent*
 
 **Version:** 1.0.0  
 **Publishing Entity:** Webxos Advanced Development Group  
