@@ -42,11 +42,6 @@ PyTorch/SQLAlchemy: Optimizes neural networks and manages sensor data for real-t
 NVIDIA CUDA: Accelerates Qiskit simulations for trajectory and cooling optimization in ARACHNID and other applications.
 Applications: Autonomous navigation, robotic arm manipulation, and humanoid skill learning, optimized for CUDA-enabled GPUs.
 
-
-## DRONE SOFTWARE: Qubit based Drone Software
-
-PROJECT ARACHNID, the Rooster Booster, is a quantum-powered rocket booster system designed to Integrate with the CHIMERA SDK, ARACHNID features software to control and monitor MAML workflows.
-
 ## MACROSLOW includes NVIDIA hardware guides and Integration: 
 
 The DUNES SDK leverages NVIDIA’s hardware ecosystem for robotics, AI, and quantum-classical computing. It supports:
@@ -56,7 +51,7 @@ Isaac Sim: GPU-accelerated virtual environments for robotics validation, reducin
 cuQuantum SDK/CUDA-Q: Quantum algorithm simulation with 99% fidelity for quantum key distribution and variational algorithms.
 Guides cover hardware setup, CUDA/Tensor Core optimization, and integration with DUNES’ .MAML.ml pipelines for secure, quantum-resistant workflows.
 
-## MACROSLOW specialized agents:
+## Agents:
 
 MARKUP Agent: Modular PyTorch-SQLAlchemy-FastAPI micro-agent for Markdown/MAML processing. Introduces Reverse Markdown (.mu) syntax for error detection, digital receipts (e.g., word mirroring like "Hello" to "olleH"), shutdown scripting, recursive ML training, quantum-parallel processing, and 3D ultra-graph visualization with Plotly. Supports API endpoints, Docker deployment, and use cases like MAML validation and workflow integrity for ARACHNID’s quantum workflows.
 
