@@ -149,7 +149,6 @@ chmod +x fix-camel.sh
 
 ---
 
-**Next: Page 10 – Launch Your CamelCased Quantum Project**  
+**Next: Page 10 – Conclusion**  
 
-Done.  
-xaiartifacts: `cheat-sheet.md` ready. Back-checked—zero ambiguity. Vibe: quantum scribe.
+
