@@ -1,11 +1,9 @@
-# Core Files for PROJECT DUNES 2048-AES SDK
+# MACROSLOW: PROJECT DUNES 2048-AES SDK
 
 This set of 10 core files provides a minimalist implementation of the **PROJECT DUNES 2048-AES SDK**, enabling users to build a hybrid Model Context Protocol (MCP) server with MAML (Markdown as Medium Language) processing and MARKUP Agent functionality. Each file includes embedded instructions to guide new users through setup, configuration, and deployment using Netlify for hosting and GitHub for version control. The architecture follows the hybrid gateway pattern described in *The Minimalist's Guide to Building Hybrid MCP Servers* (Claude Artifact: https://claude.ai/public/artifacts/992a72b5-bfe3-47e8-ace7-409ebc280f87).
 
 ## 1. README.md
 <xaiArtifact artifact_id="6cf8ce39-8028-4c5e-a4da-01b881e5fe5e" artifact_version_id="d0c3a848-df65-4d67-be20-4397dac08d75" title="README.md" contentType="text/markdown"> 
-
-project_dunes@outlook.com for more info
 
 # 🐪 PROJECT DUNES 2048-AES SDK: Minimalist MCP Server Setup
 
@@ -106,5 +104,4 @@ This SDK implements a hybrid MCP server that acts as a gateway for routing reque
 - Explore `docker-compose.yml` for multi-service setups.
 - Visit `webxos.netlify.app` for documentation and community support.
 
-**Contact**: project_dunes@outlook.com  
 **License**: MIT with attribution to WebXOS Research Group.
