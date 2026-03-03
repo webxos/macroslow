@@ -10,13 +10,13 @@ PyTorch for machine learning and SQLAlchemy databases for robust data management
 
 > **"*MACROSLOW provides a collection SDKs for developers to build upon as templates*"**  
 
-## DUNES 2048-AES SDK: The Minimalist SDK 
+## DUNES 2048-AES SDK:
 ![Alt text](https://github.com/webxos/macroslow/blob/main/assets/duneslogo.jpeg)
 *Decentralized Unified Network Exchange Systems*
 
 **MACROSLOW DUNES SDK** serves as the baseline minimalist SDK. DUNES offers a set of 10 core files for building a hybrid Model Context Protocol (MCP) server with MAML processing and MARKUP Agent functionality. It enables quantum-distributed workflows with verifiable OCaml-based algorithms, hybrid multi-language orchestration (Python, Qiskit), and integration with MCP servers.
 
-## CHIMERA 2048-AES SDK: A Qubit ready SDK!
+## CHIMERA 2048-AES SDK:
 
 CHIMERA 2048 is a quantum-enhanced, maximum-security API gateway for MCP servers, powered by NVIDIA’s advanced GPUs. Featuring four CHIMERA HEADS—each a self-regenerative, CUDA-accelerated core with 512-bit AES encryption—it forms a 2048-bit AES-equivalent security layer. 
 
@@ -29,7 +29,8 @@ NVIDIA Optimization: Achieves 76x training speedup, 4.2x inference speed, and 12
 
 CHIMERA 2048 supports scientific research, AI development, security monitoring, and data science, with deployment via Kubernetes/Helm and monitoring through Prometheus.
 
-## GLASTONBURY 2048-AES Suite SDK
+## GLASTONBURY 2048-AES Suite SDK:
+
 The GLASTONBURY 2048 Suite SDK is a qubit based medical and science research library that accelerates AI-driven robotics and quantum workflows, leveraging NVIDIA’s Jetson Orin and Isaac Sim.
 
 MAML Scripting: Routes tasks via MCP to CHIMERA’s four-headed architecture (authentication, computation, visualization, storage).
@@ -46,17 +47,13 @@ Isaac Sim: GPU-accelerated virtual environments for robotics validation, reducin
 cuQuantum SDK/CUDA-Q: Quantum algorithm simulation with 99% fidelity for quantum key distribution and variational algorithms.
 Guides cover hardware setup, CUDA/Tensor Core optimization, and integration with DUNES’ .MAML.ml pipelines for secure, quantum-resistant workflows.
 
-## Agents:
+## Custom Agent Templates:
 
 MARKUP Agent: Modular PyTorch-SQLAlchemy-FastAPI micro-agent for Markdown/MAML processing. Introduces Reverse Markdown (.mu) syntax for error detection, digital receipts (e.g., word mirroring like "Hello" to "olleH"), shutdown scripting, recursive ML training, quantum-parallel processing, and 3D ultra-graph visualization with Plotly. Supports API endpoints, Docker deployment, and use cases like MAML validation and workflow integrity for ARACHNID’s quantum workflows.
 
 BELUGA Agent: Bilateral Environmental Linguistic Ultra Graph Agent for extreme environments. Fuses SONAR/LIDAR data via SOLIDAR™ into quantum-distributed graph databases, optimized for NVIDIA Jetson platforms and DGX systems. Applications: subterranean exploration, submarine operations, IoT devices, and ARACHNID’s sensor fusion.
 
-Sakina Agent: Adaptive reconciliation agent for conflict resolution in multi-agent systems. Handles data harmonization, ethical decision-making, and bias mitigation in federated learning, running on NVIDIA Jetson Orin for human-robot interactions like assistive caregiving.
-
-Chimera Agent: Hybrid fusion agent combining classical and quantum data streams into unified models, using NVIDIA CUDA-Q and cuQuantum for quantum-enhanced machine learning. Achieves 89.2% efficacy in novel threat detection with adaptive reinforcement learning. Supports cross-domain simulations like ARACHNID’s interplanetary dropship coordination.
-
-Infinity TOR/GO Network: Ensures anonymous, decentralized communication for robotic swarms, IoT systems, and quantum networks, leveraging Jetson Nano and DGX systems. A concept network under development using the TOR and GO file systems for lightweight seamless emergency backup networks and data storage.
+Sakina Advacned Chat Agent: Adaptive reconciliation agent for conflict resolution in multi-agent systems. Handles data harmonization, ethical decision-making, and bias mitigation in federated learning, designed to run on NVIDIA Jetson Orin for human-robot interactions like assistive caregiving. Future integrations include IoT/Space Engineering use cases.
 
 ## MAML Protocol
 
@@ -94,4 +91,4 @@ Features Signed Execution Ticket: A cryptographic grant appended to a MAML file'
 > **"
 *a library to empower developers to create secure, oauth 2.0 compliant applications with a focus on quantum-resistant, adaptive threat detection.* "**  
 
-Copyright: © 2025 WebXOS.
+Copyright: © 2026 WebXOS.
