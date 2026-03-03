@@ -28,7 +28,7 @@ SOLIDAR™ (SONAR-LIDAR Adaptive Fusion) is BELUGA’s core innovation, a quantu
 1. **Data Acquisition**:
    - **SONAR Processing**: High-frequency acoustic signals are captured and denoised using quantum algorithms, producing a graph-based representation of spatial data.
    - **LIDAR Processing**: Laser-based ranging data is processed with neural networks to extract high-resolution spatial features.
-   - **Fusion Core**: A graph neural network combines SONAR and LIDAR graphs线索
+   - **Fusion Core**: A graph neural network combines SONAR and LIDAR graphs.
 
 2. **OBS Integration**: The processed data is streamed to OBS (Open Broadcaster Service) for real-time visualization and augmented reality (AR) processing, enabling interactive 3D displays in AR goggles or headsets.
 
