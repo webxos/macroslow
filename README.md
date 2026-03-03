@@ -57,7 +57,7 @@ Sakina Advacned Chat Agent: Adaptive reconciliation agent for conflict resolutio
 
 # Markdown as a Medium Language:
 
-MACROSLOW 2048-AES introduces the MAML (Markdown as Medium Language) protocol, a novel markup language for encoding multimodal security data.
+MACROSLOW 2048-AES introduces the MAML (Markdown as a Medium Language) protocol, a novel markup language for encoding multimodal security data.
 
 .MAML.ml Files: Structured, executable data containers validated with MAML schemas
 
