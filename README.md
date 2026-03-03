@@ -1,20 +1,14 @@
 ## 🐪 WELCOME TO MACROSLOW:
 
-*(x.com/macroslow)*
-
 > **"...an *Open Source Library* for quantum computing hosted on GitHub."**  
 
 MACROSLOW is a source for guides, tutorials, and templates to build qubit based systems in 2048-AES security protocol (CONCEPT). *Designed for decentralized unified network exchange systems (DUNES)* and quantum computing utilizing *QISKIT/QUTIP/PYTORCH* based qubit systems. It enables secure, distributed infrastructure for peer-to-peer interactions and token-based incentives without a single point of control, supporting applications like Decentralized Exchanges (DEXs) and DePIN frameworks for blockchain-managed physical infrastructure harnessing Qubit based systems and networks. All Files and Guides are designed and optimized for quantum networking and legacy system integrations, with qubit logic. Also includes Hardware guides included for quantum computing based systems (NVIDIA, INTEL, MORE).
 
 ## Overview
 
-## The MACROSLOW libraries include and integrate:
-
 PyTorch for machine learning and SQLAlchemy databases for robust data management. Sync them together with Advanced .yaml and .md files for configuration and documentation. Enabling for Multi-stage Dockerfile deployments for scalable setups and $custom web3 .md wallets and tokenization for flexible, secure transactions.
 
-
 > **"*MACROSLOW provides a collection SDKs for developers to build upon as templates*"**  
-
 
 ## DUNES 2048-AES SDK: The Minimalist SDK 
 ![Alt text](https://github.com/webxos/macroslow/blob/main/assets/duneslogo.jpeg)
