@@ -12,8 +12,9 @@ PyTorch for machine learning and SQLAlchemy databases for robust data management
 
 ## DUNES 2048-AES SDK: The Minimalist SDK 
 ![Alt text](https://github.com/webxos/macroslow/blob/main/assets/duneslogo.jpeg)
+*Decentralized Unified Network Exchange Systems*
 
-DUNES serves as the baseline minimalist SDK. DUNES offers a set of 10 core files for building a hybrid Model Context Protocol (MCP) server with MAML processing and MARKUP Agent functionality. It enables quantum-distributed workflows with verifiable OCaml-based algorithms, hybrid multi-language orchestration (Python, Qiskit), and integration with MCP servers.
+**MACROSLOW DUNES SDK** serves as the baseline minimalist SDK. DUNES offers a set of 10 core files for building a hybrid Model Context Protocol (MCP) server with MAML processing and MARKUP Agent functionality. It enables quantum-distributed workflows with verifiable OCaml-based algorithms, hybrid multi-language orchestration (Python, Qiskit), and integration with MCP servers.
 
 ## CHIMERA 2048-AES SDK: A Qubit ready SDK!
 
