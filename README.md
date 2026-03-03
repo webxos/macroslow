@@ -71,9 +71,9 @@ Quantum-Resistant Security: Post-quantum cryptography with liboqs and Qiskit
 
 Prompt Injection Defense: Semantic analysis and jailbreak detection
 
-# Markdown as Medium Language (MAML) more about the syntax:
+# Markdown as a Medium Language:
 
-Markdown as Medium Language: A protocol that extends the Markdown (.md) format into a structured, executable container for agent-to-agent communication. 
+Markdown as a Medium Language: A protocol that extends the Markdown (.md) format into a structured, executable container for agent-to-agent communication. 
 
 .maml.md: The official file extension for a MAML-compliant document. MAML Gateway: A runtime server that validates, routes, and executes the instructions within a MAML file. 
 
