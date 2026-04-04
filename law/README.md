@@ -34,8 +34,6 @@ test_api.py provides API testing, ensuring reliability.
 
 requirements.txt lists packages, including FastAPI, PyTorch, and quantum libs like Qiskit.
 
-*The "library" subdirectory, with its own readme.md (renamed from page_1.markdown), contains supplementary resources like legal templates and SDKs builds for Model Context Protocol*
-
 ## Applications and Integration
 
 -Automating legal compliance in DePIN networks, where physical infrastructure (e.g., drones or IoT) requires regulatory adherence.
