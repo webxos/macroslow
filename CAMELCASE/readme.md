@@ -1,4 +1,4 @@
-# 🐪 CamelCase Quantum Study Guide – Page 1
+# 🐪 CamelCase Quantum Study Guide – Introduction to Camelcase for Qubit based MCP systems:
 
 ## Introduction to CamelCase in Quantum Programming
 
