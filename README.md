@@ -6,7 +6,7 @@ MACROSLOW is a source for guides, tutorials, and templates to build qubit based 
 
 ## Overview
 
-PyTorch for machine learning and SQLAlchemy databases for robust data management. Sync them together with Advanced .yaml and .md files for configuration and documentation. Enabling for Multi-stage Dockerfile deployments for scalable setups and $custom web3 .md wallets and tokenization for flexible, secure transactions.
+PyTorch for machine learning and SQLAlchemy databases for robust data management. Sync them together with Advanced .yaml and .md files for configuration and documentation. Enabling for Multi-stage Dockerfile deployments for scalable setups.
 
 > **"*MACROSLOW provides a collection SDKs for developers to build upon as templates*"**  
 
