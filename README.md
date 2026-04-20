@@ -49,11 +49,8 @@ Guides cover hardware setup, CUDA/Tensor Core optimization, and integration with
 
 ## Custom Agent Templates:
 
-MARKUP Agent: Modular PyTorch-SQLAlchemy-FastAPI micro-agent for Markdown/MAML processing. Introduces Reverse Markdown (.mu) syntax for error detection, digital receipts (e.g., word mirroring like "Hello" to "olleH"), shutdown scripting, recursive ML training, quantum-parallel processing, and 3D ultra-graph visualization with Plotly. Supports API endpoints, Docker deployment, and use cases like MAML validation and workflow integrity for ARACHNID’s quantum workflows.
+MARKUP Agent: Modular PyTorch-SQLAlchemy-FastAPI micro-agent for Markdown/MAML processing. Introduces Reverse Markdown (.mu) syntax for error detection, digital receipts (e.g., word mirroring like "Hello" to "olleH"), shutdown scripting, recursive ML training, quantum-parallel processing, and 3D ultra-graph visualization with Plotly. Supports API endpoints, Docker deployment, and use cases like MAML validation and workflow integrity for MACROSLOW’s quantum workflows.
 
-BELUGA Agent: Bilateral Environmental Linguistic Ultra Graph Agent for extreme environments. Fuses SONAR/LIDAR data via SOLIDAR™ into quantum-distributed graph databases, optimized for NVIDIA Jetson platforms and DGX systems. Applications: subterranean exploration, submarine operations, IoT devices, and ARACHNID’s sensor fusion.
-
-Sakina Advacned Chat Agent: Adaptive reconciliation agent for conflict resolution in multi-agent systems. Handles data harmonization, ethical decision-making, and bias mitigation in federated learning, designed to run on NVIDIA Jetson Orin for human-robot interactions like assistive caregiving. Future integrations include IoT/Space Engineering use cases.
 
 # Markdown as a Medium Language:
 
