@@ -1,4 +1,4 @@
-# AUTH 3.0 (aka SI AUTH)
+# AUTH 3.0 (aka SI AUTH) v1.0 inception 10/13/2026 8:00AM EST 
 
 **SI Auth** is a reference implementation of an authentication scheme where the
 browser generates an **RSA-2048 keypair**. The private key never leaves the
