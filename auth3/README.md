@@ -90,7 +90,7 @@ Both sides rebuild this from their own state. Tampering is impossible.
 
 ```
 si-auth/
-├── auth3.py                    # ⭐ one-file mega-launcher
+├── auth3.py                    #  one-file mega-launcher
 ├── src/                        # TypeScript server
 │   ├── config.ts
 │   ├── app.ts
