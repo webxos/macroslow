@@ -11,14 +11,14 @@ No passwords. No shared secrets on the wire. No hashes in your database.
 
 | | |
 |---|---|
-| 🔐 **RSA-2048 challenge–response** | RSASSA-PKCS1-v1_5 + SHA-256. |
-| ⚡ **Rust accelerator** | Optional N-API module, ~4× faster verify. Auto-detected. |
-| 🧠 **Non-extractable keys** | `extractable: false` in the browser. XSS can't exfiltrate. |
-| 🎣 **Phishing resistant** | Signed payload binds server origin. |
-| ♻️ **Replay proof** | Single-use, TTL-bound nonces. |
-| 🍪 **HttpOnly sessions** | JWT in HttpOnly, SameSite=Strict cookie. |
-| 📱 **Multi-device** | Per-device credentials, individually revocable. |
-| 🚀 **One-file launcher** | `python3 auth3.py` scaffolds + runs everything. |
+|  **RSA-2048 challenge–response** | RSASSA-PKCS1-v1_5 + SHA-256. |
+|  **Rust accelerator** | Optional N-API module, ~4× faster verify. Auto-detected. |
+|  **Non-extractable keys** | `extractable: false` in the browser. XSS can't exfiltrate. |
+|  **Phishing resistant** | Signed payload binds server origin. |
+|  **Replay proof** | Single-use, TTL-bound nonces. |
+|  **HttpOnly sessions** | JWT in HttpOnly, SameSite=Strict cookie. |
+|  **Multi-device** | Per-device credentials, individually revocable. |
+|  **One-file launcher** | `python3 auth3.py` scaffolds + runs everything. |
 
 ## Quickstart
 
@@ -99,7 +99,7 @@ si-auth/
 │   ├── middleware/{{errorHandler,rateLimit,requestLogger,requireAuth}}.ts
 │   ├── routes/{{auth,health}}.ts
 │   └── services/{{auditLog,challengeStore,token,userStore}}.ts
-├── rust/                       # ⭐ N-API crypto accelerator
+├── rust/                       # N-API crypto accelerator
 │   ├── Cargo.toml
 │   ├── build.rs
 │   └── src/lib.rs
