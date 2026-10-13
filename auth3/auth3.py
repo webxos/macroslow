@@ -653,6 +653,15 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [2.0.1] - 2025-01-02
+
+### Fixed
+- Rust accelerator now compiles cleanly: `sha2` gains the `oid` feature,
+  which is required by `Pkcs1v15Sign::new::<Sha256>()` (the `AssociatedOid`
+  trait bound). Without it, `napi build` fails with E0277/E0599 and the
+  server silently falls back to `node:crypto`.
+- `rsa` pinned to `0.9` with `sha2` feature enabled.
+
 ## [2.0.0] - 2025-01-01
 
 ### Removed
@@ -713,7 +722,6 @@ Adapted from the
 [Contributor Covenant](https://www.contributor-covenant.org), v2.1.
 """, force=force)
 
-    # CONTRIBUTING.md — all code fences are ~~~ to avoid embedding ```.
     wfile(root, "CONTRIBUTING.md", """# Contributing
 
 ## Setup
@@ -753,6 +761,9 @@ npm test
 def build_rust_files(root: Path, force: bool) -> None:
     log("Rust N-API accelerator (rust/)", "step")
 
+    # Key fix: sha2 requires the `oid` feature for `AssociatedOid`, which
+    # is a bound on `Pkcs1v15Sign::new::<Sha256>()`. Without it, the crate
+    # fails to compile with E0277 / E0599.
     wfile(root, "rust/Cargo.toml", """[package]
 name = "siauth-crypto"
 version = "0.1.0"
@@ -768,7 +779,7 @@ crate-type = ["cdylib"]
 napi = { version = "2.16", default-features = false, features = ["napi6"] }
 napi-derive = "2.16"
 rsa = { version = "0.9", features = ["sha2"] }
-sha2 = "0.10"
+sha2 = { version = "0.10", features = ["oid"] }
 base64 = "0.22"
 rand = "0.8"
 
@@ -819,12 +830,11 @@ fn main() {
     }
     wfile(root, "rust/package.json", json.dumps(rust_pkg, indent=2), force=force)
 
-    # FIX: import `PublicKeyParts` trait so `RsaPublicKey::size()` resolves.
     wfile(root, "rust/src/lib.rs", r"""//! siauth-crypto — RSA-2048 / RSA-SHA256 signature verification for SI Auth.
 //!
 //! Hash-then-sign pipeline (RSASSA-PKCS1-v1_5 + SHA-256):
-//!   1. digest = SHA-256(canonical payload)          // 32 bytes
-//!   2. signature = RSA-2048-PKCS1v15-sign(DigestInfo(digest)) // 256 bytes
+//!   1. digest = SHA-256(canonical payload)                       // 32 bytes
+//!   2. signature = RSA-2048-PKCS1v15-sign(DigestInfo(digest))    // 256 bytes
 
 #![deny(clippy::all)]
 
@@ -1128,7 +1138,7 @@ export function serializeCookie(name: string, value: string, opts: CookieOptions
  * src/lib/crypto.ts — server-side RSA-2048 / RSA-SHA256 verification.
  *
  * Every signature is generated with RSASSA-PKCS1-v1_5 + SHA-256.
- * Node's crypto.verify("sha256", …, {padding: RSA_PKCS1_PADDING}) and the
+ * Node's crypto.verify("sha256", ..., {padding: RSA_PKCS1_PADDING}) and the
  * Rust accelerator implement the same pipeline.
  */
 import crypto from "node:crypto";
@@ -2532,7 +2542,7 @@ export async function fingerprintPublicKey(spkiBase64) {
  * keystore.js — persist CryptoKey objects in IndexedDB.
  *
  * Every operation holds a live reference to its IDBTransaction until
- * `oncomplete` fires. Without this, the transaction can be
+ * oncomplete fires. Without this, the transaction can be
  * garbage-collected / auto-committed before the request resolves.
  */
 const DB_NAME = 'si-auth';
@@ -3301,7 +3311,7 @@ main().catch((err) => {
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-#  Scaffolding — docs (all code fences use ~~~ instead of backticks)
+#  Scaffolding — docs
 # ═══════════════════════════════════════════════════════════════════════════
 
 def build_docs_files(root: Path, force: bool) -> None:
