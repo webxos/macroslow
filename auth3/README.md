@@ -1,4 +1,4 @@
-## What is this?
+# AUTH 3.0 (aka SI AUTH)
 
 **SI Auth** is a reference implementation of an authentication scheme where the
 browser generates an **RSA-2048 keypair**. The private key never leaves the
