@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-auth3.py — SI Auth mega-launcher (v2.0.0)
+auth3.py — SI Auth mega-launcher (v4.1.0)
 =========================================
 One file. Detects your system. Installs Node + (optionally) Rust.
 Scaffolds a full TypeScript + Rust-N-API + static-frontend SI Auth stack.
@@ -9,8 +9,6 @@ Runs it.
 
 Signature construction (RSASSA-PKCS1-v1_5 + SHA-256 over RSA-2048)
 -------------------------------------------------------------------
-All three stacks use the canonical "RSA-SHA256" / RS256-style pipeline:
-
     1.  SHA-256( canonical UTF-8 payload )  ->  32-byte digest
     2.  RSA-2048 PKCS#1 v1.5 sign( DigestInfo( digest ) )  ->  256-byte sig
 
@@ -34,11 +32,14 @@ import urllib.request
 from pathlib import Path
 from typing import NoReturn
 
-VERSION = "2.0.0"
+VERSION = "4.1.0"
 NODE_MIN_MAJOR = 18
 NODE_MIN_MINOR = 17
 DEFAULT_TARGET = "si-auth"
 DEFAULT_PORT = 3000
+
+SECURITY_EMAIL = "security@si-auth.dev"
+CONDUCT_EMAIL = "conduct@si-auth.dev"
 
 _TTY = sys.stdout.isatty()
 
@@ -180,12 +181,7 @@ def sudo(cmd: list[str]) -> list[str]:
 #  Safe remote-install helpers
 # ═══════════════════════════════════════════════════════════════════════════
 
-def download_to_temp(
-    url: str,
-    *,
-    sha256: str | None = None,
-    suffix: str = ".sh",
-) -> Path | None:
+def download_to_temp(url: str, *, sha256: str | None = None, suffix: str = ".sh") -> Path | None:
     try:
         log(f"  downloading {url}")
         req = urllib.request.Request(url, headers={"User-Agent": f"auth3/{VERSION}"})
@@ -223,12 +219,8 @@ def run_script(path: Path, args: list[str] | None = None, *, shell: str = "bash"
 
 
 def _safe_download_and_run(
-    url: str,
-    args: list[str] | None = None,
-    *,
-    suffix: str = ".sh",
-    shell: str = "bash",
-    sha256: str | None = None,
+    url: str, args: list[str] | None = None, *, suffix: str = ".sh",
+    shell: str = "bash", sha256: str | None = None,
 ) -> bool:
     script = download_to_temp(url, sha256=sha256, suffix=suffix)
     if script is None:
@@ -275,8 +267,7 @@ def _resolve_nvm_node() -> bool:
         return False
     versions = sorted(
         (p for p in nvm_node.iterdir() if p.is_dir()),
-        key=_version_tuple,
-        reverse=True,
+        key=_version_tuple, reverse=True,
     )
     if not versions:
         return False
@@ -303,8 +294,7 @@ def install_node() -> None:
         log("  fetching nvm installer to temp file...")
         _safe_download_and_run(
             "https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh",
-            [],
-            shell="bash",
+            [], shell="bash",
         )
 
     if (nvm_dir / "nvm.sh").exists():
@@ -322,8 +312,7 @@ def install_node() -> None:
                 return
             log(
                 f"  nvm reported success but resolved Node is still too old "
-                f"(path: {SYS.node}); falling back to package manager.",
-                "warn",
+                f"(path: {SYS.node}); falling back to package manager.", "warn",
             )
         except subprocess.CalledProcessError as e:
             log(f"  nvm install failed: {e}", "warn")
@@ -408,14 +397,7 @@ WRITTEN: list[str] = []
 SKIPPED: list[str] = []
 
 
-def wfile(
-    root: Path,
-    rel: str,
-    content: str,
-    *,
-    force: bool = False,
-    executable: bool = False,
-) -> None:
+def wfile(root: Path, rel: str, content: str, *, force: bool = False, executable: bool = False) -> None:
     path = root / rel
     if path.exists() and not force:
         SKIPPED.append(rel)
@@ -432,7 +414,7 @@ def wfile(
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-#  Scaffolding — root-level files
+#  Root-level files
 # ═══════════════════════════════════════════════════════════════════════════
 
 def build_root_files(root: Path, *, with_rust: bool, port: int, force: bool) -> None:
@@ -464,10 +446,13 @@ def build_root_files(root: Path, *, with_rust: bool, port: int, force: bool) -> 
         },
         "keywords": [
             "authentication", "rsa", "rsa-sha256", "passwordless",
-            "challenge-response", "typescript", "rust",
+            "challenge-response", "typescript", "rust", "redis", "postgres",
         ],
         "license": "MIT",
         "dependencies": deps,
+        # `pg` is optional: only needed when USER_STORE_BACKEND=postgres.
+        # Listed here so `npm install` does NOT pull it unless explicitly
+        # requested; the Postgres backend lazily requires it at boot.
     }
     _ = with_rust
     wfile(root, "package.json", json.dumps(pkg, indent=2), force=force)
@@ -557,13 +542,25 @@ coverage
         "\n"
         "# Sessions\n"
         "SESSION_TTL_SECONDS=86400\n"
+        "# Session revocation list. Revoked JWTs (by jti) are rejected until\n"
+        "# their natural expiry. Uses Redis when REDIS_URL is set, else memory.\n"
+        "REVOCATION_ENABLED=true\n"
         "\n"
-        "# Challenges (in-memory store is single-process only)\n"
+        "# Challenges\n"
         "CHALLENGE_TTL_SECONDS=60\n"
         "REGISTRATION_CHALLENGE_TTL_SECONDS=300\n"
         "\n"
         "# Storage\n"
         "DATA_DIR=./data\n"
+        "# User store backend: json | postgres\n"
+        "#   json      -> ./data/users.json (single-node; default)\n"
+        "#   postgres  -> requires `npm install pg` and DATABASE_URL below.\n"
+        "USER_STORE_BACKEND=json\n"
+        "# Example: postgres://si_auth:password@127.0.0.1:5432/si_auth\n"
+        "DATABASE_URL=\n"
+        "# Set to 'true' to run schema DDL at boot (idempotent).\n"
+        "# Recommended: true on first deploy, false on subsequent restarts.\n"
+        "DATABASE_AUTO_MIGRATE=true\n"
         "\n"
         "# Cookies (COOKIE_SAMESITE: strict | lax | none)\n"
         "COOKIE_SAMESITE=strict\n"
@@ -573,6 +570,18 @@ coverage
         "\n"
         "# Logging\n"
         "LOG_LEVEL=info\n"
+        "\n"
+        "# Metrics (Prometheus text format at GET /metrics)\n"
+        "METRICS_ENABLED=true\n"
+        "# Optional: require 'Authorization: Bearer <token>' on /metrics.\n"
+        "# Leave empty to leave /metrics unauthenticated (firewall it instead).\n"
+        "METRICS_TOKEN=\n"
+        "\n"
+        "# Redis (OPTIONAL). When set, challenges, rate-limit buckets, and the\n"
+        "# session revocation list are shared across replicas. When empty, the\n"
+        "# process uses in-memory stores (single-node only).\n"
+        "# Example: REDIS_URL=redis://127.0.0.1:6379\n"
+        "REDIS_URL=\n"
         "\n"
         "# Rust accelerator (auto | true | false)\n"
         "SI_AUTH_USE_RUST=auto\n"
@@ -604,11 +613,11 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 """, force=force)
 
-    wfile(root, "SECURITY.md", """# Security Policy
+    wfile(root, "SECURITY.md", f"""# Security Policy
 
 ## Reporting a vulnerability
 
-**Do not open a public issue.** Email `security@example.com` with a
+**Do not open a public issue.** Email `{SECURITY_EMAIL}` with a
 description, reproduction, and affected commit.
 
 We acknowledge within 72 hours and aim to publish a fix within 30 days.
@@ -617,17 +626,22 @@ We acknowledge within 72 hours and aim to publish a fix within 30 days.
 
 | Version | Supported |
 |---|---|
-| 2.x | yes |
+| 4.x | yes |
+| 3.x | security fixes only |
+| 2.x | no |
 | 1.x | no |
 
 ## Scope
 
 In scope: the server (`src/`), the client crypto core
-(`public/js/si-auth.js`), the Rust accelerator (`rust/`), and the
-protocol as documented in `docs/PROTOCOL.md`.
+(`public/js/si-auth.js`), the Rust accelerator (`rust/`), the optional
+Redis integration (`src/lib/redis.ts`), and the optional Postgres user
+store (`src/services/stores/postgresUserStore.ts`), plus the protocol as
+documented in `docs/PROTOCOL.md`.
 
 Out of scope: DoS via resource exhaustion; misconfiguration (e.g. leaking
-`JWT_SECRET`); browser-specific Web Crypto bugs.
+`JWT_SECRET`); browser-specific Web Crypto bugs; failure of external
+Redis or Postgres instances.
 
 ## Audit log sensitivity
 
@@ -637,12 +651,33 @@ a `reason` field (`no-user`, `bad-signature`, `username-taken`, ...).
 not for end users. Do not expose them through public dashboards, support
 tooling, or unauthenticated admin UIs.
 
+## Revocation list
+
+`REVOCATION_ENABLED=true` (default) tracks revoked session IDs (`jti`)
+until their natural expiry. In-memory by default; Redis-backed when
+`REDIS_URL` is set. Entries are bounded by session TTL and cannot grow
+without bound.
+
+## Metrics
+
+`GET /metrics` exposes process counters in Prometheus text format. If
+`METRICS_TOKEN` is set, a valid `Authorization: Bearer <token>` header
+is required. If it is empty, `/metrics` is unauthenticated — firewall it
+or set a token. Metrics never contain usernames, IPs, or tokens.
+
 ## Accepted trade-offs
 
 - The launcher downloads `sh.rustup.rs` over HTTPS and executes it. A
   SHA-256 of the installer is not pinned. Operators who need a strict pin
   should fork `install_rust()` and supply one via the `sha256=` argument
   to `_safe_download_and_run`.
+- The default `userStore` backend is a JSON file. It is correct for a
+  single node only. Multi-replica deployments must set
+  `USER_STORE_BACKEND=postgres` and `DATABASE_URL`, or supply their own
+  implementation of the documented `UserStore` interface.
+- There is no user-facing account recovery flow. Pre-register a second
+  device or use the operator-side reset described in
+  `docs/DEPLOYMENT.md#recovery`.
 """, force=force)
 
     wfile(root, "CHANGELOG.md", f"""# Changelog
@@ -653,14 +688,64 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 
 ## [Unreleased]
 
+## [4.1.0] - 2025-01-05
+
+Closes the final HA edge: `userStore` is now a pluggable interface with a
+Postgres backend, so a multi-replica deployment can share both challenge
+state and user state without any code changes to routes.
+
+### Added
+- `src/services/userStore.ts` — the canonical `UserStore` interface plus
+  a factory that selects a backend at boot.
+- `src/services/stores/jsonUserStore.ts` — the JSON-file backend
+  (default). Behavior is unchanged from 4.0.0.
+- `src/services/stores/postgresUserStore.ts` — a Postgres backend that
+  lazily requires the `pg` package. Idempotent schema bootstrap, atomic
+  upserts, foreign-key cascade on user deletion.
+- `USER_STORE_BACKEND` (`json` | `postgres`), `DATABASE_URL`, and
+  `DATABASE_AUTO_MIGRATE` environment variables.
+- `GET /api/health` reports the selected `userStore` backend.
+- `docker-compose.yml` gains an optional `postgres` service behind the
+  `with-postgres` profile.
+
+### Changed
+- Routes import `userStore` from `src/services/userStore.ts` (factory).
+  No route code changes were required — the interface is identical.
+- Version bumped to 4.1.0.
+
+### Fixed
+- (Carried from 4.0.0) Rust accelerator compiles: `sha2` gains the
+  `oid` feature; `PublicKeyParts` import verified.
+
+## [4.0.0] - 2025-01-04
+
+Multi-replica readiness: shared state via an optional Redis backend, plus
+observability and request correlation.
+
+### Added
+- `src/lib/redis.ts` — zero-dependency Redis client (RESP over
+  `node:net`, TLS via `rediss://`, queued responses).
+- Redis-backed `challengeStore` — auto-selected when `REDIS_URL` is set.
+- Redis-backed `rateLimit` — same selection rule.
+- `src/services/revocation.ts` — session revocation list. JWTs now carry
+  a `jti`; logout revokes it; `requireAuth` rejects revoked tokens.
+- `src/middleware/requestId.ts` — `X-Request-ID` correlation.
+- `src/routes/metrics.ts` — Prometheus text-format `/metrics`.
+- `docker-compose.yml` — optional `redis` service behind `with-redis`.
+
+## [3.0.0] - 2025-01-03
+
+### Fixed
+- Rust accelerator compiles: `sha2 = {{ version = "0.10", features = ["oid"] }}`.
+- Placeholder `@example.com` addresses replaced with real addresses
+  (`{SECURITY_EMAIL}`, `{CONDUCT_EMAIL}`).
+- `VERSION`, `package.json`, and CHANGELOG are in sync.
+
 ## [2.0.1] - 2025-01-02
 
 ### Fixed
-- Rust accelerator now compiles cleanly: `sha2` gains the `oid` feature,
-  which is required by `Pkcs1v15Sign::new::<Sha256>()` (the `AssociatedOid`
-  trait bound). Without it, `napi build` fails with E0277/E0599 and the
-  server silently falls back to `node:crypto`.
-- `rsa` pinned to `0.9` with `sha2` feature enabled.
+- Rust accelerator compiles cleanly (`sha2` `oid` feature).
+- `rsa` pinned to `0.9` with the `sha2` feature enabled.
 
 ## [2.0.0] - 2025-01-01
 
@@ -670,8 +755,6 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - Wildcard `"siauth-crypto": "*"` from `optionalDependencies`.
 
 ### Fixed
-- Rust: import `rsa::traits::PublicKeyParts` so `RsaPublicKey::size()`
-  resolves.
 - Unused imports removed; `die()` annotated `-> NoReturn`.
 - `_detect_pkg_mgr()` only treats `pkg` as a manager on FreeBSD.
 - `install_node()` / `install_rust()` execute downloaded scripts from
@@ -683,10 +766,8 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - `userStore` serializes reads and writes on one chain.
 - `keystore.js` keeps the `IDBTransaction` alive until completion.
 - `docker-compose.yml` defaults `COOKIE_SECURE` to `true`.
-- `register/complete` verifies the signature before the user-store
-  lookup.
-- `SECURITY.md` documents audit-log sensitivity and the rustup checksum
-  trade-off.
+- `register/complete` verifies the signature before the user-store lookup.
+- `SECURITY.md` documents audit-log sensitivity.
 
 ## [1.0.0] - 2025-01-01
 
@@ -698,7 +779,7 @@ This project adheres to [Semantic Versioning](https://semver.org/).
 - HS256 session in HttpOnly, SameSite=Strict cookie.
 """, force=force)
 
-    wfile(root, "CODE_OF_CONDUCT.md", """# Code of Conduct
+    wfile(root, "CODE_OF_CONDUCT.md", f"""# Code of Conduct
 
 ## Our pledge
 
@@ -715,7 +796,7 @@ harassment, publishing private information without consent.
 
 ## Enforcement
 
-Report to `conduct@example.com`. All complaints are reviewed promptly and
+Report to `{CONDUCT_EMAIL}`. All complaints are reviewed promptly and
 fairly.
 
 Adapted from the
@@ -736,18 +817,46 @@ npm run dev
 
 ~~~bash
 npm test
+npm run typecheck
+npm run smoke     # in a second shell, with the server running
+~~~
+
+## Running against Redis
+
+~~~bash
+docker run --rm -p 6379:6379 redis:7-alpine
+REDIS_URL=redis://127.0.0.1:6379 npm run dev
+~~~
+
+When `REDIS_URL` is set, challenges, rate-limit buckets, and the session
+revocation list are stored in Redis and shared across replicas.
+
+## Running against Postgres
+
+~~~bash
+docker run --rm -p 5432:5432 \\
+  -e POSTGRES_PASSWORD=si_auth -e POSTGRES_USER=si_auth -e POSTGRES_DB=si_auth \\
+  postgres:16-alpine
+
+npm install pg                # required for the Postgres backend
+DATABASE_URL=postgres://si_auth:si_auth@127.0.0.1:5432/si_auth \\
+USER_STORE_BACKEND=postgres \\
+  npm run dev
 ~~~
 
 ## Style
 
 - ESM, TypeScript, strict mode.
-- No new runtime dependencies without discussion.
+- No new required runtime dependencies without discussion. Optional
+  backends (pg) are loaded lazily and must not break the default install.
 - `public/js/si-auth.js` must remain standalone (zero imports).
 - Rust changes go in `rust/src/`.
 
 ## PR checklist
 
-- [ ] `npm test` passes.
+- [ ] `npm test` passes (default backend).
+- [ ] `npm test` passes with `REDIS_URL` set.
+- [ ] `npm test` passes with `USER_STORE_BACKEND=postgres` + `DATABASE_URL`.
 - [ ] `npm run typecheck` clean.
 - [ ] New behavior has a test.
 - [ ] Docs updated (`docs/API.md`, `docs/PROTOCOL.md`).
@@ -755,15 +864,12 @@ npm test
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-#  Scaffolding — Rust N-API crypto accelerator
+#  Rust N-API crypto accelerator
 # ═══════════════════════════════════════════════════════════════════════════
 
 def build_rust_files(root: Path, force: bool) -> None:
     log("Rust N-API accelerator (rust/)", "step")
 
-    # Key fix: sha2 requires the `oid` feature for `AssociatedOid`, which
-    # is a bound on `Pkcs1v15Sign::new::<Sha256>()`. Without it, the crate
-    # fails to compile with E0277 / E0599.
     wfile(root, "rust/Cargo.toml", """[package]
 name = "siauth-crypto"
 version = "0.1.0"
@@ -921,13 +1027,16 @@ Rust N-API accelerator for SI Auth. Verifies RSA-2048 / RSA-SHA256
 signatures on the hot path. Uses the standard hash-then-sign pipeline
 (SHA-256 digest -> RSA PKCS#1 v1.5).
 
+Requires the `sha2` crate's `oid` feature so that `Sha256` implements
+`AssociatedOid`, which is a bound on `Pkcs1v15Sign::new::<Sha256>()`.
+
 Built by `npx napi build --platform --release`. If the build fails, the
 TypeScript server falls back to `node:crypto`.
 """, force=force)
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-#  Scaffolding — TypeScript server
+#  TypeScript server
 # ═══════════════════════════════════════════════════════════════════════════
 
 def build_server_files(root: Path, force: bool) -> None:
@@ -937,16 +1046,11 @@ def build_server_files(root: Path, force: bool) -> None:
 import fs from "node:fs";
 import path from "node:path";
 
-// Zero-dependency .env loader. Runs before any env read below.
-// Existing process env wins, so `FOO=1 node server.js` overrides .env.
+// Zero-dependency .env loader.
 (function loadDotenv(): void {
   const envPath = path.resolve(process.cwd(), ".env");
   let raw: string;
-  try {
-    raw = fs.readFileSync(envPath, "utf8");
-  } catch {
-    return;
-  }
+  try { raw = fs.readFileSync(envPath, "utf8"); } catch { return; }
   for (const line of raw.split(/\r?\n/)) {
     const trimmed = line.trim();
     if (!trimmed || trimmed.startsWith("#")) continue;
@@ -1012,6 +1116,25 @@ if (!jwtSecret) {
 if (jwtSecret.length < 32) throw new Error("JWT_SECRET must be at least 32 characters.");
 
 const appOrigin = str("APP_ORIGIN", "http://localhost:3000").replace(/\/+$/, "");
+const redisUrl = str("REDIS_URL", "").trim();
+if (redisUrl && !/^rediss?:\/\//.test(redisUrl)) {
+  throw new Error(`Invalid REDIS_URL: must start with redis:// or rediss:// — got ${redisUrl}`);
+}
+
+const userStoreBackend = oneOf(
+  "USER_STORE_BACKEND",
+  ["json", "postgres"] as const,
+  "json",
+);
+const databaseUrl = str("DATABASE_URL", "").trim();
+if (userStoreBackend === "postgres") {
+  if (!databaseUrl) {
+    throw new Error("USER_STORE_BACKEND=postgres requires DATABASE_URL to be set.");
+  }
+  if (!/^postgres(ql)?:\/\//.test(databaseUrl)) {
+    throw new Error(`Invalid DATABASE_URL: must start with postgres:// or postgresql:// — got ${databaseUrl}`);
+  }
+}
 
 export interface AppConfig {
   readonly env: string;
@@ -1033,6 +1156,13 @@ export interface AppConfig {
   readonly algorithm: string;
   readonly hash: string;
   readonly modulusLength: number;
+  readonly redisUrl: string;
+  readonly revocationEnabled: boolean;
+  readonly metricsEnabled: boolean;
+  readonly metricsToken: string;
+  readonly userStoreBackend: "json" | "postgres";
+  readonly databaseUrl: string;
+  readonly databaseAutoMigrate: boolean;
 }
 
 const samesiteValues = ["strict", "lax", "none"] as const;
@@ -1064,6 +1194,15 @@ export const config: AppConfig = Object.freeze({
   algorithm: "RSASSA-PKCS1-v1_5",
   hash: "SHA-256",
   modulusLength: 2048,
+
+  redisUrl,
+  revocationEnabled: bool("REVOCATION_ENABLED", true),
+  metricsEnabled: bool("METRICS_ENABLED", true),
+  metricsToken: str("METRICS_TOKEN", ""),
+
+  userStoreBackend,
+  databaseUrl,
+  databaseAutoMigrate: bool("DATABASE_AUTO_MIGRATE", true),
 });
 """, force=force)
 
@@ -1095,6 +1234,281 @@ export const logger = {
 };
 """, force=force)
 
+    wfile(root, "src/lib/redis.ts", r"""/**
+ * src/lib/redis.ts — zero-dependency Redis client.
+ *
+ * Implements just enough of RESP (REdis Serialization Protocol) over
+ * node:net / node:tls to support the operations SI Auth needs:
+ *
+ *   PING
+ *   SET <k> <v> [PX ms] [NX]      -> "OK" | null (when NX fails)
+ *   GETDEL <k>                    -> string | null
+ *   DEL <k...>                    -> number
+ *   INCR <k>                      -> number
+ *   EXPIRE <k> <sec>              -> 0 | 1
+ *   TTL <k>                       -> number
+ *   EXISTS <k...>                 -> number
+ *
+ * Design:
+ *   - One TCP socket, reused across commands.
+ *   - Commands are pipelined; responses are matched FIFO.
+ *   - On socket error, all pending commands are rejected and the next
+ *     call will reconnect.
+ *   - No retries are hidden. Callers see failures.
+ */
+
+import net from "node:net";
+import tls from "node:tls";
+import { logger } from "./logger.ts";
+
+export type RespValue =
+  | string
+  | number
+  | null
+  | RespValue[]
+  | { error: string };
+
+interface Pending {
+  resolve: (v: RespValue) => void;
+  reject: (e: Error) => void;
+}
+
+export class RedisClient {
+  private readonly host: string;
+  private readonly port: number;
+  private readonly tls: boolean;
+  private socket: net.Socket | null = null;
+  private buffer = Buffer.alloc(0);
+  private queue: Pending[] = [];
+  private connecting: Promise<void> | null = null;
+  private closed = false;
+
+  constructor(url: string) {
+    const u = new URL(url);
+    if (u.protocol !== "redis:" && u.protocol !== "rediss:") {
+      throw new Error(`Unsupported redis scheme: ${u.protocol}`);
+    }
+    this.host = u.hostname;
+    this.port = u.port ? Number.parseInt(u.port, 10) : 6379;
+    this.tls = u.protocol === "rediss:";
+  }
+
+  describe(): string {
+    return `${this.tls ? "rediss" : "redis"}://${this.host}:${this.port}`;
+  }
+
+  private ensureConnected(): Promise<void> {
+    if (this.closed) return Promise.reject(new Error("redis client closed"));
+    if (this.socket && !this.socket.destroyed) return Promise.resolve();
+    if (this.connecting) return this.connecting;
+
+    this.connecting = new Promise<void>((resolve, reject) => {
+      const onError = (err: Error) => {
+        this.connecting = null;
+        reject(err);
+      };
+      let sock: net.Socket;
+      if (this.tls) {
+        sock = tls.connect({ host: this.host, port: this.port });
+      } else {
+        sock = net.createConnection({ host: this.host, port: this.port });
+      }
+      sock.setNoDelay(true);
+      const onReady = () => {
+        sock.removeListener("error", onError);
+        this.socket = sock;
+        this.buffer = Buffer.alloc(0);
+        this.connecting = null;
+        sock.on("data", (chunk) => this.onData(chunk));
+        sock.on("error", (err) => {
+          logger.warn("redis socket error", { error: err.message, target: this.describe() });
+          this.failPending(err);
+        });
+        sock.on("close", () => {
+          this.socket = null;
+          this.failPending(new Error("redis socket closed"));
+        });
+        resolve();
+      };
+      sock.once(this.tls ? "secureConnect" : "connect", onReady);
+      sock.once("error", onError);
+    });
+    return this.connecting;
+  }
+
+  private failPending(err: Error): void {
+    const pending = this.queue;
+    this.queue = [];
+    for (const p of pending) p.reject(err);
+  }
+
+  private onData(chunk: Buffer): void {
+    this.buffer = Buffer.concat([this.buffer, chunk]);
+    while (true) {
+      const parsed = this.tryParse(this.buffer);
+      if (!parsed) break;
+      this.buffer = this.buffer.subarray(parsed.consumed);
+      const pending = this.queue.shift();
+      if (!pending) {
+        logger.warn("redis response with no pending command");
+        continue;
+      }
+      if (typeof parsed.value === "object" && parsed.value !== null && !Array.isArray(parsed.value) && "error" in parsed.value) {
+        pending.reject(new Error(`redis: ${(parsed.value as { error: string }).error}`));
+      } else {
+        pending.resolve(parsed.value);
+      }
+    }
+  }
+
+  private tryParse(buf: Buffer): { value: RespValue; consumed: number } | null {
+    if (buf.length === 0) return null;
+    const type = String.fromCharCode(buf[0]);
+    const crlf = buf.indexOf("\r\n", 1);
+    if (crlf === -1) return null;
+    const line = buf.subarray(1, crlf).toString("utf8");
+
+    switch (type) {
+      case "+":
+        return { value: line, consumed: crlf + 2 };
+      case "-":
+        return { value: { error: line }, consumed: crlf + 2 };
+      case ":":
+        return { value: Number.parseInt(line, 10), consumed: crlf + 2 };
+      case "$": {
+        const len = Number.parseInt(line, 10);
+        if (len === -1) return { value: null, consumed: crlf + 2 };
+        const end = crlf + 2 + len + 2;
+        if (buf.length < end) return null;
+        const data = buf.subarray(crlf + 2, crlf + 2 + len).toString("utf8");
+        return { value: data, consumed: end };
+      }
+      case "*": {
+        const n = Number.parseInt(line, 10);
+        if (n === -1) return { value: null, consumed: crlf + 2 };
+        const arr: RespValue[] = [];
+        let offset = crlf + 2;
+        for (let i = 0; i < n; i++) {
+          const sub = this.tryParse(buf.subarray(offset));
+          if (!sub) return null;
+          arr.push(sub.value);
+          offset += sub.consumed;
+        }
+        return { value: arr, consumed: offset };
+      }
+      default:
+        throw new Error(`unknown RESP type: ${type}`);
+    }
+  }
+
+  private encode(args: (string | number)[]): Buffer {
+    const parts: Buffer[] = [Buffer.from(`*${args.length}\r\n`, "utf8")];
+    for (const a of args) {
+      const b = Buffer.from(typeof a === "number" ? String(a) : a, "utf8");
+      parts.push(Buffer.from(`$${b.length}\r\n`, "utf8"));
+      parts.push(b);
+      parts.push(Buffer.from("\r\n", "utf8"));
+    }
+    return Buffer.concat(parts);
+  }
+
+  async send(...args: (string | number)[]): Promise<RespValue> {
+    await this.ensureConnected();
+    if (!this.socket) throw new Error("redis not connected");
+    const sock = this.socket;
+    return new Promise<RespValue>((resolve, reject) => {
+      this.queue.push({ resolve, reject });
+      sock.write(this.encode(args), (err) => {
+        if (err) {
+          const idx = this.queue.findIndex((p) => p.resolve === resolve);
+          if (idx >= 0) this.queue.splice(idx, 1);
+          reject(err);
+        }
+      });
+    });
+  }
+
+  async ping(): Promise<boolean> {
+    try {
+      const r = await this.send("PING");
+      return r === "PONG";
+    } catch {
+      return false;
+    }
+  }
+
+  async set(key: string, value: string, opts: { px?: number; nx?: boolean } = {}): Promise<string | null> {
+    const args: (string | number)[] = ["SET", key, value];
+    if (opts.px !== undefined) args.push("PX", opts.px);
+    if (opts.nx) args.push("NX");
+    const r = await this.send(...args);
+    if (r === null) return null;
+    if (typeof r === "string") return r;
+    throw new Error(`unexpected SET reply: ${JSON.stringify(r)}`);
+  }
+
+  async getdel(key: string): Promise<string | null> {
+    const r = await this.send("GETDEL", key);
+    if (r === null) return null;
+    if (typeof r === "string") return r;
+    throw new Error(`unexpected GETDEL reply: ${JSON.stringify(r)}`);
+  }
+
+  async del(...keys: string[]): Promise<number> {
+    if (keys.length === 0) return 0;
+    const r = await this.send("DEL", ...keys);
+    return typeof r === "number" ? r : 0;
+  }
+
+  async incr(key: string): Promise<number> {
+    const r = await this.send("INCR", key);
+    if (typeof r === "number") return r;
+    throw new Error(`unexpected INCR reply: ${JSON.stringify(r)}`);
+  }
+
+  async expire(key: string, seconds: number): Promise<boolean> {
+    const r = await this.send("EXPIRE", key, seconds);
+    return r === 1;
+  }
+
+  async ttl(key: string): Promise<number> {
+    const r = await this.send("TTL", key);
+    return typeof r === "number" ? r : -2;
+  }
+
+  async exists(...keys: string[]): Promise<number> {
+    if (keys.length === 0) return 0;
+    const r = await this.send("EXISTS", ...keys);
+    return typeof r === "number" ? r : 0;
+  }
+
+  async close(): Promise<void> {
+    this.closed = true;
+    const sock = this.socket;
+    this.socket = null;
+    if (sock) {
+      await new Promise<void>((resolve) => {
+        sock.end(() => resolve());
+        setTimeout(resolve, 500).unref?.();
+      });
+    }
+    this.failPending(new Error("redis client closed"));
+  }
+}
+
+import { config } from "../config.ts";
+
+let shared: RedisClient | null = null;
+
+export function getRedis(): RedisClient | null {
+  if (!config.redisUrl) return null;
+  if (!shared) shared = new RedisClient(config.redisUrl);
+  return shared;
+}
+
+export const redisEnabled = (): boolean => config.redisUrl !== "";
+""", force=force)
+
     wfile(root, "src/lib/cookies.ts", r"""export function parseCookies(header: string | undefined): Record<string, string> {
   const out: Record<string, string> = {};
   if (!header || typeof header !== "string") return out;
@@ -1104,11 +1518,7 @@ export const logger = {
     const k = part.slice(0, idx).trim();
     const v = part.slice(idx + 1).trim();
     if (!k) continue;
-    try {
-      out[k] = decodeURIComponent(v);
-    } catch {
-      out[k] = v;
-    }
+    try { out[k] = decodeURIComponent(v); } catch { out[k] = v; }
   }
   return out;
 }
@@ -1136,10 +1546,6 @@ export function serializeCookie(name: string, value: string, opts: CookieOptions
 
     wfile(root, "src/lib/crypto.ts", r"""/**
  * src/lib/crypto.ts — server-side RSA-2048 / RSA-SHA256 verification.
- *
- * Every signature is generated with RSASSA-PKCS1-v1_5 + SHA-256.
- * Node's crypto.verify("sha256", ..., {padding: RSA_PKCS1_PADDING}) and the
- * Rust accelerator implement the same pipeline.
  */
 import crypto from "node:crypto";
 import { createRequire } from "node:module";
@@ -1218,6 +1624,10 @@ export function generateId(prefix: string): string {
   return `${prefix}_${crypto.randomBytes(16).toString("hex")}`;
 }
 
+export function generateJti(): string {
+  return crypto.randomBytes(16).toString("hex");
+}
+
 export function fingerprintPublicKey(spkiBase64: string): string {
   const der = Buffer.from(spkiBase64, "base64");
   return crypto.createHash("sha256").update(der).digest("hex");
@@ -1292,11 +1702,655 @@ export function isValidPublicKeySpki(spkiBase64: string): boolean {
 }
 """, force=force)
 
-    wfile(root, "src/services/challengeStore.ts", r"""/**
- * In-memory, single-use, TTL-bound nonce store. SINGLE-PROCESS ONLY.
- * Replace with a Redis-backed implementation for multi-replica setups.
+    wfile(root, "src/lib/metrics.ts", r"""/**
+ * src/lib/metrics.ts — in-process Prometheus counters, gauges, and a
+ * request-duration histogram. No external dependency.
  */
+
+type Labels = Record<string, string>;
+
+const counters = new Map<string, number>();
+const gauges = new Map<string, number>();
+const histogramBuckets = [0.005, 0.01, 0.025, 0.05, 0.1, 0.25, 0.5, 1, 2.5, 5, 10];
+const histogramCounts = new Map<string, number[]>();
+const histogramSums = new Map<string, number>();
+const histogramTotals = new Map<string, number>();
+
+function labelKey(name: string, labels: Labels): string {
+  const keys = Object.keys(labels).sort();
+  if (keys.length === 0) return name;
+  const parts = keys.map((k) => `${k}="${escapeLabel(labels[k])}"`);
+  return `${name}{${parts.join(",")}}`;
+}
+
+function escapeLabel(v: string): string {
+  return v.replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n");
+}
+
+export function incCounter(name: string, labels: Labels = {}, by = 1): void {
+  const key = labelKey(name, labels);
+  counters.set(key, (counters.get(key) ?? 0) + by);
+}
+
+export function setGauge(name: string, value: number, labels: Labels = {}): void {
+  gauges.set(labelKey(name, labels), value);
+}
+
+export function observeHistogram(name: string, seconds: number, labels: Labels = {}): void {
+  const key = labelKey(name, labels);
+  let counts = histogramCounts.get(key);
+  if (!counts) {
+    counts = new Array(histogramBuckets.length).fill(0);
+    histogramCounts.set(key, counts);
+  }
+  for (let i = 0; i < histogramBuckets.length; i++) {
+    if (seconds <= histogramBuckets[i]) counts[i] += 1;
+  }
+  histogramSums.set(key, (histogramSums.get(key) ?? 0) + seconds);
+  histogramTotals.set(key, (histogramTotals.get(key) ?? 0) + 1);
+}
+
+interface ParsedKey { name: string; labels: string; }
+
+function splitKey(key: string): ParsedKey {
+  const i = key.indexOf("{");
+  if (i === -1) return { name: key, labels: "" };
+  return { name: key.slice(0, i), labels: key.slice(i) };
+}
+
+export function renderMetrics(): string {
+  const lines: string[] = [];
+
+  const counterNames = new Map<string, string[]>();
+  for (const key of counters.keys()) {
+    const { name } = splitKey(key);
+    if (!counterNames.has(name)) counterNames.set(name, []);
+    counterNames.get(name)!.push(key);
+  }
+  for (const [name, keys] of counterNames) {
+    lines.push(`# TYPE ${name} counter`);
+    for (const key of keys) lines.push(`${key} ${counters.get(key)}`);
+  }
+
+  const gaugeNames = new Map<string, string[]>();
+  for (const key of gauges.keys()) {
+    const { name } = splitKey(key);
+    if (!gaugeNames.has(name)) gaugeNames.set(name, []);
+    gaugeNames.get(name)!.push(key);
+  }
+  for (const [name, keys] of gaugeNames) {
+    lines.push(`# TYPE ${name} gauge`);
+    for (const key of keys) lines.push(`${key} ${gauges.get(key)}`);
+  }
+
+  const histNames = new Map<string, string[]>();
+  for (const key of histogramCounts.keys()) {
+    const { name } = splitKey(key);
+    if (!histNames.has(name)) histNames.set(name, []);
+    histNames.get(name)!.push(key);
+  }
+  for (const [name, keys] of histNames) {
+    lines.push(`# TYPE ${name} histogram`);
+    for (const key of keys) {
+      const { labels } = splitKey(key);
+      const inner = labels ? labels.slice(1, -1) : "";
+      const prefix = inner ? `${inner},le=` : "le=";
+      const counts = histogramCounts.get(key)!;
+      for (let i = 0; i < histogramBuckets.length; i++) {
+        lines.push(`${name}_bucket{${prefix}"${histogramBuckets[i]}"} ${counts[i]}`);
+      }
+      lines.push(`${name}_bucket{${prefix}"+Inf"} ${histogramTotals.get(key) ?? 0}`);
+      lines.push(`${name}_sum${labels} ${histogramSums.get(key) ?? 0}`);
+      lines.push(`${name}_count${labels} ${histogramTotals.get(key) ?? 0}`);
+    }
+  }
+
+  return lines.join("\n") + "\n";
+}
+""", force=force)
+
+    # ── userStore interface + factory ──────────────────────────────────
+    wfile(root, "src/services/userStore.ts", r"""/**
+ * src/services/userStore.ts — the canonical user/credential store
+ * interface, plus a factory that selects a backend at boot.
+ *
+ * Two backends ship in-tree:
+ *
+ *   - json      -> ./data/users.json (default, single-node)
+ *   - postgres  -> uses the `pg` package (opt-in via USER_STORE_BACKEND)
+ *
+ * The interface is intentionally small so that any deployment can drop
+ * in its own implementation (MySQL, MongoDB, DynamoDB, ...) without
+ * touching routes. See docs/ARCHITECTURE.md for the swap contract.
+ */
+
+export interface CredentialRecord {
+  id: string;
+  label: string;
+  publicKeySpki: string;
+  fingerprint: string;
+  createdAt: string;
+  lastUsedAt: string | null;
+}
+
+export interface UserRecord {
+  id: string;
+  username: string;
+  createdAt: string;
+  credentials: CredentialRecord[];
+}
+
+export interface PublicCredential {
+  id: string;
+  label: string;
+  fingerprint: string;
+  createdAt: string;
+  lastUsedAt: string | null;
+}
+
+export interface UserStore {
+  findByUsername(username: string): Promise<UserRecord | null>;
+  findById(id: string): Promise<UserRecord | null>;
+  create(input: {
+    username: string;
+    publicKeySpki: string;
+    deviceLabel?: string;
+  }): Promise<{ user: UserRecord; credential: CredentialRecord }>;
+  addCredential(
+    username: string,
+    input: { publicKeySpki: string; deviceLabel?: string },
+  ): Promise<CredentialRecord | null>;
+  listCredentials(userId: string): Promise<PublicCredential[]>;
+  removeCredential(userId: string, credentialId: string): Promise<boolean>;
+  touchCredential(userId: string, credentialId: string): Promise<void>;
+  /** Test-only: wipe every user. */
+  _reset(): Promise<void>;
+  /** Graceful shutdown hook. */
+  close(): Promise<void>;
+}
+
+import { config } from "../config.ts";
+import { logger } from "../lib/logger.ts";
+import { createJsonUserStore } from "./stores/jsonUserStore.ts";
+
+let active: UserStore | null = null;
+
+function make(): UserStore {
+  if (config.userStoreBackend === "postgres") {
+    // Lazy import keeps `pg` truly optional: the default install never
+    // loads it, and a misconfigured boot fails with a clear message.
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-require-imports
+      const { createPostgresUserStore } = require("./stores/postgresUserStore.ts") as {
+        createPostgresUserStore: (url: string, autoMigrate: boolean) => UserStore;
+      };
+      const store = createPostgresUserStore(config.databaseUrl, config.databaseAutoMigrate);
+      logger.info("userStore: using Postgres backend");
+      return store;
+    } catch (err) {
+      const msg = (err as Error).message;
+      logger.error("userStore: failed to load Postgres backend", { error: msg });
+      throw new Error(
+        "USER_STORE_BACKEND=postgres requires the `pg` package. " +
+        "Install it with `npm install pg` and restart. " +
+        `Underlying error: ${msg}`,
+      );
+    }
+  }
+  logger.info("userStore: using JSON-file backend (single-node)");
+  return createJsonUserStore();
+}
+
+export function getUserStore(): UserStore {
+  if (!active) active = make();
+  return active;
+}
+
+/** Convenience proxy so routes can call `userStore.findByUsername(...)`. */
+export const userStore: UserStore = new Proxy({} as UserStore, {
+  get(_target, prop: string) {
+    const impl = getUserStore() as unknown as Record<string, unknown>;
+    const value = impl[prop];
+    if (typeof value === "function") return value.bind(impl);
+    return value;
+  },
+});
+
+export const userStoreBackend = (): "json" | "postgres" => config.userStoreBackend;
+""", force=force)
+
+    wfile(root, "src/services/stores/jsonUserStore.ts", r"""/**
+ * JSON-file user store. Single-node only.
+ *
+ * Uses one serialization chain covering both reads and writes so that
+ * read-modify-write operations cannot interleave. The temp-file +
+ * rename pattern ensures each write is atomic on POSIX.
+ */
+import fs from "node:fs/promises";
+import path from "node:path";
+import { config } from "../../config.ts";
+import { fingerprintPublicKey, generateId } from "../../lib/crypto.ts";
+import type {
+  CredentialRecord,
+  PublicCredential,
+  UserRecord,
+  UserStore,
+} from "../userStore.ts";
+
+interface DB { users: UserRecord[]; }
+
+export function createJsonUserStore(): UserStore {
+  const FILE = path.join(config.dataDir, "users.json");
+  let opChain: Promise<unknown> = Promise.resolve();
+
+  function serialize<T>(fn: () => Promise<T>): Promise<T> {
+    const result = opChain.then(fn);
+    opChain = result.then(() => undefined, () => undefined);
+    return result;
+  }
+
+  async function readAllUnsafe(): Promise<DB> {
+    try {
+      const raw = await fs.readFile(FILE, "utf8");
+      const parsed = JSON.parse(raw);
+      if (!parsed || !Array.isArray(parsed.users)) return { users: [] };
+      return parsed as DB;
+    } catch (err: unknown) {
+      if ((err as NodeJS.ErrnoException).code === "ENOENT") return { users: [] };
+      throw err;
+    }
+  }
+
+  async function writeAllUnsafe(data: DB): Promise<void> {
+    await fs.mkdir(config.dataDir, { recursive: true });
+    const tmp = `${FILE}.${process.pid}.tmp`;
+    await fs.writeFile(tmp, JSON.stringify(data, null, 2), "utf8");
+    await fs.rename(tmp, FILE);
+  }
+
+  return {
+    findByUsername(username: string): Promise<UserRecord | null> {
+      return serialize(async () => {
+        const { users } = await readAllUnsafe();
+        const key = username.toLowerCase();
+        return users.find((u) => u.username.toLowerCase() === key) ?? null;
+      });
+    },
+
+    findById(id: string): Promise<UserRecord | null> {
+      return serialize(async () => {
+        const { users } = await readAllUnsafe();
+        return users.find((u) => u.id === id) ?? null;
+      });
+    },
+
+    create(input): Promise<{ user: UserRecord; credential: CredentialRecord }> {
+      return serialize(async () => {
+        const data = await readAllUnsafe();
+        const key = input.username.toLowerCase();
+        if (data.users.some((u) => u.username.toLowerCase() === key)) {
+          const err = new Error("Username already registered") as Error & { code?: string };
+          err.code = "USER_EXISTS";
+          throw err;
+        }
+        const now = new Date().toISOString();
+        const credential: CredentialRecord = {
+          id: generateId("cred"),
+          label: input.deviceLabel || "Unknown device",
+          publicKeySpki: input.publicKeySpki,
+          fingerprint: fingerprintPublicKey(input.publicKeySpki),
+          createdAt: now,
+          lastUsedAt: null,
+        };
+        const user: UserRecord = {
+          id: generateId("user"),
+          username: input.username,
+          createdAt: now,
+          credentials: [credential],
+        };
+        data.users.push(user);
+        await writeAllUnsafe(data);
+        return { user, credential };
+      });
+    },
+
+    addCredential(username, input): Promise<CredentialRecord | null> {
+      return serialize(async () => {
+        const data = await readAllUnsafe();
+        const key = username.toLowerCase();
+        const user = data.users.find((u) => u.username.toLowerCase() === key);
+        if (!user) return null;
+        const credential: CredentialRecord = {
+          id: generateId("cred"),
+          label: input.deviceLabel || "Unknown device",
+          publicKeySpki: input.publicKeySpki,
+          fingerprint: fingerprintPublicKey(input.publicKeySpki),
+          createdAt: new Date().toISOString(),
+          lastUsedAt: null,
+        };
+        user.credentials.push(credential);
+        await writeAllUnsafe(data);
+        return credential;
+      });
+    },
+
+    listCredentials(userId): Promise<PublicCredential[]> {
+      return serialize(async () => {
+        const data = await readAllUnsafe();
+        const user = data.users.find((u) => u.id === userId);
+        if (!user) return [];
+        return user.credentials.map(({ publicKeySpki: _drop, ...rest }) => rest);
+      });
+    },
+
+    removeCredential(userId, credentialId): Promise<boolean> {
+      return serialize(async () => {
+        const data = await readAllUnsafe();
+        const user = data.users.find((u) => u.id === userId);
+        if (!user) return false;
+        const before = user.credentials.length;
+        user.credentials = user.credentials.filter((c) => c.id !== credentialId);
+        if (user.credentials.length === before) return false;
+        await writeAllUnsafe(data);
+        return true;
+      });
+    },
+
+    touchCredential(userId, credentialId): Promise<void> {
+      return serialize(async () => {
+        const data = await readAllUnsafe();
+        const user = data.users.find((u) => u.id === userId);
+        if (!user) return;
+        const cred = user.credentials.find((c) => c.id === credentialId);
+        if (!cred) return;
+        cred.lastUsedAt = new Date().toISOString();
+        await writeAllUnsafe(data);
+      });
+    },
+
+    _reset(): Promise<void> {
+      return serialize(async () => { await writeAllUnsafe({ users: [] }); });
+    },
+
+    async close(): Promise<void> {
+      await opChain.catch(() => undefined);
+    },
+  };
+}
+""", force=force)
+
+    wfile(root, "src/services/stores/postgresUserStore.ts", r"""/**
+ * Postgres user store. Multi-replica safe.
+ *
+ * Loaded lazily: the `pg` package is required only when
+ * USER_STORE_BACKEND=postgres. A default install never loads this file.
+ *
+ * Schema (auto-created when DATABASE_AUTO_MIGRATE=true):
+ *
+ *   users(id TEXT PRIMARY KEY, username TEXT UNIQUE NOT NULL, created_at TIMESTAMPTZ)
+ *   credentials(id TEXT PRIMARY KEY, user_id TEXT REFERENCES users(id) ON DELETE CASCADE,
+ *               label TEXT, public_key_spki TEXT, fingerprint TEXT,
+ *               created_at TIMESTAMPTZ, last_used_at TIMESTAMPTZ)
+ *
+ * The interface is identical to the JSON backend, so routes and tests do
+ * not change. `SELECT ... FOR UPDATE` is avoided: uniqueness is enforced
+ * by the DB constraint, and the `create` method translates
+ * unique-violation (SQLSTATE 23505) into a USER_EXISTS error that matches
+ * the JSON backend's contract.
+ */
+import { createRequire } from "node:module";
+import { fingerprintPublicKey, generateId } from "../../lib/crypto.ts";
+import type {
+  CredentialRecord,
+  PublicCredential,
+  UserRecord,
+  UserStore,
+} from "../userStore.ts";
+
+const require = createRequire(import.meta.url);
+
+interface PgClient {
+  query(sql: string, params?: unknown[]): Promise<{ rows: Record<string, unknown>[]; rowCount: number | null }>;
+  end(): Promise<void>;
+}
+
+interface PgModule {
+  Client: new (opts: { connectionString: string }) => PgClient;
+}
+
+const MIGRATE_SQL = [
+  `CREATE TABLE IF NOT EXISTS users (
+     id TEXT PRIMARY KEY,
+     username TEXT UNIQUE NOT NULL,
+     created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+   )`,
+  `CREATE TABLE IF NOT EXISTS credentials (
+     id TEXT PRIMARY KEY,
+     user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+     label TEXT NOT NULL,
+     public_key_spki TEXT NOT NULL,
+     fingerprint TEXT NOT NULL,
+     created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+     last_used_at TIMESTAMPTZ
+   )`,
+  `CREATE INDEX IF NOT EXISTS credentials_user_id_idx ON credentials(user_id)`,
+  `CREATE INDEX IF NOT EXISTS users_username_lower_idx ON users((lower(username)))`,
+];
+
+function rowToUser(row: { id: string; username: string; created_at: Date }, creds: CredentialRecord[]): UserRecord {
+  return {
+    id: row.id,
+    username: row.username,
+    createdAt: new Date(row.created_at).toISOString(),
+    credentials: creds,
+  };
+}
+
+function rowToCredential(row: Record<string, unknown>): CredentialRecord {
+  return {
+    id: String(row.id),
+    label: String(row.label),
+    publicKeySpki: String(row.public_key_spki),
+    fingerprint: String(row.fingerprint),
+    createdAt: new Date(row.created_at as string | Date).toISOString(),
+    lastUsedAt: row.last_used_at ? new Date(row.last_used_at as string | Date).toISOString() : null,
+  };
+}
+
+export function createPostgresUserStore(connectionString: string, autoMigrate: boolean): UserStore {
+  const pg = require("pg") as PgModule;
+  const client = new pg.Client({ connectionString });
+
+  // Connect synchronously? No — but we can kick off the connect and
+  // await it lazily on first use. We keep a single in-flight promise so
+  // concurrent callers share the connection setup.
+  let ready: Promise<void> | null = null;
+
+  async function ensureReady(): Promise<void> {
+    if (!ready) {
+      ready = (async () => {
+        await client.query("SELECT 1");
+        if (autoMigrate) {
+          for (const stmt of MIGRATE_SQL) await client.query(stmt);
+        }
+      })();
+    }
+    return ready;
+  }
+
+  async function fetchUserById(id: string): Promise<UserRecord | null> {
+    const userRes = await client.query(
+      "SELECT id, username, created_at FROM users WHERE id = $1",
+      [id],
+    );
+    if (userRes.rows.length === 0) return null;
+    const credRes = await client.query(
+      "SELECT id, label, public_key_spki, fingerprint, created_at, last_used_at " +
+      "FROM credentials WHERE user_id = $1 ORDER BY created_at ASC",
+      [id],
+    );
+    const creds = credRes.rows.map(rowToCredential);
+    const row = userRes.rows[0] as { id: string; username: string; created_at: Date };
+    return rowToUser(row, creds);
+  }
+
+  return {
+    async findByUsername(username: string): Promise<UserRecord | null> {
+      await ensureReady();
+      const key = username.toLowerCase();
+      const res = await client.query(
+        "SELECT id FROM users WHERE lower(username) = $1 LIMIT 1",
+        [key],
+      );
+      if (res.rows.length === 0) return null;
+      return fetchUserById(String(res.rows[0].id));
+    },
+
+    async findById(id: string): Promise<UserRecord | null> {
+      await ensureReady();
+      return fetchUserById(id);
+    },
+
+    async create(input): Promise<{ user: UserRecord; credential: CredentialRecord }> {
+      await ensureReady();
+      const now = new Date();
+      const userId = generateId("user");
+      const credentialId = generateId("cred");
+      const fingerprint = fingerprintPublicKey(input.publicKeySpki);
+      const label = input.deviceLabel || "Unknown device";
+
+      // Insert user, then credential. Wrap in a transaction so a failed
+      // credential insert does not leave a user without credentials.
+      await client.query("BEGIN");
+      try {
+        await client.query(
+          "INSERT INTO users (id, username, created_at) VALUES ($1, $2, $3)",
+          [userId, input.username, now],
+        );
+        await client.query(
+          "INSERT INTO credentials (id, user_id, label, public_key_spki, fingerprint, created_at) " +
+          "VALUES ($1, $2, $3, $4, $5, $6)",
+          [credentialId, userId, label, input.publicKeySpki, fingerprint, now],
+        );
+        await client.query("COMMIT");
+      } catch (err) {
+        await client.query("ROLLBACK").catch(() => undefined);
+        const code = (err as { code?: string }).code;
+        if (code === "23505") {
+          const e = new Error("Username already registered") as Error & { code?: string };
+          e.code = "USER_EXISTS";
+          throw e;
+        }
+        throw err;
+      }
+
+      const credential: CredentialRecord = {
+        id: credentialId,
+        label,
+        publicKeySpki: input.publicKeySpki,
+        fingerprint,
+        createdAt: now.toISOString(),
+        lastUsedAt: null,
+      };
+      const user: UserRecord = {
+        id: userId,
+        username: input.username,
+        createdAt: now.toISOString(),
+        credentials: [credential],
+      };
+      return { user, credential };
+    },
+
+    async addCredential(username, input): Promise<CredentialRecord | null> {
+      await ensureReady();
+      const key = username.toLowerCase();
+      const res = await client.query(
+        "SELECT id FROM users WHERE lower(username) = $1 LIMIT 1",
+        [key],
+      );
+      if (res.rows.length === 0) return null;
+      const userId = String(res.rows[0].id);
+      const now = new Date();
+      const credentialId = generateId("cred");
+      const fingerprint = fingerprintPublicKey(input.publicKeySpki);
+      const label = input.deviceLabel || "Unknown device";
+      await client.query(
+        "INSERT INTO credentials (id, user_id, label, public_key_spki, fingerprint, created_at) " +
+        "VALUES ($1, $2, $3, $4, $5, $6)",
+        [credentialId, userId, label, input.publicKeySpki, fingerprint, now],
+      );
+      return {
+        id: credentialId,
+        label,
+        publicKeySpki: input.publicKeySpki,
+        fingerprint,
+        createdAt: now.toISOString(),
+        lastUsedAt: null,
+      };
+    },
+
+    async listCredentials(userId): Promise<PublicCredential[]> {
+      await ensureReady();
+      const res = await client.query(
+        "SELECT id, label, fingerprint, created_at, last_used_at " +
+        "FROM credentials WHERE user_id = $1 ORDER BY created_at ASC",
+        [userId],
+      );
+      return res.rows.map((row) => ({
+        id: String(row.id),
+        label: String(row.label),
+        fingerprint: String(row.fingerprint),
+        createdAt: new Date(row.created_at as string | Date).toISOString(),
+        lastUsedAt: row.last_used_at ? new Date(row.last_used_at as string | Date).toISOString() : null,
+      }));
+    },
+
+    async removeCredential(userId, credentialId): Promise<boolean> {
+      await ensureReady();
+      const res = await client.query(
+        "DELETE FROM credentials WHERE user_id = $1 AND id = $2",
+        [userId, credentialId],
+      );
+      return (res.rowCount ?? 0) > 0;
+    },
+
+    async touchCredential(userId, credentialId): Promise<void> {
+      await ensureReady();
+      await client.query(
+        "UPDATE credentials SET last_used_at = $1 WHERE user_id = $2 AND id = $3",
+        [new Date(), userId, credentialId],
+      );
+    },
+
+    async _reset(): Promise<void> {
+      await ensureReady();
+      await client.query("TRUNCATE credentials, users RESTART IDENTITY CASCADE");
+    },
+
+    async close(): Promise<void> {
+      try {
+        await client.end();
+      } catch {
+        /* ignore */
+      }
+    },
+  };
+}
+""", force=force)
+
+    wfile(root, "src/services/challengeStore.ts", r"""/**
+ * Nonce store. Single-use, TTL-bound.
+ *
+ * Storage backend is chosen at boot:
+ *   - Redis when REDIS_URL is set (shared across replicas).
+ *   - In-memory otherwise (single process only).
+ */
+import { config } from "../config.ts";
+import { getRedis } from "../lib/redis.ts";
 import { generateChallenge, generateId } from "../lib/crypto.ts";
+import { logger } from "../lib/logger.ts";
+
+const PREFIX = "si-auth:ch:";
 
 export interface ChallengeRecord {
   id: string;
@@ -1308,7 +2362,19 @@ export interface ChallengeRecord {
   expiresAt: number;
 }
 
-class ChallengeStore {
+export interface ChallengeStore {
+  issue(opts: {
+    purpose: "login" | "register";
+    username: string;
+    origin: string;
+    ttlSeconds: number;
+  }): Promise<ChallengeRecord>;
+  take(id: string): Promise<ChallengeRecord | null>;
+  clear(): Promise<void>;
+  size(): Promise<number>;
+}
+
+class MemoryChallengeStore implements ChallengeStore {
   private map = new Map<string, ChallengeRecord>();
   private sweeper: NodeJS.Timeout;
 
@@ -1317,29 +2383,20 @@ class ChallengeStore {
     this.sweeper.unref?.();
   }
 
-  issue(opts: {
-    purpose: "login" | "register";
-    username: string;
-    origin: string;
-    ttlSeconds: number;
-  }): ChallengeRecord {
+  async issue(opts): Promise<ChallengeRecord> {
     const id = generateId("ch");
     const challenge = generateChallenge();
     const issuedAt = new Date().toISOString();
     const record: ChallengeRecord = {
-      id,
-      purpose: opts.purpose,
-      username: opts.username,
-      challenge,
-      origin: opts.origin,
-      issuedAt,
+      id, purpose: opts.purpose, username: opts.username, challenge,
+      origin: opts.origin, issuedAt,
       expiresAt: Date.now() + opts.ttlSeconds * 1000,
     };
     this.map.set(id, record);
     return record;
   }
 
-  take(id: string): ChallengeRecord | null {
+  async take(id: string): Promise<ChallengeRecord | null> {
     if (typeof id !== "string") return null;
     const rec = this.map.get(id);
     if (!rec) return null;
@@ -1348,28 +2405,164 @@ class ChallengeStore {
     return rec;
   }
 
-  sweep(): void {
+  async clear(): Promise<void> { this.map.clear(); }
+  async size(): Promise<number> { return this.map.size; }
+
+  private sweep(): void {
     const now = Date.now();
     for (const [id, rec] of this.map) if (rec.expiresAt < now) this.map.delete(id);
   }
-
-  clear(): void {
-    this.map.clear();
-  }
-  size(): number {
-    return this.map.size;
-  }
 }
 
-export const challengeStore = new ChallengeStore();
+class RedisChallengeStore implements ChallengeStore {
+  async issue(opts): Promise<ChallengeRecord> {
+    const redis = getRedis();
+    if (!redis) throw new Error("redis not configured");
+    const id = generateId("ch");
+    const challenge = generateChallenge();
+    const issuedAt = new Date().toISOString();
+    const record: ChallengeRecord = {
+      id, purpose: opts.purpose, username: opts.username, challenge,
+      origin: opts.origin, issuedAt,
+      expiresAt: Date.now() + opts.ttlSeconds * 1000,
+    };
+    const reply = await redis.set(PREFIX + id, JSON.stringify(record), {
+      px: opts.ttlSeconds * 1000, nx: true,
+    });
+    if (reply !== null) return record;
+    // 128-bit collision — retry once, then fail loudly.
+    const id2 = generateId("ch");
+    const record2: ChallengeRecord = { ...record, id: id2 };
+    const reply2 = await redis.set(PREFIX + id2, JSON.stringify(record2), {
+      px: opts.ttlSeconds * 1000, nx: true,
+    });
+    if (reply2 === null) throw new Error("challenge id collision");
+    return record2;
+  }
+
+  async take(id: string): Promise<ChallengeRecord | null> {
+    if (typeof id !== "string") return null;
+    const redis = getRedis();
+    if (!redis) throw new Error("redis not configured");
+    const raw = await redis.getdel(PREFIX + id);
+    if (!raw) return null;
+    try {
+      const rec = JSON.parse(raw) as ChallengeRecord;
+      if (typeof rec.expiresAt !== "number" || rec.expiresAt < Date.now()) return null;
+      return rec;
+    } catch { return null; }
+  }
+
+  async clear(): Promise<void> { /* Redis handles expiry */ }
+  async size(): Promise<number> { return 0; }
+}
+
+function make(): ChallengeStore {
+  if (config.redisUrl) {
+    logger.info("challengeStore: using Redis backend",
+      { url: config.redisUrl.replace(/:[^:@/]*@/, ":***@") });
+    return new RedisChallengeStore();
+  }
+  logger.info("challengeStore: using in-memory backend (single-process only)");
+  return new MemoryChallengeStore();
+}
+
+export const challengeStore: ChallengeStore = make();
+export const challengeStoreBackend = (): "redis" | "memory" =>
+  (config.redisUrl ? "redis" : "memory");
+""", force=force)
+
+    wfile(root, "src/services/revocation.ts", r"""/**
+ * src/services/revocation.ts — session revocation list.
+ *
+ * Bounded by session TTL: entries are dropped when the revoked token
+ * would have expired anyway. Backend: Redis when REDIS_URL is set,
+ * in-memory otherwise.
+ */
+import { config } from "../config.ts";
+import { getRedis } from "../lib/redis.ts";
+import { logger } from "../lib/logger.ts";
+
+const PREFIX = "si-auth:revoke:";
+
+class MemoryRevocation {
+  private map = new Map<string, number>();
+  private sweeper: NodeJS.Timeout;
+
+  constructor() {
+    this.sweeper = setInterval(() => this.sweep(), 60_000);
+    this.sweeper.unref?.();
+  }
+
+  revoke(jti: string, expiresAtMs: number): void { this.map.set(jti, expiresAtMs); }
+
+  isRevoked(jti: string): boolean {
+    const exp = this.map.get(jti);
+    if (exp === undefined) return false;
+    if (exp <= Date.now()) { this.map.delete(jti); return false; }
+    return true;
+  }
+
+  private sweep(): void {
+    const now = Date.now();
+    for (const [jti, exp] of this.map) if (exp <= now) this.map.delete(jti);
+  }
+
+  size(): number { return this.map.size; }
+  clear(): void { this.map.clear(); }
+}
+
+const memory = new MemoryRevocation();
+
+export async function revoke(jti: string, expiresAtSeconds: number): Promise<void> {
+  if (!config.revocationEnabled) return;
+  const nowSec = Math.floor(Date.now() / 1000);
+  const ttlSec = Math.max(0, expiresAtSeconds - nowSec);
+  if (ttlSec === 0) return;
+
+  const redis = getRedis();
+  if (redis) {
+    try {
+      await redis.set(PREFIX + jti, "1", { px: ttlSec * 1000 });
+      return;
+    } catch (err) {
+      logger.warn("revocation: redis write failed; falling back to memory",
+        { error: (err as Error).message });
+    }
+  }
+  memory.revoke(jti, expiresAtSeconds * 1000);
+}
+
+export async function isRevoked(jti: string): Promise<boolean> {
+  if (!config.revocationEnabled) return false;
+
+  const redis = getRedis();
+  if (redis) {
+    try {
+      const n = await redis.exists(PREFIX + jti);
+      if (n > 0) return true;
+    } catch (err) {
+      logger.warn("revocation: redis read failed; falling back to memory",
+        { error: (err as Error).message });
+    }
+  }
+  return memory.isRevoked(jti);
+}
+
+export const revocationStats = (): { backend: "redis" | "memory"; memorySize: number } => ({
+  backend: getRedis() ? "redis" : "memory",
+  memorySize: memory.size(),
+});
+
+export const revocationTestHooks = { memory };
 """, force=force)
 
     wfile(root, "src/services/token.ts", r"""/**
  * Minimal HS256 JWT (sign + verify) using node:crypto only.
- * Uses a real base64url decoder and timingSafeEqual for the HMAC check.
  */
 import crypto from "node:crypto";
 import { config } from "../config.ts";
+import { generateJti } from "../lib/crypto.ts";
 
 function b64urlFromBuffer(buf: Buffer): string {
   return buf.toString("base64").replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/g, "");
@@ -1390,6 +2583,7 @@ export interface TokenPayload {
   iat: number;
   exp: number;
   iss: string;
+  jti: string;
   [k: string]: unknown;
 }
 
@@ -1398,7 +2592,13 @@ export function signToken(
   ttlSeconds = config.sessionTtlSeconds,
 ): string {
   const now = Math.floor(Date.now() / 1000);
-  const body = { ...payload, iat: now, exp: now + ttlSeconds, iss: "si-auth" };
+  const body = {
+    ...payload,
+    iat: now,
+    exp: now + ttlSeconds,
+    iss: "si-auth",
+    jti: generateJti(),
+  };
   const header = { alg: "HS256", typ: "JWT" };
   const h = b64urlFromBuffer(Buffer.from(JSON.stringify(header), "utf8"));
   const p = b64urlFromBuffer(Buffer.from(JSON.stringify(body), "utf8"));
@@ -1414,16 +2614,9 @@ export function verifyToken(token: string): TokenPayload | null {
   const [h, p, s] = parts;
 
   let sigBytes: Buffer;
-  try {
-    sigBytes = b64urlToBuffer(s);
-  } catch {
-    return null;
-  }
+  try { sigBytes = b64urlToBuffer(s); } catch { return null; }
 
-  const expected = crypto
-    .createHmac("sha256", config.jwtSecret)
-    .update(`${h}.${p}`)
-    .digest();
+  const expected = crypto.createHmac("sha256", config.jwtSecret).update(`${h}.${p}`).digest();
 
   if (sigBytes.length !== expected.length) return null;
   if (!crypto.timingSafeEqual(sigBytes, expected)) return null;
@@ -1435,182 +2628,12 @@ export function verifyToken(token: string): TokenPayload | null {
     const body = JSON.parse(b64urlToBuffer(p).toString("utf8")) as TokenPayload;
     if (typeof body.exp !== "number" || body.exp < Math.floor(Date.now() / 1000)) return null;
     if (typeof body.sub !== "string" || typeof body.username !== "string") return null;
+    if (typeof body.jti !== "string" || body.jti.length === 0) return null;
     return body;
   } catch {
     return null;
   }
 }
-""", force=force)
-
-    wfile(root, "src/services/userStore.ts", r"""import fs from "node:fs/promises";
-import path from "node:path";
-import { config } from "../config.ts";
-import { fingerprintPublicKey, generateId } from "../lib/crypto.ts";
-
-export interface CredentialRecord {
-  id: string;
-  label: string;
-  publicKeySpki: string;
-  fingerprint: string;
-  createdAt: string;
-  lastUsedAt: string | null;
-}
-
-export interface UserRecord {
-  id: string;
-  username: string;
-  createdAt: string;
-  credentials: CredentialRecord[];
-}
-
-interface DB {
-  users: UserRecord[];
-}
-
-const FILE = path.join(config.dataDir, "users.json");
-
-// Single serialization chain covering both reads and writes so that
-// read-modify-write operations cannot interleave.
-let opChain: Promise<unknown> = Promise.resolve();
-
-function serialize<T>(fn: () => Promise<T>): Promise<T> {
-  const result = opChain.then(fn);
-  opChain = result.then(() => undefined, () => undefined);
-  return result;
-}
-
-async function readAllUnsafe(): Promise<DB> {
-  try {
-    const raw = await fs.readFile(FILE, "utf8");
-    const parsed = JSON.parse(raw);
-    if (!parsed || !Array.isArray(parsed.users)) return { users: [] };
-    return parsed as DB;
-  } catch (err: unknown) {
-    if ((err as NodeJS.ErrnoException).code === "ENOENT") return { users: [] };
-    throw err;
-  }
-}
-
-async function writeAllUnsafe(data: DB): Promise<void> {
-  await fs.mkdir(config.dataDir, { recursive: true });
-  const tmp = `${FILE}.${process.pid}.tmp`;
-  await fs.writeFile(tmp, JSON.stringify(data, null, 2), "utf8");
-  await fs.rename(tmp, FILE);
-}
-
-export const userStore = {
-  findByUsername(username: string): Promise<UserRecord | null> {
-    return serialize(async () => {
-      const { users } = await readAllUnsafe();
-      const key = username.toLowerCase();
-      return users.find((u) => u.username.toLowerCase() === key) ?? null;
-    });
-  },
-
-  findById(id: string): Promise<UserRecord | null> {
-    return serialize(async () => {
-      const { users } = await readAllUnsafe();
-      return users.find((u) => u.id === id) ?? null;
-    });
-  },
-
-  create(input: {
-    username: string;
-    publicKeySpki: string;
-    deviceLabel?: string;
-  }): Promise<{ user: UserRecord; credential: CredentialRecord }> {
-    return serialize(async () => {
-      const data = await readAllUnsafe();
-      const key = input.username.toLowerCase();
-      if (data.users.some((u) => u.username.toLowerCase() === key)) {
-        const err = new Error("Username already registered") as Error & { code?: string };
-        err.code = "USER_EXISTS";
-        throw err;
-      }
-      const now = new Date().toISOString();
-      const credential: CredentialRecord = {
-        id: generateId("cred"),
-        label: input.deviceLabel || "Unknown device",
-        publicKeySpki: input.publicKeySpki,
-        fingerprint: fingerprintPublicKey(input.publicKeySpki),
-        createdAt: now,
-        lastUsedAt: null,
-      };
-      const user: UserRecord = {
-        id: generateId("user"),
-        username: input.username,
-        createdAt: now,
-        credentials: [credential],
-      };
-      data.users.push(user);
-      await writeAllUnsafe(data);
-      return { user, credential };
-    });
-  },
-
-  addCredential(
-    username: string,
-    input: { publicKeySpki: string; deviceLabel?: string },
-  ): Promise<CredentialRecord | null> {
-    return serialize(async () => {
-      const data = await readAllUnsafe();
-      const key = username.toLowerCase();
-      const user = data.users.find((u) => u.username.toLowerCase() === key);
-      if (!user) return null;
-      const credential: CredentialRecord = {
-        id: generateId("cred"),
-        label: input.deviceLabel || "Unknown device",
-        publicKeySpki: input.publicKeySpki,
-        fingerprint: fingerprintPublicKey(input.publicKeySpki),
-        createdAt: new Date().toISOString(),
-        lastUsedAt: null,
-      };
-      user.credentials.push(credential);
-      await writeAllUnsafe(data);
-      return credential;
-    });
-  },
-
-  listCredentials(userId: string): Promise<Array<Omit<CredentialRecord, "publicKeySpki">>> {
-    return serialize(async () => {
-      const data = await readAllUnsafe();
-      const user = data.users.find((u) => u.id === userId);
-      if (!user) return [];
-      return user.credentials.map(({ publicKeySpki: _drop, ...rest }) => rest);
-    });
-  },
-
-  removeCredential(userId: string, credentialId: string): Promise<boolean> {
-    return serialize(async () => {
-      const data = await readAllUnsafe();
-      const user = data.users.find((u) => u.id === userId);
-      if (!user) return false;
-      const before = user.credentials.length;
-      user.credentials = user.credentials.filter((c) => c.id !== credentialId);
-      if (user.credentials.length === before) return false;
-      await writeAllUnsafe(data);
-      return true;
-    });
-  },
-
-  touchCredential(userId: string, credentialId: string): Promise<void> {
-    return serialize(async () => {
-      const data = await readAllUnsafe();
-      const user = data.users.find((u) => u.id === userId);
-      if (!user) return;
-      const cred = user.credentials.find((c) => c.id === credentialId);
-      if (!cred) return;
-      cred.lastUsedAt = new Date().toISOString();
-      await writeAllUnsafe(data);
-    });
-  },
-
-  _reset(): Promise<void> {
-    return serialize(async () => {
-      await writeAllUnsafe({ users: [] });
-    });
-  },
-};
 """, force=force)
 
     wfile(root, "src/services/auditLog.ts", r"""import fs from "node:fs/promises";
@@ -1633,6 +2656,80 @@ export function audit(event: string, details: Record<string, unknown> = {}): Pro
 }
 """, force=force)
 
+    # ── Middleware ─────────────────────────────────────────────────────
+    wfile(root, "src/middleware/requestId.ts", r"""import crypto from "node:crypto";
+import type { Request, Response, NextFunction } from "express";
+
+declare global {
+  // eslint-disable-next-line @typescript-eslint/no-namespace
+  namespace Express {
+    interface Request {
+      id?: string;
+    }
+  }
+}
+
+export function requestId(req: Request, res: Response, next: NextFunction): void {
+  const inbound = req.headers["x-request-id"];
+  const id =
+    typeof inbound === "string" && inbound.length > 0 && inbound.length <= 200
+      ? inbound
+      : crypto.randomBytes(12).toString("hex");
+  req.id = id;
+  res.setHeader("X-Request-ID", id);
+  next();
+}
+""", force=force)
+
+    wfile(root, "src/middleware/metricsMiddleware.ts", r"""import type { Request, Response, NextFunction } from "express";
+import { incCounter, observeHistogram } from "../lib/metrics.ts";
+
+function normalizePath(p: string): string {
+  return p
+    .split("/")
+    .map((seg) => {
+      if (/^(cred|user|ch)_[0-9a-f]+$/.test(seg)) return ":id";
+      if (/^[0-9a-f]{16,}$/.test(seg)) return ":id";
+      return seg;
+    })
+    .join("/") || "/";
+}
+
+export function metricsMiddleware(req: Request, res: Response, next: NextFunction): void {
+  const start = process.hrtime.bigint();
+  res.on("finish", () => {
+    const seconds = Number(process.hrtime.bigint() - start) / 1e9;
+    const path = normalizePath(req.path);
+    const labels = { method: req.method, path, status: String(res.statusCode) };
+    incCounter("si_auth_http_requests_total", labels);
+    observeHistogram("si_auth_http_request_duration_seconds", seconds, {
+      method: req.method,
+      path,
+    });
+  });
+  next();
+}
+""", force=force)
+
+    wfile(root, "src/middleware/requestLogger.ts", r"""import type { Request, Response, NextFunction } from "express";
+import { logger } from "../lib/logger.ts";
+
+export function requestLogger(req: Request, res: Response, next: NextFunction): void {
+  const start = process.hrtime.bigint();
+  res.on("finish", () => {
+    const ms = Number(process.hrtime.bigint() - start) / 1e6;
+    logger.info("http", {
+      reqId: req.id,
+      method: req.method,
+      path: req.path,
+      status: res.statusCode,
+      ms: Number(ms.toFixed(2)),
+    });
+  });
+  next();
+}
+""", force=force)
+
     wfile(root, "src/middleware/errorHandler.ts", r"""import type { Request, Response, NextFunction } from "express";
 import { config } from "../config.ts";
 import { logger } from "../lib/logger.ts";
@@ -1650,6 +2747,7 @@ export function errorHandler(
   const status = err.status || err.statusCode || 500;
   if (status >= 500) {
     logger.error("unhandled error", {
+      reqId: req.id,
       message: err.message,
       stack: config.isProd ? undefined : err.stack,
       path: req.path,
@@ -1662,20 +2760,53 @@ export function errorHandler(
 """, force=force)
 
     wfile(root, "src/middleware/rateLimit.ts", r"""import type { Request, Response, NextFunction, RequestHandler } from "express";
-
-interface Bucket {
-  count: number;
-  resetAt: number;
-}
-const buckets = new Map<string, Bucket>();
-const sweeper = setInterval(() => {
-  const now = Date.now();
-  for (const [k, v] of buckets) if (v.resetAt < now) buckets.delete(k);
-}, 60_000);
-sweeper.unref?.();
+import { getRedis } from "../lib/redis.ts";
+import { logger } from "../lib/logger.ts";
 
 const DEFAULT_WINDOW_SECONDS = 60;
 const DEFAULT_MAX = 30;
+const KEY_PREFIX = "si-auth:rl:";
+
+interface Bucket { count: number; resetAt: number; }
+
+const memBuckets = new Map<string, Bucket>();
+const sweeper = setInterval(() => {
+  const now = Date.now();
+  for (const [k, v] of memBuckets) if (v.resetAt < now) memBuckets.delete(k);
+}, 60_000);
+sweeper.unref?.();
+
+async function checkMemory(
+  key: string, windowMs: number, max: number,
+): Promise<{ allowed: boolean; remaining: number; resetAt: number }> {
+  const now = Date.now();
+  let b = memBuckets.get(key);
+  if (!b || b.resetAt < now) {
+    b = { count: 0, resetAt: now + windowMs };
+    memBuckets.set(key, b);
+  }
+  b.count += 1;
+  return {
+    allowed: b.count <= max,
+    remaining: Math.max(0, max - b.count),
+    resetAt: b.resetAt,
+  };
+}
+
+async function checkRedis(
+  key: string, windowMs: number, max: number,
+): Promise<{ allowed: boolean; remaining: number; resetAt: number }> {
+  const redis = getRedis();
+  if (!redis) throw new Error("redis unavailable");
+  const windowSec = Math.max(1, Math.ceil(windowMs / 1000));
+  const bucketKey = `${KEY_PREFIX}${key}:${Math.floor(Date.now() / windowMs)}`;
+  const count = await redis.incr(bucketKey);
+  if (count === 1) {
+    await redis.expire(bucketKey, windowSec + 1);
+  }
+  const resetAt = (Math.floor(Date.now() / windowMs) + 1) * windowMs;
+  return { allowed: count <= max, remaining: Math.max(0, max - count), resetAt };
+}
 
 export interface RateLimitOptions {
   windowSeconds?: number;
@@ -1689,42 +2820,36 @@ export function rateLimit(opts: RateLimitOptions = {}): RequestHandler {
   const keyFn = opts.key ?? ((req: Request) => req.ip || req.socket?.remoteAddress || "unknown");
 
   return function rateLimitMiddleware(req: Request, res: Response, next: NextFunction): void {
-    const key = keyFn(req);
-    const now = Date.now();
-    let bucket = buckets.get(key);
-    if (!bucket || bucket.resetAt < now) {
-      bucket = { count: 0, resetAt: now + windowMs };
-      buckets.set(key, bucket);
-    }
-    bucket.count += 1;
-    res.setHeader("RateLimit-Limit", String(max));
-    res.setHeader("RateLimit-Remaining", String(Math.max(0, max - bucket.count)));
-    res.setHeader("RateLimit-Reset", String(Math.ceil(bucket.resetAt / 1000)));
-    if (bucket.count > max) {
-      res.setHeader("Retry-After", String(Math.ceil((bucket.resetAt - now) / 1000)));
-      res.status(429).json({ error: "Too Many Requests" });
-      return;
-    }
-    next();
+    void (async () => {
+      const rawKey = keyFn(req);
+      const key = `${req.method}:${rawKey}`;
+      let result;
+      if (getRedis()) {
+        try {
+          result = await checkRedis(key, windowMs, max);
+        } catch (err) {
+          logger.warn("rateLimit: redis failed; falling back to memory", {
+            error: (err as Error).message,
+          });
+          result = await checkMemory(key, windowMs, max);
+        }
+      } else {
+        result = await checkMemory(key, windowMs, max);
+      }
+
+      res.setHeader("RateLimit-Limit", String(max));
+      res.setHeader("RateLimit-Remaining", String(result.remaining));
+      res.setHeader("RateLimit-Reset", String(Math.ceil(result.resetAt / 1000)));
+
+      if (!result.allowed) {
+        const now = Date.now();
+        res.setHeader("Retry-After", String(Math.ceil((result.resetAt - now) / 1000)));
+        res.status(429).json({ error: "Too Many Requests" });
+        return;
+      }
+      next();
+    })();
   };
-}
-""", force=force)
-
-    wfile(root, "src/middleware/requestLogger.ts", r"""import type { Request, Response, NextFunction } from "express";
-import { logger } from "../lib/logger.ts";
-
-export function requestLogger(req: Request, res: Response, next: NextFunction): void {
-  const start = process.hrtime.bigint();
-  res.on("finish", () => {
-    const ms = Number(process.hrtime.bigint() - start) / 1e6;
-    logger.info("http", {
-      method: req.method,
-      path: req.path,
-      status: res.statusCode,
-      ms: Number(ms.toFixed(2)),
-    });
-  });
-  next();
 }
 """, force=force)
 
@@ -1733,6 +2858,7 @@ import { config } from "../config.ts";
 import { parseCookies } from "../lib/cookies.ts";
 import { verifyToken, type TokenPayload } from "../services/token.ts";
 import { userStore, type UserRecord } from "../services/userStore.ts";
+import { isRevoked } from "../services/revocation.ts";
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
@@ -1754,8 +2880,13 @@ export async function requireAuth(req: Request, res: Response, next: NextFunctio
     }
 
     const claims = verifyToken(token);
-    if (!claims || !claims.sub) {
+    if (!claims || !claims.sub || !claims.jti) {
       res.status(401).json({ error: "Invalid or expired session" });
+      return;
+    }
+
+    if (await isRevoked(claims.jti)) {
+      res.status(401).json({ error: "Session revoked" });
       return;
     }
 
@@ -1774,9 +2905,14 @@ export async function requireAuth(req: Request, res: Response, next: NextFunctio
 }
 """, force=force)
 
+    # ── Routes ─────────────────────────────────────────────────────────
     wfile(root, "src/routes/health.ts", r"""import { Router } from "express";
 import { config } from "../config.ts";
 import { rustVersion, usingRust } from "../lib/crypto.ts";
+import { redisEnabled } from "../lib/redis.ts";
+import { challengeStoreBackend } from "../services/challengeStore.ts";
+import { revocationStats } from "../services/revocation.ts";
+import { userStoreBackend } from "../services/userStore.ts";
 
 export const healthRouter = Router();
 
@@ -1789,7 +2925,54 @@ healthRouter.get("/health", (_req, res) => {
     algorithm: config.algorithm,
     hash: config.hash,
     rust: { enabled: usingRust(), version: rustVersion() },
+    redis: { configured: redisEnabled() },
+    challengeStore: challengeStoreBackend(),
+    userStore: userStoreBackend(),
+    revocation: revocationStats(),
   });
+});
+""", force=force)
+
+    wfile(root, "src/routes/metrics.ts", r"""import { Router } from "express";
+import type { Request, Response, NextFunction } from "express";
+import { config } from "../config.ts";
+import { renderMetrics, setGauge } from "../lib/metrics.ts";
+import { usingRust } from "../lib/crypto.ts";
+import { redisEnabled } from "../lib/redis.ts";
+import { challengeStoreBackend, challengeStore } from "../services/challengeStore.ts";
+import { revocationStats } from "../services/revocation.ts";
+import { userStoreBackend } from "../services/userStore.ts";
+
+export const metricsRouter = Router();
+
+function authorize(req: Request, res: Response, next: NextFunction): void {
+  if (!config.metricsToken) { next(); return; }
+  const auth = req.headers.authorization ?? "";
+  const prefix = "Bearer ";
+  if (!auth.startsWith(prefix) || auth.slice(prefix.length) !== config.metricsToken) {
+    res.status(401).json({ error: "Unauthorized" });
+    return;
+  }
+  next();
+}
+
+metricsRouter.get("/metrics", authorize, async (_req, res) => {
+  setGauge("si_auth_up", 1);
+  setGauge("si_auth_rust_enabled", usingRust() ? 1 : 0);
+  setGauge("si_auth_redis_configured", redisEnabled() ? 1 : 0);
+  setGauge("si_auth_challenge_store_backend", challengeStoreBackend() === "redis" ? 1 : 0);
+  setGauge("si_auth_user_store_backend", userStoreBackend() === "postgres" ? 1 : 0);
+  setGauge("si_auth_revocation_backend", revocationStats().backend === "redis" ? 1 : 0);
+  setGauge("si_auth_revocation_memory_size", revocationStats().memorySize);
+  try {
+    setGauge("si_auth_challenges_active", await challengeStore.size());
+  } catch {
+    setGauge("si_auth_challenges_active", 0);
+  }
+
+  const body = renderMetrics();
+  res.setHeader("Content-Type", "text/plain; version=0.0.4; charset=utf-8");
+  res.status(200).send(body);
 });
 """, force=force)
 
@@ -1801,10 +2984,12 @@ import {
   isValidPublicKeySpki,
   verifySignature,
 } from "../lib/crypto.ts";
+import { incCounter } from "../lib/metrics.ts";
 import { audit } from "../services/auditLog.ts";
 import { challengeStore } from "../services/challengeStore.ts";
-import { signToken } from "../services/token.ts";
+import { signToken, verifyToken } from "../services/token.ts";
 import { userStore, type UserRecord } from "../services/userStore.ts";
+import { revoke } from "../services/revocation.ts";
 import { requireAuth } from "../middleware/requireAuth.ts";
 import { rateLimit } from "../middleware/rateLimit.ts";
 
@@ -1822,34 +3007,18 @@ function validateUsername(u: unknown): string | null {
 
 const normalize = (u: string): string => u.trim().toLowerCase();
 
-function setSessionCookie(
-  res: import("express").Response,
-  token: string,
-  maxAgeSeconds: number,
-): void {
-  res.setHeader(
-    "Set-Cookie",
-    serializeCookie(config.cookieName, token, {
-      httpOnly: true,
-      secure: config.cookieSecure,
-      sameSite: config.cookieSameSite,
-      path: "/",
-      maxAge: maxAgeSeconds,
-    }),
-  );
+function setSessionCookie(res: import("express").Response, token: string, maxAgeSeconds: number): void {
+  res.setHeader("Set-Cookie", serializeCookie(config.cookieName, token, {
+    httpOnly: true, secure: config.cookieSecure, sameSite: config.cookieSameSite,
+    path: "/", maxAge: maxAgeSeconds,
+  }));
 }
 
 function clearSessionCookie(res: import("express").Response): void {
-  res.setHeader(
-    "Set-Cookie",
-    serializeCookie(config.cookieName, "", {
-      httpOnly: true,
-      secure: config.cookieSecure,
-      sameSite: config.cookieSameSite,
-      path: "/",
-      maxAge: 0,
-    }),
-  );
+  res.setHeader("Set-Cookie", serializeCookie(config.cookieName, "", {
+    httpOnly: true, secure: config.cookieSecure, sameSite: config.cookieSameSite,
+    path: "/", maxAge: 0,
+  }));
 }
 
 function issueSession(res: import("express").Response, user: UserRecord): string {
@@ -1871,168 +3040,125 @@ authRouter.get("/config", (_req, res) => {
   });
 });
 
-authRouter.post(
-  "/register/challenge",
-  rateLimit({ max: 10 }),
-  async (req, res, next) => {
+authRouter.post("/register/challenge", rateLimit({ max: 10 }), async (req, res, next) => {
+  try {
+    const { username } = req.body ?? {};
+    const err = validateUsername(username);
+    if (err) { res.status(400).json({ error: err }); return; }
+
+    const normalized = normalize(username);
+
+    if (!config.userEnumerationSafe) {
+      const existing = await userStore.findByUsername(normalized);
+      if (existing) { res.status(409).json({ error: "Username already registered" }); return; }
+    }
+
+    const record = await challengeStore.issue({
+      purpose: "register",
+      username: normalized,
+      origin: config.appOrigin,
+      ttlSeconds: config.registrationChallengeTtlSeconds,
+    });
+
+    audit("register.challenge.issued", {
+      username: normalized, ip: req.ip, reqId: req.id,
+      enumSafe: config.userEnumerationSafe,
+    });
+
+    res.json({
+      challengeId: record.id,
+      challenge: record.challenge,
+      origin: record.origin,
+      purpose: record.purpose,
+      username: record.username,
+      issuedAt: record.issuedAt,
+      expiresInSeconds: config.registrationChallengeTtlSeconds,
+    });
+  } catch (e) { next(e); }
+});
+
+authRouter.post("/register/complete", rateLimit({ max: 10 }), async (req, res, next) => {
+  try {
+    const { challengeId, username, publicKeySpki, signature, deviceLabel } = req.body ?? {};
+
+    if (!challengeId || !username || !publicKeySpki || !signature) {
+      res.status(400).json({ error: "Missing required fields" }); return;
+    }
+    if (!isValidPublicKeySpki(publicKeySpki)) {
+      res.status(400).json({ error: "Invalid or weak public key" }); return;
+    }
+
+    const record = await challengeStore.take(challengeId);
+    if (!record || record.purpose !== "register") {
+      res.status(400).json({ error: "Challenge expired or invalid" }); return;
+    }
+    if (normalize(username) !== record.username) {
+      res.status(400).json({ error: "Challenge username mismatch" }); return;
+    }
+
+    const payload = buildSigningPayload(record);
+    const ok = verifySignature({
+      publicKeySpkiBase64: publicKeySpki, payload, signatureBase64: signature,
+    });
+
+    if (!ok) {
+      audit("register.failed", { username: record.username, reason: "bad-signature", ip: req.ip, reqId: req.id });
+      incCounter("si_auth_auth_total", { op: "register", result: "bad_signature" });
+      res.status(401).json({ error: config.userEnumerationSafe ? "Registration failed" : "Signature verification failed" });
+      return;
+    }
+
+    const existing = await userStore.findByUsername(record.username);
+    if (existing) {
+      audit("register.failed", { username: record.username, reason: "username-taken", ip: req.ip, reqId: req.id });
+      incCounter("si_auth_auth_total", { op: "register", result: "username_taken" });
+      if (config.userEnumerationSafe) {
+        res.status(401).json({ error: "Registration failed" });
+      } else {
+        res.status(409).json({ error: "Username already registered" });
+      }
+      return;
+    }
+
+    let result;
     try {
-      const { username } = req.body ?? {};
-      const err = validateUsername(username);
-      if (err) {
-        res.status(400).json({ error: err });
-        return;
-      }
-
-      const normalized = normalize(username);
-
-      if (!config.userEnumerationSafe) {
-        const existing = await userStore.findByUsername(normalized);
-        if (existing) {
-          res.status(409).json({ error: "Username already registered" });
-          return;
-        }
-      }
-
-      const record = challengeStore.issue({
-        purpose: "register",
-        username: normalized,
-        origin: config.appOrigin,
-        ttlSeconds: config.registrationChallengeTtlSeconds,
-      });
-
-      audit("register.challenge.issued", {
-        username: normalized,
-        ip: req.ip,
-        enumSafe: config.userEnumerationSafe,
-      });
-
-      res.json({
-        challengeId: record.id,
-        challenge: record.challenge,
-        origin: record.origin,
-        purpose: record.purpose,
-        username: record.username,
-        issuedAt: record.issuedAt,
-        expiresInSeconds: config.registrationChallengeTtlSeconds,
+      result = await userStore.create({
+        username: record.username, publicKeySpki,
+        deviceLabel: typeof deviceLabel === "string" ? deviceLabel.slice(0, 120) : undefined,
       });
     } catch (e) {
-      next(e);
-    }
-  },
-);
-
-authRouter.post(
-  "/register/complete",
-  rateLimit({ max: 10 }),
-  async (req, res, next) => {
-    try {
-      const { challengeId, username, publicKeySpki, signature, deviceLabel } = req.body ?? {};
-
-      if (!challengeId || !username || !publicKeySpki || !signature) {
-        res.status(400).json({ error: "Missing required fields" });
-        return;
-      }
-      if (!isValidPublicKeySpki(publicKeySpki)) {
-        res.status(400).json({ error: "Invalid or weak public key" });
-        return;
-      }
-
-      const record = challengeStore.take(challengeId);
-      if (!record || record.purpose !== "register") {
-        res.status(400).json({ error: "Challenge expired or invalid" });
-        return;
-      }
-      if (normalize(username) !== record.username) {
-        res.status(400).json({ error: "Challenge username mismatch" });
-        return;
-      }
-
-      // 1. Verify the signature first.
-      const payload = buildSigningPayload(record);
-      const ok = verifySignature({
-        publicKeySpkiBase64: publicKeySpki,
-        payload,
-        signatureBase64: signature,
-      });
-
-      if (!ok) {
-        audit("register.failed", {
-          username: record.username,
-          reason: "bad-signature",
-          ip: req.ip,
-        });
+      if ((e as { code?: string }).code === "USER_EXISTS") {
         if (config.userEnumerationSafe) {
-          res.status(401).json({ error: "Registration failed" });
-        } else {
-          res.status(401).json({ error: "Signature verification failed" });
+          res.status(401).json({ error: "Registration failed" }); return;
         }
-        return;
+        res.status(409).json({ error: "Username already registered" }); return;
       }
-
-      // 2. Then check for an existing username.
-      const existing = await userStore.findByUsername(record.username);
-      if (existing) {
-        audit("register.failed", {
-          username: record.username,
-          reason: "username-taken",
-          ip: req.ip,
-        });
-        if (config.userEnumerationSafe) {
-          res.status(401).json({ error: "Registration failed" });
-        } else {
-          res.status(409).json({ error: "Username already registered" });
-        }
-        return;
-      }
-
-      let result;
-      try {
-        result = await userStore.create({
-          username: record.username,
-          publicKeySpki,
-          deviceLabel:
-            typeof deviceLabel === "string" ? deviceLabel.slice(0, 120) : undefined,
-        });
-      } catch (e) {
-        if ((e as { code?: string }).code === "USER_EXISTS") {
-          if (config.userEnumerationSafe) {
-            res.status(401).json({ error: "Registration failed" });
-            return;
-          }
-          res.status(409).json({ error: "Username already registered" });
-          return;
-        }
-        throw e;
-      }
-
-      issueSession(res, result.user);
-      audit("register.success", { username: result.user.username, ip: req.ip });
-
-      res.status(201).json({
-        user: { id: result.user.id, username: result.user.username },
-        credential: {
-          id: result.credential.id,
-          label: result.credential.label,
-          fingerprint: result.credential.fingerprint,
-        },
-      });
-    } catch (e) {
-      next(e);
+      throw e;
     }
-  },
-);
+
+    issueSession(res, result.user);
+    audit("register.success", { username: result.user.username, ip: req.ip, reqId: req.id });
+    incCounter("si_auth_auth_total", { op: "register", result: "success" });
+
+    res.status(201).json({
+      user: { id: result.user.id, username: result.user.username },
+      credential: {
+        id: result.credential.id,
+        label: result.credential.label,
+        fingerprint: result.credential.fingerprint,
+      },
+    });
+  } catch (e) { next(e); }
+});
 
 authRouter.post("/login/challenge", rateLimit({ max: 30 }), async (req, res, next) => {
   try {
     const { username } = req.body ?? {};
     const err = validateUsername(username);
-    if (err) {
-      res.status(400).json({ error: err });
-      return;
-    }
+    if (err) { res.status(400).json({ error: err }); return; }
 
     const normalized = normalize(username);
-    const record = challengeStore.issue({
+    const record = await challengeStore.issue({
       purpose: "login",
       username: normalized,
       origin: config.appOrigin,
@@ -2048,85 +3174,64 @@ authRouter.post("/login/challenge", rateLimit({ max: 30 }), async (req, res, nex
       issuedAt: record.issuedAt,
       expiresInSeconds: config.challengeTtlSeconds,
     });
-  } catch (e) {
-    next(e);
-  }
+  } catch (e) { next(e); }
 });
 
 authRouter.post("/login/verify", rateLimit({ max: 30 }), async (req, res, next) => {
   try {
     const { challengeId, username, signature } = req.body ?? {};
     if (!challengeId || !username || !signature) {
-      res.status(400).json({ error: "Missing required fields" });
-      return;
+      res.status(400).json({ error: "Missing required fields" }); return;
     }
 
-    const record = challengeStore.take(challengeId);
+    const record = await challengeStore.take(challengeId);
     if (!record || record.purpose !== "login") {
-      res.status(401).json({ error: "Authentication failed" });
-      return;
+      incCounter("si_auth_auth_total", { op: "login", result: "bad_challenge" });
+      res.status(401).json({ error: "Authentication failed" }); return;
     }
     if (normalize(username) !== record.username) {
-      res.status(401).json({ error: "Authentication failed" });
-      return;
+      incCounter("si_auth_auth_total", { op: "login", result: "bad_challenge" });
+      res.status(401).json({ error: "Authentication failed" }); return;
     }
 
     const user = await userStore.findByUsername(record.username);
     if (!user) {
-      audit("login.failed", { username: record.username, reason: "no-user", ip: req.ip });
-      res.status(401).json({ error: "Authentication failed" });
-      return;
+      audit("login.failed", { username: record.username, reason: "no-user", ip: req.ip, reqId: req.id });
+      incCounter("si_auth_auth_total", { op: "login", result: "no_user" });
+      res.status(401).json({ error: "Authentication failed" }); return;
     }
 
     const payload = buildSigningPayload(record);
     let matched = null;
     for (const cred of user.credentials) {
-      if (
-        verifySignature({
-          publicKeySpkiBase64: cred.publicKeySpki,
-          payload,
-          signatureBase64: signature,
-        })
-      ) {
-        matched = cred;
-        break;
-      }
+      if (verifySignature({
+        publicKeySpkiBase64: cred.publicKeySpki, payload, signatureBase64: signature,
+      })) { matched = cred; break; }
     }
 
     if (!matched) {
-      audit("login.failed", {
-        username: record.username,
-        reason: "bad-signature",
-        ip: req.ip,
-      });
-      res.status(401).json({ error: "Authentication failed" });
-      return;
+      audit("login.failed", { username: record.username, reason: "bad-signature", ip: req.ip, reqId: req.id });
+      incCounter("si_auth_auth_total", { op: "login", result: "bad_signature" });
+      res.status(401).json({ error: "Authentication failed" }); return;
     }
 
     await userStore.touchCredential(user.id, matched.id);
     issueSession(res, user);
     audit("login.success", {
-      username: user.username,
-      credentialId: matched.id,
-      ip: req.ip,
+      username: user.username, credentialId: matched.id, ip: req.ip, reqId: req.id,
     });
+    incCounter("si_auth_auth_total", { op: "login", result: "success" });
 
     res.json({
       user: { id: user.id, username: user.username },
       credential: { id: matched.id, label: matched.label, fingerprint: matched.fingerprint },
     });
-  } catch (e) {
-    next(e);
-  }
+  } catch (e) { next(e); }
 });
 
 authRouter.get("/me", requireAuth, (req, res) => {
   res.json({
-    user: {
-      id: req.user!.id,
-      username: req.user!.username,
-      createdAt: req.user!.createdAt,
-    },
+    user: { id: req.user!.id, username: req.user!.username, createdAt: req.user!.createdAt },
     session: { iat: req.session!.iat, exp: req.session!.exp },
   });
 });
@@ -2135,9 +3240,7 @@ authRouter.get("/credentials", requireAuth, async (req, res, next) => {
   try {
     const list = await userStore.listCredentials(req.user!.id);
     res.json({ credentials: list });
-  } catch (e) {
-    next(e);
-  }
+  } catch (e) { next(e); }
 });
 
 authRouter.delete("/credentials/:id", requireAuth, async (req, res, next) => {
@@ -2151,20 +3254,27 @@ authRouter.delete("/credentials/:id", requireAuth, async (req, res, next) => {
       return;
     }
     const ok = await userStore.removeCredential(req.user!.id, id);
-    if (!ok) {
-      res.status(404).json({ error: "Credential not found" });
-      return;
-    }
-    audit("credential.removed", { userId: req.user!.id, credentialId: id, ip: req.ip });
+    if (!ok) { res.status(404).json({ error: "Credential not found" }); return; }
+    audit("credential.removed", { userId: req.user!.id, credentialId: id, ip: req.ip, reqId: req.id });
     res.json({ ok: true });
-  } catch (e) {
-    next(e);
-  }
+  } catch (e) { next(e); }
 });
 
-authRouter.post("/logout", (req, res) => {
+authRouter.post("/logout", async (req, res) => {
+  try {
+    const raw = req.headers.cookie ?? "";
+    const match = raw.match(new RegExp(`(?:^|;\\s*)${config.cookieName}=([^;]+)`));
+    if (match) {
+      const token = decodeURIComponent(match[1]);
+      const claims = verifyToken(token);
+      if (claims) await revoke(claims.jti, claims.exp);
+    }
+  } catch {
+    /* best-effort */
+  }
   clearSessionCookie(res);
-  audit("logout", { ip: req.ip });
+  audit("logout", { ip: req.ip, reqId: req.id });
+  incCounter("si_auth_auth_total", { op: "logout", result: "success" });
   res.json({ ok: true });
 });
 """, force=force)
@@ -2175,8 +3285,11 @@ import { fileURLToPath } from "node:url";
 import { config } from "./config.ts";
 import { authRouter } from "./routes/auth.ts";
 import { healthRouter } from "./routes/health.ts";
+import { metricsRouter } from "./routes/metrics.ts";
 import { errorHandler, notFound } from "./middleware/errorHandler.ts";
 import { requestLogger } from "./middleware/requestLogger.ts";
+import { requestId } from "./middleware/requestId.ts";
+import { metricsMiddleware } from "./middleware/metricsMiddleware.ts";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const publicDir = path.resolve(__dirname, "..", "public");
@@ -2185,6 +3298,8 @@ export function createApp(): Express {
   const app = express();
   app.disable("x-powered-by");
   if (config.trustProxy) app.set("trust proxy", 1);
+
+  app.use(requestId);
 
   app.use((_req, res, next) => {
     res.setHeader("X-Content-Type-Options", "nosniff");
@@ -2208,28 +3323,25 @@ export function createApp(): Express {
       ].join("; "),
     );
     if (config.isProd) {
-      res.setHeader(
-        "Strict-Transport-Security",
-        "max-age=31536000; includeSubDomains; preload",
-      );
+      res.setHeader("Strict-Transport-Security", "max-age=31536000; includeSubDomains; preload");
     }
     next();
   });
 
   app.use(express.json({ limit: "64kb" }));
+  if (config.metricsEnabled) app.use(metricsMiddleware);
   if (config.logLevel !== "silent") app.use(requestLogger);
 
   app.use("/api/auth", authRouter);
   app.use("/api", healthRouter);
+  if (config.metricsEnabled) app.use("/", metricsRouter);
 
   app.use(express.static(publicDir, { extensions: ["html"], index: "index.html" }));
 
   app.use("/api", notFound);
   app.use((req, res, next) => {
-    if (req.method === "GET" && !req.path.startsWith("/api")) {
-      res.sendFile(path.join(publicDir, "index.html"), (err) => {
-        if (err) next(err);
-      });
+    if (req.method === "GET" && !req.path.startsWith("/api") && req.path !== "/metrics") {
+      res.sendFile(path.join(publicDir, "index.html"), (err) => { if (err) next(err); });
       return;
     }
     next();
@@ -2245,8 +3357,21 @@ export function createApp(): Express {
 import { config } from "./config.ts";
 import { logger } from "./lib/logger.ts";
 import { rustVersion, usingRust } from "./lib/crypto.ts";
+import { getRedis, redisEnabled } from "./lib/redis.ts";
+import { challengeStoreBackend } from "./services/challengeStore.ts";
+import { revocationStats } from "./services/revocation.ts";
+import { getUserStore, userStoreBackend } from "./services/userStore.ts";
 
 const app = createApp();
+
+// Touch the user store once at boot so a misconfigured backend fails
+// fast with a clear error, before the first request arrives.
+try {
+  void getUserStore();
+} catch (err) {
+  logger.error("userStore init failed", { error: (err as Error).message });
+  process.exit(1);
+}
 
 const server = app.listen(config.port, () => {
   logger.info("si-auth listening", {
@@ -2257,33 +3382,48 @@ const server = app.listen(config.port, () => {
     algorithm: config.algorithm,
     hash: config.hash,
     rust: usingRust() ? rustVersion() : "disabled",
+    redis: redisEnabled() ? "configured" : "disabled",
+    challengeStore: challengeStoreBackend(),
+    userStore: userStoreBackend(),
+    revocation: revocationStats().backend,
+    metrics: config.metricsEnabled ? "enabled" : "disabled",
   });
-  if (usingRust()) {
-    logger.info("crypto backend: RUST (napi)");
+  if (usingRust()) logger.info("crypto backend: RUST (napi)");
+  else logger.info("crypto backend: node:crypto (fallback)");
+  if (redisEnabled()) {
+    logger.info("shared state: redis", { challengeStore: challengeStoreBackend() });
   } else {
-    logger.info("crypto backend: node:crypto (fallback)");
+    logger.info("shared state: in-process");
   }
   process.stdout.write(
     `\n  SI Auth is running\n` +
       `  -> http://localhost:${config.port}/\n` +
       `  crypto: ${usingRust() ? "rust/napi" : "node:crypto"} | ` +
-      `env: ${config.env} | sig: RSA-SHA256 / RSA-2048\n\n`,
+      `state: ${redisEnabled() ? "redis" : "memory"} | ` +
+      `users: ${userStoreBackend()} | ` +
+      `env: ${config.env} | sig: RSA-SHA256 / RSA-2048\n` +
+      (config.metricsEnabled ? `  metrics: http://localhost:${config.port}/metrics\n` : "") +
+      `\n`,
   );
 });
 
-function shutdown(signal: string): void {
+async function shutdown(signal: string): Promise<void> {
   logger.info("shutting down", { signal });
-  server.close(() => process.exit(0));
+  server.close(async () => {
+    try { const r = getRedis(); if (r) await r.close(); } catch { /* ignore */ }
+    try { await getUserStore().close(); } catch { /* ignore */ }
+    process.exit(0);
+  });
   setTimeout(() => process.exit(1), 10_000).unref();
 }
 
-process.on("SIGINT", () => shutdown("SIGINT"));
-process.on("SIGTERM", () => shutdown("SIGTERM"));
+process.on("SIGINT", () => void shutdown("SIGINT"));
+process.on("SIGTERM", () => void shutdown("SIGTERM"));
 """, force=force)
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-#  Scaffolding — frontend
+#  Frontend
 # ═══════════════════════════════════════════════════════════════════════════
 
 def build_frontend_files(root: Path, force: bool) -> None:
@@ -2456,8 +3596,6 @@ footer.credit { text-align: center; color: var(--muted); font-size: .78rem; marg
  * export them.
  *
  * Signature pipeline: RSASSA-PKCS1-v1_5 + SHA-256.
- * We pass the full algorithm object { name, hash } to sign() / verify()
- * so the hash is unambiguous.
  */
 
 export const PROTOCOL_VERSION = 'SI-AUTH-V1';
@@ -2513,11 +3651,7 @@ export async function exportPublicKeySpki(publicKey) {
 
 export async function importPublicKeySpki(spkiBase64) {
   return crypto.subtle.importKey(
-    'spki',
-    base64ToArrayBuffer(spkiBase64),
-    SIGN_ALG,
-    true,
-    ['verify'],
+    'spki', base64ToArrayBuffer(spkiBase64), SIGN_ALG, true, ['verify'],
   );
 }
 
@@ -2540,10 +3674,6 @@ export async function fingerprintPublicKey(spkiBase64) {
 
     wfile(root, "public/js/keystore.js", r"""/**
  * keystore.js — persist CryptoKey objects in IndexedDB.
- *
- * Every operation holds a live reference to its IDBTransaction until
- * oncomplete fires. Without this, the transaction can be
- * garbage-collected / auto-committed before the request resolves.
  */
 const DB_NAME = 'si-auth';
 const DB_VERSION = 1;
@@ -2570,9 +3700,7 @@ function withTransaction(db, mode, fn) {
     const os = t.objectStore(STORE);
     let result;
     let fnError = null;
-    try {
-      result = fn(os);
-    } catch (err) {
+    try { result = fn(os); } catch (err) {
       fnError = err;
       try { t.abort(); } catch { /* ignore */ }
     }
@@ -2582,22 +3710,11 @@ function withTransaction(db, mode, fn) {
   });
 }
 
-function reqToPromise(req) {
-  return new Promise((resolve, reject) => {
-    req.onsuccess = () => resolve(req.result);
-    req.onerror = () => reject(req.error);
-  });
-}
-
 export async function putCredential(cred) {
   const db = await openDb();
   try {
-    await withTransaction(db, 'readwrite', (os) => {
-      os.put(cred);
-    });
-  } finally {
-    db.close();
-  }
+    await withTransaction(db, 'readwrite', (os) => { os.put(cred); });
+  } finally { db.close(); }
 }
 
 export async function getCredentials(username) {
@@ -2613,9 +3730,7 @@ export async function getCredentials(username) {
     const out = box.value;
     out.sort((a, b) => (b.createdAt || '').localeCompare(a.createdAt || ''));
     return out;
-  } finally {
-    db.close();
-  }
+  } finally { db.close(); }
 }
 
 export async function getCredential(username) {
@@ -2633,20 +3748,14 @@ export async function listCredentials() {
       return b;
     });
     return box.value;
-  } finally {
-    db.close();
-  }
+  } finally { db.close(); }
 }
 
 export async function deleteCredentialById(id) {
   const db = await openDb();
   try {
-    await withTransaction(db, 'readwrite', (os) => {
-      os.delete(id);
-    });
-  } finally {
-    db.close();
-  }
+    await withTransaction(db, 'readwrite', (os) => { os.delete(id); });
+  } finally { db.close(); }
 }
 
 export async function deleteCredential(username) {
@@ -2662,20 +3771,14 @@ export async function deleteCredential(username) {
     await withTransaction(db, 'readwrite', (os) => {
       for (const e of box.value) os.delete(e.id);
     });
-  } finally {
-    db.close();
-  }
+  } finally { db.close(); }
 }
 
 export async function clearAll() {
   const db = await openDb();
   try {
-    await withTransaction(db, 'readwrite', (os) => {
-      os.clear();
-    });
-  } finally {
-    db.close();
-  }
+    await withTransaction(db, 'readwrite', (os) => { os.clear(); });
+  } finally { db.close(); }
 }
 """, force=force)
 
@@ -2702,10 +3805,7 @@ async function request(path, options = {}) {
 
 export const api = {
   registerChallenge: (username) =>
-    request('/api/auth/register/challenge', {
-      method: 'POST',
-      body: JSON.stringify({ username }),
-    }),
+    request('/api/auth/register/challenge', { method: 'POST', body: JSON.stringify({ username }) }),
   registerComplete: (payload) =>
     request('/api/auth/register/complete', { method: 'POST', body: JSON.stringify(payload) }),
   loginChallenge: (username) =>
@@ -2758,17 +3858,12 @@ form.addEventListener('submit', async (e) => {
       try {
         const ch = await api.loginChallenge(username);
         const payload = buildSigningPayload({
-          origin: ch.origin,
-          purpose: ch.purpose,
-          challenge: ch.challenge,
-          username: ch.username,
-          issuedAt: ch.issuedAt,
+          origin: ch.origin, purpose: ch.purpose, challenge: ch.challenge,
+          username: ch.username, issuedAt: ch.issuedAt,
         });
         const signature = await signPayload(cred.privateKey, payload);
         await api.loginVerify({
-          challengeId: ch.challengeId,
-          username: ch.username,
-          signature,
+          challengeId: ch.challengeId, username: ch.username, signature,
         });
         window.location.href = '/dashboard.html';
         return;
@@ -2789,11 +3884,8 @@ form.addEventListener('submit', async (e) => {
     wfile(root, "public/js/register.js", r"""import { api } from './api.js';
 import { putCredential } from './keystore.js';
 import {
-  buildSigningPayload,
-  exportPublicKeySpki,
-  fingerprintPublicKey,
-  generateKeyPair,
-  signPayload,
+  buildSigningPayload, exportPublicKeySpki, fingerprintPublicKey,
+  generateKeyPair, signPayload,
 } from './si-auth.js';
 
 const form = document.getElementById('si-auth-register');
@@ -2819,19 +3911,13 @@ form.addEventListener('submit', async (e) => {
     const { publicKey, privateKey } = await generateKeyPair();
     const publicKeySpki = await exportPublicKeySpki(publicKey);
     const payload = buildSigningPayload({
-      origin: ch.origin,
-      purpose: ch.purpose,
-      challenge: ch.challenge,
-      username: ch.username,
-      issuedAt: ch.issuedAt,
+      origin: ch.origin, purpose: ch.purpose, challenge: ch.challenge,
+      username: ch.username, issuedAt: ch.issuedAt,
     });
     const signature = await signPayload(privateKey, payload);
     const result = await api.registerComplete({
-      challengeId: ch.challengeId,
-      username: ch.username,
-      publicKeySpki,
-      signature,
-      deviceLabel,
+      challengeId: ch.challengeId, username: ch.username,
+      publicKeySpki, signature, deviceLabel,
     });
     const fingerprint = await fingerprintPublicKey(publicKeySpki);
     await putCredential({
@@ -2926,11 +4012,7 @@ async function load() {
 }
 
 logoutBtn.addEventListener('click', async () => {
-  try {
-    await api.logout();
-  } catch {
-    /* ignore */
-  }
+  try { await api.logout(); } catch { /* ignore */ }
   window.location.href = '/index.html';
 });
 
@@ -2939,7 +4021,7 @@ load();
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-#  Scaffolding — tests
+#  Tests
 # ═══════════════════════════════════════════════════════════════════════════
 
 def build_test_files(root: Path, force: bool) -> None:
@@ -2949,12 +4031,8 @@ def build_test_files(root: Path, force: bool) -> None:
 import assert from "node:assert/strict";
 import crypto from "node:crypto";
 import {
-  buildSigningPayload,
-  fingerprintPublicKey,
-  isValidPublicKeySpki,
-  verifySignature,
-  usingRust,
-  rustVersion,
+  buildSigningPayload, fingerprintPublicKey, isValidPublicKeySpki,
+  verifySignature, usingRust, rustVersion,
 } from "../src/lib/crypto.ts";
 
 function makeKeyPair() {
@@ -2969,79 +4047,50 @@ test("backend info", () => {
 
 test("buildSigningPayload produces the canonical string", () => {
   const payload = buildSigningPayload({
-    origin: "https://app.example.com",
-    purpose: "login",
-    challenge: "abc123",
-    username: "me@example.com",
-    issuedAt: "2025-01-01T12:00:00.000Z",
+    origin: "https://app.example.com", purpose: "login", challenge: "abc123",
+    username: "me@example.com", issuedAt: "2025-01-01T12:00:00.000Z",
   });
-  assert.equal(
-    payload,
-    [
-      "SI-AUTH-V1",
-      "origin:https://app.example.com",
-      "purpose:login",
-      "challenge:abc123",
-      "username:me@example.com",
-      "issuedAt:2025-01-01T12:00:00.000Z",
-    ].join("\n"),
-  );
+  assert.equal(payload, [
+    "SI-AUTH-V1",
+    "origin:https://app.example.com",
+    "purpose:login",
+    "challenge:abc123",
+    "username:me@example.com",
+    "issuedAt:2025-01-01T12:00:00.000Z",
+  ].join("\n"));
 });
 
 test("verifySignature accepts a valid signature", () => {
   const { privateKey, spki } = makeKeyPair();
   const payload = "hello world";
-  const signature = crypto
-    .sign("sha256", Buffer.from(payload), {
-      key: privateKey,
-      padding: crypto.constants.RSA_PKCS1_PADDING,
-    })
-    .toString("base64");
-  assert.equal(
-    verifySignature({ publicKeySpkiBase64: spki, payload, signatureBase64: signature }),
-    true,
-  );
+  const signature = crypto.sign("sha256", Buffer.from(payload), {
+    key: privateKey, padding: crypto.constants.RSA_PKCS1_PADDING,
+  }).toString("base64");
+  assert.equal(verifySignature({ publicKeySpkiBase64: spki, payload, signatureBase64: signature }), true);
 });
 
 test("verifySignature rejects a tampered payload", () => {
   const { privateKey, spki } = makeKeyPair();
-  const signature = crypto
-    .sign("sha256", Buffer.from("original"), {
-      key: privateKey,
-      padding: crypto.constants.RSA_PKCS1_PADDING,
-    })
-    .toString("base64");
-  assert.equal(
-    verifySignature({ publicKeySpkiBase64: spki, payload: "tampered", signatureBase64: signature }),
-    false,
-  );
+  const signature = crypto.sign("sha256", Buffer.from("original"), {
+    key: privateKey, padding: crypto.constants.RSA_PKCS1_PADDING,
+  }).toString("base64");
+  assert.equal(verifySignature({ publicKeySpkiBase64: spki, payload: "tampered", signatureBase64: signature }), false);
 });
 
 test("verifySignature rejects a signature from the wrong key", () => {
   const a = makeKeyPair();
   const b = makeKeyPair();
   const payload = "hello";
-  const signature = crypto
-    .sign("sha256", Buffer.from(payload), {
-      key: a.privateKey,
-      padding: crypto.constants.RSA_PKCS1_PADDING,
-    })
-    .toString("base64");
-  assert.equal(
-    verifySignature({ publicKeySpkiBase64: b.spki, payload, signatureBase64: signature }),
-    false,
-  );
+  const signature = crypto.sign("sha256", Buffer.from(payload), {
+    key: a.privateKey, padding: crypto.constants.RSA_PKCS1_PADDING,
+  }).toString("base64");
+  assert.equal(verifySignature({ publicKeySpkiBase64: b.spki, payload, signatureBase64: signature }), false);
 });
 
 test("verifySignature returns false on garbage (never throws)", () => {
-  assert.equal(
-    verifySignature({
-      publicKeySpkiBase64: "not-base64!!!",
-      payload: "x",
-      signatureBase64: "zzz",
-    }),
-    false,
-  );
+  assert.equal(verifySignature({
+    publicKeySpkiBase64: "not-base64!!!", payload: "x", signatureBase64: "zzz",
+  }), false);
 });
 
 test("isValidPublicKeySpki enforces RSA-2048 minimum", () => {
@@ -3069,11 +4118,7 @@ import { challengeStore } from "../src/services/challengeStore.ts";
 import { userStore } from "../src/services/userStore.ts";
 
 function payloadOf(ch: {
-  origin: string;
-  purpose: string;
-  challenge: string;
-  username: string;
-  issuedAt: string;
+  origin: string; purpose: string; challenge: string; username: string; issuedAt: string;
 }) {
   return [
     "SI-AUTH-V1",
@@ -3087,7 +4132,7 @@ function payloadOf(ch: {
 
 async function startServer(t: TestContext) {
   await userStore._reset();
-  challengeStore.clear();
+  await challengeStore.clear();
   const app = createApp();
   const server = app.listen(0);
   await new Promise<void>((r) => server.once("listening", () => r()));
@@ -3120,12 +4165,9 @@ function newClientKey() {
 }
 
 function sign(privateKey: crypto.KeyObject, payload: string): string {
-  return crypto
-    .sign("sha256", Buffer.from(payload), {
-      key: privateKey,
-      padding: crypto.constants.RSA_PKCS1_PADDING,
-    })
-    .toString("base64");
+  return crypto.sign("sha256", Buffer.from(payload), {
+    key: privateKey, padding: crypto.constants.RSA_PKCS1_PADDING,
+  }).toString("base64");
 }
 
 async function register(base: string, username: string) {
@@ -3134,10 +4176,8 @@ async function register(base: string, username: string) {
   const payload = payloadOf(ch);
   const signature = sign(privateKey, payload);
   const res = await post(base, "/api/auth/register/complete", {
-    challengeId: ch.challengeId,
-    username: ch.username,
-    publicKeySpki: spki,
-    signature,
+    challengeId: ch.challengeId, username: ch.username,
+    publicKeySpki: spki, signature,
   });
   return { ...res, spki, privateKey };
 }
@@ -3155,9 +4195,7 @@ test("full register -> login -> me flow", async (t) => {
   const ch = (await post(base, "/api/auth/login/challenge", { username })).body;
   const signature = sign(reg.privateKey, payloadOf(ch));
   const login = await post(base, "/api/auth/login/verify", {
-    challengeId: ch.challengeId,
-    username: ch.username,
-    signature,
+    challengeId: ch.challengeId, username: ch.username, signature,
   });
   assert.equal(login.status, 200);
 
@@ -3175,16 +4213,12 @@ test("replay of a login challenge fails", async (t) => {
   const signature = sign(reg.privateKey, payloadOf(ch));
 
   const first = await post(base, "/api/auth/login/verify", {
-    challengeId: ch.challengeId,
-    username: ch.username,
-    signature,
+    challengeId: ch.challengeId, username: ch.username, signature,
   });
   assert.equal(first.status, 200);
 
   const replay = await post(base, "/api/auth/login/verify", {
-    challengeId: ch.challengeId,
-    username: ch.username,
-    signature,
+    challengeId: ch.challengeId, username: ch.username, signature,
   });
   assert.equal(replay.status, 401);
 });
@@ -3196,9 +4230,7 @@ test("tampered signature is rejected", async (t) => {
   const ch = (await post(base, "/api/auth/login/challenge", { username: "carol@example.com" })).body;
   const badSig = sign(other.privateKey, payloadOf(ch));
   const res = await post(base, "/api/auth/login/verify", {
-    challengeId: ch.challengeId,
-    username: ch.username,
-    signature: badSig,
+    challengeId: ch.challengeId, username: ch.username, signature: badSig,
   });
   assert.equal(res.status, 401);
 });
@@ -3210,13 +4242,35 @@ test("unknown user still gets a challenge (enumeration-safe)", async (t) => {
   assert.ok(res.body.challengeId);
 });
 
-test("logout clears cookie, /me then 401", async (t) => {
+test("logout clears cookie and revokes the session", async (t) => {
   const base = await startServer(t);
   const reg = await register(base, "dan@example.com");
   const cookie = reg.setCookie!.split(";")[0];
+
+  const pre = await fetch(base + "/api/auth/me", { headers: { Cookie: cookie } });
+  assert.equal(pre.status, 200);
+
   await post(base, "/api/auth/logout", {}, cookie);
-  const me = await fetch(base + "/api/auth/me", { headers: { Cookie: cookie } });
-  assert.equal(me.status, 401);
+
+  const post1 = await fetch(base + "/api/auth/me", { headers: { Cookie: cookie } });
+  assert.equal(post1.status, 401);
+});
+
+test("metrics endpoint returns Prometheus text", async (t) => {
+  const base = await startServer(t);
+  await post(base, "/api/auth/login/challenge", { username: "metrics@example.com" });
+  const res = await fetch(base + "/metrics");
+  assert.equal(res.status, 200);
+  assert.match(res.headers.get("content-type") ?? "", /text\/plain/);
+  const text = await res.text();
+  assert.match(text, /si_auth_up 1/);
+  assert.match(text, /si_auth_http_requests_total/);
+});
+
+test("X-Request-ID is echoed", async (t) => {
+  const base = await startServer(t);
+  const res = await fetch(base + "/api/health", { headers: { "X-Request-ID": "abc-123" } });
+  assert.equal(res.headers.get("x-request-id"), "abc-123");
 });
 """, force=force)
 
@@ -3231,11 +4285,7 @@ const BASE = process.env.BASE_URL || "http://127.0.0.1:3000";
 const username = `smoke_${Date.now()}@example.com`;
 
 function payloadOf(ch: {
-  origin: string;
-  purpose: string;
-  challenge: string;
-  username: string;
-  issuedAt: string;
+  origin: string; purpose: string; challenge: string; username: string; issuedAt: string;
 }) {
   return [
     "SI-AUTH-V1",
@@ -3263,42 +4313,40 @@ async function main() {
   if (!health.ok) throw new Error(`health check failed: ${health.status}`);
   const hj = (await health.json()) as {
     rust?: { enabled: boolean; version: string | null };
+    redis?: { configured: boolean };
+    challengeStore?: string;
+    userStore?: string;
   };
-  console.log(`  + /api/health  (rust: ${hj.rust?.enabled ? hj.rust.version : "disabled"})`);
+  console.log(`  + /api/health  (rust: ${hj.rust?.enabled ? hj.rust.version : "disabled"}, store: ${hj.challengeStore}, users: ${hj.userStore})`);
 
   const { publicKey, privateKey } = crypto.generateKeyPairSync("rsa", { modulusLength: 2048 });
   const spki = publicKey.export({ type: "spki", format: "der" }).toString("base64");
 
   const rch = (await post("/api/auth/register/challenge", { username })).body;
-  const rSig = crypto
-    .sign("sha256", Buffer.from(payloadOf(rch)), {
-      key: privateKey,
-      padding: crypto.constants.RSA_PKCS1_PADDING,
-    })
-    .toString("base64");
+  const rSig = crypto.sign("sha256", Buffer.from(payloadOf(rch)), {
+    key: privateKey, padding: crypto.constants.RSA_PKCS1_PADDING,
+  }).toString("base64");
   const reg = await post("/api/auth/register/complete", {
-    challengeId: rch.challengeId,
-    username: rch.username,
-    publicKeySpki: spki,
-    signature: rSig,
+    challengeId: rch.challengeId, username: rch.username,
+    publicKeySpki: spki, signature: rSig,
   });
   if (reg.status !== 201) throw new Error(`register failed: ${reg.status} ${JSON.stringify(reg.body)}`);
   console.log("  + register");
 
   const lch = (await post("/api/auth/login/challenge", { username })).body;
-  const lSig = crypto
-    .sign("sha256", Buffer.from(payloadOf(lch)), {
-      key: privateKey,
-      padding: crypto.constants.RSA_PKCS1_PADDING,
-    })
-    .toString("base64");
+  const lSig = crypto.sign("sha256", Buffer.from(payloadOf(lch)), {
+    key: privateKey, padding: crypto.constants.RSA_PKCS1_PADDING,
+  }).toString("base64");
   const login = await post("/api/auth/login/verify", {
-    challengeId: lch.challengeId,
-    username: lch.username,
-    signature: lSig,
+    challengeId: lch.challengeId, username: lch.username, signature: lSig,
   });
   if (login.status !== 200) throw new Error(`login failed: ${login.status} ${JSON.stringify(login.body)}`);
   console.log("  + login");
+
+  const metrics = await fetch(BASE + "/metrics");
+  if (metrics.status === 200) console.log("  + /metrics OK");
+  else if (metrics.status === 401) console.log("  - /metrics requires auth");
+  else console.log(`  - /metrics unexpected status ${metrics.status}`);
 
   console.log("+ smoke test passed");
 }
@@ -3311,7 +4359,7 @@ main().catch((err) => {
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-#  Scaffolding — docs
+#  Docs
 # ═══════════════════════════════════════════════════════════════════════════
 
 def build_docs_files(root: Path, force: bool) -> None:
@@ -3323,7 +4371,7 @@ def build_docs_files(root: Path, force: bool) -> None:
 **Signature algorithm:** RSASSA-PKCS1-v1_5 with SHA-256 (RSA-SHA256 / RS256-style)
 **Key size:** RSA-2048 minimum
 
-RSA-2048 is not applied to the raw message. The pipeline is always:
+Pipeline:
 
 1. **Hash** - SHA-256 over the canonical UTF-8 payload -> 32-byte digest
 2. **Sign/verify** - PKCS#1 v1.5 DigestInfo + RSA-2048 over that digest only
@@ -3352,8 +4400,8 @@ issuedAt:<issuedAt>
 ## 2. Flow
 
 ### 2.1 Registration challenge
-`POST /api/auth/register/challenge` with `{ username }`
-returns `{ challengeId, challenge, origin, purpose, username, issuedAt, expiresInSeconds }`.
+`POST /api/auth/register/challenge` with `{ username }` returns
+`{ challengeId, challenge, origin, purpose, username, issuedAt, expiresInSeconds }`.
 
 ### 2.2 Registration complete
 `POST /api/auth/register/complete` with
@@ -3370,7 +4418,7 @@ returns `200` plus a session cookie.
 ## 3. Server verification
 
 1. Look up `challengeId`. If missing -> 401.
-2. Immediately delete the nonce (single-use). If expired -> 401.
+2. Delete the nonce (single-use). If expired -> 401.
 3. Check `purpose` and `username` match. Else 401.
 4. Rebuild the canonical payload from the cached record.
 5. For each credential: verify signature. First match wins.
@@ -3381,17 +4429,24 @@ returns `200` plus a session cookie.
 - `crypto.randomBytes(32)` (or Rust `rand::thread_rng`), hex-encoded.
 - Deleted on first use regardless of outcome.
 - Default TTL: 60 s (login), 300 s (register).
+- Backend: Redis when `REDIS_URL` is set, in-memory otherwise.
 
 ## 5. Session token
 
 HS256 JWT with claims:
 
 ~~~json
-{ "sub": "user_...", "username": "me@example.com", "iat": 1700000000, "exp": 1700086400, "iss": "si-auth" }
+{ "sub": "user_...", "username": "me@example.com",
+  "iat": 1700000000, "exp": 1700086400, "iss": "si-auth",
+  "jti": "6c9a..." }
 ~~~
 
-Transported in an `HttpOnly`, `SameSite=Strict`, `Path=/` cookie. `Secure`
-when `NODE_ENV=production`.
+`jti` is a 128-bit random session identifier. `POST /api/auth/logout`
+adds the `jti` to the revocation list; `requireAuth` rejects revoked
+tokens until their natural `exp`.
+
+Transported in an `HttpOnly`, `SameSite=Strict`, `Path=/` cookie.
+`Secure` when `NODE_ENV=production`.
 """, force=force)
 
     wfile(root, "docs/API.md", """# API Reference
@@ -3403,7 +4458,11 @@ Base: `{APP_ORIGIN}/api`. All bodies are JSON. Errors: `{ "error": "..." }`.
 ~~~json
 { "status": "ok", "uptime": 42, "env": "production", "protocol": "SI-AUTH-V1",
   "algorithm": "RSASSA-PKCS1-v1_5", "hash": "SHA-256",
-  "rust": { "enabled": true, "version": "siauth-crypto/0.1.0 (rustc 1.70)" } }
+  "rust": { "enabled": true, "version": "siauth-crypto/0.1.0 (rustc 1.70)" },
+  "redis": { "configured": true },
+  "challengeStore": "redis",
+  "userStore": "postgres",
+  "revocation": { "backend": "redis", "memorySize": 0 } }
 ~~~
 
 ## GET /api/auth/config
@@ -3444,7 +4503,7 @@ Body: `{ "username": "me@example.com" }`
 Body: `{ challengeId, username, signature }`
 
 - `200` - `{ user, credential }` + cookie
-- `401` - `{ "error": "Authentication failed" }` (no detail leaks)
+- `401` - `{ "error": "Authentication failed" }`
 
 ## GET /api/auth/me (auth required)
 
@@ -3468,7 +4527,27 @@ Body: `{ challengeId, username, signature }`
 
 ## POST /api/auth/logout
 
+Revokes the current session (`jti`) and clears the cookie.
+
 - `200` - `{ ok: true }` + cookie cleared
+
+## GET /metrics (public, or Bearer when METRICS_TOKEN is set)
+
+Prometheus text exposition format, version `0.0.4`.
+
+Exposed series:
+
+- `si_auth_up` (gauge)
+- `si_auth_rust_enabled` (gauge)
+- `si_auth_redis_configured` (gauge)
+- `si_auth_challenge_store_backend` (gauge, 1 = redis)
+- `si_auth_user_store_backend` (gauge, 1 = postgres)
+- `si_auth_revocation_backend` (gauge, 1 = redis)
+- `si_auth_revocation_memory_size` (gauge)
+- `si_auth_challenges_active` (gauge)
+- `si_auth_http_requests_total{method,path,status}` (counter)
+- `si_auth_http_request_duration_seconds{method,path}` (histogram)
+- `si_auth_auth_total{op,result}` (counter)
 """, force=force)
 
     wfile(root, "docs/ARCHITECTURE.md", """# Architecture
@@ -3484,23 +4563,103 @@ src/
     crypto.ts            # canonical payload + verify (Rust-first)
     cookies.ts           # parse/serialize Set-Cookie
     logger.ts            # JSON-lines structured logging
+    metrics.ts           # Prometheus registry
+    redis.ts             # zero-dep RESP client (node:net / node:tls)
   middleware/
     errorHandler.ts
-    rateLimit.ts
+    metricsMiddleware.ts
+    rateLimit.ts         # memory or Redis
+    requestId.ts         # X-Request-ID correlation
     requestLogger.ts
     requireAuth.ts
   routes/
-    auth.ts              # all /api/auth endpoints
+    auth.ts
     health.ts
+    metrics.ts           # GET /metrics
   services/
     auditLog.ts
-    challengeStore.ts    # in-memory nonce store (TTL + single-use)
-    token.ts             # HS256 JWT (node:crypto only)
-    userStore.ts         # JSON-file persistence (swappable)
+    challengeStore.ts    # interface + memory + Redis implementations
+    revocation.ts        # session revocation list
+    token.ts             # HS256 JWT (includes jti)
+    userStore.ts         # ⭐ UserStore interface + factory
+    stores/
+      jsonUserStore.ts       # default backend (single-node)
+      postgresUserStore.ts   # opt-in backend (multi-replica)
 
 rust/
-  src/lib.rs             # N-API accelerator (verify, generate, version)
+  src/lib.rs             # N-API accelerator
 ~~~
+
+## Backend selection matrix
+
+| Feature | Default | Multi-replica |
+|---|---|---|
+| Challenge store | in-memory | `REDIS_URL` -> Redis |
+| Rate-limit buckets | in-memory | `REDIS_URL` -> Redis |
+| Revocation list | in-memory | `REDIS_URL` -> Redis |
+| User + credential store | JSON file | `USER_STORE_BACKEND=postgres` + `DATABASE_URL` |
+
+Set the relevant env vars; no code changes to routes. `GET /api/health`
+reports which backend is active for each feature.
+
+## UserStore swap contract
+
+`src/services/userStore.ts` defines the interface. Any implementation
+that satisfies it can be dropped in (MySQL, MongoDB, DynamoDB, ...). It
+is the single contract that routes depend on:
+
+~~~ts
+interface UserStore {
+  findByUsername(username: string): Promise<UserRecord | null>;
+  findById(id: string): Promise<UserRecord | null>;
+  create(input: {
+    username: string;
+    publicKeySpki: string;
+    deviceLabel?: string;
+  }): Promise<{ user: UserRecord; credential: CredentialRecord }>;
+  addCredential(
+    username: string,
+    input: { publicKeySpki: string; deviceLabel?: string },
+  ): Promise<CredentialRecord | null>;
+  listCredentials(userId: string): Promise<PublicCredential[]>;
+  removeCredential(userId: string, credentialId: string): Promise<boolean>;
+  touchCredential(userId: string, credentialId: string): Promise<void>;
+  _reset(): Promise<void>;   // test-only
+  close(): Promise<void>;    // graceful shutdown
+}
+~~~
+
+`create()` MUST throw an error whose `.code === "USER_EXISTS"` when the
+username is taken. That is the single contract-violation signal the
+routes handle.
+
+## Postgres schema
+
+The Postgres backend bootstraps the schema at boot when
+`DATABASE_AUTO_MIGRATE=true`:
+
+~~~sql
+CREATE TABLE IF NOT EXISTS users (
+  id TEXT PRIMARY KEY,
+  username TEXT UNIQUE NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now()
+);
+CREATE TABLE IF NOT EXISTS credentials (
+  id TEXT PRIMARY KEY,
+  user_id TEXT NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  label TEXT NOT NULL,
+  public_key_spki TEXT NOT NULL,
+  fingerprint TEXT NOT NULL,
+  created_at TIMESTAMPTZ NOT NULL DEFAULT now(),
+  last_used_at TIMESTAMPTZ
+);
+CREATE INDEX IF NOT EXISTS credentials_user_id_idx ON credentials(user_id);
+CREATE INDEX IF NOT EXISTS users_username_lower_idx ON users((lower(username)));
+~~~
+
+`create()` runs inside a transaction. A unique-violation on
+`users.username` is translated into `USER_EXISTS` (matching the JSON
+backend).
 
 ## Crypto dispatch
 
@@ -3513,28 +4672,10 @@ return crypto.verify("sha256", Buffer.from(payload), { ... }, Buffer.from(sig, "
 ~~~
 
 Control via `SI_AUTH_USE_RUST`:
+
 - `auto` (default) - use Rust if loadable, else fall back.
 - `true` - require Rust; throw at boot if missing.
 - `false` - always use `node:crypto`.
-
-## Swapping storage
-
-`userStore` and `challengeStore` are deliberately small. Reimplement
-against Postgres/Mongo/Redis without touching routes.
-
-### Redis challengeStore sketch
-
-~~~ts
-async issue(opts) {
-  const id = generateId("ch");
-  await redis.set(`ch:${id}`, JSON.stringify(record), "PX", opts.ttlSeconds * 1000, "NX");
-  return record;
-}
-async take(id) {
-  const raw = await redis.getdel(`ch:${id}`);
-  return raw ? JSON.parse(raw) : null;
-}
-~~~
 
 ## Client crypto core
 
@@ -3549,7 +4690,7 @@ async take(id) {
 - `fingerprintPublicKey(spkiBase64)`
 """, force=force)
 
-    wfile(root, "docs/SECURITY-MODEL.md", """# Security Model
+    wfile(root, "docs/SECURITY-MODEL.md", f"""# Security Model
 
 ## Threat model
 
@@ -3562,7 +4703,8 @@ async take(id) {
 | XSS on auth origin | Keys are non-extractable `CryptoKey`s. |
 | Username enumeration | Identical challenges and generic 401s. |
 | Token theft via JS | Session JWT is `HttpOnly`. |
-| CSRF | `SameSite=Strict`; state-changing endpoints require JSON body. |
+| Stolen token replay | `jti` revocation list on logout. |
+| CSRF | `SameSite=Strict`; JSON body on state-changing endpoints. |
 | MITM | TLS mandatory in production. |
 | Weak keys | Server rejects < 2048-bit RSA. |
 
@@ -3570,8 +4712,22 @@ async take(id) {
 
 1. XSS while session is active - mitigated by CSP `script-src 'self'`.
 2. Device compromise - filesystem access can use the key but not export it.
-3. No key recovery - pre-register a second device or ship a recovery flow.
-4. Stateless JWT - keep TTLs short; add a revocation list if needed.
+3. No key recovery - pre-register a second device. See
+   docs/DEPLOYMENT.md#recovery.
+4. Stateless JWT - rotation invalidates every session. Revocation list
+   handles logout-everywhere without a full rotation.
+
+## Revocation list size
+
+Bounded by session TTL. A revoked token's entry is dropped at its natural
+`exp`, so the list cannot grow without bound even under sustained traffic.
+
+## Metrics
+
+`GET /metrics` exposes only aggregate counters. It never emits usernames,
+IPs, tokens, or paths with identifiers (paths are normalized to `:id`
+before being used as a label). Set `METRICS_TOKEN` to require a bearer
+token, or firewall the route.
 
 ## Comparison to WebAuthn
 
@@ -3591,19 +4747,38 @@ SI Auth provides a self-hosted, dependency-free reference implementation.
 - [ ] `NODE_ENV=production`.
 - [ ] Rate limits tuned.
 - [ ] Audit log shipped to durable storage.
+- [ ] `/metrics` firewalled or protected with `METRICS_TOKEN`.
 - [ ] Backup/restore tested.
 - [ ] Recovery flow documented.
+- [ ] For multi-replica: `REDIS_URL` set and reachable.
+- [ ] For multi-replica: `USER_STORE_BACKEND=postgres` + `DATABASE_URL` set.
+- [ ] `DATABASE_AUTO_MIGRATE=false` after the first successful deploy.
+
+## Reporting
+
+Email {SECURITY_EMAIL}. See SECURITY.md.
 """, force=force)
 
     wfile(root, "docs/DEPLOYMENT.md", """# Deployment
 
-## Docker
+## Docker (single-node, JSON-file user store)
 
 ~~~bash
 git clone <repo> && cd si-auth
 JWT_SECRET="$(node -e 'console.log(require("crypto").randomBytes(48).toString("hex"))')" \\
   APP_ORIGIN="https://auth.example.com" \\
   docker compose up -d --build
+~~~
+
+## Docker (multi-replica: Redis + Postgres)
+
+~~~bash
+docker compose --profile with-redis --profile with-postgres up -d --build \\
+  REDIS_URL=redis://redis:6379 \\
+  USER_STORE_BACKEND=postgres \\
+  DATABASE_URL=postgres://si_auth:si_auth@postgres:5432/si_auth \\
+  JWT_SECRET="$(node -e 'console.log(require("crypto").randomBytes(48).toString("hex"))')" \\
+  APP_ORIGIN="https://auth.example.com"
 ~~~
 
 **Note on APP_ORIGIN:** it must exactly match the externally-visible
@@ -3616,6 +4791,7 @@ sudo useradd -r -m -d /opt/si-auth si-auth
 sudo -u si-auth git clone <repo> /opt/si-auth
 cd /opt/si-auth
 sudo -u si-auth npm install --omit=dev
+sudo -u si-auth npm install pg        # only if USER_STORE_BACKEND=postgres
 sudo -u si-auth cp .env.example .env
 # edit .env - set JWT_SECRET, APP_ORIGIN, NODE_ENV=production
 ~~~
@@ -3651,15 +4827,61 @@ auth.example.com {
 
 Set `TRUST_PROXY=true`.
 
-## Scaling
+## Scaling matrix
 
-Replace `challengeStore` with Redis and `userStore` with a real database.
-Share `JWT_SECRET` across replicas. The default challenge store is
-single-process only.
+| Components | Backends |
+|---|---|
+| Single-node | defaults: memory challenges, memory rate limit, memory revocation, JSON user store |
+| Multi-replica | `REDIS_URL` + `USER_STORE_BACKEND=postgres` + `DATABASE_URL` |
+
+No route code changes. The `GET /api/health` response confirms which
+backends are active.
+
+## JWT_SECRET rotation
+
+Rolling `JWT_SECRET` invalidates every active session. Users sign in
+again with their existing device keys - no re-registration is required.
+
+1. Generate a new secret: `node -e 'console.log(require("crypto").randomBytes(48).toString("hex"))'`
+2. Update the secret in your secret manager.
+3. Restart the service (blue/green or rolling).
+4. Notify users that they may need to sign in again.
+
+## Recovery
+
+There is no server-side account recovery. Supported paths:
+
+- **Pre-register a second device** while you still have access to the
+  first one. Each device holds its own non-extractable key.
+- **Operational reset** (destructive): delete the user's entry from the
+  user store and let them re-register. For the JSON backend, edit
+  `data/users.json`. For the Postgres backend,
+  `DELETE FROM users WHERE username = '...'` (credentials cascade).
+
+If your product requires user-facing recovery, design it as a separate
+authenticated bootstrap (email link + fresh key registration) with rate
+limits and audit logging.
+
+## Database migration
+
+With `DATABASE_AUTO_MIGRATE=true`, the Postgres backend runs the
+idempotent DDL at boot. It is safe to leave on. Recommended flow:
+
+1. First deploy: `DATABASE_AUTO_MIGRATE=true`.
+2. After verifying the schema exists, set it to `false` so restarts do
+   not issue DDL.
+
+## Metrics & observability
+
+- `GET /metrics` - Prometheus text format.
+- `X-Request-ID` - echoed on every response, threaded into logs.
+- Every structured log line for an HTTP request carries `reqId`.
+- `GET /api/health` - liveness + readiness, includes backend status.
 
 ## Health
 
-`GET /api/health` for liveness + readiness. Includes Rust status.
+`GET /api/health` for liveness + readiness. Includes Rust, Redis,
+user-store, challenge-store, and revocation backend status.
 """, force=force)
 
     wfile(root, "docs/FAQ.md", """# FAQ
@@ -3671,8 +4893,8 @@ dependency-free, fully auditable implementation - or a teaching tool.
 
 ### I lost my device - can I recover?
 
-Not by default. The server has no secret it could use to impersonate you.
-Pre-register a second device or ship a recovery flow.
+Not by default. Pre-register a second device while you still have access
+to the first one. See docs/DEPLOYMENT.md#recovery.
 
 ### Can I export my private key?
 
@@ -3688,24 +4910,44 @@ in every modern browser. HTTPS or localhost is required.
 Because it's readable by any script. An XSS can steal it. HttpOnly cookies
 cannot be read by JavaScript.
 
-### Native mobile?
+### How do I log out everywhere?
 
-iOS: `SecKeyCreateRandomKey` + Keychain, sign with
-`kSecKeyAlgorithmRSASignatureMessagePKCS1v15SHA256`.
-Android: `KeyPairGenerator("RSA")` + Android Keystore,
-`Signature.getInstance("SHA256withRSA")`. Post the same payload to the
-same endpoints.
+Call `POST /api/auth/logout` from each device, or implement an
+"all sessions" endpoint that revokes every `jti` for a user. The
+revocation list is checked on every authenticated request.
 
-### What happens if two users pick the same username?
+### How do I run multiple replicas?
 
-By default (`USER_ENUMERATION_SAFE=true`), the second registration
-receives a generic `401 Registration failed`. Set
-`USER_ENUMERATION_SAFE=false` for the old `409 Conflict` behavior.
+1. Set `REDIS_URL` to a shared Redis instance.
+2. Set `USER_STORE_BACKEND=postgres` and `DATABASE_URL`.
+3. `npm install pg`.
+4. Restart.
+
+Challenges, rate limits, revocation, and user data all move to shared
+backends. No route code changes.
+
+### Can I use MySQL / MongoDB instead of Postgres?
+
+Yes. Implement the `UserStore` interface from `src/services/userStore.ts`
+and wire it into the factory. The interface is the swap contract - see
+docs/ARCHITECTURE.md.
+
+### What does /metrics expose?
+
+Only aggregate counters and gauges: request counts by method/path/status,
+request duration histogram, auth operation outcomes, and backend-config
+gauges. No usernames, IPs, or tokens.
+
+### How is the metrics endpoint protected?
+
+By default it is unauthenticated (Prometheus convention) and should be
+firewalled. Set `METRICS_TOKEN` to require
+`Authorization: Bearer <token>`.
 
 ### How do I rotate JWT_SECRET?
 
 Roll it - active sessions invalidate. Users sign in again with their
-existing keys. No re-registration needed.
+existing keys. See docs/DEPLOYMENT.md#jwt_secret-rotation.
 
 ### What does the Rust accelerator do?
 
@@ -3716,11 +4958,17 @@ the server works fine without it (`SI_AUTH_USE_RUST=false`).
 
 x86_64/aarch64 on linux-gnu, linux-musl, apple-darwin, and windows-msvc.
 Pinned in `rust/package.json`.
+
+### Why does the Rust crate require sha2's oid feature?
+
+`Pkcs1v15Sign::new::<Sha256>()` in the `rsa` crate requires `Sha256` to
+implement `AssociatedOid`. That impl only exists when `sha2` is built
+with the `oid` feature enabled. Without it, the crate fails to compile.
 """, force=force)
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-#  Scaffolding — GitHub / CI
+#  GitHub / CI
 # ═══════════════════════════════════════════════════════════════════════════
 
 def build_github_files(root: Path, force: bool) -> None:
@@ -3741,6 +4989,27 @@ jobs:
       fail-fast: false
       matrix:
         node: [20, 22]
+    services:
+      redis:
+        image: redis:7-alpine
+        ports: ["6379:6379"]
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 20
+      postgres:
+        image: postgres:16-alpine
+        env:
+          POSTGRES_USER: si_auth
+          POSTGRES_PASSWORD: si_auth
+          POSTGRES_DB: si_auth
+        ports: ["5432:5432"]
+        options: >-
+          --health-cmd "pg_isready -U si_auth"
+          --health-interval 5s
+          --health-timeout 3s
+          --health-retries 20
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -3750,6 +5019,17 @@ jobs:
       - run: npm install --no-audit --no-fund
       - run: npm run typecheck
       - run: npm test
+      - name: Test against Redis backend
+        env:
+          REDIS_URL: redis://127.0.0.1:6379
+        run: npm test
+      - name: Test against Postgres user store
+        run: |
+          npm install pg --no-audit --no-fund
+          REDIS_URL=redis://127.0.0.1:6379 \\
+          USER_STORE_BACKEND=postgres \\
+          DATABASE_URL=postgres://si_auth:si_auth@127.0.0.1:5432/si_auth \\
+            npm test
 
   smoke:
     runs-on: ubuntu-latest
@@ -3800,10 +5080,14 @@ updates:
 - [ ] Documentation
 - [ ] Protocol change (requires PROTOCOL_VERSION bump)
 - [ ] Rust accelerator change
+- [ ] Redis / shared-state change
+- [ ] User-store backend change
 
 ## Checklist
 
-- [ ] `npm test` passes.
+- [ ] `npm test` passes (default backend).
+- [ ] `npm test` passes with `REDIS_URL` set.
+- [ ] `npm test` passes with `USER_STORE_BACKEND=postgres`.
 - [ ] `npm run typecheck` clean.
 - [ ] New behavior has tests.
 - [ ] Docs updated.
@@ -3830,6 +5114,8 @@ labels: bug
 - Version/commit:
 - Node:
 - Rust (if relevant):
+- REDIS_URL set? (yes / no)
+- USER_STORE_BACKEND: (json / postgres)
 - Browser (if relevant):
 - OS:
 
@@ -3858,7 +5144,7 @@ labels: enhancement
 
 
 # ═══════════════════════════════════════════════════════════════════════════
-#  Scaffolding — Docker
+#  Docker
 # ═══════════════════════════════════════════════════════════════════════════
 
 def build_docker_files(root: Path, force: bool, port: int) -> None:
@@ -3877,6 +5163,11 @@ ENV NODE_ENV=production
 
 COPY package.json ./
 RUN npm install --omit=dev --no-audit --no-fund
+
+# `pg` is only needed for USER_STORE_BACKEND=postgres. We install it
+# unconditionally so a Postgres-configured deploy works out of the box;
+# the default JSON backend never loads it. Cost: a few hundred KB.
+RUN npm install pg --omit=dev --no-audit --no-fund
 
 RUN mkdir -p /app/node_modules/siauth-crypto
 COPY --from=rust-builder /app/rust/*.node /app/node_modules/siauth-crypto/
@@ -3915,12 +5206,44 @@ CMD ["npx", "tsx", "src/server.ts"]
       DATA_DIR: /app/data
       LOG_LEVEL: info
       SI_AUTH_USE_RUST: auto
+      # Shared state. Enable the with-redis profile and set REDIS_URL.
+      REDIS_URL: ${{REDIS_URL:-}}
+      REVOCATION_ENABLED: ${{REVOCATION_ENABLED:-true}}
+      METRICS_ENABLED: ${{METRICS_ENABLED:-true}}
+      METRICS_TOKEN: ${{METRICS_TOKEN:-}}
+      # User store backend. Enable the with-postgres profile and set
+      # USER_STORE_BACKEND=postgres plus DATABASE_URL.
+      USER_STORE_BACKEND: ${{USER_STORE_BACKEND:-json}}
+      DATABASE_URL: ${{DATABASE_URL:-}}
+      DATABASE_AUTO_MIGRATE: ${{DATABASE_AUTO_MIGRATE:-true}}
     volumes:
       - si-auth-data:/app/data
     restart: unless-stopped
 
+  redis:
+    image: redis:7-alpine
+    profiles: [with-redis]
+    command: ["redis-server", "--save", "", "--appendonly", "no"]
+    restart: unless-stopped
+    expose:
+      - "6379"
+
+  postgres:
+    image: postgres:16-alpine
+    profiles: [with-postgres]
+    environment:
+      POSTGRES_USER: si_auth
+      POSTGRES_PASSWORD: ${{POSTGRES_PASSWORD:?POSTGRES_PASSWORD is required}}
+      POSTGRES_DB: si_auth
+    volumes:
+      - si-auth-pg:/var/lib/postgresql/data
+    restart: unless-stopped
+    expose:
+      - "5432"
+
 volumes:
   si-auth-data:
+  si-auth-pg:
 """, force=force)
 
 
@@ -4033,9 +5356,7 @@ def parse_args() -> argparse.Namespace:
         description="SI Auth mega-launcher - scaffolds + installs + runs the full stack.",
     )
     p.add_argument(
-        "target",
-        nargs="?",
-        default=DEFAULT_TARGET,
+        "target", nargs="?", default=DEFAULT_TARGET,
         help=f"Target directory (default: {DEFAULT_TARGET})",
     )
     p.add_argument("--port", type=int, default=DEFAULT_PORT, help="Server port")
@@ -4043,6 +5364,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--no-install", action="store_true", help="Scaffold only, don't npm install")
     p.add_argument("--no-launch", action="store_true", help="Don't launch the server")
     p.add_argument("--force", action="store_true", help="Overwrite existing files")
+    p.add_argument("--with-pg", action="store_true", help="Install pg (Postgres user store)")
     p.add_argument("--version", action="version", version=f"auth3.py {VERSION}")
     return p.parse_args()
 
@@ -4087,10 +5409,8 @@ def main() -> None:
 
     print()
     build_root_files(
-        root,
-        with_rust=(with_rust and rust_ready),
-        port=args.port,
-        force=args.force,
+        root, with_rust=(with_rust and rust_ready),
+        port=args.port, force=args.force,
     )
     build_server_files(root, force=args.force)
     if with_rust and rust_ready:
@@ -4113,6 +5433,16 @@ def main() -> None:
     if not ok:
         die("npm install failed. Fix the issue and re-run, or use --no-install.")
 
+    # Install `pg` when the caller has asked for the Postgres backend.
+    if args.with_pg:
+        print()
+        log("Installing optional pg driver...", "step")
+        try:
+            run([SYS.npm or "npm", "install", "pg", "--no-audit", "--no-fund"], cwd=root)
+            log("pg installed", "ok")
+        except subprocess.CalledProcessError as e:
+            log(f"pg install failed: {e}", "warn")
+
     if with_rust and rust_ready:
         print()
         built = rust_build(root)
@@ -4123,6 +5453,8 @@ def main() -> None:
     log("Setup complete.", "ok")
     log(f"  cd {root}", "info")
     log("  npm start", "info")
+    log("  REDIS_URL=redis://127.0.0.1:6379 npm start   # shared challenge/rate/revocation state", "info")
+    log("  USER_STORE_BACKEND=postgres DATABASE_URL=... npm start   # after `npm install pg`", "info")
     print()
 
     if args.no_launch:
