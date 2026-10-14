@@ -192,12 +192,6 @@ Use WebAuthn if you can — it's the gold standard. SI Auth is for teams who
 want a self-hosted, dependency-free, fully auditable protocol they can read in
 an afternoon.
 
-## Docker
-
-```bash
-docker compose up --build
-```
-
 ## License
 
 MIT
