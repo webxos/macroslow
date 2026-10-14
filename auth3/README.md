@@ -3,7 +3,7 @@
 Preface:
 RSA-512 keys have been practically breakable since 1999 and factorable on ordinary hardware for years. The Claude story: in September 2026 Anthropic engineer Steve Weis used Claude to port CADO-NFS to GPUs, then ran it on up to 2048 idle GPUs for ~10 days (~30 GPU-years) to factor the RSA-896 challenge number. No algorithmic advance, just AI-assisted engineering. RSA-1024 is now reachable for large GPU fleets; RSA-2048 is not.
 
-**SI Auth** is a reference implementation of an authentication scheme where the
+**Auth 3.0** is a reference implementation of an authentication scheme where the
 browser generates an **RSA-2048 keypair**. The private key never leaves the
 device. Login is a challenge signed client-side and verified server-side
 against a stored public key.
