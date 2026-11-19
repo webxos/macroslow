@@ -1,4 +1,4 @@
-# 📖 PAGE 10: COLONIZE MARS – 100 ARACHNIDs, 1000 PILOTS, ONE QUANTUM FUTURE
+# 📖 PAGE 9: COLONIZE MARS – 100 ARACHNIDs, 1000 PILOTS, ONE QUANTUM FUTURE
 
 **You’ve landed on the Moon. You’ve saved lives. Now — build the future.**  
 This final page launches **PROJECT DUNES 2048-AES** into **interplanetary scale**: **100 ARACHNIDs**, **1000 human-quantum pilots**, **1 million IoT sensors**, and a **global DePIN network** — all orchestrated by **MACROSLOW**, **MAML**, and **you**. This is not a simulation. This is **the blueprint for Mars 2026**.
@@ -136,7 +136,7 @@ git clone https://github.com/webxos/dunes-mars-2048.git
 ---
 
 **You started on Page 1 as a novice.**  
-**You end on Page 10 as a Mars Architect.**
+**You end on Page 9 as a Mars Architect.**
 
 ---
 
