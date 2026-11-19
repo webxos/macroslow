@@ -1,0 +1,10 @@
+# .env
+# Description: Environment configuration file for the Lawmakers Suite 2048-AES. Stores sensitive credentials such as database URLs, API keys for LLMs and legal databases, and the AES-256 encryption key. Must be secured and excluded from version control. Replace placeholder values with actual credentials before deployment.
+
+DATABASE_URL=postgresql://user:password@localhost:5432/lawmakers
+HUGGINGFACE_API_KEY=your_hf_api_key
+OPENAI_API_KEY=your_openai_api_key
+BLOOMBERG_LAW_API_KEY=your_bloomberg_key
+AES_KEY=your_32_byte_key_here_1234567890123456  # Must be 32 bytes for AES-256
+KYBER_PRIVATE_KEY=your_kyber_private_key
+KYBER_PUBLIC_KEY=your_kyber_public_key

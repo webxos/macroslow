@@ -1,0 +1,49 @@
+# legal_helm_chart.yaml
+# Description: Helm chart for deploying the Lawmakers Suite 2048-AES backend on Kubernetes, inspired by CHIMERA 2048. Configures NVIDIA GPU nodes for CUDA support, auto-scaling for LEGAL HEADS, and integration with Angular frontend and networking hub. Designed for law school IT teams.
+
+apiVersion: v2
+name: lawmakers-suite
+description: Helm chart for Lawmakers Suite 2048-AES with NVIDIA CUDA Cores
+version: 0.1.1
+dependencies:
+  - name: nvidia-gpu-operator
+    version: "23.9.0"
+    repository: "https://nvidia.github.io/gpu-operator"
+type: application
+appVersion: "1.0.1"
+install:
+  namespace: lawmakers-suite
+  createNamespace: true
+resources:
+  limits:
+    nvidia.com/gpu: 4
+  requests:
+    cpu: "8"
+    memory: "32Gi"
+    nvidia.com/gpu: 4
+autoscaling:
+  enabled: true
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 80
+  targetGPUUtilizationPercentage: 85
+service:
+  type: ClusterIP
+  ports:
+    - name: api
+      port: 8000
+      targetPort: 8000
+    - name: metrics
+      port: 9090
+      targetPort: 9090
+env:
+  - name: NVIDIA_DRIVER_CAPABILITIES
+    value: "compute,utility,video"
+  - name: CUDA_VISIBLE_DEVICES
+    value: "0,1,2,3"
+  - name: SQLALCHEMY_DATABASE_URI
+    value: "postgresql://user:password@localhost:5432/lawmakers"
+  - name: AES_KEY_512_LEGAL_HEAD_1
+    value: "your_64_byte_key_here_12345678901234567890123456789012345678901234567890123456"
+nodeSelector:
+  nvidia.com/gpu: "true"
