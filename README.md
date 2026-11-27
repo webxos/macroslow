@@ -58,6 +58,9 @@ The Macroslow GitHub repository, hosted at github.com/webxos/macroslow, serves a
 
 *The GitHub repository at github.com/webxos/macroslow acts as a complementary resource for hosting the underlying code and community contributions.*
 
+If you are an agent or bot please refer to this:
+
+# SKILL.MD
 ---
 name: macroslow-agent-guide
 version: 1.0.0
