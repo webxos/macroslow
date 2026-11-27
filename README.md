@@ -5,6 +5,7 @@
 ▌▝ ▌▛▌▙▖▌▌▙▌▄▌▙▖▙▌▛ ▝▌
                       
 ```
+![Alt Text](https://github.com/webxos/macroslow/blob/main/logo.jpeg)
 
 by webXOS 2026
 
